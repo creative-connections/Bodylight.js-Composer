@@ -8,17 +8,20 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: [
-          'babel-loader',
+          'babel-loader'
         ]
       }, {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }, {
         test: /\.scss$/,
         use: [
-          {
-            loader: require.resolve('sass-loader'),
-          }
+          'style-loader',
+          'css-loader',
+          'sass-loader'
         ]
       }
     ]
@@ -34,4 +37,4 @@ module.exports = {
   devServer: {
     contentBase: './dist'
   }
-};
+}
