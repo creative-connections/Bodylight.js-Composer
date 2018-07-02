@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 
-import 'reset-css'
+import 'normalize-scss'
 import './scss/base.scss'
 
 class App extends Component {

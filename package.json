@@ -58,11 +58,11 @@
   "dependencies": {
     "bootstrap": "^4.1.1",
     "lodash": "^4.17.10",
+    "normalize-scss": "^7.0.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "reactstrap": "^6.2.0",
-    "redux": "^4.0.0",
-    "reset-css": "^4.0.1"
+    "redux": "^4.0.0"
   }
 }
