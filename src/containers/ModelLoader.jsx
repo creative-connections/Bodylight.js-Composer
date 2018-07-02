@@ -4,12 +4,15 @@ import { connect } from 'react-redux'
 import Modal from 'react-modal'
 import Dropzone from 'react-dropzone'
 
+import HandlesModelZip from '../helpers/HandlesModelZip'
+
 class ModelLoader extends Component {
   constructor (props) {
     super(props)
 
     this.afterOpenModal = this.afterOpenModal.bind(this)
     this.cancelModelLoad = this.cancelModelLoad.bind(this)
+    this.zipUploaded = this.zipUploaded.bind(this)
 
     this.initialState = {
       file: null,
@@ -27,19 +30,31 @@ class ModelLoader extends Component {
     this.props.closeCB()
   }
 
+  zipUploaded (files) {
+    const file = files[0]
+    console.log('file uploaded')
+    console.log(file)
+    this.setState({
+      file: file,
+      displayDropZone: false
+    })
+
+    var handlesModelZip = new HandlesModelZip()
+
+    handlesModelZip.unzip(file).then(() => {
+      console.log('success')
+    }).catch((err) => {
+      console.error('failure')
+      console.error(err)
+    })
+  }
+
   renderDropzone () {
     if (this.state.displayDropZone) {
       return <Dropzone
         accept="application/zip, application/x-zip, application/x-zip-compressed, multipart/x-zip, application/zip-compressed"
         multiple={false}
-        onDropAccepted={
-          (file) => {
-            this.setState({
-              file: file[0],
-              displayDropZone: false
-            })
-          }
-        }
+        onDropAccepted={this.zipUploaded}
         onDropRejected={
           (rejected) => {
             console.warn('FIXME: rejected file notify')
@@ -78,7 +93,7 @@ class ModelLoader extends Component {
           contentLabel="Example Modal"
           className="modal"
           overlayClassName="modal-overlay"
-          >
+        >
 
           <h2>Load a model</h2>
 
