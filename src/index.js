@@ -1,9 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 
-const title = 'My Minimal React Webpack Babel Setup';
+class App extends Component {
+  render () {
+    return <div></div>
+  }
+}
 
-ReactDOM.render(
-    <div>{title}</div>,
-    document.getElementById('app')
-);
+ReactDOM.render(<App />, document.getElementById('app'))
