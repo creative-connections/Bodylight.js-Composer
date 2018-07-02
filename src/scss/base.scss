@@ -1,9 +1,18 @@
+@import 'variables.scss';
+@import 'normalize-scss';
+@include normalize();
+
+body {
+  margin: 0;
+}
+
 div.layout {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 
   header {
+    border-bottom: solid 1px;
   }
 
   .middle {
@@ -12,6 +21,7 @@ div.layout {
 
     div.left {
       flex: 0 0 15em;
+      border-right: solid 1px;
     }
 
     div.grapes {
