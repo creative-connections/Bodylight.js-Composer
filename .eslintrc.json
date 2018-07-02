@@ -1,6 +1,7 @@
 {
   "env" : {
-    "browser": true
+    "browser": true,
+    "node": false
   },
   "globals" : {
     "Module": true
@@ -18,6 +19,7 @@
   },
   "rules": {
     "no-console": "warn",
-    "no-undef": "warn"
+    "no-undef": 0,
+    "no-path-concat": 0
   }
 }
