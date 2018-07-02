@@ -1,0 +1,21 @@
+div.layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  header {
+  }
+
+  .middle {
+    display: flex;
+    flex: 1;
+
+    div.left {
+      flex: 0 0 15em;
+    }
+
+    div.grapes {
+      flex: 1;
+    }
+  }
+}

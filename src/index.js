@@ -1,9 +1,23 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 
+import 'reset-css'
+import './scss/base.scss'
+
 class App extends Component {
   render () {
-    return <div></div>
+    return (
+      <div className="layout">
+        <header>
+        </header>
+        <div className="middle">
+          <div className='left'>
+          </div>
+          <div className='grapes'>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
