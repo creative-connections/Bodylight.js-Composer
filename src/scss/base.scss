@@ -6,6 +6,10 @@ body {
   margin: 0;
 }
 
+p.error {
+  color: red;
+}
+
 div.layout {
   display: flex;
   min-height: 100vh;
