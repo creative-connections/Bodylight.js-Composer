@@ -7,6 +7,9 @@ import ReduxPromise from 'redux-promise'
 import reducers from './reducers'
 import ModelList from './containers/ModelList'
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import './scss/base.scss'
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
@@ -15,6 +18,13 @@ class App extends Component {
   render () {
     return (
       <div className="layout">
+        <ToastContainer
+          position="top-right"
+          closeOnClick
+          draggable
+          pauseOnHover
+          pauseOnVisibilityChange
+        />
         <header>
           <p>Bodylight.js Composer</p>
         </header>

@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 
 import Modal from 'react-modal'
 import ModelInfo from './ModelInfo'
-import DisplayNotice from '../DisplayNotice'
 import DropZone from './DropZone'
 
 import unzipModel from './unzipModel'
+
+import { toast } from 'react-toastify'
 
 class ModelLoader extends Component {
   constructor (props) {
@@ -21,8 +22,6 @@ class ModelLoader extends Component {
     this.initialState = {
       file: null,
       displayDropZone: true,
-      hasError: false,
-      errorMessage: '',
       pendingExtraction: false
     }
 
@@ -36,10 +35,8 @@ class ModelLoader extends Component {
 
   fileRejected (files) {
     const msg = `File '${files[0].name}' does not appear to be a .zip`
-    this.setState({
-      hasError: true,
-      errorMessage: msg
-    })
+    toast.error(msg)
+    this.setState({file: null})
   }
 
   zipUploaded (files) {
@@ -48,16 +45,13 @@ class ModelLoader extends Component {
     this.setState({
       file: file,
       displayDropZone: false,
-      hasError: false,
       pendingExtraction: true
     })
 
     unzipModel(file).then((vals) => {
     }).catch((err) => {
-      this.setState({
-        hasError: true,
-        errorMessage: `Error while extracting zip file: ${err.message}`
-      })
+      const msg = `Error while extracting zip file: ${err.message}`
+      toast.error(msg)
     }).finally(() => {
       this.setState({
         pendingExtraction: false
@@ -84,8 +78,6 @@ class ModelLoader extends Component {
           onDropRejected={this.fileRejected}
         />
         <ModelInfo file={this.state.file} isDone={!this.state.pendingExtraction} />
-
-        <DisplayNotice display={this.state.hasError} level='error' message={this.state.errorMessage} />
 
       </Modal>
     )
