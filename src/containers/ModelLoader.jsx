@@ -41,8 +41,9 @@ class ModelLoader extends Component {
 
     var handlesModelZip = new HandlesModelZip()
 
-    handlesModelZip.unzip(file).then(() => {
+    handlesModelZip.unzip(file).then((vals) => {
       console.log('success')
+      console.log(vals)
     }).catch((err) => {
       console.error('failure')
       console.error(err)

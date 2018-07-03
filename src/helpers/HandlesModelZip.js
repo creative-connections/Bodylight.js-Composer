@@ -14,8 +14,20 @@ class HandlesModelZip {
           reject(error)
         }
 
-        resolve()
-      }, function (e) {
+        var js = zip.files[name + '.js'].async('string')
+        var wasm = zip.files[name + '.wasm'].async('blob')
+        var xml = zip.files['modelDescription.xml'].async('string')
+
+        Promise.all([js, wasm, xml]).then((vals) => {
+          var payload = {
+            name: name,
+            js: vals[0],
+            wasm: vals[1],
+            modelDescription: vals[2]
+          }
+          resolve(payload)
+        })
+      }, (e) => {
         const err = Error('Error reading ' + file.name + ': ' + e.message)
         console.error(err)
         reject(err)
