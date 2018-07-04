@@ -51,9 +51,7 @@ class ModelLoader extends Component {
     })
 
     unzipModel(file).then((vals) => {
-      const modelDescription = vals['modelDescription']
-      var parser = new ModelDescriptionParser()
-      parser.parse(modelDescription)
+      this.loadModel(vals)
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`
       toast.error(msg)
@@ -62,6 +60,12 @@ class ModelLoader extends Component {
         pendingExtraction: false
       })
     })
+  }
+
+  loadModel (modelfiles) {
+    const modelDescription = modelfiles['modelDescription']
+    var parser = new ModelDescriptionParser()
+    parser.parse(modelDescription)
   }
 
   render () {

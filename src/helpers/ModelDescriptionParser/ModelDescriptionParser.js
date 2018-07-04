@@ -72,11 +72,11 @@ const parseParameters = (doc) => {
 export default class ModelDescriptionParser {
   parse (xml) {
     var domParser = new DOMParser()
-    this.doc = domParser.parseFromString(xml, 'application/xml')
+    var doc = domParser.parseFromString(xml, 'application/xml')
 
     // TODO catch errors
-    this.variables = parseVariables(this.doc)
-    this.parameters = parseParameters(this.doc)
+    this.variables = parseVariables(doc)
+    this.parameters = parseParameters(doc)
 
     console.log(this.variables)
     console.log(this.parameters)
