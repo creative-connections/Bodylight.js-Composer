@@ -7,6 +7,8 @@ import DropZone from './DropZone'
 
 import unzipModel from './unzipModel'
 
+import ModelDescriptionParser from '../../helpers/ModelDescriptionParser'
+
 import { toast } from 'react-toastify'
 
 class ModelLoader extends Component {
@@ -49,6 +51,9 @@ class ModelLoader extends Component {
     })
 
     unzipModel(file).then((vals) => {
+      const modelDescription = vals['modelDescription']
+      var parser = new ModelDescriptionParser()
+      parser.parse(modelDescription)
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`
       toast.error(msg)
