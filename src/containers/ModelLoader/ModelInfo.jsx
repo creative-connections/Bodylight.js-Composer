@@ -1,19 +1,13 @@
 import React from 'react'
+import SimpleModelTree from './SimpleModelTree'
 
-const FileInfo = ({file = null, isDone = true}) => {
-  if (!isDone) {
-    return <p> ... working ... (todo change me) </p>
-  }
-
-  if (file !== null) {
-    return (
-      <div>
-        <h2>Submitted file</h2>
-        <li>{file.name} ({file.size}b)</li>
-      </div>
-    )
+const ModelInfo = ({modelDescriptionParser = null}) => {
+  if (modelDescriptionParser !== null) {
+    return <SimpleModelTree
+      variables={modelDescriptionParser.variables}
+      parameters={modelDescriptionParser.parameters}/>
   }
   return null
 }
 
-export default FileInfo
+export default ModelInfo

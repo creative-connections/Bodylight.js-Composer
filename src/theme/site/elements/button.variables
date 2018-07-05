@@ -1,0 +1,22 @@
+@pageFont: Helvetica Neue, Helvetica, Arial, sans-serif;
+@textTransform: none;
+@fontWeight: normal;
+@transition:
+  opacity @defaultDuration @defaultEasing,
+  background-color @defaultDuration @defaultEasing,
+  color @defaultDuration @defaultEasing,
+  background @defaultDuration @defaultEasing
+;
+
+@borderRadius: 3px;
+@verticalPadding: 0.8em;
+@horizontalPadding: 1.75em;
+
+@mini: 10px;
+@tiny: 11px;
+@small: 12px;
+@medium: 13px;
+@large: 14px;
+@big: 16px;
+@huge: 18px;
+@massive: 22px;

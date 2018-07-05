@@ -1,0 +1,34 @@
+@pageMinWidth  : 100%;
+@pageOverflowX : visible;
+
+@h1: 2.25em;
+@defaultBorderRadius: 0.0em; /* 4px @ 13em */
+@disabledOpacity: 0.3;
+
+/* Text*/
+@emSize: 13px;
+@fontSize : 13px;
+//@fontName : 'Arial';
+//@importGoogleFonts : false;
+
+/* Colors */
+@red            : #fa3c4c;
+@orange         : #fa8b3c;
+@yellow         : #ffe229;
+@olive          : #90cc51;
+@green          : #3cc830;
+@teal           : #44bec7;
+@blue           : #0084ff;
+@violet         : #d696bb;
+@purple         : #B413EC;
+@pink           : #FF3D7F;
+@brown          : #994900;
+@grey           : #a0a2a7;
+@black          : #04001f;
+@primaryColor   : @blue;
+@secondaryColor : @teal;
+
+/* Breakpoints */
+@largeMonitorBreakpoint: 100%;
+@computerBreakpoint: @largeMonitorBreakpoint;
+@tabletBreakpoint: @largeMonitorBreakpoint;

@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
-import Modal from 'react-modal'
 import ModelInfo from './ModelInfo'
 import DropZone from './DropZone'
 
 import unzipModel from './unzipModel'
 
 import ModelDescriptionParser from '../../helpers/ModelDescriptionParser'
+import BusySignal from '../../components/BusySignal'
 
 import { toast } from 'react-toastify'
 
@@ -15,14 +15,13 @@ class ModelLoader extends Component {
   constructor (props) {
     super(props)
 
-    Modal.setAppElement('#app')
-
     this.cancelModelLoad = this.cancelModelLoad.bind(this)
+
     this.zipUploaded = this.zipUploaded.bind(this)
     this.fileRejected = this.fileRejected.bind(this)
 
     this.initialState = {
-      file: null,
+      modelDescriptionParser: null,
       displayDropZone: true,
       pendingExtraction: false
     }
@@ -38,14 +37,12 @@ class ModelLoader extends Component {
   fileRejected (files) {
     const msg = `File '${files[0].name}' does not appear to be a .zip`
     toast.error(msg)
-    this.setState({file: null})
   }
 
   zipUploaded (files) {
     const file = files[0]
 
     this.setState({
-      file: file,
       displayDropZone: false,
       pendingExtraction: true
     })
@@ -55,6 +52,7 @@ class ModelLoader extends Component {
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`
       toast.error(msg)
+      throw err
     }).finally(() => {
       this.setState({
         pendingExtraction: false
@@ -64,8 +62,10 @@ class ModelLoader extends Component {
 
   loadModel (modelfiles) {
     const modelDescription = modelfiles['modelDescription']
-    var parser = new ModelDescriptionParser()
-    parser.parse(modelDescription)
+    var modelDescriptionParser = new ModelDescriptionParser()
+    modelDescriptionParser.parse(modelDescription)
+
+    this.setState({modelDescriptionParser})
   }
 
   render () {
@@ -74,10 +74,7 @@ class ModelLoader extends Component {
     }
 
     return (
-      <Modal isOpen={this.props.isOpen} onRequestClose={this.cancelModelLoad}
-        contentLabel="Load model"
-        className="modal" overlayClassName="modal-overlay" >
-
+      <div>
         <h2>Load a model</h2>
 
         <button onClick={this.cancelModelLoad}>cancel (todo: make me pretty)</button>
@@ -86,9 +83,10 @@ class ModelLoader extends Component {
           onDropAccepted={this.zipUploaded}
           onDropRejected={this.fileRejected}
         />
-        <ModelInfo file={this.state.file} isDone={!this.state.pendingExtraction} />
-
-      </Modal>
+        <BusySignal isBusy={this.state.pendingExtraction}>
+          <ModelInfo modelDescriptionParser={this.state.modelDescriptionParser}/>
+        </BusySignal>
+      </div>
     )
   }
 }
