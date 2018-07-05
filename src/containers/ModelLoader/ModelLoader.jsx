@@ -47,12 +47,14 @@ class ModelLoader extends Component {
     const file = files[0]
 
     this.setState({
-      displayDropZone: false,
       pendingExtraction: true
     })
 
     unzipModel(file).then((vals) => {
       this.loadModel(vals)
+      this.setState({
+        displayDropZone: false
+      })
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`
       toast.error(msg)

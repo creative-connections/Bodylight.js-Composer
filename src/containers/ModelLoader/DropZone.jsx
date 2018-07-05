@@ -22,7 +22,7 @@ const DropZone = ({onDropAccepted, onDropRejected, display = false}) => {
   return (
     <Card>
       <Card.Content>
-        <Card.Header>Add an FMU</Card.Header>
+        <Card.Header>Load an FMU</Card.Header>
         <Card.Description>Upload a .zip from Bodylight.js compiler</Card.Description>
       </Card.Content>
       <Card.Content extra>

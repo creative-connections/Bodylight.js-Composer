@@ -1,6 +1,17 @@
 @import 'variables.scss';
+@import 'normalize-scss';
+@include normalize();
 
+body {
+  margin: 0;
+}
 
 p.error {
   color: red;
+}
+
+ul.SimpleModelTree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

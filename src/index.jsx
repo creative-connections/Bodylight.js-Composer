@@ -82,8 +82,8 @@ class App extends Component {
           </Container>
         </Menu>
 
-        <Container style={{marginLeft: 250 + 'px'}}>
-          <Grid padded>
+        <Container style={{ marginLeft: 250 + 'px' }} >
+          <Grid padded centered>
             <DisplayContainer screen={this.state.activeScreen} />
           </Grid>
         </Container>

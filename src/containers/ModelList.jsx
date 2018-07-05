@@ -40,11 +40,12 @@ class ModelList extends Component {
 
   render () {
     return (
-      <Grid.Row padded='horizontally'>
-        <Grid.Column width={16}>
+      <Grid.Row centered padded='horizontally'>
+        <Grid.Column width={16} style={{ maxWidth: 100 + 'em' }} >
           <Segment>
-            <Header as="h2"> Models </Header>
-            <Button onClick={this.openModelLoader}>Load a model</Button>
+            {!this.state.modelLoaderIsOpen && <Header as="h2"> Models </Header> }
+            {this.state.modelLoaderIsOpen && <Header as="h2"> Adding a new model </Header> }
+            {!this.state.modelLoaderIsOpen && <Button onClick={this.openModelLoader} >Load a model</Button> }
             {this.renderModelLoader()}
           </Segment>
         </Grid.Column>
@@ -52,13 +53,6 @@ class ModelList extends Component {
     )
 
     /*
-    if (this.props.models.length === 0) {
-      return (
-        <div>
-        </div>
-      )
-    }
-
     return (
       <div>
         <select>
