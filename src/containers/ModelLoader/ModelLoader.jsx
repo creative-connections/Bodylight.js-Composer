@@ -9,7 +9,11 @@ import unzipModel from './unzipModel'
 import ModelDescriptionParser from '../../helpers/ModelDescriptionParser'
 import BusySignal from '../../components/BusySignal'
 
+import NegativeOrPositiveButton from '../../components/NegativeOrPositiveButton'
+
 import { toast } from 'react-toastify'
+
+import { Transition, Grid, Segment, Button, Header } from 'semantic-ui-react'
 
 class ModelLoader extends Component {
   constructor (props) {
@@ -30,8 +34,8 @@ class ModelLoader extends Component {
   }
 
   cancelModelLoad () {
-    this.setState(this.initialState)
     this.props.closeCB()
+    this.setState(this.initialState)
   }
 
   fileRejected (files) {
@@ -52,7 +56,9 @@ class ModelLoader extends Component {
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`
       toast.error(msg)
-      throw err
+      this.setState({
+        displayDropZone: true
+      })
     }).finally(() => {
       this.setState({
         pendingExtraction: false
@@ -69,24 +75,22 @@ class ModelLoader extends Component {
   }
 
   render () {
-    if (!this.props.isOpen) {
-      return null
-    }
-
     return (
-      <div>
-        <h2>Load a model</h2>
+      <Transition visible={this.props.isOpen} animation='slide down' duration={150}>
+        <div>
 
-        <button onClick={this.cancelModelLoad}>cancel (todo: make me pretty)</button>
+          <DropZone display={this.state.displayDropZone}
+            onDropAccepted={this.zipUploaded}
+            onDropRejected={this.fileRejected}
+          />
 
-        <DropZone display={this.state.displayDropZone}
-          onDropAccepted={this.zipUploaded}
-          onDropRejected={this.fileRejected}
-        />
-        <BusySignal isBusy={this.state.pendingExtraction}>
-          <ModelInfo modelDescriptionParser={this.state.modelDescriptionParser}/>
-        </BusySignal>
-      </div>
+          <BusySignal isBusy={this.state.pendingExtraction}>
+            <ModelInfo modelDescriptionParser={this.state.modelDescriptionParser}/>
+          </BusySignal>
+
+          <NegativeOrPositiveButton negativeOnClick={this.cancelModelLoad}/>
+        </div>
+      </Transition>
     )
   }
 }

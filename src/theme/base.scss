@@ -1,10 +1,5 @@
 @import 'variables.scss';
-@import 'normalize-scss';
-@include normalize();
 
-body {
-  margin: 0;
-}
 
 p.error {
   color: red;

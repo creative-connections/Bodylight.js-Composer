@@ -83,7 +83,9 @@ class App extends Component {
         </Menu>
 
         <Container style={{marginLeft: 250 + 'px'}}>
-          <DisplayContainer screen={this.state.activeScreen} />
+          <Grid padded>
+            <DisplayContainer screen={this.state.activeScreen} />
+          </Grid>
         </Container>
       </div>
     )

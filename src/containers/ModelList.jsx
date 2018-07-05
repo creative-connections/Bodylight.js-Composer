@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import ModelLoader from './ModelLoader'
+import { Grid, Segment, Button, Header } from 'semantic-ui-react'
 
 class ModelList extends Component {
   constructor (props) {
@@ -38,11 +39,22 @@ class ModelList extends Component {
   }
 
   render () {
+    return (
+      <Grid.Row padded='horizontally'>
+        <Grid.Column width={16}>
+          <Segment>
+            <Header as="h2"> Models </Header>
+            <Button onClick={this.openModelLoader}>Load a model</Button>
+            {this.renderModelLoader()}
+          </Segment>
+        </Grid.Column>
+      </Grid.Row>
+    )
+
+    /*
     if (this.props.models.length === 0) {
       return (
         <div>
-          <button onClick={this.openModelLoader}>Load a model</button>
-          {this.renderModelLoader()}
         </div>
       )
     }
@@ -56,6 +68,7 @@ class ModelList extends Component {
         {this.renderModelLoader()}
       </div>
     )
+    */
   }
 }
 
