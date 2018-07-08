@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Grid, Form } from 'semantic-ui-react'
+import { Grid, Form, Header, Divider } from 'semantic-ui-react'
 
 import Mode from './options/Mode'
+import Name from './options/Name'
 import ContinuousMode from './options/ContinuousMode'
 
 import Docs from './Docs'
@@ -11,7 +12,6 @@ class ModelOptions extends Component {
     super(props)
 
     this.state = {
-      'options': props.options,
       'optionKeyHovered': null
     }
 
@@ -24,7 +24,7 @@ class ModelOptions extends Component {
   }
 
   handleOptionsChange (options) {
-    this.setState({ options })
+    this.props.onChange(options)
   }
 
   render () {
@@ -38,6 +38,13 @@ class ModelOptions extends Component {
           <Grid.Row>
 
             <Grid.Column>
+
+              <Name
+                options={this.props.options}
+                onChange={this.handleOptionsChange}
+                onMouseEnter={this.onMouseEnter}
+              />
+
               <Mode
                 options={this.props.options}
                 onChange={this.handleOptionsChange}

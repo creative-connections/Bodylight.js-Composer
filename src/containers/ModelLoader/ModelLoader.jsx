@@ -1,20 +1,17 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import { toast } from 'react-toastify'
+import { Divider, Transition } from 'semantic-ui-react'
 
 import ModelInfo from './ModelInfo'
 import DropZone from './DropZone'
-import ModelOptions from '@components/ModelOptions'
-
 import unzipModel from './unzipModel'
 
 import ModelDescriptionParser from '@helpers/ModelDescriptionParser'
+
+import ModelOptions from '@components/ModelOptions'
 import BusySignal from '@components/BusySignal'
-
 import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
-
-import { toast } from 'react-toastify'
-
-import { Divider, Transition } from 'semantic-ui-react'
 
 class ModelLoader extends Component {
   constructor (props) {
@@ -25,6 +22,7 @@ class ModelLoader extends Component {
     this.zipUploaded = this.zipUploaded.bind(this)
     this.fileRejected = this.fileRejected.bind(this)
     this.handleModelOptionsOnChange = this.handleModelOptionsOnChange.bind(this)
+    this.addModel = this.addModel.bind(this)
 
     this.initialState = {
       modelDescriptionParser: null,
@@ -82,13 +80,24 @@ class ModelLoader extends Component {
     var modelDescriptionParser = new ModelDescriptionParser()
     modelDescriptionParser.parse(modelDescription)
 
-    this.setState({modelDescriptionParser})
+    this.defaultModelOptions.name = modelfiles.name
+
+    this.setState({
+      name: modelfiles.name,
+      js: modelfiles.js,
+      wasm: modelfiles.wasm,
+      modelDescriptionParser: modelDescriptionParser
+    })
   }
 
   handleModelOptionsOnChange (options) {
     this.setState({
       modelOptions: options
     })
+  }
+
+  addModel () {
+
   }
 
   render () {
@@ -105,7 +114,11 @@ class ModelLoader extends Component {
             <ModelInfo
               modelDescriptionParser={this.state.modelDescriptionParser}
             />
+
+            <Divider hidden />
+
             <ModelOptions
+              name={this.state.name}
               visible={this.state.modelDescriptionParser !== null}
               options={this.defaultModelOptions}
               onChange={this.handleModelOptionsOnChange}
@@ -117,6 +130,7 @@ class ModelLoader extends Component {
           <NegativeOrPositiveButton
             positiveEnabled={this.state.modelDescriptionParser !== null}
             positiveLabel="Add model"
+            positiveOnClick={this.addModel}
             negativeOnClick={this.cancelModelLoad}/>
         </div>
       </Transition>
