@@ -3,18 +3,18 @@ import { connect } from 'react-redux'
 
 import ModelInfo from './ModelInfo'
 import DropZone from './DropZone'
-import ModelOptions from '../../components/ModelOptions'
+import ModelOptions from '@components/ModelOptions'
 
 import unzipModel from './unzipModel'
 
-import ModelDescriptionParser from '../../helpers/ModelDescriptionParser'
-import BusySignal from '../../components/BusySignal'
+import ModelDescriptionParser from '@helpers/ModelDescriptionParser'
+import BusySignal from '@components/BusySignal'
 
-import NegativeOrPositiveButton from '../../components/NegativeOrPositiveButton'
+import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
 
 import { toast } from 'react-toastify'
 
-import { Divider, Transition, Grid, Segment, Button, Header } from 'semantic-ui-react'
+import { Divider, Transition } from 'semantic-ui-react'
 
 class ModelLoader extends Component {
   constructor (props) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import ModelLoader from './ModelLoader'
+import ModelLoader from '@containers/ModelLoader'
 import { Grid, Segment, Button, Header } from 'semantic-ui-react'
 
 class ModelList extends Component {

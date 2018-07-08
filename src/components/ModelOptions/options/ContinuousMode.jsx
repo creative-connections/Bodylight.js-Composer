@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Form, Label, Input } from 'semantic-ui-react'
+import { Grid, Form, Label } from 'semantic-ui-react'
 import InputFloat from '@components/form/InputFloat'
 
 const calculateTps = (stepSize, interval) => {

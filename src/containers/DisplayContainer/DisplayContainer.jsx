@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
-import ActiveScreen from '../../helpers/ActiveScreenEnum'
-
-import ModelList from '../ModelList'
+import ActiveScreen from '@helpers/ActiveScreenEnum'
+import ModelList from '@containers/ModelList'
 
 class DisplayContainer extends Component {
   render () {

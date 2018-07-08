@@ -5,8 +5,8 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxPromise from 'redux-promise'
 
 import reducers from './reducers'
-import ModelList from './containers/ModelList'
-import DisplayContainer from './containers/DisplayContainer'
+import DisplayContainer from '@containers/DisplayContainer'
+import ActiveScreen from '@helpers/ActiveScreenEnum'
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -14,22 +14,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import './theme/base.scss'
 import 'semantic-ui-less/semantic.less'
 
-import ActiveScreen from './helpers/ActiveScreenEnum'
-
-import {
-  Container,
-  Divider,
-  Dropdown,
-  Grid,
-  Header,
-  Image,
-  List,
-  Menu,
-  Input,
-  Segment,
-  Label
-
-} from 'semantic-ui-react'
+import { Container, Divider, Grid, Menu, Input } from 'semantic-ui-react'
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
 
