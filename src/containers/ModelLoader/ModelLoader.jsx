@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import ModelInfo from './ModelInfo'
 import DropZone from './DropZone'
+import ModelOptions from '../../components/ModelOptions'
 
 import unzipModel from './unzipModel'
 
@@ -13,7 +14,7 @@ import NegativeOrPositiveButton from '../../components/NegativeOrPositiveButton'
 
 import { toast } from 'react-toastify'
 
-import { Transition, Grid, Segment, Button, Header } from 'semantic-ui-react'
+import { Divider, Transition, Grid, Segment, Button, Header } from 'semantic-ui-react'
 
 class ModelLoader extends Component {
   constructor (props) {
@@ -23,11 +24,19 @@ class ModelLoader extends Component {
 
     this.zipUploaded = this.zipUploaded.bind(this)
     this.fileRejected = this.fileRejected.bind(this)
+    this.handleModelOptionsOnChange = this.handleModelOptionsOnChange.bind(this)
 
     this.initialState = {
       modelDescriptionParser: null,
       displayDropZone: true,
       pendingExtraction: false
+    }
+
+    this.defaultModelOptions = {
+      mode: 'continuous',
+      interval: 50,
+      stepSize: 0.05,
+      runtoTime: 1
     }
 
     this.state = this.initialState
@@ -76,6 +85,12 @@ class ModelLoader extends Component {
     this.setState({modelDescriptionParser})
   }
 
+  handleModelOptionsOnChange (options) {
+    this.setState({
+      modelOptions: options
+    })
+  }
+
   render () {
     return (
       <Transition visible={this.props.isOpen} animation='slide down' duration={150}>
@@ -87,10 +102,22 @@ class ModelLoader extends Component {
           />
 
           <BusySignal isBusy={this.state.pendingExtraction}>
-            <ModelInfo modelDescriptionParser={this.state.modelDescriptionParser}/>
+            <ModelInfo
+              modelDescriptionParser={this.state.modelDescriptionParser}
+            />
+            <ModelOptions
+              visible={this.state.modelDescriptionParser !== null}
+              options={this.defaultModelOptions}
+              onChange={this.handleModelOptionsOnChange}
+            />
           </BusySignal>
 
-          <NegativeOrPositiveButton negativeOnClick={this.cancelModelLoad}/>
+          <Divider hidden />
+
+          <NegativeOrPositiveButton
+            positiveEnabled={this.state.modelDescriptionParser !== null}
+            positiveLabel="Add model"
+            negativeOnClick={this.cancelModelLoad}/>
         </div>
       </Transition>
     )

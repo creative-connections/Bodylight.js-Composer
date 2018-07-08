@@ -49,7 +49,10 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx'],
     alias: {
-      '../../theme.config$': path.join(__dirname, 'src/theme/theme.config')
+      '../../theme.config$': path.join(__dirname, 'src/theme/theme.config'),
+      '@components': path.resolve(__dirname, 'src/components/'),
+      '@containers': path.resolve(__dirname, 'src/containers/'),
+      '@helpers': path.resolve(__dirname, 'src/helpers/')
     }
   },
   output: {
