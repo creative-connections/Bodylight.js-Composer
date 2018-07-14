@@ -13,6 +13,9 @@ import ModelOptions from '@components/ModelOptions'
 import BusySignal from '@components/BusySignal'
 import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
 
+import { addModel } from '@actions/actions'
+import { bindActionCreators } from 'redux'
+
 class ModelLoader extends Component {
   constructor (props) {
     super(props)
@@ -28,13 +31,6 @@ class ModelLoader extends Component {
       modelDescriptionParser: null,
       displayDropZone: true,
       pendingExtraction: false
-    }
-
-    this.defaultModelOptions = {
-      mode: 'continuous',
-      interval: 50,
-      stepSize: 0.05,
-      runtoTime: 1
     }
 
     this.state = this.initialState
@@ -80,13 +76,12 @@ class ModelLoader extends Component {
     var modelDescriptionParser = new ModelDescriptionParser()
     modelDescriptionParser.parse(modelDescription)
 
-    this.defaultModelOptions.name = modelfiles.name
-
     this.setState({
       name: modelfiles.name,
       js: modelfiles.js,
       wasm: modelfiles.wasm,
-      modelDescriptionParser: modelDescriptionParser
+      modelDescriptionParser: modelDescriptionParser,
+      modelOptions: Object.assign({}, this.props.defaultModelOptions)
     })
   }
 
@@ -96,8 +91,18 @@ class ModelLoader extends Component {
     })
   }
 
-  addModel () {
+  handleModelOptionsNameChange (name) {
+    console.error('Model name change not implemented yet')
+  }
 
+  addModel () {
+    handleModelOptionsNameChange('here')
+    this.props.addModel(
+      this.state.modelOptions,
+      this.state.js,
+      this.state.wasm,
+      this.state.modelDescriptionParser
+    )
   }
 
   render () {
@@ -120,7 +125,7 @@ class ModelLoader extends Component {
             <ModelOptions
               name={this.state.name}
               visible={this.state.modelDescriptionParser !== null}
-              options={this.defaultModelOptions}
+              options={this.state.modelOptions}
               onChange={this.handleModelOptionsOnChange}
             />
           </BusySignal>
@@ -138,7 +143,11 @@ class ModelLoader extends Component {
   }
 }
 
-function mapStateToProps ({ models }) {
-  return { models }
+function mapStateToProps ({ models, defaultModelOptions }) {
+  return { models, defaultModelOptions }
 }
-export default connect(mapStateToProps)(ModelLoader)
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ addModel }, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ModelLoader)

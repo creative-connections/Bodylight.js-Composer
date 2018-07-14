@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import Models from './models'
+import models from './models'
+import defaultModelOptions from './defaultModelOptions'
 
 const rootReducer = combineReducers({
-  models: Models
+  defaultModelOptions,
+  models
 })
 
 export default rootReducer

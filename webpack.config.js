@@ -52,7 +52,8 @@ module.exports = {
       '../../theme.config$': path.join(__dirname, 'src/theme/theme.config'),
       '@components': path.resolve(__dirname, 'src/components/'),
       '@containers': path.resolve(__dirname, 'src/containers/'),
-      '@helpers': path.resolve(__dirname, 'src/helpers/')
+      '@helpers': path.resolve(__dirname, 'src/helpers/'),
+      '@actions': path.resolve(__dirname, 'src/actions/')
     }
   },
   output: {
