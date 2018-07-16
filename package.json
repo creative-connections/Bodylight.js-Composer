@@ -81,6 +81,8 @@
     "redux-promise": "^0.6.0",
     "semantic-ui-less": "github:Semantic-Org/Semantic-UI-LESS",
     "semantic-ui-react": "^0.81.3",
+    "uglify-js": "^3.4.4",
+    "uglifyjs-browser": "^3.0.0",
     "webfontloader": "^1.6.28"
   }
 }

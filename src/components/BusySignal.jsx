@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dimmer, Loader } from 'semantic-ui-react'
 
-const BusySignal = ({isBusy = true, children}) => {
+const BusySignal = ({isBusy = true}) => {
   if (isBusy) {
     return (
       <Dimmer active inverted>
@@ -9,8 +9,7 @@ const BusySignal = ({isBusy = true, children}) => {
       </Dimmer>
     )
   }
-
-  return children
+  return null
 }
 
 export default BusySignal

@@ -119,20 +119,19 @@ class ModelLoader extends Component {
             imgSrc='/images/wafmi.png'
           />
 
-          <BusySignal isBusy={this.state.pendingExtraction}>
-            <ModelInfo
-              modelDescriptionParser={this.state.modelDescriptionParser}
-            />
+          <BusySignal isBusy={this.state.pendingExtraction} />
+          <ModelInfo
+            modelDescriptionParser={this.state.modelDescriptionParser}
+          />
 
-            <Divider hidden />
+          <Divider hidden />
 
-            <ModelOptions
-              name={this.state.name}
-              visible={this.state.modelDescriptionParser !== null}
-              options={this.state.modelOptions}
-              onChange={this.handleModelOptionsOnChange}
-            />
-          </BusySignal>
+          <ModelOptions
+            name={this.state.name}
+            visible={this.state.modelDescriptionParser !== null}
+            options={this.state.modelOptions}
+            onChange={this.handleModelOptionsOnChange}
+          />
 
           <Divider hidden />
 

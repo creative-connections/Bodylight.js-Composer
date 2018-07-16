@@ -9,6 +9,10 @@ import { toast } from 'react-toastify'
 
 import AnimateError from '@exceptions/AnimateError'
 
+import preprocess from '@helpers/Animate/preprocess'
+import UglifyJS from 'uglifyjs-browser'
+import BusySignal from '@components/BusySignal'
+
 class AnimateLoader extends Component {
   constructor (props) {
     super(props)
@@ -22,7 +26,8 @@ class AnimateLoader extends Component {
       displayDropZone: true,
       sourceLoaded: false,
       source: null,
-      name: ''
+      name: '',
+      pending: false
     }
 
     this.state = this.initialState
@@ -37,15 +42,27 @@ class AnimateLoader extends Component {
     const file = files[0]
 
     var reader = new FileReader()
-
     reader.onloadend = () => {
-      this.setState({
-        displayDropZone: false,
-        sourceLoaded: true,
-        source: reader.result,
-        name: file.name.replace(/\.[^/.]+$/, '')
+      preprocess(reader.result).then(preprocessed => {
+        const name = file.name.replace(/\.[^/.]+$/, '')
+
+        const minified = UglifyJS.minify(preprocessed)
+        if (typeof minified.error !== 'undefined') {
+          console.error(minified.error)
+          toast.error('Could not minify JavaScript code')
+        }
+        const source = minified.code
+
+        this.setState({
+          displayDropZone: false,
+          sourceLoaded: true,
+          source,
+          name,
+          pending: false
+        })
       })
     }
+    this.setState({pending: true})
     reader.readAsBinaryString(file)
   }
 
@@ -59,6 +76,9 @@ class AnimateLoader extends Component {
       const msg = `Error while initializing animate component: ${error.message}.`
       toast.error(msg)
       toast.info('Name of the js file must correspond to the name of the topmost component')
+    } else if (error instanceof TypeError) {
+      toast.error(`Could not load submitted js file, error: '${error.message}'.`)
+      toast.info('.js file should be exported by Adobe Animate CC (2017, 2018)')
     } else {
       toast.error(error.message)
     }
@@ -79,6 +99,8 @@ class AnimateLoader extends Component {
     return (
       <Transition visible={this.props.display} animation='slide down' duration={150}>
         <div>
+
+          <BusySignal isBusy={this.state.pending}/>
 
           <DropZone display={this.state.displayDropZone}
             onDropAccepted={this.fileUploaded}
