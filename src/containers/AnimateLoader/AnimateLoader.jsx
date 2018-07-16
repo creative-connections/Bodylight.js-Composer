@@ -10,7 +10,6 @@ import { toast } from 'react-toastify'
 import AnimateError from '@exceptions/AnimateError'
 
 import preprocess from '@helpers/Animate/preprocess'
-import UglifyJS from 'uglifyjs-browser'
 import BusySignal from '@components/BusySignal'
 
 class AnimateLoader extends Component {
@@ -45,13 +44,7 @@ class AnimateLoader extends Component {
     reader.onloadend = () => {
       preprocess(reader.result).then(preprocessed => {
         const name = file.name.replace(/\.[^/.]+$/, '')
-
-        const minified = UglifyJS.minify(preprocessed)
-        if (typeof minified.error !== 'undefined') {
-          console.error(minified.error)
-          toast.error('Could not minify JavaScript code')
-        }
-        const source = minified.code
+        const source = preprocessed
 
         this.setState({
           displayDropZone: false,
