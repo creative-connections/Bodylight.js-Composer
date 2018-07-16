@@ -4,6 +4,7 @@ module.exports = {
   entry: [
     './src/index.jsx'
   ],
+  devtool: false,
   module: {
     rules: [
       {
@@ -53,7 +54,8 @@ module.exports = {
       '@components': path.resolve(__dirname, 'src/components/'),
       '@containers': path.resolve(__dirname, 'src/containers/'),
       '@helpers': path.resolve(__dirname, 'src/helpers/'),
-      '@actions': path.resolve(__dirname, 'src/actions/')
+      '@actions': path.resolve(__dirname, 'src/actions/'),
+      '@exceptions': path.resolve(__dirname, 'src/exceptions/')
     }
   },
   output: {

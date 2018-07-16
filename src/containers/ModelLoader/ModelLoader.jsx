@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { Divider, Transition } from 'semantic-ui-react'
 
 import ModelInfo from './ModelInfo'
-import DropZone from './DropZone'
+import DropZone from '@components/DropZone'
 import unzipModel from './unzipModel'
 
 import ModelDescriptionParser from '@helpers/ModelDescriptionParser'
@@ -113,6 +113,10 @@ class ModelLoader extends Component {
           <DropZone display={this.state.displayDropZone}
             onDropAccepted={this.zipUploaded}
             onDropRejected={this.fileRejected}
+            header='Load an FMU'
+            description='Upload a .zip from Bodylight.js compiler'
+            accept='application/zip, application/x-zip, application/x-zip-compressed, multipart/x-zip, application/zip-compressed'
+            imgSrc='/images/wafmi.png'
           />
 
           <BusySignal isBusy={this.state.pendingExtraction}>

@@ -1,9 +1,9 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 
-import {Card, Image, Icon} from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 
-const DropZone = ({onDropAccepted, onDropRejected, display = false}) => {
+const DropZone = ({onDropAccepted, onDropRejected, accept, imgSrc, header = 'Upload a file', description = '', display = false}) => {
   if (!display) {
     return null
   }
@@ -22,17 +22,17 @@ const DropZone = ({onDropAccepted, onDropRejected, display = false}) => {
   return (
     <Card>
       <Card.Content>
-        <Card.Header>Load an FMU</Card.Header>
-        <Card.Description>Upload a .zip from Bodylight.js compiler</Card.Description>
+        <Card.Header>{header}</Card.Header>
+        <Card.Description>{description}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Dropzone multiple={false}
           onDropAccepted={onDropAccepted}
           onDropRejected={onDropRejected}
-          accept="application/zip, application/x-zip, application/x-zip-compressed, multipart/x-zip, application/zip-compressed"
+          accept={accept}
         >
           <div style={overlayStyle}>
-            <Image src='/images/wafmi.png' size='small'/>
+            <Image src={imgSrc} size='small'/>
           </div>
         </Dropzone>
       </Card.Content>

@@ -8,7 +8,7 @@ class Name extends Component {
         <label>Model name (unique)</label>
         <Input
           name='name'
-          value={this.props.name}
+          value={this.props.optionsename}
           onChange={this.handleChange}
           disabled
         >

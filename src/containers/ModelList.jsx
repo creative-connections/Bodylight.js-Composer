@@ -40,29 +40,13 @@ class ModelList extends Component {
 
   render () {
     return (
-      <Grid.Row centered padded='horizontally'>
-        <Grid.Column width={16} style={{ maxWidth: 100 + 'em' }} >
-          <Segment>
-            {!this.state.modelLoaderIsOpen && <Header as="h2"> Models </Header> }
-            {this.state.modelLoaderIsOpen && <Header as="h2"> Adding a new model </Header> }
-            {!this.state.modelLoaderIsOpen && <Button onClick={this.openModelLoader} >Load a model</Button> }
-            {this.renderModelLoader()}
-          </Segment>
-        </Grid.Column>
-      </Grid.Row>
-    )
-
-    /*
-    return (
-      <div>
-        <select>
-          {this.props.models.map(this.renderModelsOptions)}
-        </select>
-        <button onClick={this.openModelLoader}>+</button>
+      <Segment>
+        {!this.state.modelLoaderIsOpen && <Header as="h2"> Models </Header> }
+        {this.state.modelLoaderIsOpen && <Header as="h2"> Adding a new model </Header> }
+        {!this.state.modelLoaderIsOpen && <Button onClick={this.openModelLoader} >Load a model</Button> }
         {this.renderModelLoader()}
-      </div>
+      </Segment>
     )
-    */
   }
 }
 
