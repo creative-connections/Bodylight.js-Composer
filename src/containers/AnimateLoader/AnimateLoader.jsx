@@ -56,7 +56,7 @@ class AnimateLoader extends Component {
       })
     }
     this.setState({pending: true})
-    reader.readAsBinaryString(file)
+    reader.readAsText(file)
   }
 
   onCancel () {
