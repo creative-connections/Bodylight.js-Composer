@@ -30,7 +30,7 @@ const preprocess = (file) => {
 
       // matches lines like 'this.component.name = "component_anim"' retrieves
       // "this.component" and inserts it as a library exported component
-      var match = line.match('\\s(.*)\\.name *=* ".*"')
+      var match = line.match('\\s(.*)\\.name\\s*=\\s*".*"')
       if (match) {
         const reference = match[1]
         const newline = `lib.addExportedComponent(${reference});`
