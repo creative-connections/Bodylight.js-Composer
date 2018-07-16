@@ -1,6 +1,14 @@
 import React from 'react'
-import SimpleModelList from './SimpleModelList'
+import SimpleList from '@components/SimpleList'
 import { Segment, Grid, Header, List } from 'semantic-ui-react'
+
+const transformElementsToArray = (elements) => {
+  const data = []
+  Object.keys(elements).forEach((el) => {
+    data.push(elements[el].name)
+  })
+  return data
+}
 
 const ModelInfo = ({modelDescriptionParser = null}) => {
   if (modelDescriptionParser !== null) {
@@ -59,9 +67,9 @@ const ModelInfo = ({modelDescriptionParser = null}) => {
             <Grid.Column>
               <Header as="h4">Parameters</Header>
               <Segment style={{overflow: 'auto'}}>
-                <SimpleModelList
+                <SimpleList
                   rootname="parameters"
-                  elements={modelDescriptionParser.parameters}
+                  data={transformElementsToArray(modelDescriptionParser.parameters)}
                 />
               </Segment>
             </Grid.Column>
@@ -69,9 +77,9 @@ const ModelInfo = ({modelDescriptionParser = null}) => {
             <Grid.Column>
               <Header as="h4">Variables</Header>
               <Segment style={{overflow: 'auto'}}>
-                <SimpleModelList
+                <SimpleList
                   rootname="variables"
-                  elements={modelDescriptionParser.variables}
+                  data={transformElementsToArray(modelDescriptionParser.variables)}
                 />
               </Segment>
             </Grid.Column>
