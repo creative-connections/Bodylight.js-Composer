@@ -39,6 +39,7 @@ class ModelList extends Component {
   }
 
   render () {
+    console.log(this.props.models)
     return (
       <Segment>
         {!this.state.modelLoaderIsOpen && <Header as="h2"> Models </Header> }

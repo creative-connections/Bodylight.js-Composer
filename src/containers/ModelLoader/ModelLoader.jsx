@@ -98,18 +98,22 @@ class ModelLoader extends Component {
     })
   }
 
-  handleModelOptionsNameChange (name) {
-    console.error('Model name change not implemented yet')
-  }
-
   addModel () {
-    handleModelOptionsNameChange('here')
+    if (this.state.name !== this.state.modelOptions.name) {
+      // TODO: implement this
+      toast.error('Model renaming is not implemented yet')
+    }
+
     this.props.addModel(
       this.state.modelOptions,
       this.state.js,
       this.state.wasm,
       this.state.modelDescriptionParser
     )
+
+    toast.success(`Model '${this.state.modelOptions.name}' added!`)
+
+    this.cancelModelLoad()
   }
 
   render () {
