@@ -18,6 +18,7 @@ class Runtime {
     }
 
     this.attachExportedComponents(this.library)
+    this.initialized = false
   }
 
   init (canvas, autoplay = false) {
@@ -43,7 +44,9 @@ class Runtime {
     // register stage to receive tick updates
     createjs.Ticker.addEventListener('tick', this.stage)
 
-    return new Promise((resolve, reject) => {
+    this.initialized = true
+
+    return new Promise((resolve) => {
       var tickCounter = 0
       const waitTicks = () => {
         if (++tickCounter === 2) {
@@ -55,17 +58,65 @@ class Runtime {
     })
   }
 
-  destroy () {
-    createjs.Ticker.removeEventListener('tick', this.stage)
-    this.stage.clear()
+  getComponents () {
+    if (typeof this.components !== 'undefined') {
+      return this.components
+    }
+    return []
   }
 
+  /*
+   * Initializes a virutal Runtime and determines the component names.
+   * Returns Promise with {category: [comp1, comp2,...]} on resolve
+   */
+  static getComponentNames (source, name) {
+    return new Promise((resolve) => {
+      // init new runtime to fill library with components
+      var runtime = new Runtime(source, name)
+      const canvas = document.createElement('canvas')
+      runtime.init(canvas).then(() => {
+        const components = runtime.getComponents()
+        var out = {}
+
+        // transform to strings
+        const categories = Object.keys(components)
+        categories.forEach(category => {
+          out[category] = []
+          const nodes = Object.keys(components[category])
+          nodes.forEach(node => {
+            out[category].push(node)
+          })
+        })
+        runtime.destroy()
+        resolve(out)
+      })
+    })
+  }
+
+  destroy () {
+    if (this.initialized) {
+      createjs.Ticker.removeEventListener('tick', this.stage)
+      this.stage.clear()
+    }
+  }
+
+  /*
+   * Animate export to CreateJS lazy adds components to stage only when they are
+   * actually needed. This way on stage startup, not every component is
+   * available, components that first appear on a frame not currently visible
+   * have not been created at that point.
+   *
+   * So we can either cycle trough every available frame to make sure all
+   * components get created and then walk the component tree. Or we can inject a
+   * method for registering the components during library load.
+   * addExportedComponents gets called on each named component definition,
+   * injected into the Animate export file by a preprocess method elsewhere in
+   * the code.
+   */
   attachExportedComponents (library) {
     library.exportedComponents = {
       'anim': {},
-      'text': {},
-      'range': {},
-      'checkbox': {}
+      'text': {}
     }
     library.addExportedComponent = component => {
       var getNameSuffix = name => {

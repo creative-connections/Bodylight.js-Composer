@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 
 import AnimatePlayer from '@components/AnimatePlayer'
+import AnimateInfo from './AnimateInfo'
+import Runtime from '@helpers/Animate/Runtime'
 import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
-import { Card, Divider, Transition } from 'semantic-ui-react'
+import { Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
 
+import SimpleList from '@components/SimpleList'
 import DropZone from '@components/DropZone'
 import { toast } from 'react-toastify'
 
@@ -19,17 +22,18 @@ class AnimateLoader extends Component {
     this.fileUploaded = this.fileUploaded.bind(this)
     this.fileRejected = this.fileRejected.bind(this)
     this.onCancel = this.onCancel.bind(this)
-    this.renderAnimatePlayer = this.renderAnimatePlayer.bind(this)
+    this.renderInfo = this.renderInfo.bind(this)
 
     this.initialState = {
       displayDropZone: true,
-      sourceLoaded: false,
       source: null,
-      name: '',
+      name: null,
+      components: null,
       pending: false
     }
 
     this.state = this.initialState
+    createjs.Ticker.setFPS(60)
   }
 
   fileRejected (files) {
@@ -43,15 +47,16 @@ class AnimateLoader extends Component {
     var reader = new FileReader()
     reader.onloadend = () => {
       preprocess(reader.result).then(preprocessed => {
-        const name = file.name.replace(/\.[^/.]+$/, '')
-        const source = preprocessed
-
-        this.setState({
-          displayDropZone: false,
-          sourceLoaded: true,
-          source,
-          name,
-          pending: false
+        var name = file.name.replace(/\.[^/.]+$/, '')
+        var source = preprocessed
+        Runtime.getComponentNames(source, name).then(components => {
+          this.setState({
+            displayDropZone: false,
+            source,
+            name,
+            components,
+            pending: false
+          })
         })
       })
     }
@@ -79,13 +84,33 @@ class AnimateLoader extends Component {
     this.setState(this.initialState)
   }
 
-  renderAnimatePlayer () {
-    if (!this.state.sourceLoaded) {
-      return null
+  renderInfo () {
+    if (this.state.source !== null) {
+      return <Grid>
+        <Grid.Row stretched>
+          <Grid.Column>
+            <AnimatePlayer source={this.state.source} name={this.state.name} width={200} height={200}/>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={3} verticalAlign='top' >
+          <Grid.Column>
+            <Header as="h4">Options</Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h4">Animations</Header>
+            <Segment style={{overflow: 'auto', maxHeight: 20 + 'em'}}>
+              <SimpleList data={this.state.components['anim']} />
+            </Segment>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h4">Labels</Header>
+            <Segment style={{overflow: 'auto', maxHeight: 20 + 'em'}}>
+              <SimpleList data={this.state.components['text']} />
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     }
-    return (
-      <AnimatePlayer source={this.state.source} name={this.state.name} width={200} height={200}/>
-    )
   }
 
   render () {
@@ -103,7 +128,7 @@ class AnimateLoader extends Component {
             accept='application/javascript'
           />
 
-          {this.renderAnimatePlayer()}
+          {this.renderInfo()}
 
           <Divider/>
 

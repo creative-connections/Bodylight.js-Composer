@@ -1,8 +1,8 @@
 import React from 'react'
 
-const SimpleList = ({data}) => {
+const SimpleList = ({data, style}) => {
   return (
-    <ul className='SimpleList'>
+    <ul className='SimpleList' style={style}>
       {
         data.map((el, i) => {
           return <li key={i}>{el}</li>

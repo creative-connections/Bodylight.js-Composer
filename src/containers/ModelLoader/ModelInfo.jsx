@@ -14,7 +14,7 @@ const ModelInfo = ({modelDescriptionParser = null}) => {
   if (modelDescriptionParser !== null) {
     return (
       <div>
-        <Grid columns={3} stretched style={{maxHeight: 22 + 'em'}}>
+        <Grid columns={3} stretched >
           <Grid.Row>
             <Grid.Column>
               <Header as="h4">Model info</Header>
@@ -66,7 +66,7 @@ const ModelInfo = ({modelDescriptionParser = null}) => {
 
             <Grid.Column>
               <Header as="h4">Parameters</Header>
-              <Segment style={{overflow: 'auto'}}>
+              <Segment style={{overflow: 'auto', maxHeight: 20 + 'em'}}>
                 <SimpleList
                   rootname="parameters"
                   data={transformElementsToArray(modelDescriptionParser.parameters)}
@@ -76,7 +76,7 @@ const ModelInfo = ({modelDescriptionParser = null}) => {
 
             <Grid.Column>
               <Header as="h4">Variables</Header>
-              <Segment style={{overflow: 'auto'}}>
+              <Segment style={{overflow: 'auto', maxHeight: 20 + 'em'}}>
                 <SimpleList
                   rootname="variables"
                   data={transformElementsToArray(modelDescriptionParser.variables)}
