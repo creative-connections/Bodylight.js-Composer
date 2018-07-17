@@ -1,6 +1,6 @@
 
 const ActiveScreen = {
-  MODEL: 'model',
+  CONFIG: 'config',
   CONNECT: 'connect',
   DESIGN: 'design'
 }

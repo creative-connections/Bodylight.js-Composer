@@ -52,7 +52,7 @@ module.exports = {
     alias: {
       '../../theme.config$': path.join(__dirname, 'src/theme/theme.config'),
       '@components': path.resolve(__dirname, 'src/components/'),
-      '@containers': path.resolve(__dirname, 'src/containers/'),
+      '@scenes': path.resolve(__dirname, 'src/scenes/'),
       '@helpers': path.resolve(__dirname, 'src/helpers/'),
       '@actions': path.resolve(__dirname, 'src/actions/'),
       '@exceptions': path.resolve(__dirname, 'src/exceptions/')

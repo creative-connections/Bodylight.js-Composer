@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import ModelLoader from '@components/ModelLoader'
+import ModelLoader from './ModelLoader'
 import { Grid, Segment, Button, Header } from 'semantic-ui-react'
 import { Dropdown, Menu } from 'semantic-ui-react'
 

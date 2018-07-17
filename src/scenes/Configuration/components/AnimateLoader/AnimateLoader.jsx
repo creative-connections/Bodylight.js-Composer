@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
 import AnimatePlayer from '@components/AnimatePlayer'
-import AnimateOptions from '@components/AnimateOptions'
+
+import AnimateOptions from '../AnimateOptions'
+
 import Runtime from '@helpers/Animate/Runtime'
 import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
 import { Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'

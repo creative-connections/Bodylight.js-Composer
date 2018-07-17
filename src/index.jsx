@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxPromise from 'redux-promise'
 
 import reducers from './reducers'
-import DisplayContainer from '@components/DisplayContainer'
+import DisplayContainer from '@scenes/DisplayContainer'
 import ActiveScreen from '@helpers/ActiveScreenEnum'
 
 import { ToastContainer } from 'react-toastify'
@@ -23,7 +23,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      activeScreen: 'model'
+      activeScreen: ActiveScreen.CONFIG
     }
 
     this.handleMenuClick = this.handleMenuClick.bind(this)
@@ -46,8 +46,8 @@ class App extends Component {
               Bodylight.js Composer
             </Menu.Item>
 
-            <Menu.Item name={ActiveScreen.MODEL} active={this.state.activeScreen === ActiveScreen.MODEL} onClick={this.handleMenuClick}>
-              Model
+            <Menu.Item name={ActiveScreen.CONFIG} active={this.state.activeScreen === ActiveScreen.CONFIG} onClick={this.handleMenuClick}>
+              Configuration
             </Menu.Item>
 
             <Menu.Item name={ActiveScreen.CONNECT} active={this.state.activeScreen === ActiveScreen.CONNECT} onClick={this.handleMenuClick}>

@@ -9,7 +9,7 @@ import unzipModel from './unzipModel'
 
 import ModelDescriptionParser from '@helpers/ModelDescriptionParser'
 
-import ModelOptions from '@components/ModelOptions'
+import ModelOptions from '../ModelOptions'
 import BusySignal from '@components/BusySignal'
 import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
 

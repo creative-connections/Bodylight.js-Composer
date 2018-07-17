@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import AnimateLoader from '@components/AnimateLoader'
+import AnimateLoader from './AnimateLoader'
 import { Grid, Segment, Button, Header } from 'semantic-ui-react'
 
 class AnimateList extends Component {
