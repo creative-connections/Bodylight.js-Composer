@@ -46,7 +46,7 @@ class ContinuousMode extends Component {
   }
 
   handleChange (e, {name, value}) {
-    const options = update(this.props.options, { $set: {[name]: value} })
+    const options = update(this.props.options, { [name]: { $set: value } })
     this.setState({
       tps: this.fillTps(name, value),
       factor: this.fillFactor(name, value)
@@ -62,7 +62,7 @@ class ContinuousMode extends Component {
       factor: factor
     })
 
-    const options = update(this.props.options, { $set: { interval } })
+    const options = update(this.props.options, { interval: { $set: interval } })
     this.props.onChange(options)
   }
 

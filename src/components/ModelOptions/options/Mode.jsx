@@ -15,7 +15,7 @@ class Mode extends Component {
   }
 
   handleModeChange (e, { value }) {
-    const options = update(this.props.options, {$set: {mode: value}})
+    const options = update(this.props.options, {mode: {$set: value}})
 
     this.props.onChange(options)
   }

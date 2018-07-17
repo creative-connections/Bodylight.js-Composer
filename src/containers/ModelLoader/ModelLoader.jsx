@@ -16,6 +16,8 @@ import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
 import { addModel } from '@actions/actions'
 import { bindActionCreators } from 'redux'
 
+import update from 'immutability-helper'
+
 class ModelLoader extends Component {
   constructor (props) {
     super(props)
@@ -76,12 +78,17 @@ class ModelLoader extends Component {
     var modelDescriptionParser = new ModelDescriptionParser()
     modelDescriptionParser.parse(modelDescription)
 
+    Object.assign({}, this.props.defaultModelOptions)
+
+    const name = modelfiles.name
+    const modelOptions = update(this.props.defaultModelOptions, {name: {$set: name}})
+
     this.setState({
-      name: modelfiles.name,
+      name,
       js: modelfiles.js,
       wasm: modelfiles.wasm,
       modelDescriptionParser: modelDescriptionParser,
-      modelOptions: Object.assign({}, this.props.defaultModelOptions)
+      modelOptions
     })
   }
 
