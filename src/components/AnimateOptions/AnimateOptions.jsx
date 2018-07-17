@@ -16,9 +16,7 @@ class AnimateOptions extends Component {
   }
 
   handleOnChange (e, {name, value}) {
-    var insert = {}
-    insert[name] = value
-    const options = update(this.props.options, { $set: insert })
+    const options = update(this.props.options, { $set: {[name]: value} })
     this.props.onChange(options)
   }
 

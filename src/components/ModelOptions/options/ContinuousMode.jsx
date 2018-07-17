@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Grid, Form, Label } from 'semantic-ui-react'
 import InputFloat from '@components/form/InputFloat'
 
+import update from 'immutability-helper'
+
 const calculateTps = (stepSize, interval) => {
   return 1000 / interval
 }
@@ -44,7 +46,7 @@ class ContinuousMode extends Component {
   }
 
   handleChange (e, {name, value}) {
-    var options = Object.assign(this.props.options, { [name]: value })
+    const options = update(this.props.options, { $set: {[name]: value} })
     this.setState({
       tps: this.fillTps(name, value),
       factor: this.fillFactor(name, value)
@@ -60,7 +62,7 @@ class ContinuousMode extends Component {
       factor: factor
     })
 
-    var options = Object.assign(this.props.options, { interval })
+    const options = update(this.props.options, { $set: { interval } })
     this.props.onChange(options)
   }
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Radio, Form } from 'semantic-ui-react'
 
+import update from 'immutability-helper'
+
 class Mode extends Component {
   constructor (props) {
     super(props)
@@ -13,7 +15,7 @@ class Mode extends Component {
   }
 
   handleModeChange (e, { value }) {
-    var options = Object.assign(this.props.options, {mode: value})
+    const options = update(this.props.options, {$set: {mode: value}})
 
     this.props.onChange(options)
   }
