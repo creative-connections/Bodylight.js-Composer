@@ -125,6 +125,7 @@ class AnimateLoader extends Component {
             header='Load an Animate CC component'
             description='Upload a HTML5 Canvas .js from Animate CC'
             accept='application/javascript'
+            imgSrc='/images/an.png'
           />
 
           {this.renderInfo()}
