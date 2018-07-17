@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 import ActiveScreen from '@helpers/ActiveScreenEnum'
-import ModelList from '@containers/ModelList'
-import AnimateList from '@containers/AnimateList'
+import ModelList from '@components/ModelList'
+import AnimateList from '@components/AnimateList'
 
 import { Grid, Segment, Button, Header } from 'semantic-ui-react'
 

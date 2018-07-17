@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxPromise from 'redux-promise'
 
 import reducers from './reducers'
-import DisplayContainer from '@containers/DisplayContainer'
+import DisplayContainer from '@components/DisplayContainer'
 import ActiveScreen from '@helpers/ActiveScreenEnum'
 
 import { ToastContainer } from 'react-toastify'
