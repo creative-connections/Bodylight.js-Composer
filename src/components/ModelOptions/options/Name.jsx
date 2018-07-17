@@ -5,10 +5,10 @@ class Name extends Component {
   render () {
     return (
       <Form.Field onMouseEnter={(e) => this.props.onMouseEnter('name')}>
-        <label>Model name (unique)</label>
+        <Label>Model name (unique)</Label>
         <Input
           name='name'
-          value={this.props.optionsename}
+          value={this.props.options.name}
           onChange={this.handleChange}
           disabled
         >

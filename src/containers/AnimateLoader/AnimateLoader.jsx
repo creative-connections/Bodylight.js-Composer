@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import AnimatePlayer from '@components/AnimatePlayer'
+import AnimateOptions from '@components/AnimateOptions'
 import Runtime from '@helpers/Animate/Runtime'
 import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
 import { Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
@@ -22,13 +23,15 @@ class AnimateLoader extends Component {
     this.fileRejected = this.fileRejected.bind(this)
     this.onCancel = this.onCancel.bind(this)
     this.renderInfo = this.renderInfo.bind(this)
+    this.handleOptionsChange = this.handleOptionsChange.bind(this)
 
     this.initialState = {
       displayDropZone: true,
       source: null,
-      name: null,
+      rootCompoent: null,
       components: null,
-      pending: false
+      pending: false,
+      options: null
     }
 
     this.state = this.initialState
@@ -46,15 +49,18 @@ class AnimateLoader extends Component {
     var reader = new FileReader()
     reader.onloadend = () => {
       preprocess(reader.result).then(preprocessed => {
-        var name = file.name.replace(/\.[^/.]+$/, '')
+        var rootComponent = file.name.replace(/\.[^/.]+$/, '')
         var source = preprocessed
-        Runtime.getComponentNames(source, name).then(components => {
+        Runtime.getComponentNames(source, rootComponent).then(components => {
           this.setState({
             displayDropZone: false,
             source,
-            name,
+            rootComponent,
             components,
-            pending: false
+            pending: false,
+            options: {
+              name: rootComponent
+            }
           })
         })
       })
@@ -83,17 +89,27 @@ class AnimateLoader extends Component {
     this.setState(this.initialState)
   }
 
+  handleOptionsChange (options) {
+    this.setState({
+      options
+    })
+  }
+
   renderInfo () {
     if (this.state.source !== null) {
       return <Grid>
         <Grid.Row stretched>
           <Grid.Column>
-            <AnimatePlayer source={this.state.source} name={this.state.name} width={200} height={200}/>
+            <AnimatePlayer source={this.state.source} name={this.state.rootComponent} width={200} height={200}/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3} verticalAlign='top' >
           <Grid.Column>
-            <Header as="h4">Options</Header>
+            <AnimateOptions
+              onChange={this.handleOptionsChange}
+              options={this.state.options}
+            />
+
           </Grid.Column>
           <Grid.Column>
             <Header as="h4">Animations</Header>
