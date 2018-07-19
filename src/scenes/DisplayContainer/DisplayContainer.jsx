@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import ActiveScreen from '@helpers/ActiveScreenEnum'
 import Configuration from '@scenes/Configuration'
 
 class DisplayContainer extends Component {
   render () {
-    const screen = this.props.screen
+    const screen = this.props.activeScreen
 
     if (screen === ActiveScreen.CONFIG) {
       return <Configuration/>
@@ -19,4 +20,8 @@ class DisplayContainer extends Component {
   }
 }
 
-export default DisplayContainer
+function mapStateToProps ({ activeScreen }) {
+  return { activeScreen }
+}
+
+export default connect(mapStateToProps)(DisplayContainer)

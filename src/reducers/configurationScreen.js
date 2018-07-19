@@ -1,5 +1,5 @@
-import { CNFSCR_SELECT_MODEL } from '@actions/types'
 import update from 'immutability-helper'
+import { CNFSCR_SELECT_MODEL } from '@actions/types'
 
 const defaultState = {
   selectedModel: null,
