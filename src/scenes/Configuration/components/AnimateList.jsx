@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import AnimateLoader from './AnimateLoader'
 import { Dropdown, Menu, Grid, Segment, Button, Header } from 'semantic-ui-react'
+
+import { selectAnimate } from '@actions/actions'
 
 class AnimateList extends Component {
   constructor (props) {
@@ -16,6 +19,7 @@ class AnimateList extends Component {
     this.closeLoader = this.closeLoader.bind(this)
     this.renderAnimateList = this.renderAnimateList.bind(this)
     this.renderAnimateLoader = this.renderAnimateLoader.bind(this)
+    this.handleAnimateOnChange = this.handleAnimateOnChange.bind(this)
   }
 
   openLoader () {
@@ -38,6 +42,10 @@ class AnimateList extends Component {
     return options
   }
 
+  handleAnimateOnChange (a, {value}) {
+    this.props.selectAnimate(value)
+  }
+
   renderAnimateLoader () {
     if (!this.state.loaderIsOpen) {
       return null
@@ -58,7 +66,7 @@ class AnimateList extends Component {
     return <div>
       <Header as="h2">Animates</Header>
       <Menu compact>
-        <Dropdown placeholder='Select or add an animate' options={this.getAnimatesAsOptions()} value={this.props.selectedAnimate} selection />
+        <Dropdown placeholder='Select or add an animate' options={this.getAnimatesAsOptions()} onChange={this.handleAnimateOnChange} value={this.props.selectedAnimate} selection />
       </Menu>
       <Button onClick={this.openLoader}>+</Button>
     </div>
@@ -76,6 +84,10 @@ class AnimateList extends Component {
   }
 }
 
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ selectAnimate }, dispatch)
+}
+
 function mapStateToProps ({ animates, configurationScreen }) {
   return {
     animates,
@@ -83,4 +95,4 @@ function mapStateToProps ({ animates, configurationScreen }) {
   }
 }
 
-export default connect(mapStateToProps)(AnimateList)
+export default connect(mapStateToProps, mapDispatchToProps)(AnimateList)
