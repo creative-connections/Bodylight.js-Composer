@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import AnimateLoader from './AnimateLoader'
-import { Grid, Segment, Button, Header } from 'semantic-ui-react'
+import { Dropdown, Menu, Grid, Segment, Button, Header } from 'semantic-ui-react'
 
 class AnimateList extends Component {
   constructor (props) {
@@ -14,6 +14,8 @@ class AnimateList extends Component {
 
     this.openLoader = this.openLoader.bind(this)
     this.closeLoader = this.closeLoader.bind(this)
+    this.renderAnimateList = this.renderAnimateList.bind(this)
+    this.renderAnimateLoader = this.renderAnimateLoader.bind(this)
   }
 
   openLoader () {
@@ -24,23 +26,61 @@ class AnimateList extends Component {
     this.setState({loaderIsOpen: false})
   }
 
+  getAnimatesAsOptions () {
+    var options = []
+    Object.keys(this.props.animates).forEach(name => {
+      options.push({
+        key: name,
+        text: name,
+        value: name
+      })
+    })
+    return options
+  }
+
+  renderAnimateLoader () {
+    if (!this.state.loaderIsOpen) {
+      return null
+    }
+    return <div>
+      <Header as="h2"> Adding a new Animate </Header>
+      <AnimateLoader
+        display={this.state.loaderIsOpen}
+        onClose={this.closeLoader}/>
+    </div>
+  }
+
+  renderAnimateList () {
+    if (this.state.loaderIsOpen) {
+      return null
+    }
+
+    return <div>
+      <Header as="h2">Animates</Header>
+      <Menu compact>
+        <Dropdown placeholder='Select or add an animate' options={this.getAnimatesAsOptions()} value={this.props.selectedAnimate} selection />
+      </Menu>
+      <Button onClick={this.openLoader}>+</Button>
+    </div>
+  }
+
   render () {
     return (
-      <Segment>
-        {!this.state.loaderIsOpen &&
-          <div>
-            <Header as="h2">Animate components</Header>
-            <Button onClick={this.openLoader} >Load a component</Button>
-          </div>
-        }
-        <AnimateLoader onClose={this.closeLoader} display={this.state.loaderIsOpen}/>
-      </Segment>
+      <div>
+        <Segment>
+          {this.renderAnimateLoader()}
+          {this.renderAnimateList()}
+        </Segment>
+      </div>
     )
   }
 }
 
-function mapStateToProps ({ models }) {
-  return { models }
+function mapStateToProps ({ animates, configurationScreen }) {
+  return {
+    animates,
+    selectedAnimate: configurationScreen.selectedAnimate
+  }
 }
 
 export default connect(mapStateToProps)(AnimateList)

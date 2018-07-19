@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { toast } from 'react-toastify'
 
 import AnimatePlayer from '@components/AnimatePlayer'
+import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
+
+import BusySignal from '@components/BusySignal'
+import SimpleList from '@components/SimpleList'
+import DropZone from '@components/DropZone'
 
 import AnimateOptions from '../AnimateOptions'
 
 import Runtime from '@helpers/Animate/Runtime'
-import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
-import { Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
-
-import SimpleList from '@components/SimpleList'
-import DropZone from '@components/DropZone'
-import { toast } from 'react-toastify'
-
+import preprocess from '@helpers/Animate/preprocess'
 import AnimateError from '@exceptions/AnimateError'
 
-import preprocess from '@helpers/Animate/preprocess'
-import BusySignal from '@components/BusySignal'
+import { addAnimate, selectAnimate } from '@actions/actions'
+
+import { Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
 
 class AnimateLoader extends Component {
   constructor (props) {
@@ -24,16 +27,18 @@ class AnimateLoader extends Component {
     this.fileUploaded = this.fileUploaded.bind(this)
     this.fileRejected = this.fileRejected.bind(this)
     this.onCancel = this.onCancel.bind(this)
+    this.onAdd = this.onAdd.bind(this)
     this.renderInfo = this.renderInfo.bind(this)
     this.handleOptionsChange = this.handleOptionsChange.bind(this)
 
     this.initialState = {
       displayDropZone: true,
       source: null,
-      rootCompoent: null,
+      rootComponent: null,
       components: null,
       pending: false,
-      options: null
+      options: null,
+      positiveEnabled: false
     }
 
     this.state = this.initialState
@@ -60,6 +65,7 @@ class AnimateLoader extends Component {
             rootComponent,
             components,
             pending: false,
+            positiveEnabled: true,
             options: {
               name: rootComponent
             }
@@ -72,6 +78,21 @@ class AnimateLoader extends Component {
   }
 
   onCancel () {
+    this.setState(this.initialState)
+    this.props.onClose()
+  }
+
+  onAdd () {
+    if (this.state.rootComponent !== this.state.options.name) {
+      // TODO: implement this
+      toast.error('Animate renaming is not implemented yet')
+    }
+
+    this.props.addAnimate(this.state.source, this.state.options)
+    this.props.selectAnimate(this.state.options.name)
+
+    toast.success(`Animate '${this.state.options.name}' added!`)
+
     this.setState(this.initialState)
     this.props.onClose()
   }
@@ -111,7 +132,6 @@ class AnimateLoader extends Component {
               onChange={this.handleOptionsChange}
               options={this.state.options}
             />
-
           </Grid.Column>
           <Grid.Column>
             <Header as="h4">Animations</Header>
@@ -151,8 +171,10 @@ class AnimateLoader extends Component {
           <Divider/>
 
           <NegativeOrPositiveButton
-            positiveEnabled={false}
-            negativeLabel="close"
+            positiveEnabled={this.state.positiveEnabled}
+            positiveLabel="Add"
+            positiveOnClick={this.onAdd}
+            negativeLabel="Cancel"
             negativeOnClick={this.onCancel}/>
         </div>
       </Transition>
@@ -160,4 +182,11 @@ class AnimateLoader extends Component {
   }
 }
 
-export default AnimateLoader
+function mapStateToProps () {
+  return {}
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ addAnimate, selectAnimate }, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AnimateLoader)
