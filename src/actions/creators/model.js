@@ -1,4 +1,4 @@
-import { ADD_MODEL } from '@actions/types'
+import { ADD_MODEL, CNFSCR_SELECT_MODEL } from '@actions/types'
 
 export const addModel = (options, js, wasm, modelDescriptionParser) => {
   return {
@@ -9,5 +9,12 @@ export const addModel = (options, js, wasm, modelDescriptionParser) => {
       wasm,
       modelDescriptionParser
     }
+  }
+}
+
+export const selectModel = (model) => {
+  return {
+    type: CNFSCR_SELECT_MODEL,
+    payload: model
   }
 }

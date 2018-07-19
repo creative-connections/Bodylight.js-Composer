@@ -63,7 +63,7 @@ class ModelList extends Component {
     return <div>
       <Header as="h2"> Models </Header>
       <Menu compact>
-        <Dropdown placeholder='Select or add a model' options={this.getModelsAsOptions()} selection />
+        <Dropdown placeholder='Select or add a model' options={this.getModelsAsOptions()} value={this.props.selectedModel} selection />
       </Menu>
       <Button onClick={this.openModelLoader}>+</Button>
     </div>
@@ -82,8 +82,11 @@ class ModelList extends Component {
   }
 }
 
-function mapStateToProps ({ models }) {
-  return { models }
+function mapStateToProps ({ models, configurationScreen }) {
+  return {
+    models,
+    selectedModel: configurationScreen.selectedModel
+  }
 }
 
 export default connect(mapStateToProps)(ModelList)

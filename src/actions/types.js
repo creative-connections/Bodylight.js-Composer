@@ -1,1 +1,2 @@
 export const ADD_MODEL = 'ADD_MODEL'
+export const CNFSCR_SELECT_MODEL = 'CNFSCR_SELECT_MODEL'

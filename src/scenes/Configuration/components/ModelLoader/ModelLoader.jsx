@@ -13,7 +13,7 @@ import ModelOptions from '../ModelOptions'
 import BusySignal from '@components/BusySignal'
 import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
 
-import { addModel } from '@actions/actions'
+import { addModel, selectModel } from '@actions/actions'
 import { bindActionCreators } from 'redux'
 
 import update from 'immutability-helper'
@@ -111,6 +111,8 @@ class ModelLoader extends Component {
       this.state.modelDescriptionParser
     )
 
+    this.props.selectModel(this.state.modelOptions.name)
+
     toast.success(`Model '${this.state.modelOptions.name}' added!`)
 
     this.cancelModelLoad()
@@ -162,6 +164,6 @@ function mapStateToProps ({ models, defaultModelOptions }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ addModel }, dispatch)
+  return bindActionCreators({ addModel, selectModel }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ModelLoader)
