@@ -1,11 +1,38 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import { Menu } from 'semantic-ui-react'
+import { Menu, Dropdown } from 'semantic-ui-react'
 
-const MenuHeader = () => {
-  return (
-    <Menu.Item header>Bodylight.js Composer</Menu.Item>
-  )
+import { newProject } from '@actions/actions'
+
+class MenuHeader extends Component {
+  constructor (props) {
+    super(props)
+
+    this.handleNew = this.handleNew.bind(this)
+  }
+
+  handleNew () {
+    this.props.newProject()
+  }
+
+  render () {
+    return (
+      <div>
+        <Menu.Item header>Bodylight.js Composer</Menu.Item>
+        <Dropdown item text='File'>
+          <Dropdown.Menu style={{ minWidth: 15 + 'em' }}>
+            <Dropdown.Item onClick={this.handleNew}>New</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+    )
+  }
 }
 
-export default MenuHeader
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ newProject }, dispatch)
+}
+
+export default connect(undefined, mapDispatchToProps)(MenuHeader)

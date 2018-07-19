@@ -1,4 +1,5 @@
 export const ADD_MODEL = 'ADD_MODEL'
 export const SELECT_SCREEN = 'SELECT_SCREEN'
+export const NEW_PROJECT = 'NEW_PROJECT'
 
 export const CNFSCR_SELECT_MODEL = 'CNFSCR_SELECT_MODEL'
