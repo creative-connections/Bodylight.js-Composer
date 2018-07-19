@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import ReduxPromise from 'redux-promise'
 
-import reducers from './reducers'
 import DisplayContainer from '@scenes/DisplayContainer'
 import ActiveScreen from '@helpers/ActiveScreenEnum'
 
@@ -13,10 +10,11 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import './theme/base.scss'
 import 'semantic-ui-less/semantic.less'
+import { PersistGate } from 'redux-persist/integration/react'
+
+import configureStore from './configureStore'
 
 import { Container, Divider, Grid, Menu, Input } from 'semantic-ui-react'
-
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
 
 class App extends Component {
   constructor (props) {
@@ -75,9 +73,14 @@ class App extends Component {
   }
 }
 
+const {store, persistor} = configureStore()
+
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
+
   document.getElementById('app')
 )

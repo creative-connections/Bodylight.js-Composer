@@ -3,10 +3,10 @@ import models from './models'
 import defaultModelOptions from './defaultModelOptions'
 import configurationScreen from './configurationScreen'
 
-const rootReducer = combineReducers({
+const reducers = combineReducers({
   models,
   defaultModelOptions,
   configurationScreen
 })
 
-export default rootReducer
+export default reducers
