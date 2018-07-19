@@ -67,6 +67,7 @@
     "jszip": "^3.1.5",
     "less": "2.7.3",
     "less-loader": "^4.1.0",
+    "localforage": "^1.7.2",
     "lodash": "^4.17.10",
     "normalize-scss": "^7.0.1",
     "react": "^16.4.1",

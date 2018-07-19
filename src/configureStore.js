@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 import ReduxPromise from 'redux-promise'
+import localForage from 'localforage'
 
 import reducers from './reducers'
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage: localForage
 }
 
 export default () => {
