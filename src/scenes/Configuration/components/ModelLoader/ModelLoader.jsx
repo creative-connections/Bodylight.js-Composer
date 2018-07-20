@@ -86,7 +86,6 @@ class ModelLoader extends Component {
     this.setState({
       name,
       js: modelfiles.js,
-      wasm: modelfiles.wasm,
       modelDescriptionParser: modelDescriptionParser,
       modelOptions
     })
@@ -107,7 +106,6 @@ class ModelLoader extends Component {
     this.props.addModel(
       this.state.modelOptions,
       this.state.js,
-      this.state.wasm,
       this.state.modelDescriptionParser
     )
 
