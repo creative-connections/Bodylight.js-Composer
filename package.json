@@ -63,6 +63,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "escodegen": "^1.11.0",
     "immutability-helper": "^2.7.1",
     "jszip": "^3.1.5",
     "less": "2.7.3",
@@ -84,8 +85,7 @@
     "redux-promise": "^0.6.0",
     "semantic-ui-less": "github:Semantic-Org/Semantic-UI-LESS",
     "semantic-ui-react": "^0.81.3",
-    "uglify-js": "^3.4.4",
-    "uglifyjs-browser": "^3.0.0",
+    "to-ast": "^1.0.0",
     "webfontloader": "^1.6.28"
   }
 }

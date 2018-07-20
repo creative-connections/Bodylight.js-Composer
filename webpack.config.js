@@ -55,7 +55,8 @@ module.exports = {
       '@scenes': path.resolve(__dirname, 'src/scenes/'),
       '@helpers': path.resolve(__dirname, 'src/helpers/'),
       '@actions': path.resolve(__dirname, 'src/actions/'),
-      '@exceptions': path.resolve(__dirname, 'src/exceptions/')
+      '@exceptions': path.resolve(__dirname, 'src/exceptions/'),
+      '@runtime': path.resolve(__dirname, 'src/runtime/')
     }
   },
   output: {
