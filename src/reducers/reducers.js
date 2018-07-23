@@ -4,6 +4,7 @@ import animates from './animates'
 import defaultModelOptions from './defaultModelOptions'
 import configurationScreen from './configurationScreen'
 import activeScreen from './activeScreen'
+import objects from './objects'
 
 import { NEW_PROJECT } from '@actions/types'
 
@@ -12,7 +13,8 @@ const reducers = combineReducers({
   animates,
   defaultModelOptions,
   configurationScreen,
-  activeScreen
+  activeScreen,
+  objects
 })
 
 const stateScrubberReducer = (state, action) => {
