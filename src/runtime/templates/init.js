@@ -1,11 +1,20 @@
-function init () {
-  console.log(models)
+function init (modelDefs) {
+  var modelnames = Object.keys(modelDefs)
 
-  Object.keys(models).forEach(modelname => {
-    const model = models[modelname]
-    modelRuntime(model, {}).then((Model) => {
-      console.log('after module ready')
+  const initModels = () => {
+    var promises = []
+
+    modelnames.forEach(modelname => {
+      const model = modelDefs[modelname]
+      promises.push(modelRuntime(model, {}))
+      promises.push(modelRuntime(model, {}))
     })
+
+    return Promise.all(promises)
+  }
+
+  initModels().then((models) => {
+    console.log(models)
   })
 }
 
