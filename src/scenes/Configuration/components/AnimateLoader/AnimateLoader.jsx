@@ -63,11 +63,11 @@ class AnimateLoader extends Component {
             displayDropZone: false,
             source,
             rootComponent,
-            components,
             pending: false,
             positiveEnabled: true,
             options: {
-              name: rootComponent
+              name: rootComponent,
+              components
             }
           })
         })
@@ -136,13 +136,13 @@ class AnimateLoader extends Component {
           <Grid.Column>
             <Header as="h4">Animations</Header>
             <Segment style={{overflow: 'auto', maxHeight: 20 + 'em'}}>
-              <SimpleList data={this.state.components['anim']} />
+              <SimpleList data={this.state.options.components['anim']} />
             </Segment>
           </Grid.Column>
           <Grid.Column>
             <Header as="h4">Labels</Header>
             <Segment style={{overflow: 'auto', maxHeight: 20 + 'em'}}>
-              <SimpleList data={this.state.components['text']} />
+              <SimpleList data={this.state.options.components['text']} />
             </Segment>
           </Grid.Column>
         </Grid.Row>
