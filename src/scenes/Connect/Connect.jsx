@@ -9,7 +9,6 @@ import WidgetMenu from './components/WidgetMenu'
 class Connect extends Component {
   constructor (props) {
     super(props)
-    console.log('constructed')
   }
 
   render () {

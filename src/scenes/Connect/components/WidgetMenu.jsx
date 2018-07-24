@@ -6,17 +6,14 @@ import { Dropdown, Button, Header, Grid, Divider, Transition, Segment } from 'se
 
 class WidgetMenu extends Component {
   render () {
-    console.log(this.props.models)
-    console.log(this.props.animates)
-
     return <Segment>
       <Button>Add range</Button>
     </Segment>
   }
 }
 
-function mapStateToProps ({models, animates}) {
-  return {models, animates}
+function mapStateToProps () {
+  return {}
 }
 
 function mapDispatchToProps (dispatch) {
