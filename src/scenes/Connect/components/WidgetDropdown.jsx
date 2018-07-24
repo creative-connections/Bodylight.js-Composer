@@ -25,6 +25,7 @@ class WidgetDropdown extends Component {
     return <Dropdown fluid search selection
       placeholder='Select object'
       options={options}
+      value={this.props.selectedWidget}
       onChange={this.onChange}
     />
   }
