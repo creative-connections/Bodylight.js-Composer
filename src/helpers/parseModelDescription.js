@@ -75,26 +75,30 @@ const parseCoSimulationAttribute = (resolver, doc, attr) => {
   return node.getAttribute(attr)
 }
 
-export default class ModelDescriptionParser {
-  parse (xml) {
-    var domParser = new DOMParser()
-    var doc = domParser.parseFromString(xml, 'application/xml')
-    var resolver = doc.createNSResolver(
-      doc.ownerDocument == null
-        ? doc.documentElement
-        : doc.ownerDocument.documentElement
-    )
+const parseModelDescription = (xml) => {
+  var domParser = new DOMParser()
+  var doc = domParser.parseFromString(xml, 'application/xml')
+  var resolver = doc.createNSResolver(
+    doc.ownerDocument == null
+      ? doc.documentElement
+      : doc.ownerDocument.documentElement
+  )
 
-    // TODO catch errors
-    this.variables = parseVariables(resolver, doc)
-    this.parameters = parseParameters(resolver, doc)
+  var output = {}
 
-    this.modelName = parseFmiModelDescriptionAttribute(resolver, doc, 'modelName')
-    this.guid = parseFmiModelDescriptionAttribute(resolver, doc, 'guid')
-    this.description = parseFmiModelDescriptionAttribute(resolver, doc, 'description')
-    this.generationTool = parseFmiModelDescriptionAttribute(resolver, doc, 'generationTool')
-    this.generationDateAndTime = parseFmiModelDescriptionAttribute(resolver, doc, 'generationDateAndTime')
+  // TODO catch errors
+  output.variables = parseVariables(resolver, doc)
+  output.parameters = parseParameters(resolver, doc)
 
-    this.modelIdentifier = parseCoSimulationAttribute(resolver, doc, 'modelIdentifier')
-  }
+  output.modelName = parseFmiModelDescriptionAttribute(resolver, doc, 'modelName')
+  output.guid = parseFmiModelDescriptionAttribute(resolver, doc, 'guid')
+  output.description = parseFmiModelDescriptionAttribute(resolver, doc, 'description')
+  output.generationTool = parseFmiModelDescriptionAttribute(resolver, doc, 'generationTool')
+  output.generationDateAndTime = parseFmiModelDescriptionAttribute(resolver, doc, 'generationDateAndTime')
+
+  output.modelIdentifier = parseCoSimulationAttribute(resolver, doc, 'modelIdentifier')
+
+  return output
 }
+
+export default parseModelDescription

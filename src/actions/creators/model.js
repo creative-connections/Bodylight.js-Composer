@@ -1,12 +1,12 @@
 import { ADD_MODEL, CNFSCR_SELECT_MODEL } from '@actions/types'
 
-export const addModel = (options, js, modelDescriptionParser) => {
+export const addModel = (options, js, modelDescription) => {
   return {
     type: ADD_MODEL,
     payload: {
       ...options,
       js,
-      modelDescriptionParser
+      ...modelDescription
     }
   }
 }
