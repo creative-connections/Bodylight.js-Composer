@@ -1,5 +1,5 @@
 const WidgetTypes = {
-  ANIMATE_ANIMS: 'AA',
+  ANIMATE_ANIM: 'AA',
   ANIMATE_TEXT: 'AT'
 }
 

@@ -20,7 +20,7 @@ class Widgets {
   }
 
   getForDropdown () {
-    var options = [ ]
+    var options = []
     Object.entries(this.animates).forEach(([animateName, animate]) => {
       animate.components.anim.forEach(componentName => {
         const value = {

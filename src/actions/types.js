@@ -6,3 +6,5 @@ export const CNFSCR_SELECT_ANIMATE = 'CNFSCR_SELECT_ANIMATE'
 
 export const ADD_MODEL = 'ADD_MODEL'
 export const ADD_ANIMATE = 'ADD_ANIMATE'
+
+export const SELECT_WIDGET = 'SELECT_WIDGET'
