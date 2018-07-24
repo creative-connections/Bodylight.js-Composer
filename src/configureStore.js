@@ -10,14 +10,17 @@ const persistConfig = {
   storage: localForage
 }
 
+var store
+var persistor
+
 export default () => {
-  let store = createStore(
+  store = store || createStore(
     persistReducer(persistConfig, reducers),
     compose(
       applyMiddleware(ReduxPromise)
     )
   )
-  let persistor = persistStore(store)
+  persistor = persistor || persistStore(store)
 
   return { store, persistor }
 }
