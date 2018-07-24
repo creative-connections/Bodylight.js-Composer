@@ -5,6 +5,7 @@ import ActiveScreen from '@helpers/ActiveScreenEnum'
 import Configuration from '@scenes/Configuration'
 import Builder from '@runtime'
 import Preview from '@scenes/Preview'
+import Connect from '@scenes/Connect'
 
 class DisplayContainer extends Component {
   render () {
@@ -17,7 +18,9 @@ class DisplayContainer extends Component {
       ]
     }
     if (screen === ActiveScreen.CONNECT) {
-      return <div>connect</div>
+      return [
+        <Connect key="connect"/>
+      ]
     }
     if (screen === ActiveScreen.DESIGN) {
       return <div>design</div>
