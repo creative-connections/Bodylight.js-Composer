@@ -51,7 +51,6 @@ class AnimateAnimSettings extends Component {
     out.loaded = false
     out.config = update(this.props.defaultConfigAnimateAnim, {})
 
-    console.log(out.config)
     return out
   }
 
@@ -84,19 +83,19 @@ class AnimateAnimSettings extends Component {
   }
 
   handleConfigApply () {
-    console.log('HANDLE CONFIG APPLY')
     this.props.configAnimateAnimUpdate(
       this.props.name,
       this.props.parent,
       this.state.config
     )
+
+    this.setState({
+      pending: false
+    })
   }
 
   handleConfigCancel (e, v) {
     const {config} = this.getConfig()
-    console.log('HANDLE CONFIG CANCEL')
-    console.log(e)
-    console.log(v)
     this.setState({
       config,
       displayPendingChangesButton: false
@@ -121,7 +120,7 @@ class AnimateAnimSettings extends Component {
     return (
       <Segment>
         <Header as="h2">{this.props.parent}.{this.props.name}</Header>
-        <Form>
+        <Form onSubmit={this.handleConfigApply}>
           <Form.Field>
           </Form.Field>
           <Form.Field>
@@ -149,12 +148,13 @@ class AnimateAnimSettings extends Component {
 
           <Divider hidden/>
 
-          <PendingChangesButton
-            display={this.state.displayPendingChangesButton}
-            pending={this.state.pending}
-            onCancel={this.handleConfigCancel}
-            onApply={this.handleConfigApply} />
         </Form>
+
+        <PendingChangesButton
+          display={this.state.displayPendingChangesButton}
+          pending={this.state.pending}
+          onCancel={this.handleConfigCancel}
+          onApply={this.handleConfigApply} />
       </Segment>
     )
   }
