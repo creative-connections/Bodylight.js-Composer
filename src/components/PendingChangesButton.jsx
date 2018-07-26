@@ -1,19 +1,24 @@
 import React from 'react'
-import NegativeOrPositiveButton from '@components/NegativeOrPositiveButton'
 import { Button } from 'semantic-ui-react'
 
-const PendingChangesButton = ({ display = true, pending = false, onApply, onCancel }) => {
+const PendingChangesButton = ({ onApply, onCancel, display = true, pending = false, error = false }) => {
   if (!display) {
     return null
   }
 
+  if (pending && error) {
+    return <Button.Group>
+      <Button.Or className='error' text='🗙' />
+      <Button onClick={onCancel} negative>{'Cancel'}</Button>
+    </Button.Group>
+  }
+
   if (pending) {
-    return <NegativeOrPositiveButton
-      negativeLabel='Cancel'
-      positiveLabel='Apply changes'
-      positiveOnClick={onApply}
-      negativeOnClick={onCancel}
-    />
+    return <Button.Group>
+      <Button onClick={onCancel}>{'Cancel'}</Button>
+      <Button.Or />
+      <Button onClick={onApply} positive>{'Apply changes'}</Button>
+    </Button.Group>
   }
 
   return <Button.Group>

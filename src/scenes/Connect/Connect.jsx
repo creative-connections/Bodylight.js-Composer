@@ -5,6 +5,7 @@ import { Grid, Segment, Button, Header, Sticky } from 'semantic-ui-react'
 
 import WidgetDropdown from './components/WidgetDropdown'
 import WidgetMenu from './components/WidgetMenu'
+import WidgetSettings from './components/WidgetSettings'
 
 class Connect extends Component {
   constructor (props) {
@@ -17,6 +18,7 @@ class Connect extends Component {
         <Grid.Row centered padded='horizontally'>
           <Grid.Column width={12}>
             <WidgetDropdown />
+            <WidgetSettings />
           </Grid.Column>
           <Grid.Column width={4}>
             <Sticky>

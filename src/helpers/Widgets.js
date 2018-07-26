@@ -16,6 +16,9 @@ class Widgets {
   }
 
   static value (value) {
+    if (value === '') {
+      return value
+    }
     return JSON.parse(value)
   }
 
