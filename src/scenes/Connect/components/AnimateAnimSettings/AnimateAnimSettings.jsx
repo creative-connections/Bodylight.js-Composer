@@ -41,7 +41,6 @@ class AnimateAnimSettings extends Component {
       this.props.configAnimateAnim[this.props.parent] !== undefined &&
       this.props.configAnimateAnim[this.props.parent][this.props.name] !== undefined
     ) {
-      console.info('LOADING CONFIG')
       out.loaded = true
       out.config = this.props.configAnimateAnim[this.props.parent][this.props.name]
       return out
