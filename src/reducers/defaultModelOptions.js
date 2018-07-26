@@ -1,4 +1,7 @@
 export default function (state, action) {
+  if (state !== undefined) {
+    return state
+  }
   return {
     mode: 'continuous',
     interval: 50,
