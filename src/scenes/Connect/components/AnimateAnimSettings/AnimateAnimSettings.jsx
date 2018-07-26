@@ -50,6 +50,8 @@ class AnimateAnimSettings extends Component {
     // No configuration created yet, fill with defaultConfigAnimateAnim
     out.loaded = false
     out.config = update(this.props.defaultConfigAnimateAnim, {})
+
+    console.log(out.config)
     return out
   }
 
@@ -61,19 +63,28 @@ class AnimateAnimSettings extends Component {
     })
   }
 
-  handleConfigChange (e, {name, value}) {
+  handleConfigChange (e, {name, value, checked}) {
     if (this.state.config[name] === undefined) {
       toast.error(`${name} is not a valid configuration option for Animate Anim`)
       return
     }
+
+    var config
+    if (typeof checked === 'undefined') {
+      config = update(this.state.config, {[name]: {$set: value}})
+    } else {
+      config = update(this.state.config, {[name]: {$set: checked}})
+    }
+
     this.setState({
-      config: update(this.state.config, {[name]: {$set: value}}),
+      config,
       pending: true,
       displayPendingChangesButton: true
     })
   }
 
   handleConfigApply () {
+    console.log('HANDLE CONFIG APPLY')
     this.props.configAnimateAnimUpdate(
       this.props.name,
       this.props.parent,
@@ -81,8 +92,11 @@ class AnimateAnimSettings extends Component {
     )
   }
 
-  handleConfigCancel () {
+  handleConfigCancel (e, v) {
     const {config} = this.getConfig()
+    console.log('HANDLE CONFIG CANCEL')
+    console.log(e)
+    console.log(v)
     this.setState({
       config,
       displayPendingChangesButton: false
