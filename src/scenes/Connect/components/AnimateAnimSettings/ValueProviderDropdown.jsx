@@ -27,7 +27,7 @@ class ValueProviderDropdown extends Component {
         <Form.Dropdown fluid search selection
           placeholder='Value provider'
           options={this.valueProvidersOptions}
-          name={this.props.value}
+          name={this.props.name}
           value={this.props.value}
           onChange={this.props.onChange} />
       </Form.Field>
