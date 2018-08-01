@@ -13,9 +13,7 @@ class Preview extends Component {
   }
 
   createPreview () {
-    const builder = new Builder(
-      this.props.models
-    )
+    const builder = new Builder()
 
     this.src = builder.build()
   }

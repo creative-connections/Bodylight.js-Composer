@@ -1,13 +1,15 @@
-function init (modelDefs) {
-  var modelnames = Object.keys(modelDefs)
+function init (modelDefinitions, modelConfigs, functions) {
+  var modelNames = Object.keys(modelDefinitions)
 
   const initModels = () => {
     var promises = []
 
-    modelnames.forEach(modelname => {
-      const model = modelDefs[modelname]
-      promises.push(modelRuntime(model, {}))
-      promises.push(modelRuntime(model, {}))
+    modelNames.forEach(modelName => {
+      const model = modelDefinitions[modelName]
+      const config = modelConfigs[modelName]
+
+      promises.push(modelRuntime(model, config, functions))
+      // promises.push(modelRuntime(model, config))
     })
 
     return Promise.all(promises)
@@ -15,6 +17,40 @@ function init (modelDefs) {
 
   initModels().then((models) => {
     console.log(models)
+
+    const fmi2ModelExchange = 0
+    const fmi2CoSimulation = 1
+
+    models.forEach(model => {
+      let fmi2CallbackFunctionsPtr = model.createFmi2CallbackFunctions(model.consoleLoggerPtr)
+      console.log(model.consoleLoggerPtr)
+
+      model.inst = model.fmi2Instantiate(
+        model.config.name,
+        fmi2CoSimulation,
+        model.config.guid,
+        '',
+        fmi2CallbackFunctionsPtr,
+        0,
+        0 // debug
+      )
+
+      model.startTime = 0.0
+      model.currentStep = model.startTime
+      var status = model.fmi2SetupExperiment(model.inst, 1, 0.000001, model.startTime, 0)
+      console.log('setup experiment status: ', status)
+
+      status = model.fmi2EnterInitializationMode(model.inst)
+      // model.loadInitialValues()
+      // model.attachRanges()
+      // model.attachCheckboxes()
+      status = model.fmi2ExitInitializationMode(model.inst)
+
+      model.mainloop()
+      // mainloopId = window.setInterval(model.mainloop, model.interval, model.precision)
+      // tickerUpdate = event => model.tickerUpdate()
+      // createjs.Ticker.addEventListener('tick', tickerUpdate)
+    })
   })
 }
 
