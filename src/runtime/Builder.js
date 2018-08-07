@@ -2,7 +2,9 @@ import toAST from 'to-ast'
 import escodegen from 'escodegen'
 
 import createModelRuntime from './templates/createModelRuntime'
+import AnimateRuntime from './templates/AnimateRuntime'
 import createAnimateRuntime from './templates/createAnimateRuntime'
+
 import init from './templates/init'
 
 import configureStore from '@src/configureStore'
@@ -14,6 +16,7 @@ import lookupProvider from './templates/model/lookupProvider'
 import lookupWidget from './templates/model/lookupWidget'
 import bindProviders from './templates/model/bindProviders'
 import registerGetId from './templates/model/registerGetId'
+import modelInit from './templates/model/init'
 
 import update from 'immutability-helper'
 
@@ -30,7 +33,6 @@ class Builder {
     this.models = state.models
     this.configAnimateAnim = state.configAnimateAnim
     this.animates = state.animates
-    console.log(this.animates)
     this.clearSrc()
   }
 
@@ -140,6 +142,16 @@ class Builder {
     })
   }
 
+  appendAnimates () {
+    this.append('let animates = {}')
+    Object.entries(this.animates).forEach(([key, value]) => {
+      // create function from sources
+      let source = Function(' "use strict"; return(' + value.source + ')')
+      // call source() to get the actual animate source function
+      this.append(`animates.${key} = ${this.tpl(source())}`)
+    })
+  }
+
   appendFunctions () {
     this.append('let functions = {}')
 
@@ -150,6 +162,7 @@ class Builder {
     this.append('functions.lookupWidget = ' + this.tpl(lookupWidget))
     this.append('functions.bindProviders = ' + this.tpl(bindProviders))
     this.append('functions.registerGetId = ' + this.tpl(registerGetId))
+    this.append('functions.init = ' + this.tpl(modelInit))
   }
 
   appendWidgetType () {
@@ -167,6 +180,7 @@ class Builder {
     this.clearSrc()
 
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
+    append('<canvas id="beaker"></canvas>')
     append('<script>{')
 
     // creates variable modelDefinitions={name: model}
@@ -175,11 +189,12 @@ class Builder {
     this.appendFunctions()
     this.appendWidgetType()
     this.appendValueProviderType()
+    this.appendAnimates()
+
+    append(tpl(AnimateRuntime))
 
     append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))
-
-    console.log(tpl(createAnimateRuntime))
 
     append(tpl(init))
 
@@ -187,6 +202,7 @@ class Builder {
       init(
         modelDefinitions,
         modelConfigs,
+        animates,
         functions,
         WidgetType,
         ValueProviderType

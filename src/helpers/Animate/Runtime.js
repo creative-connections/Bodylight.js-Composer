@@ -1,7 +1,7 @@
 import AnimateError from '@exceptions/AnimateError'
 import WebFont from 'webfontloader'
 
-class Runtime {
+class AnimateRuntime {
   constructor (source, name) {
     const initContents = Function(' "use strict"; return(' + source + ')')
 
@@ -159,4 +159,4 @@ class Runtime {
   }
 }
 
-export default Runtime
+export default AnimateRuntime

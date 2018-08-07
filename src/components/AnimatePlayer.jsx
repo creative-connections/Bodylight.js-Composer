@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Runtime from '@helpers/Animate/Runtime'
+import AnimateRuntime from '@helpers/Animate/Runtime'
 
 import { ResizableBox } from 'react-resizable'
 
@@ -19,7 +19,7 @@ class AnimatePlayer extends Component {
 
   createRuntime (source, name) {
     if (source !== null && name !== null) {
-      this.runtime = new Runtime(source, name)
+      this.runtime = new AnimateRuntime(source, name)
     }
   }
 

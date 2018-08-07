@@ -1,59 +1,40 @@
-function init (modelDefinitions, modelConfigs, functions, WidgetType, ValueProviderType) {
+function init (modelDefinitions, modelConfigs, animates, functions) {
+  let modelPromises = []
+  let animatePromises = []
+
   let modelNames = Object.keys(modelDefinitions)
+  modelNames.forEach(name => {
+    const model = modelDefinitions[name]
+    const config = modelConfigs[name]
+    const promise = createModelRuntime(model, config, functions)
+    modelPromises.push(promise)
+  })
 
-  const initModels = () => {
-    var promises = []
+  Object.entries(animates).forEach(([name, source]) => {
+    const promise = createAnimateRuntime(
+      name,
+      source,
+      document.getElementById(name)
+    )
+    animatePromises.push(promise)
+  })
 
-    modelNames.forEach(modelName => {
-      const model = modelDefinitions[modelName]
-      const config = modelConfigs[modelName]
+  Promise.all([
+    Promise.all(modelPromises),
+    Promise.all(animatePromises)
+  ]).then((results) => {
+    let models = results[0]
+    let animates = results[1]
 
-      promises.push(createModelRuntime(model, config, functions, WidgetType, ValueProviderType))
-      // promises.push(modelRuntime(model, config))
-    })
+    let widgets = {
+      animates: animates.length > 0 ? Object.assign.apply({}, animates) : []
+    }
 
-    return Promise.all(promises)
-  }
-
-  initModels().then((models) => {
-    console.log(models)
-
-    const fmi2ModelExchange = 0
-    const fmi2CoSimulation = 1
+    console.log(widgets)
 
     models.forEach(model => {
-      model.bindProviders()
-
-      console.log(model)
-
-      let fmi2CallbackFunctionsPtr = model.createFmi2CallbackFunctions(model.consoleLoggerPtr)
-      console.log(model.consoleLoggerPtr)
-
-      model.inst = model.fmi2Instantiate(
-        model.config.name,
-        fmi2CoSimulation,
-        model.config.guid,
-        '',
-        fmi2CallbackFunctionsPtr,
-        0,
-        0 // debug
-      )
-
-      model.startTime = 0.0
-      model.currentStep = model.startTime
-      var status = model.fmi2SetupExperiment(model.inst, 1, 0.000001, model.startTime, 0)
-      console.log('setup experiment status: ', status)
-
-      status = model.fmi2EnterInitializationMode(model.inst)
-      // model.loadInitialValues()
-      // model.attachRanges()
-      // model.attachCheckboxes()
-      status = model.fmi2ExitInitializationMode(model.inst)
-
-      model.mainloop()
-      // mainloopId = window.setInterval(model.mainloop, model.interval, model.precision)
-      // tickerUpdate = event => model.tickerUpdate()
-      // createjs.Ticker.addEventListener('tick', tickerUpdate)
+      model.widgets = widgets
+      model.init()
     })
   })
 }

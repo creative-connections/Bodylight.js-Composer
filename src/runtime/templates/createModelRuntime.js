@@ -1,4 +1,4 @@
-export default function createModelRuntime (Model, config, functions, WidgetType, ValueProviderType) {
+export default function createModelRuntime (Model, config, functions) {
   return new Promise((resolve, reject) => {
     Model().ready.then(model => {
       // save configuration information about this instance
@@ -15,11 +15,14 @@ export default function createModelRuntime (Model, config, functions, WidgetType
         model.config.identifier + '_consoleLogger' // WASM signature
       )
 
+      model.init = functions.init.bind(model)
+
       model.gettersAndSetters = functions.gettersAndSetters.bind(model)
       model.gettersAndSetters()
 
       model.registerGetId = functions.registerGetId.bind(model)
 
+      // global defines
       model.WidgetType = WidgetType
       model.ValueProviderType = ValueProviderType
 
