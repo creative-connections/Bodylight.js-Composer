@@ -2,6 +2,7 @@ export default function init () {
   const fmi2CoSimulation = 1
 
   this.bindProviders()
+  this.bindWidgets()
 
   let fmi2CallbackFunctionsPtr = this.createFmi2CallbackFunctions(this.consoleLoggerPtr)
   console.log(this.consoleLoggerPtr)

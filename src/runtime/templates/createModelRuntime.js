@@ -29,6 +29,7 @@ export default function createModelRuntime (Model, config, functions) {
       model.lookupProvider = functions.lookupProvider.bind(model)
       model.bindProviders = functions.bindProviders.bind(model)
       model.lookupWidget = functions.lookupWidget.bind(model)
+      model.bindWidgets = functions.bindWidgets.bind(model)
 
       model.step = function (precision) {
         var status = model.fmi2DoStep(model.inst, model.currentStep, precision, 1)

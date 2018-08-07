@@ -15,6 +15,7 @@ import gettersAndSetters from './templates/model/gettersAndSetters'
 import lookupProvider from './templates/model/lookupProvider'
 import lookupWidget from './templates/model/lookupWidget'
 import bindProviders from './templates/model/bindProviders'
+import bindWidgets from './templates/model/bindWidgets'
 import registerGetId from './templates/model/registerGetId'
 import modelInit from './templates/model/init'
 
@@ -161,6 +162,7 @@ class Builder {
     this.append('functions.lookupProvider = ' + this.tpl(lookupProvider))
     this.append('functions.lookupWidget = ' + this.tpl(lookupWidget))
     this.append('functions.bindProviders = ' + this.tpl(bindProviders))
+    this.append('functions.bindWidgets = ' + this.tpl(bindWidgets))
     this.append('functions.registerGetId = ' + this.tpl(registerGetId))
     this.append('functions.init = ' + this.tpl(modelInit))
   }
