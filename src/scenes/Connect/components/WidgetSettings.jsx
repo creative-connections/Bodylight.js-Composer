@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Widgets from '@helpers/Widgets'
-import WidgetTypes from '@helpers/WidgetTypes'
+import WidgetType from '@helpers/WidgetType'
 
 import AnimateAnimSettings from './AnimateAnimSettings'
 
@@ -12,7 +12,7 @@ class WidgetSettings extends Component {
     var selectedWidget = Widgets.value(this.props.selectedWidget)
 
     switch (selectedWidget.type) {
-      case WidgetTypes.ANIMATE_ANIM:
+      case WidgetType.ANIMATE_ANIM:
         return <AnimateAnimSettings
           name={selectedWidget.name}
           parent={selectedWidget.parent}

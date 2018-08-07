@@ -12,7 +12,7 @@ import gettersAndSetters from './templates/model/gettersAndSetters'
 
 import update from 'immutability-helper'
 
-import WidgetTypes from '@helpers/WidgetTypes'
+import WidgetType from '@helpers/WidgetType'
 import ValueProviderType from '@helpers/ValueProviderType'
 import ValueProviders from '@helpers/ValueProviders'
 import AnimateAnimMode from '@helpers/AnimateAnimMode'
@@ -69,7 +69,7 @@ class Builder {
         const transform = Function(`return ${configuration.transform}`)()
         const widget = Function(
           `return this.lookupWidget(
-            '${WidgetTypes.ANIMATE_ANIM}',
+            '${WidgetType.ANIMATE_ANIM}',
             '${animate}',
             '${name}')`
         )
@@ -141,8 +141,8 @@ class Builder {
     this.append('functions.gettersAndSetters = ' + this.tpl(gettersAndSetters))
   }
 
-  appendWidgetTypes () {
-    this.append(`let WidgetTypes = ${this.tpl(WidgetTypes)}`)
+  appendWidgetType () {
+    this.append(`let WidgetType = ${this.tpl(WidgetType)}`)
   }
 
   build () {
@@ -158,7 +158,7 @@ class Builder {
     this.appendModelDefinitions()
     this.appendModelConfigs()
     this.appendFunctions()
-    this.appendWidgetTypes()
+    this.appendWidgetType()
 
     append(tpl(modelRuntime))
 
