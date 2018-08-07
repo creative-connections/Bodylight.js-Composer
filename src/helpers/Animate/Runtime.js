@@ -72,7 +72,7 @@ class AnimateRuntime {
   static getComponentNames (source, name) {
     return new Promise((resolve) => {
       // init new runtime to fill library with components
-      var runtime = new Runtime(source, name)
+      var runtime = new AnimateRuntime(source, name)
       const canvas = document.createElement('canvas')
       runtime.init(canvas).then(() => {
         const components = runtime.getComponents()
