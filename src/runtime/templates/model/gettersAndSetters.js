@@ -3,10 +3,10 @@ export default function gettersAndSetters () {
  * Converts TypedArray to Uint8Array
  */
   this.heapArray = function (arr) {
-    var numBytes = arr.length * arr.BYTES_PER_ELEMENT
-    var ptr = this._malloc(numBytes)
+    let numBytes = arr.length * arr.BYTES_PER_ELEMENT
+    let ptr = this._malloc(numBytes)
     // heapBytes.byteOffset is the ptr
-    var heapBytes = new Uint8Array(this.HEAPU8.buffer, ptr, numBytes)
+    let heapBytes = new Uint8Array(this.HEAPU8.buffer, ptr, numBytes)
     heapBytes.set(new Uint8Array(arr.buffer))
     return heapBytes
   }
@@ -52,8 +52,8 @@ export default function gettersAndSetters () {
 
   this.flushBooleanQueue = function () {
     if (this.setBooleanQueue) {
-      var references = this.heapArray(new Int32Array(this.setBooleanQueue.references))
-      var values = this.heapArray(new Int32Array(this.setBooleanQueue.values))
+      let references = this.heapArray(new Int32Array(this.setBooleanQueue.references))
+      let values = this.heapArray(new Int32Array(this.setBooleanQueue.values))
 
       this.setBoolean(references, values, this.setBooleanQueue.references.length)
       this._free(references.byteOffset)
@@ -65,8 +65,8 @@ export default function gettersAndSetters () {
 
   this.flushRealQueue = function () {
     if (this.setRealQueue) {
-      var references = this.heapArray(new Int32Array(this.setRealQueue.references))
-      var values = this.heapArray(new Float64Array(this.setRealQueue.values))
+      let references = this.heapArray(new Int32Array(this.setRealQueue.references))
+      let values = this.heapArray(new Float64Array(this.setRealQueue.values))
 
       this.setReal(references, values, this.setRealQueue.references.length)
       this._free(references.byteOffset)
@@ -95,10 +95,10 @@ export default function gettersAndSetters () {
  * It is recommended to use Module.getReal with reusable mallocs.
  */
   this.getSingleReal = function (reference) {
-    var query = this.heapArray(new Int32Array([reference]))
-    var output = this.heapArray(new Float64Array(1))
+    let query = this.heapArray(new Int32Array([reference]))
+    let output = this.heapArray(new Float64Array(1))
     this.getReal(query, output, 1)
-    var num = new Float64Array(output.buffer, output.byteOffset, 1)
+    let num = new Float64Array(output.buffer, output.byteOffset, 1)
     this._free(query.byteOffset)
     this._free(output.byteOffset)
     return num[0]
@@ -122,23 +122,12 @@ export default function gettersAndSetters () {
  * It is recommended to use Module.getBoolean with reusable mallocs.
  */
   this.getSingleBoolean = function (reference) {
-    var query = this.heapArray(new Int32Array([reference]))
-    var output = this.heapArray(new Int32Array(1))
+    let query = this.heapArray(new Int32Array([reference]))
+    let output = this.heapArray(new Int32Array(1))
     this.getBoolean(query, output, 1)
-    var num = new Int32Array(output.buffer, output.byteOffset, 1)
+    let num = new Int32Array(output.buffer, output.byteOffset, 1)
     this._free(query.byteOffset)
     this._free(output.byteOffset)
     return num[0]
-  }
-
-  /**
- * Loads Reals from FMU based on Module.config.variables
- */
-  this.getRealFromConfig = function () {
-    return this.fmi2GetReal(
-      this.inst,
-      this.config.variables.byteOffset,
-      this.config.count,
-      this.config.output.byteOffset)
   }
 }

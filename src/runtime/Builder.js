@@ -9,6 +9,10 @@ import configureStore from '@src/configureStore'
 import cwrapFunctions from './templates/model/cwrapFunctions'
 import consoleLogger from './templates/model/consoleLogger'
 import gettersAndSetters from './templates/model/gettersAndSetters'
+import lookupProvider from './templates/model/lookupProvider'
+import lookupWidget from './templates/model/lookupWidget'
+import bindProviders from './templates/model/bindProviders'
+import registerGetId from './templates/model/registerGetId'
 
 import update from 'immutability-helper'
 
@@ -139,10 +143,18 @@ class Builder {
     this.append('functions.cwrapFunctions = ' + this.tpl(cwrapFunctions))
     this.append('functions.consoleLogger = ' + this.tpl(consoleLogger))
     this.append('functions.gettersAndSetters = ' + this.tpl(gettersAndSetters))
+    this.append('functions.lookupProvider = ' + this.tpl(lookupProvider))
+    this.append('functions.lookupWidget = ' + this.tpl(lookupWidget))
+    this.append('functions.bindProviders = ' + this.tpl(bindProviders))
+    this.append('functions.registerGetId = ' + this.tpl(registerGetId))
   }
 
   appendWidgetType () {
     this.append(`let WidgetType = ${this.tpl(WidgetType)}`)
+  }
+
+  appendValueProviderType () {
+    this.append(`let ValueProviderType = ${this.tpl(ValueProviderType)}`)
   }
 
   build () {
@@ -159,6 +171,7 @@ class Builder {
     this.appendModelConfigs()
     this.appendFunctions()
     this.appendWidgetType()
+    this.appendValueProviderType()
 
     append(tpl(modelRuntime))
 
@@ -168,7 +181,9 @@ class Builder {
       init(
         modelDefinitions,
         modelConfigs,
-        functions
+        functions,
+        WidgetType,
+        ValueProviderType
       )
     }, false)`)
 

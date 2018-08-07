@@ -1,4 +1,4 @@
-function init (modelDefinitions, modelConfigs, functions) {
+function init (modelDefinitions, modelConfigs, functions, WidgetType, ValueProviderType) {
   var modelNames = Object.keys(modelDefinitions)
 
   const initModels = () => {
@@ -8,7 +8,7 @@ function init (modelDefinitions, modelConfigs, functions) {
       const model = modelDefinitions[modelName]
       const config = modelConfigs[modelName]
 
-      promises.push(modelRuntime(model, config, functions))
+      promises.push(modelRuntime(model, config, functions, WidgetType, ValueProviderType))
       // promises.push(modelRuntime(model, config))
     })
 
@@ -22,6 +22,8 @@ function init (modelDefinitions, modelConfigs, functions) {
     const fmi2CoSimulation = 1
 
     models.forEach(model => {
+      model.bindProviders()
+
       let fmi2CallbackFunctionsPtr = model.createFmi2CallbackFunctions(model.consoleLoggerPtr)
       console.log(model.consoleLoggerPtr)
 

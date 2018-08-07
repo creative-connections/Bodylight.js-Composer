@@ -5,9 +5,9 @@ export default function consoleLogger (componentEnvironment, instanceName, statu
   /* Fills variables into message returned by the FMU, the C way */
   const formatMessage = (message, other) => {
     // get a new pointer
-    var ptr = this._malloc(1)
+    let ptr = this._malloc(1)
     // get the size of the resulting formated message
-    var num = this.snprintf(ptr, 0, message, other)
+    let num = this.snprintf(ptr, 0, message, other)
     this._free(ptr)
     num++ // TODO: Error handling num < 0
     ptr = this._malloc(num)

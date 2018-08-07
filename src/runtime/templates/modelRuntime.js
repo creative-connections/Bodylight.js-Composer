@@ -1,4 +1,4 @@
-export default function modelRuntime (Model, config, functions) {
+export default function modelRuntime (Model, config, functions, WidgetType, ValueProviderType) {
   return new Promise((resolve, reject) => {
     Model().ready.then(model => {
       // save configuration information about this instance
@@ -15,8 +15,17 @@ export default function modelRuntime (Model, config, functions) {
         model.config.identifier + '_consoleLogger' // WASM signature
       )
 
-      this.gettersAndSetters = functions.gettersAndSetters.bind(model)
-      this.gettersAndSetters()
+      model.gettersAndSetters = functions.gettersAndSetters.bind(model)
+      model.gettersAndSetters()
+
+      model.registerGetId = functions.registerGetId.bind(model)
+
+      model.WidgetType = WidgetType
+      model.ValueProviderType = ValueProviderType
+
+      model.lookupProvider = functions.lookupProvider.bind(model)
+      model.bindProviders = functions.bindProviders.bind(model)
+      model.lookupWidget = functions.lookupWidget.bind(model)
 
       model.step = function (precision) {
         var status = model.fmi2DoStep(model.inst, model.currentStep, precision, 1)
