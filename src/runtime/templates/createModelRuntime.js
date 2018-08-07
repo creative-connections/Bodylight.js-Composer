@@ -31,38 +31,12 @@ export default function createModelRuntime (Model, config, functions) {
       model.lookupWidget = functions.lookupWidget.bind(model)
       model.bindWidgets = functions.bindWidgets.bind(model)
 
-      model.step = function (precision) {
-        var status = model.fmi2DoStep(model.inst, model.currentStep, precision, 1)
+      model.modelTick = functions.modelTick.bind(model)
+      model.stageTick = functions.stageTick.bind(model)
 
-        // TODO: proper decimal arithmetic, external library perhaps
-        model.currentStep = parseFloat(parseFloat(model.currentStep + precision).toPrecision(8))
-        return status
-      }
+      model.updateOutputValues = functions.updateOutputValues.bind(model)
 
-      model.tickerUpdate = function () {
-        var values = model.update()
-        model.tickAnimations(values)
-      }
-
-      model.update = function () {
-        model.getRealFromConfig()
-
-        var values = new Float64Array(
-          this.config.output.buffer,
-          this.config.output.byteOffset,
-          this.config.count
-        )
-        model.updateVariables(values)
-        model.updateAnims(values)
-
-        return values
-      }
-
-      model.mainloop = function () {
-        model.flushSetQueues()
-        model.step(model.precision)
-        console.log('mainloop 23')
-      }
+      model.updateControlledAnimateAnims = functions.updateControlledAnimateAnims.bind(model)
 
       console.log('MODULE REAAADY')
       resolve(model)

@@ -18,6 +18,10 @@ import bindProviders from './templates/model/bindProviders'
 import bindWidgets from './templates/model/bindWidgets'
 import registerGetId from './templates/model/registerGetId'
 import modelInit from './templates/model/init'
+import modelTick from './templates/model/modelTick'
+import stageTick from './templates/model/stageTick'
+import updateOutputValues from './templates/model/updateOutputValues'
+import updateControlledAnimateAnims from './templates/model/updateControlledAnimateAnims'
 
 import update from 'immutability-helper'
 
@@ -45,6 +49,7 @@ class Builder {
     if (provider.type === ValueProviderType.MODEL_VARIABLE) {
       reference = model.variables[provider.name].reference
     }
+    console.log(provider)
     return Function(
       `return this.lookupProvider(
         '${provider.type}',
@@ -57,7 +62,7 @@ class Builder {
     const model = this.models[name]
     let config = {}
     config.interval = model.interval
-    config.stepSize = model.stepSize
+    config.stepSize = parseFloat(model.stepSize)
     config.guid = model.guid
     config.identifier = model.modelIdentifier
     config.name = model.name
@@ -165,6 +170,10 @@ class Builder {
     this.append('functions.bindWidgets = ' + this.tpl(bindWidgets))
     this.append('functions.registerGetId = ' + this.tpl(registerGetId))
     this.append('functions.init = ' + this.tpl(modelInit))
+    this.append('functions.modelTick = ' + this.tpl(modelTick))
+    this.append('functions.stageTick = ' + this.tpl(stageTick))
+    this.append('functions.updateOutputValues = ' + this.tpl(updateOutputValues))
+    this.append('functions.updateControlledAnimateAnims = ' + this.tpl(updateControlledAnimateAnims))
   }
 
   appendWidgetType () {
@@ -181,8 +190,8 @@ class Builder {
 
     this.clearSrc()
 
-    append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
     append('<canvas id="beaker"></canvas>')
+    append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
     append('<script>{')
 
     // creates variable modelDefinitions={name: model}

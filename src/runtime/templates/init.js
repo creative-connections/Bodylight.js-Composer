@@ -1,7 +1,9 @@
 function init (modelDefinitions, modelConfigs, animates, functions) {
+  createjs.Ticker.interval = 16.5
   let modelPromises = []
   let animatePromises = []
 
+  // create promises for all modules
   let modelNames = Object.keys(modelDefinitions)
   modelNames.forEach(name => {
     const model = modelDefinitions[name]
@@ -10,6 +12,7 @@ function init (modelDefinitions, modelConfigs, animates, functions) {
     modelPromises.push(promise)
   })
 
+  // create promises for all animates
   Object.entries(animates).forEach(([name, source]) => {
     const promise = createAnimateRuntime(
       name,
@@ -19,6 +22,7 @@ function init (modelDefinitions, modelConfigs, animates, functions) {
     animatePromises.push(promise)
   })
 
+  // init everything simultaneously
   Promise.all([
     Promise.all(modelPromises),
     Promise.all(animatePromises)
@@ -29,8 +33,6 @@ function init (modelDefinitions, modelConfigs, animates, functions) {
     let widgets = {
       animates: animates.length > 0 ? Object.assign.apply({}, animates) : []
     }
-
-    console.log(widgets)
 
     models.forEach(model => {
       model.widgets = widgets
