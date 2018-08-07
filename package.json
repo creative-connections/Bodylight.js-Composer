@@ -71,6 +71,7 @@
     "less-loader": "^4.1.0",
     "localforage": "^1.7.2",
     "lodash": "^4.17.10",
+    "memoize-one": "^4.0.0",
     "normalize-scss": "^7.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
