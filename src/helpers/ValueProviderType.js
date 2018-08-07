@@ -1,6 +1,6 @@
 const ValueProviderType = {
   MODEL_PARAMETER: 'MP',
-  MODEl_VARIABLE: 'MV'
+  MODEL_VARIABLE: 'MV'
 }
 
 export default ValueProviderType
