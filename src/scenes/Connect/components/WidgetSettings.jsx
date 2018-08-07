@@ -14,6 +14,7 @@ class WidgetSettings extends Component {
     switch (selectedWidget.type) {
       case WidgetType.ANIMATE_ANIM:
         return <AnimateAnimSettings
+          key={selectedWidget.name + selectedWidget.parent}
           name={selectedWidget.name}
           parent={selectedWidget.parent}
         />
