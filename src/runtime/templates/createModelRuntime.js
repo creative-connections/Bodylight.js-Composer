@@ -1,4 +1,4 @@
-export default function modelRuntime (Model, config, functions, WidgetType, ValueProviderType) {
+export default function createModelRuntime (Model, config, functions, WidgetType, ValueProviderType) {
   return new Promise((resolve, reject) => {
     Model().ready.then(model => {
       // save configuration information about this instance

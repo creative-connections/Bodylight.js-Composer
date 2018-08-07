@@ -1,7 +1,8 @@
 import toAST from 'to-ast'
 import escodegen from 'escodegen'
 
-import modelRuntime from './templates/modelRuntime'
+import createModelRuntime from './templates/createModelRuntime'
+import createAnimateRuntime from './templates/createAnimateRuntime'
 import init from './templates/init'
 
 import configureStore from '@src/configureStore'
@@ -28,6 +29,8 @@ class Builder {
 
     this.models = state.models
     this.configAnimateAnim = state.configAnimateAnim
+    this.animates = state.animates
+    console.log(this.animates)
     this.clearSrc()
   }
 
@@ -173,7 +176,10 @@ class Builder {
     this.appendWidgetType()
     this.appendValueProviderType()
 
-    append(tpl(modelRuntime))
+    append(tpl(createModelRuntime))
+    append(tpl(createAnimateRuntime))
+
+    console.log(tpl(createAnimateRuntime))
 
     append(tpl(init))
 
