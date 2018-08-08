@@ -39,7 +39,7 @@ class FunctionEditor extends Component {
 
     const outputCode = escodegen.generate(toAST(actualFunction))
 
-    if (typeofResult !== this.props.typeof) {
+    if (this.props.typeof && typeofResult !== this.props.typeof) {
       const errorMessage = `The function does not return '${this.props.typeof}' on call of fun(1).
         Function body:
         ${outputCode}

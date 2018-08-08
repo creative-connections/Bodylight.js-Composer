@@ -86,7 +86,6 @@ class AnimateTextSettings extends Component {
               name='transform'
               value={config.transform}
               onChange={this.handleConfigChange}
-              typeof='number'
             />
           </Form.Field>
 
