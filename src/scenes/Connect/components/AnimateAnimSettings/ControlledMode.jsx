@@ -30,6 +30,7 @@ class ControlledMode extends Component {
             name='transform'
             value={this.props.config.transform}
             onChange={this.props.onChange}
+            typeof='number'
           />
         </Form.Field>
 

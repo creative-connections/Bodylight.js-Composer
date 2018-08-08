@@ -39,8 +39,8 @@ class FunctionEditor extends Component {
 
     const outputCode = escodegen.generate(toAST(actualFunction))
 
-    if (typeofResult !== 'number') {
-      const errorMessage = `The function does not return a number on call of fun(1).
+    if (typeofResult !== this.props.typeof) {
+      const errorMessage = `The function does not return '${this.props.typeof}' on call of fun(1).
         Function body:
         ${outputCode}
         Result: >${result}< (${typeofResult})`
