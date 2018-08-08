@@ -5,7 +5,7 @@ const floatRegExp = new RegExp('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$')
 
 const handleValidationOnChange = (e, v, onChange) => {
   const { value } = v
-  if (value === '' || floatRegExp.test(value)) {
+  if (value === '' || value === '-' || floatRegExp.test(value)) {
     onChange(e, v)
   }
 }
