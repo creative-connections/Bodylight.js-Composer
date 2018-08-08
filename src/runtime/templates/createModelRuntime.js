@@ -37,6 +37,7 @@ export default function createModelRuntime (Model, config, functions) {
       model.updateOutputValues = functions.updateOutputValues.bind(model)
 
       model.updateControlledAnimateAnim = functions.updateControlledAnimateAnim.bind(model)
+      model.updateAnimateText = functions.updateAnimateText.bind(model)
 
       console.log('MODULE REAAADY')
       resolve(model)

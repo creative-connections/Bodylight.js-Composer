@@ -22,6 +22,7 @@ import modelTick from './templates/model/modelTick'
 import stageTick from './templates/model/stageTick'
 import updateOutputValues from './templates/model/updateOutputValues'
 import updateControlledAnimateAnim from './templates/model/updateControlledAnimateAnim'
+import updateAnimateText from './templates/model/updateAnimateText'
 
 import update from 'immutability-helper'
 
@@ -70,7 +71,7 @@ class Builder {
 
     config.widgets = {
       controlledAnimateAnim: [],
-      controlledAnimateText: []
+      AnimateText: []
     }
 
     this.attachedAnimations = []
@@ -129,7 +130,7 @@ class Builder {
           valueProvider: {$set: valueProvider}
         })
 
-        config.widgets['controlledAnimateText'].push(configuration)
+        config.widgets['AnimateText'].push(configuration)
       })
     })
 
@@ -204,6 +205,7 @@ class Builder {
     this.append('functions.stageTick = ' + this.tpl(stageTick))
     this.append('functions.updateOutputValues = ' + this.tpl(updateOutputValues))
     this.append('functions.updateControlledAnimateAnim = ' + this.tpl(updateControlledAnimateAnim))
+    this.append('functions.updateAnimateText = ' + this.tpl(updateAnimateText))
   }
 
   appendWidgetType () {

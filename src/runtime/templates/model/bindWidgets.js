@@ -4,4 +4,9 @@ export default function bindWidgets () {
       value.widget = value.widget.bind(this)()
     }
   )
+  Object.entries(this.config.widgets.AnimateText).forEach(
+    ([key, value]) => {
+      value.widget = value.widget.bind(this)()
+    }
+  )
 }

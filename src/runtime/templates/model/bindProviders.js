@@ -4,4 +4,9 @@ export default function bindProviders () {
       value.valueProvider = value.valueProvider.bind(this)()
     }
   )
+  Object.entries(this.config.widgets.AnimateText).forEach(
+    ([key, value]) => {
+      value.valueProvider = value.valueProvider.bind(this)()
+    }
+  )
 }
