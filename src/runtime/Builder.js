@@ -37,6 +37,7 @@ class Builder {
 
     this.models = state.models
     this.configAnimateAnim = state.configAnimateAnim
+    this.configAnimateText = state.configAnimateText
     this.animates = state.animates
     this.clearSrc()
   }
@@ -68,7 +69,8 @@ class Builder {
     config.name = model.name
 
     config.widgets = {
-      controlledAnimateAnims: []
+      controlledAnimateAnims: [],
+      controlledAnimateText: []
     }
 
     this.attachedAnimations = []
@@ -102,7 +104,35 @@ class Builder {
       })
     })
 
-    console.log(model)
+    Object.entries(this.configAnimateText).forEach(([animate, widgets]) => {
+      Object.entries(widgets).forEach(([name, configuration]) => {
+        // check if the widget is handled by us
+        let provider = ValueProviders.value(configuration.valueProvider)
+        if (provider.parent !== model.name) {
+          return
+        }
+
+        const transform = Function(`return ${configuration.transform}`)()
+        const visible = Function(`return ${configuration.visible}`)()
+        const widget = Function(
+          `return this.lookupWidget(
+            '${WidgetType.ANIMATE_TEXT}',
+            '${animate}',
+            '${name}')`
+        )
+        const valueProvider = this.getLookupProvider(model, provider)
+
+        configuration = update(configuration, {
+          transform: {$set: transform},
+          visible: {$set: visible},
+          widget: {$set: widget},
+          valueProvider: {$set: valueProvider}
+        })
+
+        config.widgets['controlledAnimateText'].push(configuration)
+      })
+    })
+
     return config
   }
 
