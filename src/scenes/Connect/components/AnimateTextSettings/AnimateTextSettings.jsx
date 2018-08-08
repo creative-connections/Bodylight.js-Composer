@@ -32,8 +32,6 @@ class AnimateTextSettings extends Component {
   }
 
   handleConfigChange (e, {name, value, checked}) {
-    console.log('handleConfigChange')
-
     var config = this.getConfig()
     if (config[name] === undefined) {
       toast.error(`${name} is not a valid configuration option for Animate Text`)
