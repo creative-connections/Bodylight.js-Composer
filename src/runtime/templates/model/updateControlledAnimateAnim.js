@@ -1,5 +1,5 @@
-export default function updateControlledAnimateAnims () {
-  this.config.widgets.controlledAnimateAnims.forEach(anim => {
+export default function updateControlledAnimateAnim () {
+  this.config.widgets.controlledAnimateAnim.forEach(anim => {
     let value = anim.transform(anim.valueProvider())
 
     if (value < anim.min) {

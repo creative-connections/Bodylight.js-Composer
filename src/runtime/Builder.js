@@ -21,7 +21,7 @@ import modelInit from './templates/model/init'
 import modelTick from './templates/model/modelTick'
 import stageTick from './templates/model/stageTick'
 import updateOutputValues from './templates/model/updateOutputValues'
-import updateControlledAnimateAnims from './templates/model/updateControlledAnimateAnims'
+import updateControlledAnimateAnim from './templates/model/updateControlledAnimateAnim'
 
 import update from 'immutability-helper'
 
@@ -69,7 +69,7 @@ class Builder {
     config.name = model.name
 
     config.widgets = {
-      controlledAnimateAnims: [],
+      controlledAnimateAnim: [],
       controlledAnimateText: []
     }
 
@@ -99,7 +99,7 @@ class Builder {
         })
 
         if (configuration.mode === AnimateAnimMode.CONTROLLED) {
-          config.widgets['controlledAnimateAnims'].push(configuration)
+          config.widgets['controlledAnimateAnim'].push(configuration)
         }
       })
     })
@@ -203,7 +203,7 @@ class Builder {
     this.append('functions.modelTick = ' + this.tpl(modelTick))
     this.append('functions.stageTick = ' + this.tpl(stageTick))
     this.append('functions.updateOutputValues = ' + this.tpl(updateOutputValues))
-    this.append('functions.updateControlledAnimateAnims = ' + this.tpl(updateControlledAnimateAnims))
+    this.append('functions.updateControlledAnimateAnim = ' + this.tpl(updateControlledAnimateAnim))
   }
 
   appendWidgetType () {

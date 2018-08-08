@@ -1,7 +1,7 @@
 export default function stageTick () {
   this.updateOutputValues()
 
-  this.updateControlledAnimateAnims()
+  this.updateControlledAnimateAnim()
 
   // model.updateVariables(values)
   // model.updateAnims(values)
