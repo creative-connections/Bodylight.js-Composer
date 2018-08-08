@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { Checkbox, Rail, Form, Dropdown, Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
 
 import ValueProviderDropdown from '../ValueProviderDropdown'
+import FunctionEditor from '@components/FunctionEditor'
 
 import update from 'immutability-helper'
 
@@ -18,6 +19,7 @@ class AnimateTextSettings extends Component {
     this.getConfig = this.getConfig.bind(this)
     this.handleConfigChange = this.handleConfigChange.bind(this)
     this.handleValueProviderOnClear = this.handleValueProviderOnClear.bind(this)
+    this.renderForm = this.renderForm.bind(this)
   }
 
   getConfig () {
@@ -65,8 +67,42 @@ class AnimateTextSettings extends Component {
           onChange={this.handleConfigChange}
           onClear={this.handleValueProviderOnClear}
         />
+
+        <Divider hidden/>
+
+        {this.renderForm(config)}
+
       </Segment>
     )
+  }
+
+  renderForm (config) {
+    if (config.valueProvider !== null) {
+      return (
+        <Form>
+          <Form.Field>
+            <label>{'Value transform function'}</label>
+            <FunctionEditor
+              name='transform'
+              value={config.transform}
+              onChange={this.handleConfigChange}
+              typeof='number'
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>{'Visibility function'}</label>
+            <FunctionEditor
+              name='visible'
+              value={config.visible}
+              onChange={this.handleConfigChange}
+              typeof='boolean'
+            />
+          </Form.Field>
+        </Form>
+      )
+    }
+    return null
   }
 }
 
