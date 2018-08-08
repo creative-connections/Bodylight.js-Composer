@@ -6,6 +6,7 @@ import Widgets from '@helpers/Widgets'
 import WidgetType from '@helpers/WidgetType'
 
 import AnimateAnimSettings from './AnimateAnimSettings'
+import AnimateTextSettings from './AnimateTextSettings'
 
 class WidgetSettings extends Component {
   render () {
@@ -15,6 +16,11 @@ class WidgetSettings extends Component {
       case WidgetType.ANIMATE_ANIM:
         return <AnimateAnimSettings
           key={selectedWidget.name + selectedWidget.parent}
+          name={selectedWidget.name}
+          parent={selectedWidget.parent}
+        />
+      case WidgetType.ANIMATE_TEXT:
+        return <AnimateTextSettings
           name={selectedWidget.name}
           parent={selectedWidget.parent}
         />
