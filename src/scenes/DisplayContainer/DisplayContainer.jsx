@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import ActiveScreen from '@helpers/ActiveScreenEnum'
 import Configuration from '@scenes/Configuration'
-import Builder from '@runtime'
 import Preview from '@scenes/Preview'
 import Connect from '@scenes/Connect'
 
@@ -13,18 +12,27 @@ class DisplayContainer extends Component {
 
     if (screen === ActiveScreen.CONFIG) {
       return [
-        <Configuration key="configuration"/>,
-        <Preview key="preview"/>
+        <Configuration key="configuration"/>
       ]
     }
+
     if (screen === ActiveScreen.CONNECT) {
       return [
         <Connect key="connect"/>
       ]
     }
+
     if (screen === ActiveScreen.DESIGN) {
-      return <div>design</div>
+      return null
     }
+
+    if (screen === ActiveScreen.PREVIEW) {
+      return [
+        <Preview key="preview"/>
+      ]
+    }
+
+    return null
   }
 }
 

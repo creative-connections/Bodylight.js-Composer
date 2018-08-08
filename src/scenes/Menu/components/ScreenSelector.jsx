@@ -33,6 +33,10 @@ class ScreenSelector extends Component {
         <Menu.Item name={ActiveScreen.DESIGN} active={this.props.activeScreen === ActiveScreen.DESIGN} onClick={this.handleClick}>
               Design
         </Menu.Item>
+
+        <Menu.Item name={ActiveScreen.PREVIEW} active={this.props.activeScreen === ActiveScreen.PREVIEW} onClick={this.handleClick}>
+              Preview
+        </Menu.Item>
       </div>
     )
   }
