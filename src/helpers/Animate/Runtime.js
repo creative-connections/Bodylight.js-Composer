@@ -133,6 +133,7 @@ class AnimateRuntime {
   }
 
   resize (width, height) {
+    // console.log(`Resizing canvas ${this.name}: ${width}x${height}`)
     const w = this.library.properties.width
     const h = this.library.properties.height
 
@@ -148,8 +149,8 @@ class AnimateRuntime {
       sRatio = Math.max(xRatio, yRatio)
     }
 
-    this.canvas.width = w * pRatio * sRatio
-    this.canvas.height = h * pRatio * sRatio
+    // this.canvas.width = w * pRatio * sRatio
+    // this.canvas.height = h * pRatio * sRatio
     this.canvas.width = Math.floor(w * sRatio)
     this.canvas.height = Math.floor(h * sRatio)
 

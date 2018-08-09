@@ -47,7 +47,6 @@ export default class AnimateRuntime {
       const waitTicks = () => {
         if (++tickCounter === 2) {
           createjs.Ticker.removeEventListener('tick', waitTicks)
-          console.log(this.canvas)
           // this.resize(this.canvas.width, this.canvas.height)
           resolve()
         }
@@ -103,6 +102,7 @@ export default class AnimateRuntime {
   }
 
   resize (width, height) {
+    // console.log(`Resizing canvas ${this.name}: ${width}x${height}`)
     const w = this.library.properties.width
     const h = this.library.properties.height
 
@@ -118,11 +118,20 @@ export default class AnimateRuntime {
       sRatio = Math.max(xRatio, yRatio)
     }
 
-    // this.canvas.width = w * pRatio * sRatio
-    // this.canvas.height = h * pRatio * sRatio
+    /*
+    // Original scaling respecting pRatio
+    this.canvas.width = w * pRatio * sRatio
+    this.canvas.height = h * pRatio * sRatio
 
+    // Flooring removes blurry artefacts
     this.canvas.width = Math.floor(w * sRatio)
     this.canvas.height = Math.floor(h * sRatio)
+    */
+
+    // Let the canvas stretch horizontally to the right
+    // and vertically to the left
+    this.canvas.width = Math.floor(width)
+    this.canvas.height = Math.floor(height)
 
     this.stage.scaleX = pRatio * sRatio
     this.stage.scaleY = pRatio * sRatio
