@@ -8,6 +8,8 @@ import gjsBlocksBasic from 'grapesjs-blocks-basic'
 
 import gjsReduxStorage from './storage/redux'
 
+import animateBlock from './blocks/Animate'
+
 class Editor extends Component {
   constructor (props) {
     super(props)
@@ -25,6 +27,7 @@ class Editor extends Component {
       width: 'auto',
 
       storageManager: {
+        id: '',
         type: 'redux',
         stepsBeforeSave: 1
       },
@@ -34,6 +37,18 @@ class Editor extends Component {
         'gjs-blocks-basic'
       ]
     })
+
+    const cmdCanvasClear = 'canvas-clear'
+    editor.Commands.add(cmdCanvasClear,
+      e => confirm('This will clear the entire design, continue?') &&
+      e.runCommand('core:canvas-clear'))
+    editor.Panels.addButton('options', {
+      id: cmdCanvasClear,
+      className: 'fa fa-trash',
+      command: e => e.runCommand(cmdCanvasClear)
+    })
+
+    animateBlock(editor)
 
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
   }
