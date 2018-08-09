@@ -27,7 +27,8 @@ export default class AnimateRuntime {
     this.components = this.library.exportedComponents
     delete this.library.exportedComponents
 
-    this.resize(this.canvas.width, this.canvas.height)
+    this.resize(this.canvas.clientWidth, this.canvas.clientHeight)
+
     this.stage.setAutoPlay(autoplay)
     this.stage.update()
     this.stage.addChild(root)
@@ -46,6 +47,8 @@ export default class AnimateRuntime {
       const waitTicks = () => {
         if (++tickCounter === 2) {
           createjs.Ticker.removeEventListener('tick', waitTicks)
+          console.log(this.canvas)
+          // this.resize(this.canvas.width, this.canvas.height)
           resolve()
         }
       }
@@ -115,8 +118,9 @@ export default class AnimateRuntime {
       sRatio = Math.max(xRatio, yRatio)
     }
 
-    this.canvas.width = w * pRatio * sRatio
-    this.canvas.height = h * pRatio * sRatio
+    // this.canvas.width = w * pRatio * sRatio
+    // this.canvas.height = h * pRatio * sRatio
+
     this.canvas.width = Math.floor(w * sRatio)
     this.canvas.height = Math.floor(h * sRatio)
 

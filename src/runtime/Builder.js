@@ -40,6 +40,9 @@ class Builder {
     this.configAnimateAnim = state.configAnimateAnim
     this.configAnimateText = state.configAnimateText
     this.animates = state.animates
+
+    this.html = state.editorStorage.html
+    this.css = state.editorStorage.css
     this.clearSrc()
   }
 
@@ -222,7 +225,8 @@ class Builder {
 
     this.clearSrc()
 
-    append('<canvas id="beaker"></canvas>')
+    append(this.html)
+    append(`<style>${this.css}</style>`)
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
     append('<script>{')
 

@@ -14,11 +14,11 @@ function init (modelDefinitions, modelConfigs, animates, functions) {
 
   // create promises for all animates
   Object.entries(animates).forEach(([name, source]) => {
-    const promise = createAnimateRuntime(
-      name,
-      source,
-      document.getElementById(name)
-    )
+    const element = document.getElementsByName(name)[0]
+    if (typeof element === 'undefined') {
+      return
+    }
+    const promise = createAnimateRuntime(name, source, element)
     animatePromises.push(promise)
   })
 
