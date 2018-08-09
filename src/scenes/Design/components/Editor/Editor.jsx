@@ -4,6 +4,8 @@ import 'grapesjs/dist/css/grapes.min.css'
 import grapesjs from 'grapesjs'
 
 import gjsPresetWebsite from 'grapesjs-preset-webpage'
+import gjsBlocksBasic from 'grapesjs-blocks-basic'
+
 import gjsReduxStorage from './storage/redux'
 
 class Editor extends Component {
@@ -27,8 +29,13 @@ class Editor extends Component {
         stepsBeforeSave: 1
       },
 
-      plugins: ['gjs-redux-storage']
+      plugins: [
+        'gjs-redux-storage',
+        'gjs-blocks-basic'
+      ]
     })
+
+    editor.Panels.getButton('views', 'open-blocks').set('active', true)
   }
 
   componentWillUnmount () {
