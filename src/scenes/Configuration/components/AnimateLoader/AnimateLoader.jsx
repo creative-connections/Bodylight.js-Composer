@@ -46,6 +46,7 @@ class AnimateLoader extends Component {
   }
 
   fileRejected (files) {
+    console.log(files[0])
     const msg = `File '${files[0].name}' does not appear to be a .js`
     toast.error(msg)
   }
@@ -162,7 +163,7 @@ class AnimateLoader extends Component {
             onDropRejected={this.fileRejected}
             header='Load an Animate CC component'
             description='Upload a HTML5 Canvas .js from Animate CC'
-            accept='application/javascript'
+            accept='application/javascript, text/javascript'
             imgSrc='/images/an.png'
           />
 

@@ -26,6 +26,8 @@ class Editor extends Component {
       height: '100vh',
       width: 'auto',
 
+      autorender: 0,
+
       storageManager: {
         id: '',
         type: 'redux',
@@ -50,6 +52,7 @@ class Editor extends Component {
 
     animateBlock(editor)
 
+    editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
   }
 

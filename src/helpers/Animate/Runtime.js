@@ -21,7 +21,7 @@ class AnimateRuntime {
     this.initialized = false
   }
 
-  init (canvas, autoplay = false) {
+  init (canvas, autoplay = false, initialResize = true) {
     this.canvas = canvas
     this.canvas.style.display = 'block'
 
@@ -32,7 +32,9 @@ class AnimateRuntime {
     this.components = this.library.exportedComponents
     delete this.library.exportedComponents
 
-    this.resize(this.canvas.width, this.canvas.height)
+    if (initialResize) {
+      this.resize(this.canvas.clientWidth, this.canvas.clientHeight)
+    }
     this.stage.setAutoPlay(autoplay)
     this.stage.update()
     this.stage.addChild(root)
@@ -51,6 +53,9 @@ class AnimateRuntime {
       const waitTicks = () => {
         if (++tickCounter === 2) {
           createjs.Ticker.removeEventListener('tick', waitTicks)
+          if (initialResize) {
+            this.resize(this.canvas.clientWidth, this.canvas.clientHeight)
+          }
           resolve()
         }
       }
@@ -133,7 +138,7 @@ class AnimateRuntime {
   }
 
   resize (width, height) {
-    // console.log(`Resizing canvas ${this.name}: ${width}x${height}`)
+    console.log(`Resizing canvas ${this.name}: ${width}x${height}`)
     const w = this.library.properties.width
     const h = this.library.properties.height
 
@@ -149,10 +154,20 @@ class AnimateRuntime {
       sRatio = Math.max(xRatio, yRatio)
     }
 
-    // this.canvas.width = w * pRatio * sRatio
-    // this.canvas.height = h * pRatio * sRatio
+    /*
+    // Original scaling respecting pRatio
+    this.canvas.width = w * pRatio * sRatio
+    this.canvas.height = h * pRatio * sRatio
+
+    // Flooring removes blurry artefacts
     this.canvas.width = Math.floor(w * sRatio)
     this.canvas.height = Math.floor(h * sRatio)
+    */
+
+    // Let the canvas stretch horizontally to the right
+    // and vertically to the left
+    this.canvas.width = Math.floor(width)
+    this.canvas.height = Math.floor(height)
 
     this.stage.scaleX = pRatio * sRatio
     this.stage.scaleY = pRatio * sRatio

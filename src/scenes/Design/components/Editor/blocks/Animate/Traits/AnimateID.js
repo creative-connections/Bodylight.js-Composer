@@ -29,6 +29,21 @@ export default (editor) => {
         this.inputEl = select
       }
       return this.inputEl
+    },
+
+    /* Here we are overriding a private method in order to invoke changeName()
+       on our target element. So we can redraw the canvas, if necessary */
+    onValueChange (model, value, opts = {}) {
+      const mod = this.model
+      if (opts.fromTarget) {
+        this.setInputValue(mod.get('value'))
+      } else {
+        const value = this.getValueForTarget()
+        mod.setTargetValue(value, opts)
+      }
+
+      const event = new Event('changeName')
+      this.target.view.$el[0].dispatchEvent(event)
     }
   })
 }
