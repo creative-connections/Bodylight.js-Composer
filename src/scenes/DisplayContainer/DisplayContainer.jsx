@@ -5,6 +5,7 @@ import ActiveScreen from '@helpers/ActiveScreenEnum'
 import Configuration from '@scenes/Configuration'
 import Preview from '@scenes/Preview'
 import Connect from '@scenes/Connect'
+import Design from '@scenes/Design'
 
 class DisplayContainer extends Component {
   render () {
@@ -23,7 +24,9 @@ class DisplayContainer extends Component {
     }
 
     if (screen === ActiveScreen.DESIGN) {
-      return null
+      return [
+        <Design key="design"/>
+      ]
     }
 
     if (screen === ActiveScreen.PREVIEW) {

@@ -9,6 +9,7 @@ import configAnimateAnim from './configAnimateAnim'
 import configAnimateText from './configAnimateText'
 import defaultConfigAnimateAnim from './defaultConfigAnimateAnim'
 import defaultConfigAnimateText from './defaultConfigAnimateText'
+import editorStorage from './editorStorage'
 
 import { NEW_PROJECT } from '@actions/types'
 
@@ -22,7 +23,8 @@ const reducers = combineReducers({
   activeScreen,
   selectedWidget,
   configAnimateAnim,
-  configAnimateText
+  configAnimateText,
+  editorStorage
 })
 
 const stateScrubberReducer = (state, action) => {

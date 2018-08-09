@@ -65,6 +65,8 @@
     "acorn": "^5.7.1",
     "bootstrap": "^4.1.1",
     "escodegen": "^1.11.0",
+    "grapesjs": "^0.14.25",
+    "grapesjs-preset-webpage": "^0.1.10",
     "immutability-helper": "^2.7.1",
     "jszip": "^3.1.5",
     "less": "2.7.3",
