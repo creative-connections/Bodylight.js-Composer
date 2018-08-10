@@ -11,6 +11,9 @@ import gjsReduxStorage from './storage/redux'
 
 import animateBlock from './blocks/Animate'
 
+import configureStore from '@src/configureStore'
+import { editorStorageClear } from '@actions/actions'
+
 class Editor extends Component {
   constructor (props) {
     super(props)
@@ -49,7 +52,11 @@ class Editor extends Component {
     editor.Panels.addButton('options', {
       id: cmdCanvasClear,
       className: 'fa fa-trash',
-      command: e => e.runCommand(cmdCanvasClear)
+      command: e => {
+        e.runCommand(cmdCanvasClear)
+        const {store} = configureStore()
+        store.dispatch(editorStorageClear())
+      }
     })
 
     animateBlock(editor)
