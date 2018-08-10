@@ -135,7 +135,7 @@ class AnimateRuntime {
   }
 
   resize (width, height) {
-    console.log(`Resizing canvas ${this.name}: ${width}x${height}`)
+    // console.log(`Resizing canvas ${this.name}: ${width}x${height}`)
     const w = this.library.properties.width
     const h = this.library.properties.height
 

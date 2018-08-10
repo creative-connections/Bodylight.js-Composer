@@ -57,11 +57,7 @@ export default (editor) => {
        * Stops any running runtime attached to our canvas, and then clears it.
        */
       clearCanvas () {
-        // we have to clear previously running runtime, if we want to redraw
-        if (typeof this.runtime !== 'undefined') {
-          this.runtime.destroy()
-          delete this.runtime
-        }
+        this.destroyRuntime()
         this.el.getContext('2d').clearRect(0, 0, this.el.width, this.el.height)
       },
 
@@ -104,24 +100,82 @@ export default (editor) => {
         }
         this.runtime = new AnimateRuntime(animate.source, animate.name)
         this.runtime.init(this.el, false, false).then()
+        window.setTimeout(this.resizeRuntime, 10)
       },
 
-      updatestuff (...stuff) {
-        console.log('updatestuff', stuff)
+      destroyRuntime () {
+        if (typeof this.runtime !== 'undefined') {
+          this.runtime.destroy()
+          delete this.runtime
+        }
       },
 
-      initResize () {
-        console.log('init resize')
+      resizeRuntime () {
+        if (typeof this.runtime !== 'undefined') {
+          const el = this.el
+          this.runtime.resize(el.clientWidth, el.clientHeight)
+        }
       },
 
-      render () {
-        defaultType.view.prototype.render.apply(this, arguments) // 'super' call
+      handleUpdate (e) {
+        const el = this.el
 
-        console.log('render')
+        // check if we need to resize
+        if (this.prevCW !== el.clientWidth || this.prevCH !== el.clientHeight) {
+          this.prevCW = this.el.clientWidth
+          this.prevCH = this.el.clientHeight
+
+          if (typeof this.runtime === 'undefined') {
+            return // TODO: resize placeholder
+          }
+
+          this.resizeRuntime()
+        }
+      },
+
+      /**
+       * Registers event listeners for component update.
+       */
+      registerUpdateHandler () {
+        /*
+         * Registering resize listeners, this is kinda inefficient
+         * TODO: see changes in https://github.com/artf/grapesjs/issues/1355 for
+         * a better solution to catching events
+         */
+        this.prevCW = null
+        this.prevCH = null
+        editor.on('component:styleUpdate', this.handleUpdate)
+        editor.on('component:update', this.handleUpdate)
+        editor.on('load', this.handleUpdate)
+
+        this.handlersRegistered = true
+      },
+
+      deregisterUpdateHandler () {
+        if (this.handlersRegistered !== true) {
+          return
+        }
+
+        editor.off('component:styleUpdate', this.handleUpdate)
+        editor.off('component:update', this.handleUpdate)
+        editor.off('load', this.handleUpdate)
+
+        this.handlersRegistered = false
+      },
+
+      onRender () {
+        // bind used callbacks
+        this.handleUpdate = this.handleUpdate.bind(this)
+        this.resizeRuntime = this.resizeRuntime.bind(this)
 
         this.attachRuntime()
+        this.registerUpdateHandler()
+      },
 
-        return this
+      remove () {
+        defaultType.view.prototype.remove.apply(this, arguments)
+        this.destroyRuntime()
+        this.deregisterUpdateHandler()
       }
 
     })
