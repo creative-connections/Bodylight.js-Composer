@@ -5,6 +5,8 @@ import { ANIMATE_CANVAS, ANIMATE_ID } from '../types.js'
 
 import update from 'immutability-helper'
 
+import { editorPlaceAnimate, editorRemoveAnimate } from '@actions/actions'
+
 export default (editor) => {
   const components = editor.DomComponents
   const defaultType = components.getType('default')
@@ -73,11 +75,19 @@ export default (editor) => {
        * need to redraw it in the editor.
        */
       handleChangeName () {
+        const name = this.el.getAttribute('name')
+        const previous = this.attr.name
+
+        // update redux state that we have changed our animate endpoint
+        const {store} = configureStore()
+        store.dispatch(editorRemoveAnimate(previous))
+        store.dispatch(editorPlaceAnimate(name))
+
         /*
          * Trait sets this automatically somewhere down the lifecycle, but we
          * need the value before that happens. This should be safe.
          */
-        this.attr.name = this.el.getAttribute('name')
+        this.attr.name = name
 
         this.attachRuntime()
       },
