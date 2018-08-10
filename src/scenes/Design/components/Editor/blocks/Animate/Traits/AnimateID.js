@@ -16,14 +16,19 @@ export default (editor) => {
         const {store} = configureStore()
 
         // fill every animate id from redux
-        Object.keys(store.getState().animates).forEach(animate => {
-          let option = document.createElement('option')
-          option.value = animate
-          option.text = animate
+        Object.entries(store.getState().animates).forEach(([name, animate]) => {
+          const option = document.createElement('option')
+
+          option.value = name
+          option.text = name
           if (animate === currentValue) {
             option.selected = true
           }
-          select.add(option)
+
+          // don't show already placed animates in the list, unless it's us
+          if (animate.placed === undefined || animate === currentValue) {
+            select.add(option)
+          }
         })
 
         this.inputEl = select

@@ -220,6 +220,10 @@ export default (editor) => {
         defaultType.view.prototype.remove.apply(this, arguments)
         this.destroyRuntime()
         this.deregisterUpdateHandler()
+
+        // update redux state that we have removed our animate endpoint
+        const name = this.attr.name
+        configureStore().store.dispatch(editorRemoveAnimate(name))
       }
 
     })

@@ -1,7 +1,8 @@
 import {
   ADD_ANIMATE,
   EDITOR_REMOVE_ANIMATE,
-  EDITOR_PLACE_ANIMATE
+  EDITOR_PLACE_ANIMATE,
+  EDITOR_STORAGE_CLEAR
 } from '@actions/types'
 
 import update from 'immutability-helper'
@@ -22,6 +23,12 @@ export default function (state = {}, action) {
       if (state[action.payload] !== undefined) {
         state = update(state, {[action.payload]: {$unset: ['placed']}})
       }
+      break
+
+    case EDITOR_STORAGE_CLEAR:
+      Object.entries(state).forEach(([name, animate]) => {
+        state = update(state, {[name]: {$unset: ['placed']}})
+      })
       break
   }
 
