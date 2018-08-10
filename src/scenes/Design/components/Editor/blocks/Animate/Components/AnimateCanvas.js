@@ -7,6 +7,8 @@ import update from 'immutability-helper'
 
 import { editorPlaceAnimate, editorRemoveAnimate } from '@actions/actions'
 
+const animateRuntimeStore = {}
+
 export default (editor) => {
   const components = editor.DomComponents
   const defaultType = components.getType('default')
@@ -55,11 +57,8 @@ export default (editor) => {
         return update(state.animates[name], {name: {$set: name}})
       },
 
-      /**
-       * Stops any running runtime attached to our canvas, and then clears it.
-       */
       clearCanvas () {
-        this.destroyRuntime()
+        this.detachRuntime()
         this.el.getContext('2d').clearRect(0, 0, this.el.width, this.el.height)
       },
 
@@ -138,24 +137,38 @@ export default (editor) => {
        */
       attachRuntime () {
         this.clearCanvas()
+
         const animate = this.getAnimate()
         if (animate === null) {
           return this.drawPlaceholder()
         }
-        this.runtime = new AnimateRuntime(animate.source, animate.name)
-        this.runtime.init(this.el, false, false).then()
+
+        this.runtime = animateRuntimeStore[animate.name]
+
+        // check store for runtime presence
+        if (this.runtime === undefined) {
+          this.runtime = new AnimateRuntime(animate.source, animate.name)
+          this.runtime.init(this.el, false, false).then()
+
+          // save for future use
+          animateRuntimeStore[animate.name] = this.runtime
+        } else {
+          // we already have a runtime up and running, just attach
+          this.runtime.attachCanvas(this.el)
+        }
+
         window.setTimeout(this.resizeRuntime, 10)
       },
 
-      destroyRuntime () {
-        if (typeof this.runtime !== 'undefined') {
-          this.runtime.destroy()
+      detachRuntime () {
+        if (this.runtime !== undefined) {
+          this.runtime.detachCanvas()
           delete this.runtime
         }
       },
 
       resizeRuntime () {
-        if (typeof this.runtime !== 'undefined') {
+        if (this.runtime !== undefined) {
           const el = this.el
           this.runtime.resize(el.clientWidth, el.clientHeight)
         }
@@ -169,7 +182,7 @@ export default (editor) => {
           this.prevCW = this.el.clientWidth
           this.prevCH = this.el.clientHeight
 
-          if (typeof this.runtime === 'undefined') {
+          if (this.runtime === undefined) {
             return this.drawPlaceholder()
           }
 
@@ -218,7 +231,7 @@ export default (editor) => {
 
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
-        this.destroyRuntime()
+        this.detachRuntime()
         this.deregisterUpdateHandler()
 
         // update redux state that we have removed our animate endpoint

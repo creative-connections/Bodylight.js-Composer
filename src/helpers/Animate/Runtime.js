@@ -102,6 +102,23 @@ class AnimateRuntime {
     }
   }
 
+  attachCanvas (canvas) {
+    createjs.Ticker.removeEventListener('tick', this.stage)
+    this.stage.enableDOMEvents(false)
+    this.stage.canvas = canvas
+    this.canvas = canvas
+    this.stage.enableDOMEvents(true)
+    createjs.Ticker.addEventListener('tick', this.stage)
+  }
+
+  detachCanvas () {
+    createjs.Ticker.removeEventListener('tick', this.stage)
+    this.stage.enableDOMEvents(false)
+    this.stage.canvas = null
+    this.canvas = null
+    this.stage.enableDOMEvents(true)
+  }
+
   /*
    * Animate export to CreateJS lazy adds components to stage only when they are
    * actually needed. This way on stage startup, not every component is
