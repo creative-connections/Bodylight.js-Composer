@@ -53,9 +53,6 @@ class AnimateRuntime {
       const waitTicks = () => {
         if (++tickCounter === 2) {
           createjs.Ticker.removeEventListener('tick', waitTicks)
-          if (initialResize) {
-            this.resize(this.canvas.clientWidth, this.canvas.clientHeight)
-          }
           resolve()
         }
       }

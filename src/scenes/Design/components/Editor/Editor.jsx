@@ -5,6 +5,7 @@ import grapesjs from 'grapesjs'
 
 import gjsPresetWebsite from 'grapesjs-preset-webpage'
 import gjsBlocksBasic from 'grapesjs-blocks-basic'
+import gjsBlocksFlexbox from 'grapesjs-blocks-flexbox'
 
 import gjsReduxStorage from './storage/redux'
 
@@ -36,7 +37,8 @@ class Editor extends Component {
 
       plugins: [
         'gjs-redux-storage',
-        'gjs-blocks-basic'
+        'gjs-blocks-basic',
+        'gjs-blocks-flexbox'
       ]
     })
 

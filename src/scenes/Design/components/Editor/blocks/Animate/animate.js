@@ -9,12 +9,12 @@ export default (editor) => {
 
   const blockManager = editor.BlockManager
 
-  blockManager.add('my-map-block', {
+  blockManager.add('animate-block', {
     label: 'Animate',
     content: {
       type: ANIMATE_CANVAS,
       style: {
-        height: '350px'
+        width: '100%'
       },
       removable: true
     }
