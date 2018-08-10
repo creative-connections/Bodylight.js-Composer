@@ -21,12 +21,12 @@ export default (editor) => {
 
           option.value = name
           option.text = name
-          if (animate === currentValue) {
+          if (name === currentValue) {
             option.selected = true
           }
 
           // don't show already placed animates in the list, unless it's us
-          if (animate.placed === undefined || animate === currentValue) {
+          if (animate.placed === undefined || name === currentValue) {
             select.add(option)
           }
         })
