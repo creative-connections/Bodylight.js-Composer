@@ -11,10 +11,10 @@ import editorStorage from './app/editorStorage'
 import animates from './widgets/animates'
 import ranges from './widgets/ranges'
 
-import configAnimateAnim from './runtimeConfiguration/configAnimateAnim'
-import configAnimateText from './runtimeConfiguration/configAnimateText'
-import defaultConfigAnimateAnim from './runtimeConfiguration/defaultConfigAnimateAnim'
-import defaultConfigAnimateText from './runtimeConfiguration/defaultConfigAnimateText'
+import configAnimateAnim from './runtime/configAnimateAnim'
+import configAnimateText from './runtime/configAnimateText'
+import defaultConfigAnimateAnim from './runtime/defaultConfigAnimateAnim'
+import defaultConfigAnimateText from './runtime/defaultConfigAnimateText'
 
 import { NEW_PROJECT } from '@actions/types'
 
