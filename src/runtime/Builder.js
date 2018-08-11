@@ -227,10 +227,14 @@ class Builder {
 
     append(this.html)
     append(`<style>${this.css}</style>`)
-    append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
-    append('<script>{')
 
-    // creates variable modelDefinitions={name: model}
+    append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
+
+    append('<script>')
+
+    // wrap our context in a init function so that we don't namespace collide
+    append('const bodylightJS = () => {')
+
     this.appendModelDefinitions()
     this.appendModelConfigs()
     this.appendFunctions()
@@ -245,7 +249,7 @@ class Builder {
 
     append(tpl(init))
 
-    append(`document.addEventListener('DOMContentLoaded', () => {
+    append(`
       init(
         modelDefinitions,
         modelConfigs,
@@ -254,9 +258,12 @@ class Builder {
         WidgetType,
         ValueProviderType
       )
-    }, false)`)
+    `)
 
-    append('}</script>')
+    append('}')
+
+    append(`document.addEventListener('DOMContentLoaded', bodylightJS())`)
+    append('</script>')
 
     return this.src
   }
