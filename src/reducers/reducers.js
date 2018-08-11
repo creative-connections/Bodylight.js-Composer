@@ -1,30 +1,39 @@
 import { combineReducers } from 'redux'
-import models from './models'
-import animates from './animates'
-import defaultModelOptions from './defaultModelOptions'
-import configurationScreen from './configurationScreen'
-import activeScreen from './activeScreen'
-import selectedWidget from './selectedWidget'
-import configAnimateAnim from './configAnimateAnim'
-import configAnimateText from './configAnimateText'
-import defaultConfigAnimateAnim from './defaultConfigAnimateAnim'
-import defaultConfigAnimateText from './defaultConfigAnimateText'
-import editorStorage from './editorStorage'
+
+import models from './models/models'
+import defaultModelOptions from './models/defaultModelOptions'
+
+import configurationScreen from './app/configurationScreen'
+import activeScreen from './app/activeScreen'
+import selectedWidget from './app/selectedWidget'
+import editorStorage from './app/editorStorage'
+
+import animates from './widgets/animates'
+import ranges from './widgets/ranges'
+
+import configAnimateAnim from './runtimeConfiguration/configAnimateAnim'
+import configAnimateText from './runtimeConfiguration/configAnimateText'
+import defaultConfigAnimateAnim from './runtimeConfiguration/defaultConfigAnimateAnim'
+import defaultConfigAnimateText from './runtimeConfiguration/defaultConfigAnimateText'
 
 import { NEW_PROJECT } from '@actions/types'
 
 const reducers = combineReducers({
   models,
-  animates,
   defaultModelOptions,
-  defaultConfigAnimateAnim,
-  defaultConfigAnimateText,
+
   configurationScreen,
   activeScreen,
   selectedWidget,
+  editorStorage,
+
+  animates,
+  ranges,
+
   configAnimateAnim,
   configAnimateText,
-  editorStorage
+  defaultConfigAnimateAnim,
+  defaultConfigAnimateText
 })
 
 const stateScrubberReducer = (state, action) => {
