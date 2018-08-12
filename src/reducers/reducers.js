@@ -9,7 +9,7 @@ import selectedWidget from './app/selectedWidget'
 import editorStorage from './app/editorStorage'
 
 import animates from './widgets/animates'
-import ranges from './widgets/ranges'
+import ranges, * as rangesSelectors from './widgets/ranges'
 
 import configAnimateAnim from './runtime/configAnimateAnim'
 import configAnimateText from './runtime/configAnimateText'
@@ -40,8 +40,11 @@ const stateScrubberReducer = (state, action) => {
   if (action.type === NEW_PROJECT) {
     state = undefined
   }
-
   return reducers(state, action)
 }
 
 export default stateScrubberReducer
+
+// export selectors with appropriate states
+export const getAvailableRangeName =
+  (state) => rangesSelectors.getAvailableRangeName(state.ranges)

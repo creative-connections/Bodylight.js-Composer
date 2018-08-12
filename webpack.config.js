@@ -57,6 +57,7 @@ module.exports = {
       '@actions': path.resolve(__dirname, 'src/actions/'),
       '@exceptions': path.resolve(__dirname, 'src/exceptions/'),
       '@runtime': path.resolve(__dirname, 'src/runtime/'),
+      '@reducers': path.resolve(__dirname, 'src/reducers/'),
       '@src': path.resolve(__dirname, 'src/')
     }
   },

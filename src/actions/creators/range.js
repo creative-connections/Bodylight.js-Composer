@@ -1,5 +1,8 @@
 import { ADD_RANGE } from '@actions/types'
 
-export const addRange = () => {
-  return { type: ADD_RANGE }
+export const addRange = (name) => {
+  return {
+    type: ADD_RANGE,
+    payload: {name: name}
+  }
 }
