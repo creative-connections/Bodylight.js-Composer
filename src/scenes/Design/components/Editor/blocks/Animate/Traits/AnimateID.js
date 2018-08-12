@@ -1,6 +1,7 @@
 import { ANIMATE_ID } from '../types'
 
 import configureStore from '@src/configureStore'
+import { getAnimates } from '@reducers'
 
 export default (editor) => {
   editor.TraitManager.addType(ANIMATE_ID, {
@@ -13,10 +14,10 @@ export default (editor) => {
         select.add(option)
 
         const currentValue = this.getModelValue()
-        const {store} = configureStore()
+        const animates = getAnimates(configureStore().store.getState())
 
         // fill every animate id from redux
-        Object.entries(store.getState().animates).forEach(([name, animate]) => {
+        Object.entries(animates).forEach(([name, animate]) => {
           const option = document.createElement('option')
 
           option.value = name

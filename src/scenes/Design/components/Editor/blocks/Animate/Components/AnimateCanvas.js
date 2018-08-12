@@ -7,6 +7,8 @@ import update from 'immutability-helper'
 
 import { editorPlaceAnimate, editorRemoveAnimate } from '@actions/actions'
 
+import { getAnimates } from '@reducers'
+
 const animateRuntimeStore = {}
 
 export default (editor) => {
@@ -48,13 +50,13 @@ export default (editor) => {
        */
       getAnimate () {
         const name = this.attr.name
-        const state = configureStore().store.getState()
+        const animates = getAnimates(configureStore().store.getState())
         // if we don't have a valid animate name, we draw a placeholder instead
         if (typeof name === 'undefined' || name === null || name === '' ||
-            typeof state.animates[name] === 'undefined') {
+            typeof animates[name] === 'undefined') {
           return null
         }
-        return update(state.animates[name], {name: {$set: name}})
+        return update(animates[name], {name: {$set: name}})
       },
 
       clearCanvas () {

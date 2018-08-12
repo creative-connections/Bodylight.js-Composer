@@ -7,10 +7,10 @@ export const selectScreen = (screen) => {
   }
 }
 
-export const selectWidget = widget => {
+export const selectWidget = id => {
   return {
     type: SELECT_WIDGET,
-    payload: widget
+    payload: {id: id}
   }
 }
 

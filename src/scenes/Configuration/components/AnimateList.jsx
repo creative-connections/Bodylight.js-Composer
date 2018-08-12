@@ -7,6 +7,8 @@ import { Dropdown, Menu, Grid, Segment, Button, Header } from 'semantic-ui-react
 
 import { selectAnimate } from '@actions/actions'
 
+import { getAnimates } from '@reducers'
+
 class AnimateList extends Component {
   constructor (props) {
     super(props)
@@ -84,15 +86,13 @@ class AnimateList extends Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ selectAnimate }, dispatch)
-}
+export default connect(
+  state => ({
+    animates: getAnimates(state),
+    selectedAnimate: state.configurationScreen.selectedAnimate
+  }),
 
-function mapStateToProps ({ animates, configurationScreen }) {
-  return {
-    animates,
-    selectedAnimate: configurationScreen.selectedAnimate
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AnimateList)
+  dispatch => bindActionCreators({
+    selectAnimate
+  }, dispatch)
+)(AnimateList)

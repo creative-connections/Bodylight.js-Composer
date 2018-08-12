@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { Dropdown, Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
-import Widgets from '@helpers/Widgets'
 
 import { selectWidget } from '@actions/actions'
+
+import { getWidgetsForDropdown } from '@reducers'
 
 class WidgetDropdown extends Component {
   constructor (props) {
@@ -19,12 +20,9 @@ class WidgetDropdown extends Component {
   }
 
   render () {
-    const widgets = new Widgets()
-    var options = widgets.getForDropdown()
-
     return <Dropdown fluid search selection
       placeholder='Select object'
-      options={options}
+      options={this.props.widgets}
       value={this.props.selectedWidget}
       onChange={this.onChange}
     />
@@ -38,4 +36,15 @@ function mapStateToProps ({selectedWidget}) {
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({selectWidget}, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps)(WidgetDropdown)
+
+export default connect(
+  state => ({
+    selectedWidget: state.selectedWidget,
+    widgets: getWidgetsForDropdown(state)
+  }),
+
+  dispatch => bindActionCreators({
+    selectWidget
+  }, dispatch)
+
+)(WidgetDropdown)

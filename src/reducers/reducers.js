@@ -5,11 +5,9 @@ import defaultModelOptions from './models/defaultModelOptions'
 
 import configurationScreen from './app/configurationScreen'
 import activeScreen from './app/activeScreen'
-import selectedWidget from './app/selectedWidget'
 import editorStorage from './app/editorStorage'
 
-import animates from './widgets/animates'
-import ranges, * as rangesSelectors from './widgets/ranges'
+import widgets, * as widgetSelectors from './widgets'
 
 import configAnimateAnim from './runtime/configAnimateAnim'
 import configAnimateText from './runtime/configAnimateText'
@@ -24,11 +22,9 @@ const reducers = combineReducers({
 
   configurationScreen,
   activeScreen,
-  selectedWidget,
   editorStorage,
 
-  animates,
-  ranges,
+  widgets,
 
   configAnimateAnim,
   configAnimateText,
@@ -46,5 +42,8 @@ const stateScrubberReducer = (state, action) => {
 export default stateScrubberReducer
 
 // export selectors with appropriate states
-export const getAvailableRangeName =
-  (state) => rangesSelectors.getAvailableRangeName(state.ranges)
+export const getAnimates = state => widgetSelectors.getAnimates(state.widgets)
+
+export const getAvailableRangeName = (state) => widgetSelectors.getAvailableRangeName(state.widgets)
+export const getWidgetsForDropdown = (state) => widgetSelectors.getWidgetsForDropdown(state.widgets)
+export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)

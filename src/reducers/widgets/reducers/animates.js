@@ -34,3 +34,5 @@ export default function (state = {}, action) {
 
   return state
 }
+
+export const getAnimates = state => state

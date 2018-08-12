@@ -8,6 +8,7 @@ import createAnimateRuntime from './templates/createAnimateRuntime'
 import init from './templates/init'
 
 import configureStore from '@src/configureStore'
+import { getAnimates } from '@reducers'
 
 import cwrapFunctions from './templates/model/cwrapFunctions'
 import consoleLogger from './templates/model/consoleLogger'
@@ -39,7 +40,7 @@ class Builder {
     this.models = state.models
     this.configAnimateAnim = state.configAnimateAnim
     this.configAnimateText = state.configAnimateText
-    this.animates = state.animates
+    this.animates = getAnimates(state)
 
     this.html = state.editorStorage.html
     this.css = state.editorStorage.css

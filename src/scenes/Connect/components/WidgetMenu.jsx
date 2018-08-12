@@ -19,7 +19,6 @@ class WidgetMenu extends Component {
   }
 
   render () {
-    console.log(this.props.getAvailableRangeName())
     return (
       <Segment>
         <Button onClick={this.addRange}>Add range</Button>
