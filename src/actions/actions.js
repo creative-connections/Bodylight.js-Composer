@@ -1,6 +1,6 @@
 export * from './creators/model'
 export * from './creators/app'
 export * from './creators/animate'
-export * from './creators/config'
+export * from './creators/runtime'
 export * from './creators/editor'
 export * from './creators/range'

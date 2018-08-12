@@ -5,7 +5,8 @@ import defaultModelOptions from './models/defaultModelOptions'
 
 import configurationScreen from './app/configurationScreen'
 import activeScreen from './app/activeScreen'
-import editorStorage from './app/editorStorage'
+
+import editorStorage from './editor/editorStorage'
 
 import widgets, * as widgetSelectors from './widgets'
 
@@ -22,6 +23,7 @@ const reducers = combineReducers({
 
   configurationScreen,
   activeScreen,
+
   editorStorage,
 
   widgets,
