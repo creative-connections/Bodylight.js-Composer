@@ -38,7 +38,7 @@ export const getWidgetsForDropdown = state => {
   var options = []
   Object.entries(state.ranges).forEach(([name, range]) => {
     options.push({
-      text: `(range) ${name}`,
+      text: `range: ${name}`,
       value: generateWidgetId(WidgetType.RANGE, name)
     })
   })
