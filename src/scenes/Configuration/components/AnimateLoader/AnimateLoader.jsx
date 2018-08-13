@@ -46,7 +46,6 @@ class AnimateLoader extends Component {
   }
 
   fileRejected (files) {
-    console.log(files[0])
     const msg = `File '${files[0].name}' does not appear to be a .js`
     toast.error(msg)
   }

@@ -55,7 +55,6 @@ class Builder {
     if (provider.type === ValueProviderType.MODEL_VARIABLE) {
       reference = model.variables[provider.name].reference
     }
-    console.log(provider)
     return Function(
       `return this.lookupProvider(
         '${provider.type}',

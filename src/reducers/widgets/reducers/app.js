@@ -23,7 +23,6 @@ export const getSelectedWidget = state => {
   if (state.selected === null) {
     return null
   }
-  console.log(state.selected)
   const widget = JSON.parse(state.selected)
   widget.id = state.selected
   return widget

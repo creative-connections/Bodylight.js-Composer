@@ -39,7 +39,7 @@ export default function createModelRuntime (Model, config, functions) {
       model.updateControlledAnimateAnim = functions.updateControlledAnimateAnim.bind(model)
       model.updateAnimateText = functions.updateAnimateText.bind(model)
 
-      console.log('MODULE REAAADY')
+      console.log(`Module ${model.config.identifier} ready.`)
       resolve(model)
     }).catch(err => {
       reject(err)
