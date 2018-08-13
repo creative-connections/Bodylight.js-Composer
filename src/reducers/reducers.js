@@ -38,7 +38,6 @@ const reducers = combineReducers({
 })
 
 const stateScrubberReducer = (state, action) => {
-  console.log(action.type, state)
   if (action.type === NEW_PROJECT) {
     state = undefined
   }

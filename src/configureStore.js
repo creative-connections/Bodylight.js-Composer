@@ -1,6 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
+
+// Middlewares
 import ReduxPromise from 'redux-promise'
+import logger from 'redux-logger'
+
 import localForage from 'localforage'
 
 import reducers from './reducers'
@@ -17,7 +21,7 @@ export default () => {
   store = store || createStore(
     persistReducer(persistConfig, reducers),
     compose(
-      applyMiddleware(ReduxPromise)
+      applyMiddleware(logger)
     )
   )
   persistor = persistor || persistStore(store)
