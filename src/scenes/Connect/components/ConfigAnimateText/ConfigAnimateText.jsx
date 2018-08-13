@@ -12,7 +12,7 @@ import update from 'immutability-helper'
 
 import { configAnimateTextUpdate, configAnimateTextRemove } from '@actions/actions'
 
-class AnimateTextSettings extends Component {
+class ConfigAnimateText extends Component {
   constructor (props) {
     super(props)
 
@@ -110,4 +110,4 @@ function mapStateToProps ({ configAnimateText, defaultConfigAnimateText }) {
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({configAnimateTextUpdate, configAnimateTextRemove}, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AnimateTextSettings)
+export default connect(mapStateToProps, mapDispatchToProps)(ConfigAnimateText)

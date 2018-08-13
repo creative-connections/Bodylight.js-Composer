@@ -14,7 +14,7 @@ import { getConfigForRanges, getDefaultConfigForRanges } from '@reducers'
 
 import { configRangeRemove, configRangeUpdate } from '@actions/actions'
 
-class RangeSettings extends Component {
+class ConfigRange extends Component {
   constructor (props) {
     super(props)
 
@@ -76,4 +76,4 @@ export default connect(
     configRangeRemove,
     configRangeUpdate
   }, dispatch)
-)(RangeSettings)
+)(ConfigRange)

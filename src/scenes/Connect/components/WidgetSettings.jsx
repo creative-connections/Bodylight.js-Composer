@@ -6,9 +6,9 @@ import WidgetType from '@helpers/WidgetType'
 
 import { getSelectedWidget } from '@reducers'
 
-import AnimateAnimSettings from './AnimateAnimSettings'
-import AnimateTextSettings from './AnimateTextSettings'
-import RangeSetting from './RangeSettings'
+import ConfigAnimateAnim from './ConfigAnimateAnim'
+import ConfigAnimateText from './ConfigAnimateText'
+import ConfigRange from './ConfigRange'
 
 class WidgetSettings extends Component {
   render () {
@@ -17,18 +17,18 @@ class WidgetSettings extends Component {
     if (selectedWidget !== null) {
       switch (selectedWidget.type) {
         case WidgetType.ANIMATE_ANIM:
-          return <AnimateAnimSettings
+          return <ConfigAnimateAnim
             key={selectedWidget.name + selectedWidget.parent}
             name={selectedWidget.name}
             parent={selectedWidget.parent}
           />
         case WidgetType.ANIMATE_TEXT:
-          return <AnimateTextSettings
+          return <ConfigAnimateText
             name={selectedWidget.name}
             parent={selectedWidget.parent}
           />
         case WidgetType.RANGE:
-          return <RangeSetting
+          return <ConfigRange
             name={selectedWidget.name}
           />
       }

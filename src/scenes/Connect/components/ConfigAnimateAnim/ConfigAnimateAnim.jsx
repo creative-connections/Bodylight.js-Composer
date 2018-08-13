@@ -15,7 +15,7 @@ import update from 'immutability-helper'
 
 import { configAnimateAnimUpdate } from '@actions/actions'
 
-class AnimateAnimSettings extends Component {
+class ConfigAnimateAnim extends Component {
   constructor (props) {
     super(props)
     this.handleModeChange = this.handleModeChange.bind(this)
@@ -166,4 +166,4 @@ function mapStateToProps ({ configAnimateAnim, defaultConfigAnimateAnim }) {
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({configAnimateAnimUpdate}, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AnimateAnimSettings)
+export default connect(mapStateToProps, mapDispatchToProps)(ConfigAnimateAnim)
