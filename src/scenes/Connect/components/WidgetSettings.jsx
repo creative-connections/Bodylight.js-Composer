@@ -28,9 +28,7 @@ class WidgetSettings extends Component {
             parent={selectedWidget.parent}
           />
         case WidgetType.RANGE:
-          return <ConfigRange
-            name={selectedWidget.name}
-          />
+          return <ConfigRange range={selectedWidget} />
       }
     }
 

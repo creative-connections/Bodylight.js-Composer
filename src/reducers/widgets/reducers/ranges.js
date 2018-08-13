@@ -1,17 +1,37 @@
 import update from 'immutability-helper'
 
 import {
-  ADD_RANGE
+  ADD_RANGE,
+  RENAME_RANGE,
+  REMOVE_RANGE
 } from '@actions/types'
+
+const removeRange = (state, name) => {
+  return update(state, {
+    $unset: [name]
+  })
+}
+
+const addRange = (state, name) => {
+  return update(state, {
+    [name]: {$set:
+      {name: name}
+    }
+  })
+}
 
 export default function (state = {}, action) {
   if (action.type === ADD_RANGE) {
-    const name = action.payload.name
-    return update(state, {
-      [name]: {$set:
-        {name: name}
-      }
-    })
+    return addRange(state, action.payload.name)
+  }
+
+  if (action.type === RENAME_RANGE) {
+    state = removeRange(state, action.payload.range.name)
+    return addRange(state, action.payload.newname)
+  }
+
+  if (action.type === REMOVE_RANGE) {
+    return removeRange(state, action.payload.range.name)
   }
 
   return state

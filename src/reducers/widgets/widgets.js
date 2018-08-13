@@ -17,7 +17,7 @@ export const getAvailableRangeName = state => rangesSelectors.getAvailableRangeN
 
 export const getSelectedWidget = state => appSelectors.getSelectedWidget(state.app)
 
-const generateWidgetId = (type, name, parent = null) => {
+export const generateWidgetId = (type, name, parent = null) => {
   /*
    * Since JSON.stringify does not guarantee any particular order, we have to
    * create our own stringification. We only rely on it for string escapement.

@@ -22,7 +22,7 @@ class WidgetDropdown extends Component {
     return <Dropdown fluid search selection
       placeholder='Select object'
       options={this.props.widgets}
-      value={this.props.selectedWidget.id}
+      value={this.props.selectedWidget && this.props.selectedWidget.id}
       onChange={this.onChange}
     />
   }

@@ -21,12 +21,12 @@ export const configAnimateTextRemove = (name, parent) => ({
   payload: { name, parent }
 })
 
-export const configRangeUpdate = (name, config) => ({
+export const configRangeUpdate = (range, config) => ({
   type: CONFIG_RANGE_UPDATE,
-  payload: { name, config }
+  payload: { range, config }
 })
 
-export const configRangeRemove = (name) => ({
+export const configRangeRemove = (range) => ({
   type: CONFIG_RANGE_REMOVE,
-  payload: { name }
+  payload: { range }
 })
