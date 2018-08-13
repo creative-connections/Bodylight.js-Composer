@@ -10,8 +10,10 @@ import ValueProviders from '@helpers/ValueProviders'
 import FunctionEditor from '@components/FunctionEditor'
 
 import InitialValue from './InitialValue'
+import Label from './Label'
 
 import update from 'immutability-helper'
+import InputFloat from '@components/form/InputFloat'
 
 import { getConfigForRanges, getDefaultConfigForRanges } from '@reducers'
 
@@ -23,6 +25,7 @@ class ConfigRange extends Component {
 
     this.getConfig = this.getConfig.bind(this)
     this.handleConfigChange = this.handleConfigChange.bind(this)
+    this.handleLabelChange = this.handleLabelChange.bind(this)
     this.handleValueProviderOnClear = this.handleValueProviderOnClear.bind(this)
     this.renderForm = this.renderForm.bind(this)
     this.handleRename = this.handleRename.bind(this)
@@ -62,6 +65,20 @@ class ConfigRange extends Component {
     }
   }
 
+  handleLabelChange (e, {name, value, checked}) {
+    let config = this.getConfig()
+    if (config.label[name] === undefined) {
+      toast.error(`${name} is not a valid configuration option for Range`)
+    }
+
+    if (typeof checked === 'undefined') {
+      config = update(config, {label: {[name]: {$set: value}}})
+    } else {
+      config = update(config, {label: {[name]: {$set: checked}}})
+    }
+
+    this.props.configRangeUpdate(this.props.range, config)
+  }
   handleValueProviderOnClear () {
     this.props.configRangeRemove(this.props.range)
   }
@@ -111,10 +128,45 @@ class ConfigRange extends Component {
             onChange={this.handleRename}
           />
         </Form.Field>
+
         <InitialValue
           initialValue={config.initialValue}
           loadInitialValue={config.loadInitialValue}
           onChange={this.handleConfigChange}/>
+
+        <Form.Field>
+          <label>{'Value transform function'}</label>
+          <FunctionEditor
+            name='transform'
+            value={config.transform}
+            onChange={this.handleConfigChange}
+            typeof='number'
+          />
+        </Form.Field>
+
+        <Form.Field >
+          <label>Minimum value</label>
+          <InputFloat
+            name='min'
+            value={config.min}
+            onChange={this.handleConfigChange}
+          >
+            <input />
+          </InputFloat>
+        </Form.Field>
+
+        <Form.Field >
+          <label>Maximum value</label>
+          <InputFloat
+            name='max'
+            value={config.max}
+            onChange={this.handleConfigChange}
+          >
+            <input />
+          </InputFloat>
+        </Form.Field>
+
+        <Label label={config.label} onChange={this.handleLabelChange} />
 
       </Form>
     )
