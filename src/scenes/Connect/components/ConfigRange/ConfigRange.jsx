@@ -9,6 +9,8 @@ import ValueProviderDropdown from '../ValueProviderDropdown'
 import ValueProviders from '@helpers/ValueProviders'
 import FunctionEditor from '@components/FunctionEditor'
 
+import InitialValue from './InitialValue'
+
 import update from 'immutability-helper'
 
 import { getConfigForRanges, getDefaultConfigForRanges } from '@reducers'
@@ -33,6 +35,7 @@ class ConfigRange extends Component {
    */
   getConfig () {
     if (this.props.config[this.props.range.name] === undefined) {
+      console.log(this.props.defaultConfig)
       return update(this.props.defaultConfig, {})
     }
     return this.props.config[this.props.range.name]
@@ -41,10 +44,14 @@ class ConfigRange extends Component {
   handleConfigChange (e, {name, value, checked}) {
     let config = this.getConfig()
     if (config[name] === undefined) {
-      toast.error(`${name} is not a valid configuration option for Animate Text`)
+      toast.error(`${name} is not a valid configuration option for Range`)
     }
 
-    config = update(config, {[name]: {$set: value}})
+    if (typeof checked === 'undefined') {
+      config = update(config, {[name]: {$set: value}})
+    } else {
+      config = update(config, {[name]: {$set: checked}})
+    }
 
     this.props.configRangeUpdate(this.props.range, config)
 
@@ -98,11 +105,17 @@ class ConfigRange extends Component {
       <Form>
         <Form.Field>
           <Form.Input
+            label='Name'
             name='name'
             value={this.props.range.name}
             onChange={this.handleRename}
           />
         </Form.Field>
+        <InitialValue
+          initialValue={config.initialValue}
+          loadInitialValue={config.loadInitialValue}
+          onChange={this.handleConfigChange}/>
+
       </Form>
     )
   }

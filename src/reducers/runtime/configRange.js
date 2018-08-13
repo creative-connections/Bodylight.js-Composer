@@ -13,7 +13,7 @@ const defaultConfig = {
   max: 100,
   reverse: false,
   initialValue: 0,
-  loadInitialValue: false,
+  loadInitialValue: true,
   label: {
     enabled: false,
     location: 'right',
