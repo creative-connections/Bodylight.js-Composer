@@ -10,6 +10,8 @@ import editorStorage from './editor/editorStorage'
 
 import widgets, * as widgetSelectors from './widgets'
 
+import configRange, * as configRangeSelectors from './runtime/configRange'
+
 import configAnimateAnim from './runtime/configAnimateAnim'
 import configAnimateText from './runtime/configAnimateText'
 import defaultConfigAnimateAnim from './runtime/defaultConfigAnimateAnim'
@@ -30,11 +32,13 @@ const reducers = combineReducers({
 
   configAnimateAnim,
   configAnimateText,
+  configRange,
   defaultConfigAnimateAnim,
   defaultConfigAnimateText
 })
 
 const stateScrubberReducer = (state, action) => {
+  console.log(action.type, state)
   if (action.type === NEW_PROJECT) {
     state = undefined
   }
@@ -46,6 +50,9 @@ export default stateScrubberReducer
 // export selectors with appropriate states
 export const getAnimates = state => widgetSelectors.getAnimates(state.widgets)
 
-export const getAvailableRangeName = (state) => widgetSelectors.getAvailableRangeName(state.widgets)
-export const getWidgetsForDropdown = (state) => widgetSelectors.getWidgetsForDropdown(state.widgets)
+export const getAvailableRangeName = state => widgetSelectors.getAvailableRangeName(state.widgets)
+export const getWidgetsForDropdown = state => widgetSelectors.getWidgetsForDropdown(state.widgets)
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
+
+export const getConfigForRanges = state => configRangeSelectors.getConfigForRanges(state.configRange)
+export const getDefaultConfigForRanges = configRangeSelectors.getDefaultConfigForRanges

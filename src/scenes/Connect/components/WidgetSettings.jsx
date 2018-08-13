@@ -8,6 +8,7 @@ import { getSelectedWidget } from '@reducers'
 
 import AnimateAnimSettings from './AnimateAnimSettings'
 import AnimateTextSettings from './AnimateTextSettings'
+import RangeSetting from './RangeSettings'
 
 class WidgetSettings extends Component {
   render () {
@@ -25,6 +26,10 @@ class WidgetSettings extends Component {
           return <AnimateTextSettings
             name={selectedWidget.name}
             parent={selectedWidget.parent}
+          />
+        case WidgetType.RANGE:
+          return <RangeSetting
+            name={selectedWidget.name}
           />
       }
     }

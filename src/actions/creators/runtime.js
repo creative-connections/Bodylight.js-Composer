@@ -1,37 +1,32 @@
 import {
   CONFIG_ANIMATE_ANIM_UPDATE,
   CONFIG_ANIMATE_TEXT_UPDATE,
-  CONFIG_ANIMATE_TEXT_REMOVE
+  CONFIG_ANIMATE_TEXT_REMOVE,
+  CONFIG_RANGE_UPDATE,
+  CONFIG_RANGE_REMOVE
 } from '@actions/types'
 
-export const configAnimateAnimUpdate = (name, parent, config) => {
-  return {
-    type: CONFIG_ANIMATE_ANIM_UPDATE,
-    payload: {
-      name,
-      parent,
-      config
-    }
-  }
-}
+export const configAnimateAnimUpdate = (name, parent, config) => ({
+  type: CONFIG_ANIMATE_ANIM_UPDATE,
+  payload: { name, parent, config }
+})
 
-export const configAnimateTextUpdate = (name, parent, config) => {
-  return {
-    type: CONFIG_ANIMATE_TEXT_UPDATE,
-    payload: {
-      name,
-      parent,
-      config
-    }
-  }
-}
+export const configAnimateTextUpdate = (name, parent, config) => ({
+  type: CONFIG_ANIMATE_TEXT_UPDATE,
+  payload: { name, parent, config }
+})
 
-export const configAnimateTextRemove = (name, parent) => {
-  return {
-    type: CONFIG_ANIMATE_TEXT_REMOVE,
-    payload: {
-      name,
-      parent
-    }
-  }
-}
+export const configAnimateTextRemove = (name, parent) => ({
+  type: CONFIG_ANIMATE_TEXT_REMOVE,
+  payload: { name, parent }
+})
+
+export const configRangeUpdate = (name, config) => ({
+  type: CONFIG_RANGE_UPDATE,
+  payload: { name, config }
+})
+
+export const configRangeRemove = (name) => ({
+  type: CONFIG_RANGE_REMOVE,
+  payload: { name }
+})

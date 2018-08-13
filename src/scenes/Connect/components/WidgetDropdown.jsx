@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Dropdown, Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react'
 
 import { selectWidget } from '@actions/actions'
-
-import { getWidgetsForDropdown } from '@reducers'
+import { getWidgetsForDropdown, getSelectedWidget } from '@reducers'
 
 class WidgetDropdown extends Component {
   constructor (props) {
@@ -23,23 +22,15 @@ class WidgetDropdown extends Component {
     return <Dropdown fluid search selection
       placeholder='Select object'
       options={this.props.widgets}
-      value={this.props.selectedWidget}
+      value={this.props.selectedWidget.id}
       onChange={this.onChange}
     />
   }
 }
 
-function mapStateToProps ({selectedWidget}) {
-  return { selectedWidget }
-}
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({selectWidget}, dispatch)
-}
-
 export default connect(
   state => ({
-    selectedWidget: state.selectedWidget,
+    selectedWidget: getSelectedWidget(state),
     widgets: getWidgetsForDropdown(state)
   }),
 
