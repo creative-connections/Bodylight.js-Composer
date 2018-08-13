@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 
 // Middlewares
 import ReduxPromise from 'redux-promise'
-import logger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 
 import localForage from 'localforage'
 
@@ -18,6 +18,11 @@ var store
 var persistor
 
 export default () => {
+  const logger = createLogger({
+    collapsed: true,
+    duration: true
+  })
+
   store = store || createStore(
     persistReducer(persistConfig, reducers),
     compose(
