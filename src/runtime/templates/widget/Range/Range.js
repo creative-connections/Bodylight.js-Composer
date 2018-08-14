@@ -37,9 +37,14 @@ export default class Range {
 
   setValueProvider (provider, id) {
     this.valueIdentifier = provider.registerValueSetter(id)
+    if (this.loadInitialValue === true) {
+      provider.registerInitialValueListener(this, id)
+    }
+
     this.valueProvider = provider
   }
 
   setValue (identifier, value) {
+    this.component.value = this.transform(value)
   }
 }

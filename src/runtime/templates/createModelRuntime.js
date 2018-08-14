@@ -32,12 +32,15 @@ export default function createModelRuntime (Model, config, functions) {
       model.outputValuesIds = []
       model.outputValuesLength = 0
       model.valueListeners = []
+      model.initialValueListeners = []
 
       model.registerValueListener = functions.registerValueListener.bind(model)
+      model.registerInitialValueListener = functions.registerInitialValueListener.bind(model)
 
       model.registerValueSetter = functions.registerValueSetter.bind(model)
       model.setValue = functions.setValue.bind(model)
       model.updateValueListeners = functions.updateValueListeners.bind(model)
+      model.updateInitialValueListeners = functions.updateInitialValueListeners.bind(model)
 
       console.log(`Module ${model.config.identifier} ready.`)
       resolve(model)

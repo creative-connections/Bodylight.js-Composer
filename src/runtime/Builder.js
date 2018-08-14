@@ -15,8 +15,10 @@ import modelTick from './templates/model/modelTick'
 import stageTick from './templates/model/stageTick'
 import updateOutputValues from './templates/model/updateOutputValues'
 import registerValueListener from './templates/model/registerValueListener'
+import registerInitialValueListener from './templates/model/registerInitialValueListener'
 import registerValueSetter from './templates/model/registerValueSetter'
 import updateValueListeners from './templates/model/updateValueListeners'
+import updateInitialValueListeners from './templates/model/updateInitialValueListeners'
 import setValue from './templates/model/setValue'
 
 import WidgetType from '@helpers/WidgetType'
@@ -70,7 +72,9 @@ class Builder {
     this.append('functions.stageTick = ' + this.tpl(stageTick))
     this.append('functions.updateOutputValues = ' + this.tpl(updateOutputValues))
     this.append('functions.registerValueListener = ' + this.tpl(registerValueListener))
+    this.append('functions.registerInitialValueListener = ' + this.tpl(registerInitialValueListener))
     this.append('functions.updateValueListeners = ' + this.tpl(updateValueListeners))
+    this.append('functions.updateInitialValueListeners = ' + this.tpl(updateInitialValueListeners))
     this.append('functions.registerValueSetter = ' + this.tpl(registerValueSetter))
     this.append('functions.setValue = ' + this.tpl(setValue))
   }

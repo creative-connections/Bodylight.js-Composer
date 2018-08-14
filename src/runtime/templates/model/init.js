@@ -24,9 +24,9 @@ export default function init () {
   this.fmi2SetupExperiment(this.inst, 1, 0.000001, this.startTime, 0)
 
   this.fmi2EnterInitializationMode(this.inst)
-  // this.loadInitialValues()
-  // this.attachRanges()
-  // this.attachCheckboxes()
+
+  this.updateInitialValueListeners()
+
   this.fmi2ExitInitializationMode(this.inst)
 
   this.modelTickInterval = window.setInterval(
