@@ -39,6 +39,7 @@ import appendAnimates from './builders/animates/animates'
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
 
+import initAnimates from './templates/initAnimates'
 import initWidgets from './templates/initWidgets'
 import initValueProviders from './templates/initValueProviders'
 import resolveValueProviders from './templates/resolveValueProviders'
@@ -138,6 +139,7 @@ class Builder {
 
     append(tpl(initValueProviders))
     append(tpl(initWidgets))
+    append(tpl(initAnimates))
     append(tpl(resolveValueProviders))
 
     append(tpl(init))

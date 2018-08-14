@@ -1,28 +1,7 @@
 /* global config */
 /* global widgets */
-/* global animates */
 
 export default function initWidgets () {
-  const initAnimates = () => {
-    const promises = []
-    Object.entries(animates).forEach(([name, source]) => {
-      // find our canvas by name
-      const element = document.getElementsByName(name)[0]
-      if (typeof element === 'undefined') {
-        return
-      }
-
-      const promise = new Promise(resolve => {
-        createAnimateRuntime(name, source, element).then(animate => {
-          animates[name] = animate
-          resolve()
-        })
-      })
-      promises.push(promise)
-    })
-    return promises
-  }
-
   const initAnimateAnims = () => {
     widgets.animateAnims = {}
     return new Promise(resolve => {
@@ -34,7 +13,7 @@ export default function initWidgets () {
 
         // process AnimateAnimMode controlled
         Object.entries(animate.controlled).forEach(([name, configuration]) => {
-          widgets.animateAnims[animateName].controlled[name] = new AnimateAnim(name, configuration)
+          widgets.animateAnims[animateName].controlled[name] = new AnimateAnim(name, configuration, animate)
         })
       })
 
@@ -51,7 +30,7 @@ export default function initWidgets () {
         widgets.animateTexts[animateName] = {}
 
         Object.entries(animate).forEach(([name, configuration]) => {
-          widgets.animateTexts[animateName][name] = new AnimateText(name, configuration)
+          widgets.animateTexts[animateName][name] = new AnimateText(name, configuration, animate)
         })
       })
 
@@ -60,7 +39,7 @@ export default function initWidgets () {
   }
 
   const promises = []
-  promises.push(initAnimates())
+
   promises.push(initAnimateAnims())
   promises.push(initAnimateTexts())
 

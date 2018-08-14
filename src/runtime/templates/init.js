@@ -1,18 +1,21 @@
 /* global initValueProviders */
+/* global resolveValueProviders */
 /* global initWidgets */
 
 function init () {
   createjs.Ticker.interval = 16.5
 
-  let valueProviderPromises = initValueProviders()
-  let widgetPromises = initWidgets()
-
   Promise.all([
-    Promise.all(valueProviderPromises),
-    Promise.all(widgetPromises)
-  ]).then((results) => {
-    resolveValueProviders()
-  })
+    Promise.all(initValueProviders()),
+    Promise.all(initAnimates())
+  ]).then(() => {
+    Promise.all([
+      initWidgets()
+    ]).then(() => {
+      resolveValueProviders()
+    })
+  }
+  )
 }
 
 export default init
