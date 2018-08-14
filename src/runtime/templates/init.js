@@ -1,43 +1,17 @@
-function init (modelDefinitions, modelConfigs, animates, functions) {
+/* global initValueProviders */
+/* global initWidgets */
+
+function init () {
   createjs.Ticker.interval = 16.5
-  let modelPromises = []
-  let animatePromises = []
 
-  // create promises for all modules
-  let modelNames = Object.keys(modelDefinitions)
-  modelNames.forEach(name => {
-    const model = modelDefinitions[name]
-    const config = modelConfigs[name]
-    const promise = createModelRuntime(model, config, functions)
-    modelPromises.push(promise)
-  })
+  let valueProviderPromises = initValueProviders()
+  let widgetPromises = initWidgets()
 
-  // create promises for all animates
-  Object.entries(animates).forEach(([name, source]) => {
-    const element = document.getElementsByName(name)[0]
-    if (typeof element === 'undefined') {
-      return
-    }
-    const promise = createAnimateRuntime(name, source, element)
-    animatePromises.push(promise)
-  })
-
-  // init everything simultaneously
   Promise.all([
-    Promise.all(modelPromises),
-    Promise.all(animatePromises)
+    Promise.all(valueProviderPromises),
+    Promise.all(widgetPromises)
   ]).then((results) => {
-    let models = results[0]
-    let animates = results[1]
-
-    let widgets = {
-      animates: animates.length > 0 ? Object.assign.apply({}, animates) : []
-    }
-
-    models.forEach(model => {
-      model.widgets = widgets
-      model.init()
-    })
+    resolveValueProviders()
   })
 }
 
