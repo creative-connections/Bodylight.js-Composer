@@ -11,7 +11,7 @@ export default function initAnimates () {
 
     const promise = new Promise(resolve => {
       createAnimateRuntime(name, source, element).then(animate => {
-        animates[name] = animate
+        animates[name] = animate[name]
         resolve()
       })
     })
