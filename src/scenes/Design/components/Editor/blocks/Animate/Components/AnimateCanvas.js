@@ -51,7 +51,6 @@ export default (editor) => {
       getAnimate () {
         const name = this.attr.name
         const animates = getAnimates(configureStore().store.getState())
-        // if we don't have a valid animate name, we draw a placeholder instead
         if (typeof name === 'undefined' || name === null || name === '' ||
             typeof animates[name] === 'undefined') {
           return null

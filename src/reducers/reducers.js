@@ -48,6 +48,7 @@ export default stateScrubberReducer
 
 // export selectors with appropriate states
 export const getAnimates = state => widgetSelectors.getAnimates(state.widgets)
+export const getRanges = state => widgetSelectors.getRanges(state.widgets)
 
 export const getAvailableRangeName = state => widgetSelectors.getAvailableRangeName(state.widgets)
 export const getWidgetsForDropdown = state => widgetSelectors.getWidgetsForDropdown(state.widgets)

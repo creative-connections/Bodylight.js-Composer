@@ -12,6 +12,7 @@ export default combineReducers({
 })
 
 export const getAnimates = state => animatesSelectors.getAnimates(state.animates)
+export const getRanges = state => rangesSelectors.getRanges(state.ranges)
 
 export const getAvailableRangeName = state => rangesSelectors.getAvailableRangeName(state.ranges)
 

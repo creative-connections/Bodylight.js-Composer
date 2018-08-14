@@ -3,7 +3,9 @@ import update from 'immutability-helper'
 import {
   ADD_RANGE,
   RENAME_RANGE,
-  REMOVE_RANGE
+  REMOVE_RANGE,
+  EDITOR_PLACE_RANGE,
+  EDITOR_REMOVE_RANGE
 } from '@actions/types'
 
 const removeRange = (state, name) => {
@@ -34,6 +36,18 @@ export default function (state = {}, action) {
     return removeRange(state, action.payload.range.name)
   }
 
+  if (action.type === EDITOR_PLACE_RANGE) {
+    if (state[action.payload] !== undefined) {
+      return update(state, {[action.payload]: {placed: {$set: true}}})
+    }
+  }
+
+  if (action.type === EDITOR_REMOVE_RANGE) {
+    if (state[action.payload] !== undefined) {
+      return update(state, {[action.payload]: {$unset: ['placed']}})
+    }
+  }
+
   return state
 }
 
@@ -50,3 +64,5 @@ export const getAvailableRangeName = (state) => {
   }
   return name
 }
+
+export const getRanges = state => state

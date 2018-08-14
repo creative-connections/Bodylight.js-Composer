@@ -10,6 +10,7 @@ import gjsBlocksFlexbox from 'grapesjs-blocks-flexbox'
 import gjsReduxStorage from './storage/redux'
 
 import animateBlock from './blocks/Animate'
+import rangeBlock from './blocks/Range'
 
 import configureStore from '@src/configureStore'
 import { editorStorageClear } from '@actions/actions'
@@ -60,6 +61,7 @@ class Editor extends Component {
     })
 
     animateBlock(editor)
+    rangeBlock(editor)
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
