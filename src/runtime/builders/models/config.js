@@ -15,6 +15,8 @@ export default () => {
     configuration.guid = model.guid
     configuration.identifier = model.modelIdentifier
     configuration.name = model.name
+    configuration.parameters = model.parameters
+    configuration.variables = model.variables
 
     config[name] = configuration
   })
