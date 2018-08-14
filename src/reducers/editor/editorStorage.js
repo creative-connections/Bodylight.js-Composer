@@ -16,3 +16,5 @@ export default function (state = defaultState, action) {
 
   return state
 }
+
+export const getEditorStorage = state => state

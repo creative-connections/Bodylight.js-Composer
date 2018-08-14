@@ -6,7 +6,7 @@ import defaultModelOptions from './models/defaultModelOptions'
 import configurationScreen from './app/configurationScreen'
 import activeScreen from './app/activeScreen'
 
-import editorStorage from './editor/editorStorage'
+import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
 
 import widgets, * as widgetSelectors from './widgets'
 
@@ -61,3 +61,5 @@ export const getDefaultConfigForRanges = configRangeSelectors.getDefaultConfigFo
 
 export const getConfigForAnimateAnim = state => configAnimateAnimSelectors.getConfigForAnimateAnim(state.configAnimateAnim)
 export const getConfigForAnimateText = state => configAnimateTextSelectors.getConfigForAnimateText(state.configAnimateText)
+
+export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
