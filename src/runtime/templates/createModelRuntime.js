@@ -20,16 +20,12 @@ export default function createModelRuntime (Model, config, functions) {
       model.gettersAndSetters = functions.gettersAndSetters.bind(model)
       model.gettersAndSetters()
 
-      model.registerGetId = functions.registerGetId.bind(model)
-
       // global defines
       model.WidgetType = WidgetType
       model.ValueProviderType = ValueProviderType
 
       model.lookupProvider = functions.lookupProvider.bind(model)
-      model.bindProviders = functions.bindProviders.bind(model)
       model.lookupWidget = functions.lookupWidget.bind(model)
-      model.bindWidgets = functions.bindWidgets.bind(model)
 
       model.modelTick = functions.modelTick.bind(model)
       model.stageTick = functions.stageTick.bind(model)
@@ -38,6 +34,13 @@ export default function createModelRuntime (Model, config, functions) {
 
       model.updateControlledAnimateAnim = functions.updateControlledAnimateAnim.bind(model)
       model.updateAnimateText = functions.updateAnimateText.bind(model)
+
+      model.outputValuesIds = []
+      model.outputValuesLength = 0
+      model.valueListeners = []
+
+      model.registerValueListener = functions.registerValueListener.bind(model)
+      model.updateValueListeners = functions.updateValueListeners.bind(model)
 
       console.log(`Module ${model.config.identifier} ready.`)
       resolve(model)

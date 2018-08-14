@@ -1,13 +1,8 @@
 export default function init () {
   const fmi2CoSimulation = 1
 
-  this.outputValuesLength = 0
-
-  this.bindProviders()
-  this.bindWidgets()
-
   // transform getIds to Int32Array
-  this.getIds = this.heapArray(new Int32Array(this.getIds))
+  this.outputValuesIds = this.heapArray(new Int32Array(this.outputValuesIds))
   // create outputValues array for getting values from FMU
   this.outputValuesBuffer = this.heapArray(new Float64Array(this.outputValuesLength))
   this.outputValues = Array(this.outputValuesLength).fill(0)

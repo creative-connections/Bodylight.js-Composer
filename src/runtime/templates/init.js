@@ -1,6 +1,7 @@
 /* global initValueProviders */
 /* global resolveValueProviders */
 /* global initWidgets */
+/* global models */
 
 function init () {
   createjs.Ticker.interval = 16.5
@@ -13,6 +14,7 @@ function init () {
       initWidgets()
     ]).then(() => {
       resolveValueProviders()
+      Object.entries(models).forEach(([name, model]) => model.init())
     })
   }
   )
