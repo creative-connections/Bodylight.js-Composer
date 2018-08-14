@@ -24,16 +24,10 @@ export default function createModelRuntime (Model, config, functions) {
       model.WidgetType = WidgetType
       model.ValueProviderType = ValueProviderType
 
-      model.lookupProvider = functions.lookupProvider.bind(model)
-      model.lookupWidget = functions.lookupWidget.bind(model)
-
       model.modelTick = functions.modelTick.bind(model)
       model.stageTick = functions.stageTick.bind(model)
 
       model.updateOutputValues = functions.updateOutputValues.bind(model)
-
-      model.updateControlledAnimateAnim = functions.updateControlledAnimateAnim.bind(model)
-      model.updateAnimateText = functions.updateAnimateText.bind(model)
 
       model.outputValuesIds = []
       model.outputValuesLength = 0

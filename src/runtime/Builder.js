@@ -10,21 +10,15 @@ import init from './templates/init'
 import cwrapFunctions from './templates/model/cwrapFunctions'
 import consoleLogger from './templates/model/consoleLogger'
 import gettersAndSetters from './templates/model/gettersAndSetters'
-import lookupProvider from './templates/model/lookupProvider'
-import lookupWidget from './templates/model/lookupWidget'
 import modelInit from './templates/model/init'
 import modelTick from './templates/model/modelTick'
 import stageTick from './templates/model/stageTick'
 import updateOutputValues from './templates/model/updateOutputValues'
-import updateControlledAnimateAnim from './templates/model/updateControlledAnimateAnim'
-import updateAnimateText from './templates/model/updateAnimateText'
 import registerValueListener from './templates/model/registerValueListener'
 import updateValueListeners from './templates/model/updateValueListeners'
 
 import WidgetType from '@helpers/WidgetType'
 import ValueProviderType from '@helpers/ValueProviderType'
-import ValueProviders from '@helpers/ValueProviders'
-import AnimateAnimMode from '@helpers/AnimateAnimMode'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
@@ -68,14 +62,10 @@ class Builder {
     this.append('functions.cwrapFunctions = ' + this.tpl(cwrapFunctions))
     this.append('functions.consoleLogger = ' + this.tpl(consoleLogger))
     this.append('functions.gettersAndSetters = ' + this.tpl(gettersAndSetters))
-    this.append('functions.lookupProvider = ' + this.tpl(lookupProvider))
-    this.append('functions.lookupWidget = ' + this.tpl(lookupWidget))
     this.append('functions.init = ' + this.tpl(modelInit))
     this.append('functions.modelTick = ' + this.tpl(modelTick))
     this.append('functions.stageTick = ' + this.tpl(stageTick))
     this.append('functions.updateOutputValues = ' + this.tpl(updateOutputValues))
-    this.append('functions.updateControlledAnimateAnim = ' + this.tpl(updateControlledAnimateAnim))
-    this.append('functions.updateAnimateText = ' + this.tpl(updateAnimateText))
     this.append('functions.registerValueListener = ' + this.tpl(registerValueListener))
     this.append('functions.updateValueListeners = ' + this.tpl(updateValueListeners))
   }
