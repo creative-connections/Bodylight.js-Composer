@@ -40,8 +40,8 @@ class AnimateRuntime {
     this.stage.addChild(root)
 
     // determine and load any Google Fonts required
-    const gfontFamilies = Object.keys(this.library.webFontTxtInst)
-    WebFont.load({ google: { families: gfontFamilies } })
+    // const gfontFamilies = Object.keys(this.library.webFontTxtInst)
+    // WebFont.load({ google: { families: gfontFamilies } })
 
     // register stage to receive tick updates
     createjs.Ticker.addEventListener('tick', this.stage)
