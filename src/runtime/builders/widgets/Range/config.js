@@ -6,9 +6,9 @@ import update from 'immutability-helper'
 export default () => {
   const ranges = getConfigForRanges(configureStore().store.getState())
 
-  const config = []
+  const config = {}
   Object.entries(ranges).forEach(([name, configuration]) => {
-    const transform = Function(`return ${configuration.transform}`)
+    const transform = Function(`return ${configuration.transform}`)()
 
     configuration = update(configuration, {
       transform: {$set: transform}

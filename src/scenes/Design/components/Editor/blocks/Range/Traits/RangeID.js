@@ -20,7 +20,7 @@ export default editor => {
         Object.entries(ranges).forEach(([name, range]) => {
           const option = document.createElement('option')
 
-          option.value = name
+          option.value = `range-${name}`
           option.text = name
           if (name === currentValue) {
             option.selected = true

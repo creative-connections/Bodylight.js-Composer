@@ -15,7 +15,6 @@ export default function initWidgets () {
           widgets.push(new AnimateAnim(name, configuration, animate))
         })
       })
-
       resolve()
     })
   }
@@ -30,7 +29,28 @@ export default function initWidgets () {
           widgets.push(new AnimateText(name, configuration, animate))
         })
       })
+      resolve()
+    })
+  }
 
+  const initRanges = () => {
+    return new Promise(resolve => {
+      const ranges = config.widgets.ranges
+      Object.entries(ranges).forEach(([name, configuration]) => {
+        let range
+
+        try {
+          range = new Range(name, configuration)
+        } catch (e) {
+          if (e instanceof ReferenceError) {
+            console.warn(e.message)
+            return
+          } else {
+            throw e
+          }
+        }
+        widgets.push(range)
+      })
       resolve()
     })
   }
@@ -39,6 +59,7 @@ export default function initWidgets () {
 
   promises.push(initAnimateAnims())
   promises.push(initAnimateTexts())
+  promises.push(initRanges())
 
   return promises
 }

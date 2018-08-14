@@ -34,6 +34,9 @@ export default function createModelRuntime (Model, config, functions) {
       model.valueListeners = []
 
       model.registerValueListener = functions.registerValueListener.bind(model)
+
+      model.registerValueSetter = functions.registerValueSetter.bind(model)
+      model.setValue = functions.setValue.bind(model)
       model.updateValueListeners = functions.updateValueListeners.bind(model)
 
       console.log(`Module ${model.config.identifier} ready.`)

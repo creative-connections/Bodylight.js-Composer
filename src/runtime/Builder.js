@@ -15,7 +15,9 @@ import modelTick from './templates/model/modelTick'
 import stageTick from './templates/model/stageTick'
 import updateOutputValues from './templates/model/updateOutputValues'
 import registerValueListener from './templates/model/registerValueListener'
+import registerValueSetter from './templates/model/registerValueSetter'
 import updateValueListeners from './templates/model/updateValueListeners'
+import setValue from './templates/model/setValue'
 
 import WidgetType from '@helpers/WidgetType'
 import ValueProviderType from '@helpers/ValueProviderType'
@@ -39,6 +41,7 @@ import resolveValueProviders from './templates/resolveValueProviders'
 
 import AnimateAnim from './templates/widget/AnimateAnim'
 import AnimateText from './templates/widget/AnimateText'
+import Range from './templates/widget/Range'
 
 class Builder {
   constructor () {
@@ -68,6 +71,8 @@ class Builder {
     this.append('functions.updateOutputValues = ' + this.tpl(updateOutputValues))
     this.append('functions.registerValueListener = ' + this.tpl(registerValueListener))
     this.append('functions.updateValueListeners = ' + this.tpl(updateValueListeners))
+    this.append('functions.registerValueSetter = ' + this.tpl(registerValueSetter))
+    this.append('functions.setValue = ' + this.tpl(setValue))
   }
 
   build () {
@@ -121,6 +126,7 @@ class Builder {
     // append widget classes
     append(tpl(AnimateAnim))
     append(tpl(AnimateText))
+    append(tpl(Range))
 
     append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))

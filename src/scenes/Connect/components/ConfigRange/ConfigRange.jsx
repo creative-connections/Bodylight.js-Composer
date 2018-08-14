@@ -10,7 +10,6 @@ import ValueProviders from '@helpers/ValueProviders'
 import FunctionEditor from '@components/FunctionEditor'
 
 import InitialValue from './InitialValue'
-import Label from './Label'
 
 import update from 'immutability-helper'
 import InputFloat from '@components/form/InputFloat'
@@ -165,8 +164,6 @@ class ConfigRange extends Component {
             <input />
           </InputFloat>
         </Form.Field>
-
-        <Label label={config.label} onChange={this.handleLabelChange} />
 
       </Form>
     )

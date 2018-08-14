@@ -13,12 +13,7 @@ const defaultConfig = {
   max: 100,
   reverse: false,
   initialValue: 0,
-  loadInitialValue: true,
-  label: {
-    enabled: false,
-    location: 'right',
-    transform: 'value => value;'
-  }
+  loadInitialValue: true
 }
 
 const defaultState = {
