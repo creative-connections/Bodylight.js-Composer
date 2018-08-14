@@ -1,18 +1,20 @@
 /* global config */
 /* global widgets */
+/* global animates */
 
 export default function initWidgets () {
   const initAnimateAnims = () => {
     widgets.animateAnims = {}
     return new Promise(resolve => {
-      const animates = config.widgets.animateAnims
+      const animatelist = config.widgets.animateAnims
 
       // first we go trough parent animates
-      Object.entries(animates).forEach(([animateName, animate]) => {
+      Object.entries(animatelist).forEach(([animateName, widgetlist]) => {
         widgets.animateAnims[animateName] = {controlled: {}}
 
+        const animate = animates[animateName]
         // process AnimateAnimMode controlled
-        Object.entries(animate.controlled).forEach(([name, configuration]) => {
+        Object.entries(widgetlist.controlled).forEach(([name, configuration]) => {
           widgets.animateAnims[animateName].controlled[name] = new AnimateAnim(name, configuration, animate)
         })
       })
@@ -24,12 +26,13 @@ export default function initWidgets () {
   const initAnimateTexts = () => {
     widgets.animateTexts = {}
     return new Promise(resolve => {
-      const animates = config.widgets.animateTexts
+      const animatelist = config.widgets.animateTexts
 
-      Object.entries(animates).forEach(([animateName, animate]) => {
+      Object.entries(animatelist).forEach(([animateName, widgetlist]) => {
         widgets.animateTexts[animateName] = {}
 
-        Object.entries(animate).forEach(([name, configuration]) => {
+        const animate = animates[animateName]
+        Object.entries(widgetlist).forEach(([name, configuration]) => {
           widgets.animateTexts[animateName][name] = new AnimateText(name, configuration, animate)
         })
       })
