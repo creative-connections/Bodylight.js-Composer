@@ -18,7 +18,7 @@ export default function registerValueListener (listener, name) {
     index: index
   })
 
-  console.log(`Registered value listener ${listener.name} as index ${index}`)
+  console.log(`${this.config.identifier}: registered value listener ${listener.name} as index ${index}`)
 
   return true
 }
