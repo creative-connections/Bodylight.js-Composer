@@ -9,3 +9,5 @@ export default function (state = {}, action) {
 
   return state
 }
+
+export const getModels = state => state
