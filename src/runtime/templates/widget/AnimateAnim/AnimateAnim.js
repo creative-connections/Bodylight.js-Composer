@@ -11,6 +11,7 @@ export default class AnimateAnim {
 
   setValueProvider (provider, id) {
     provider.registerValueListener(this, id)
+    this.valueProvider = provider
   }
 
   setValue (identifier, value) {
