@@ -19,6 +19,8 @@ export default class Range {
     component.addEventListener('input', this.handleOnChange)
 
     this.component = component
+
+    this.setValue(null, this.initialValue)
   }
 
   handleOnChange (e, v) {
