@@ -13,7 +13,9 @@ const defaultConfig = {
   max: 100,
   reverse: false,
   initialValue: 0,
-  loadInitialValue: true
+  loadInitialValue: true,
+  enabled: '() => true;',
+  enabledProvider: null
 }
 
 const defaultState = {
@@ -28,7 +30,7 @@ const removeRange = (state, name) => {
   })
 }
 
-const updateRange = (state, name, config) => {
+const updateRangeConfig = (state, name, config) => {
   return update(state, {
     ranges: {
       [name]: {$set: config}
@@ -36,9 +38,18 @@ const updateRange = (state, name, config) => {
   })
 }
 
+const updateRangeKeyValue = (state, range, key, value) => {
+  return update(state, {
+    ranges: {
+      [range.name]: {[key]: {$set: value}}
+    }
+  })
+}
+
 export default function (state = defaultState, action) {
   if (action.type === CONFIG_RANGE_UPDATE) {
-    state = updateRange(state, action.payload.range.name, action.payload.config)
+    const { range, key, value } = action.payload
+    state = updateRangeKeyValue(state, range, key, value)
   }
 
   if (action.type === CONFIG_RANGE_REMOVE) {
@@ -48,7 +59,7 @@ export default function (state = defaultState, action) {
   if (action.type === RENAME_RANGE) {
     const config = state.ranges[action.payload.range.name]
     state = removeRange(state, action.payload.range.name)
-    state = updateRange(state, action.payload.newname, config)
+    state = updateRangeConfig(state, action.payload.newname, config)
   }
 
   if (action.type === REMOVE_RANGE) {

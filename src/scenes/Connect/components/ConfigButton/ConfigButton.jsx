@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 
 import { Checkbox, Rail, Form, Dropdown, Header, Grid, Button, Divider, Transition, Segment } from 'semantic-ui-react'
 
-import ValueProviderDropdown from '../ValueProviderDropdown'
+import ValueProviderDropdown from '@components/ValueProviderDropdown'
 import ValueProviders from '@helpers/ValueProviders'
 import FunctionEditor from '@components/FunctionEditor'
 

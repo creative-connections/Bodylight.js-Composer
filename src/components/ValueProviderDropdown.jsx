@@ -22,9 +22,9 @@ class ValueProviderDropdown extends Component {
 
   render () {
     return (
-      <Form.Field>
+      <div style={{display: 'inline'}}>
         <Dropdown search selection
-          style={{minWidth: '30em'}}
+          style={{minWidth: '20em'}}
           placeholder='Value provider'
           options={this.valueProvidersOptions}
           name={this.props.name}
@@ -32,7 +32,7 @@ class ValueProviderDropdown extends Component {
           onChange={this.props.onChange} >
         </Dropdown>
         { this.props.value !== null && <Button onClick={this.props.onClear}>X</Button> }
-      </Form.Field>
+      </div>
     )
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Form } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 
 import PendingChangesButton from '@components/PendingChangesButton'
 
@@ -120,27 +120,26 @@ class FunctionEditor extends Component {
     }
 
     return (
-      <div>
-        <Form.Input
-          placeholder='value => value'
-          name={this.props.name}
-          value={value}
-          onChange={this.onChange}
+      <Input
+        style={{minWidth: '30em'}}
+        placeholder='value => value'
+        name={this.props.name}
+        value={value}
+        onChange={this.onChange}
+        error={error}
+      >
+
+        <input/>
+
+        <PendingChangesButton
+          display={this.state.displayButton}
           error={error}
-        >
+          pending={this.state.pending}
+          onCancel={this.onCancel}
+          onApply={this.onApply}
+        />
 
-          <input/>
-
-          <PendingChangesButton
-            display={this.state.displayButton}
-            error={error}
-            pending={this.state.pending}
-            onCancel={this.onCancel}
-            onApply={this.onApply}
-          />
-
-        </Form.Input>
-      </div>
+      </Input>
     )
   }
 }

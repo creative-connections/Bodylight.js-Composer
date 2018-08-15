@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 
 import { Checkbox, Rail, Form, Dropdown, Header, Grid, Button, Divider, Transition, Segment } from 'semantic-ui-react'
 
-import ValueProviderDropdown from '../ValueProviderDropdown'
+import ValueProviderDropdown from '@components/ValueProviderDropdown'
 import ValueProviders from '@helpers/ValueProviders'
 import FunctionEditor from '@components/FunctionEditor'
 
@@ -13,6 +13,8 @@ import InitialValue from './InitialValue'
 
 import update from 'immutability-helper'
 import InputFloat from '@components/form/InputFloat'
+
+import ValueProvidedFunction from '@components/ValueProvidedFunction'
 
 import { getConfigForRanges, getDefaultConfigForRanges } from '@reducers'
 
@@ -49,13 +51,11 @@ class ConfigRange extends Component {
       toast.error(`${name} is not a valid configuration option for Range`)
     }
 
-    if (typeof checked === 'undefined') {
-      config = update(config, {[name]: {$set: value}})
-    } else {
-      config = update(config, {[name]: {$set: checked}})
+    if (typeof checked !== 'undefined') {
+      value = checked
     }
 
-    this.props.configRangeUpdate(this.props.range, config)
+    this.props.configRangeUpdate(this.props.range, name, value)
 
     if (name === 'valueProvider') {
       const provider = ValueProviders.value(value)
@@ -118,54 +118,65 @@ class ConfigRange extends Component {
     }
 
     return (
-      <Form>
-        <Form.Field>
-          <Form.Input
-            label='Name'
-            name='name'
-            value={this.props.range.name}
-            onChange={this.handleRename}
-          />
-        </Form.Field>
+      <div>
+        <Form>
+          <Form.Field>
+            <Form.Input
+              label='Name'
+              name='name'
+              value={this.props.range.name}
+              onChange={this.handleRename}
+            />
+          </Form.Field>
 
-        <InitialValue
-          initialValue={config.initialValue}
-          loadInitialValue={config.loadInitialValue}
-          onChange={this.handleConfigChange}/>
+          <InitialValue
+            initialValue={config.initialValue}
+            loadInitialValue={config.loadInitialValue}
+            onChange={this.handleConfigChange}/>
 
-        <Form.Field>
-          <label>{'Value transform function'}</label>
-          <FunctionEditor
-            name='transform'
-            value={config.transform}
-            onChange={this.handleConfigChange}
-            typeof='number'
-          />
-        </Form.Field>
+          <Form.Field>
+            <label>{'Value transform function'}</label>
+            <FunctionEditor
+              name='transform'
+              value={config.transform}
+              onChange={this.handleConfigChange}
+              typeof='number'
+            />
+          </Form.Field>
 
-        <Form.Field >
-          <label>Minimum value</label>
-          <InputFloat
-            name='min'
-            value={config.min}
-            onChange={this.handleConfigChange}
-          >
-            <input />
-          </InputFloat>
-        </Form.Field>
+          <Form.Field >
+            <label>Minimum value</label>
+            <InputFloat
+              name='min'
+              value={config.min}
+              onChange={this.handleConfigChange}
+            >
+              <input />
+            </InputFloat>
+          </Form.Field>
 
-        <Form.Field >
-          <label>Maximum value</label>
-          <InputFloat
-            name='max'
-            value={config.max}
-            onChange={this.handleConfigChange}
-          >
-            <input />
-          </InputFloat>
-        </Form.Field>
+          <Form.Field >
+            <label>Maximum value</label>
+            <InputFloat
+              name='max'
+              value={config.max}
+              onChange={this.handleConfigChange}
+            >
+              <input />
+            </InputFloat>
+          </Form.Field>
+        </Form>
 
-      </Form>
+        <Divider hidden/>
+
+        <label>Enabled</label>
+        <ValueProvidedFunction
+          name='enabled'
+          value={config.enabled}
+          provider={config.enabledProvider}
+          onChange={this.handleConfigChange}
+        />
+      </div>
     )
   }
 }
