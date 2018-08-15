@@ -4,13 +4,21 @@ import { bindActionCreators } from 'redux'
 
 import { Dropdown, Button, Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
 
-import { getAvailableRangeName } from '@reducers'
-import { addRange } from '@actions'
+import {
+  getAvailableRangeName,
+  getAvailableButtonName
+} from '@reducers'
+
+import {
+  addRange,
+  addButton
+} from '@actions'
 
 class WidgetMenu extends Component {
   constructor (props) {
     super(props)
     this.addRange = this.addRange.bind(this)
+    this.addButton = this.addButton.bind(this)
   }
 
   addRange () {
@@ -18,20 +26,32 @@ class WidgetMenu extends Component {
     this.props.addRange(name)
   }
 
+  addButton () {
+    const name = this.props.getAvailableButtonName()
+    this.props.addButton(name)
+  }
+
   render () {
     return (
-      <Segment>
-        <Button onClick={this.addRange}>Add range</Button>
-      </Segment>
+      <div>
+        <Segment>
+          <Button onClick={this.addRange}>Add range</Button>
+        </Segment>
+        <Segment>
+          <Button onClick={this.addButton}>Add button</Button>
+        </Segment>
+      </div>
     )
   }
 }
 
 export default connect(
   state => ({
+    'getAvailableButtonName': () => getAvailableButtonName(state),
     'getAvailableRangeName': () => getAvailableRangeName(state)
   }),
   dispatch => bindActionCreators({
-    addRange
+    addRange,
+    addButton
   }, dispatch)
 )(WidgetMenu)

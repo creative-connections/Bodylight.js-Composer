@@ -3,18 +3,22 @@ import WidgetType from '@helpers/WidgetType'
 
 import animates, * as animatesSelectors from './reducers/animates'
 import ranges, * as rangesSelectors from './reducers/ranges'
+import buttons, * as buttonsSelectors from './reducers/buttons'
 import app, * as appSelectors from './reducers/app'
 
 export default combineReducers({
   animates,
   ranges,
+  buttons,
   app
 })
 
 export const getAnimates = state => animatesSelectors.getAnimates(state.animates)
 export const getRanges = state => rangesSelectors.getRanges(state.ranges)
+export const getButtons = state => buttonSelectors.getButtons(state.buttons)
 
 export const getAvailableRangeName = state => rangesSelectors.getAvailableRangeName(state.ranges)
+export const getAvailableButtonName = state => buttonsSelectors.getAvailableButtonName(state.buttons)
 
 export const getSelectedWidget = state => appSelectors.getSelectedWidget(state.app)
 
@@ -37,6 +41,13 @@ export const generateWidgetId = (type, name, parent = null) => {
 
 export const getWidgetsForDropdown = state => {
   var options = []
+  Object.entries(state.buttons).forEach(([name, button]) => {
+    options.push({
+      text: `button: ${name}`,
+      value: generateWidgetId(WidgetType.BUTTON, name)
+    })
+  })
+
   Object.entries(state.ranges).forEach(([name, range]) => {
     options.push({
       text: `range: ${name}`,

@@ -6,9 +6,14 @@ export const CNFSCR_SELECT_ANIMATE = 'CNFSCR_SELECT_ANIMATE'
 
 export const ADD_MODEL = 'ADD_MODEL'
 export const ADD_ANIMATE = 'ADD_ANIMATE'
+
 export const ADD_RANGE = 'ADD_RANGE'
 export const RENAME_RANGE = 'RENAME_RANGE'
 export const REMOVE_RANGE = 'REMOVE_RANGE'
+
+export const ADD_BUTTON = 'ADD_BUTTON'
+export const RENAME_BUTTON = 'RENAME_BUTTON'
+export const REMOVE_BUTTON = 'REMOVE_BUTTON'
 
 export const SELECT_WIDGET = 'SELECT_WIDGET'
 

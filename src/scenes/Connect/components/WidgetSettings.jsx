@@ -9,6 +9,7 @@ import { getSelectedWidget } from '@reducers'
 import ConfigAnimateAnim from './ConfigAnimateAnim'
 import ConfigAnimateText from './ConfigAnimateText'
 import ConfigRange from './ConfigRange'
+import ConfigButton from './ConfigButton'
 
 class WidgetSettings extends Component {
   render () {
@@ -29,6 +30,9 @@ class WidgetSettings extends Component {
           />
         case WidgetType.RANGE:
           return <ConfigRange range={selectedWidget} />
+
+        case WidgetType.BUTTON:
+          return <ConfigButton range={selectedWidget} />
       }
     }
 
