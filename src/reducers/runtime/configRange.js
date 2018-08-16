@@ -6,16 +6,60 @@ import {
   REMOVE_RANGE
 } from '@actions/types'
 
+/*
+ * AttributeType:
+ * 'value'
+ */
+
 const defaultConfig = {
-  valueProvider: null,
-  transform: 'value => value;',
-  min: 0,
-  max: 100,
-  reverse: false,
-  initialValue: 0,
-  loadInitialValue: true,
-  enabled: '() => true;',
-  enabledProvider: null
+  name: null,
+
+  target: {
+    value: null,
+    provider: null,
+    function: null,
+    typeof: 'number'
+  },
+
+  attributes: [
+    'enabled',
+    'min',
+    'max',
+    'reverse'
+  ],
+
+  enabled: {
+    typeof: 'boolean',
+    value: true,
+    complex: false,
+    provider: null,
+    function: null
+  },
+
+  reversed: {
+    typeof: 'boolean',
+    value: false,
+    complex: false,
+    provider: null,
+    function: null
+  },
+
+  min: {
+    typeof: 'number',
+    value: 0,
+    complex: false,
+    provider: null,
+    function: null
+  },
+
+  max: {
+    typeof: 'number',
+    value: 100,
+    complex: false,
+    provider: null,
+    function: null
+  }
+
 }
 
 const defaultState = {
@@ -30,7 +74,7 @@ const removeRange = (state, name) => {
   })
 }
 
-const updateRangeConfig = (state, name, config) => {
+const setRangeConfig = (state, name, config) => {
   return update(state, {
     ranges: {
       [name]: {$set: config}
@@ -38,10 +82,27 @@ const updateRangeConfig = (state, name, config) => {
   })
 }
 
-const updateRangeKeyValue = (state, range, key, value) => {
+const checkRangeUndefined = (state, name) => {
+  if (state.ranges[name] === undefined) {
+    state = update(state, { ranges: { [name]: {$set: defaultConfig} } })
+  }
+  return state
+}
+
+const updateRangeKeyValue = (state, name, key, value) => {
+  state = checkRangeUndefined(state, name)
   return update(state, {
     ranges: {
-      [range.name]: {[key]: {$set: value}}
+      [name]: {[key]: {$set: value}}
+    }
+  })
+}
+
+const updateRangeKeyKeyValue = (state, name, key1, key2, value) => {
+  state = checkRangeUndefined(state, name)
+  return update(state, {
+    ranges: {
+      [name]: {[key1]: {[key2]: {$set: value}}}
     }
   })
 }
@@ -49,17 +110,33 @@ const updateRangeKeyValue = (state, range, key, value) => {
 export default function (state = defaultState, action) {
   if (action.type === CONFIG_RANGE_UPDATE) {
     const { range, key, value } = action.payload
-    state = updateRangeKeyValue(state, range, key, value)
+    const keys = key.split('.')
+    if (keys.length === 1) {
+      state = updateRangeKeyValue(state, range.name, keys[0], value)
+    } else if (keys.length === 2) {
+      state = updateRangeKeyKeyValue(state, range.name, keys[0], keys[1], value)
+    }
+    return state
+  }
+
+  if (action.type === RENAME_RANGE) {
+    const name = action.payload.range.name
+    const newname = action.payload.newname
+    const config = state.ranges[name]
+
+    if (state.ranges[newname] !== undefined) {
+      return state
+    }
+
+    state = removeRange(state, name)
+    state = setRangeConfig(state, newname, config)
+    state = updateRangeKeyValue(state, newname, 'name', newname)
+
+    return state
   }
 
   if (action.type === CONFIG_RANGE_REMOVE) {
     state = removeRange(state, action.payload.range.name)
-  }
-
-  if (action.type === RENAME_RANGE) {
-    const config = state.ranges[action.payload.range.name]
-    state = removeRange(state, action.payload.range.name)
-    state = updateRangeConfig(state, action.payload.newname, config)
   }
 
   if (action.type === REMOVE_RANGE) {

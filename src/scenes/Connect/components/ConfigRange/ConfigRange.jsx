@@ -1,36 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { toast } from 'react-toastify'
-
-import { Checkbox, Rail, Form, Dropdown, Header, Grid, Button, Divider, Transition, Segment } from 'semantic-ui-react'
-
-import ValueProviderDropdown from '@components/ValueProviderDropdown'
-import ValueProviders from '@helpers/ValueProviders'
-import FunctionEditor from '@components/FunctionEditor'
-
-import InitialValue from './InitialValue'
 
 import update from 'immutability-helper'
-import InputFloat from '@components/InputFloat'
 
-import ValueProvidedFunction from '@components/ValueProvidedFunction'
+import { Input, Header, Grid, Divider, Transition } from 'semantic-ui-react'
 
-import { getConfigForRanges, getDefaultConfigForRanges } from '@reducers'
+import ValueProviders from '@helpers/ValueProviders'
 
+import { getConfigForRanges, getDefaultConfigForRanges, getAvailableRangeName } from '@reducers'
 import { configRangeRemove, configRangeUpdate, renameRange, removeRange } from '@actions/actions'
+
+import ButtonLink from '@components/ButtonLink'
+
+import GridRow from '../GridRow'
+import ComplexAttribute from '../ComplexAttribute'
 
 class ConfigRange extends Component {
   constructor (props) {
     super(props)
 
     this.getConfig = this.getConfig.bind(this)
-    this.handleConfigChange = this.handleConfigChange.bind(this)
-    this.handleLabelChange = this.handleLabelChange.bind(this)
-    this.handleValueProviderOnClear = this.handleValueProviderOnClear.bind(this)
-    this.renderForm = this.renderForm.bind(this)
-    this.handleRename = this.handleRename.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+
+    this.handleOnChange = this.handleOnChange.bind(this)
+    this.handleAutoRename = this.handleAutoRename.bind(this)
   }
 
   /**
@@ -45,44 +39,14 @@ class ConfigRange extends Component {
     return this.props.config[this.props.range.name]
   }
 
-  handleConfigChange (e, {name, value, checked}) {
+  handleAutoRename () {
     let config = this.getConfig()
-    if (config[name] === undefined) {
-      toast.error(`${name} is not a valid configuration option for Range`)
-    }
-
-    if (typeof checked !== 'undefined') {
-      value = checked
-    }
-
-    this.props.configRangeUpdate(this.props.range, name, value)
-
-    if (name === 'valueProvider') {
-      const provider = ValueProviders.value(value)
-      const generatedName = `${provider.parent}.${provider.name}`
-      this.handleRename(null, {value: generatedName})
-    }
+    const provider = ValueProviders.value(config.target.provider)
+    const generatedName = this.props.getAvailableRangeName(`${provider.parent}.${provider.name}`)
+    this.renameRange(null, {value: generatedName})
   }
 
-  handleLabelChange (e, {name, value, checked}) {
-    let config = this.getConfig()
-    if (config.label[name] === undefined) {
-      toast.error(`${name} is not a valid configuration option for Range`)
-    }
-
-    if (typeof checked === 'undefined') {
-      config = update(config, {label: {[name]: {$set: value}}})
-    } else {
-      config = update(config, {label: {[name]: {$set: checked}}})
-    }
-
-    this.props.configRangeUpdate(this.props.range, config)
-  }
-  handleValueProviderOnClear () {
-    this.props.configRangeRemove(this.props.range)
-  }
-
-  handleRename (e, {value}) {
+  renameRange (e, {value}) {
     this.props.renameRange(this.props.range, value)
   }
 
@@ -90,92 +54,75 @@ class ConfigRange extends Component {
     this.props.removeRange(this.props.range, value)
   }
 
-  render () {
-    const config = this.getConfig()
-    return (
-      <Segment>
-        <Header as="h2">Range: {this.props.range.name}</Header>
-        <ValueProviderDropdown
-          name='valueProvider'
-          value={config.valueProvider}
-          onChange={this.handleConfigChange}
-          onClear={this.handleValueProviderOnClear}
-        />
+  handleOnChange (e, {name, value, checked}) {
+    if (typeof checked !== 'undefined') {
+      value = checked
+    }
 
-        <Divider hidden/>
-
-        { this.renderForm(config) }
-        <Divider hidden/>
-
-        <Button onClick={this.handleRemove}>Remove</Button>
-      </Segment>
-    )
+    this.props.configRangeUpdate(this.props.range, name, value)
   }
 
-  renderForm (config) {
-    if (config.valueProvider === null) {
-      return null
-    }
+  render () {
+    const config = this.getConfig()
 
     return (
       <div>
-        <Form>
-          <Form.Field>
-            <Form.Input
-              label='Name'
+        <Divider hidden/>
+        <Header as="h2">Range: {this.props.range.name}</Header>
+
+        <Grid verticalAlign='middle' celled='internally'>
+          <GridRow label='Name:'>
+            <Input
               name='name'
               value={this.props.range.name}
               onChange={this.handleRename}
             />
-          </Form.Field>
 
-          <InitialValue
-            initialValue={config.initialValue}
-            loadInitialValue={config.loadInitialValue}
-            onChange={this.handleConfigChange}/>
+            <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
+              <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
+            </Transition>
+          </GridRow>
 
-          <Form.Field>
-            <label>{'Value transform function'}</label>
-            <FunctionEditor
-              name='transform'
-              value={config.transform}
-              onChange={this.handleConfigChange}
-              typeof='number'
+          <GridRow label='Target:'>
+            <ComplexAttribute
+              forceComplex={true}
+              name='target'
+              attribute={config.target}
+              onChange={this.handleOnChange}
             />
-          </Form.Field>
+          </GridRow>
 
-          <Form.Field >
-            <label>Minimum value</label>
-            <InputFloat
-              name='min'
-              value={config.min}
-              onChange={this.handleConfigChange}
-            >
-              <input />
-            </InputFloat>
-          </Form.Field>
+        </Grid>
 
-          <Form.Field >
-            <label>Maximum value</label>
-            <InputFloat
+        <br></br>
+        <Grid verticalAlign='middle' celled='internally'>
+
+          <GridRow label='Maximum:'>
+            <ComplexAttribute
               name='max'
-              value={config.max}
-              onChange={this.handleConfigChange}
-            >
-              <input />
-            </InputFloat>
-          </Form.Field>
-        </Form>
+              attribute={config.max}
+              onChange={this.handleOnChange}
+            />
+          </GridRow>
 
-        <Divider hidden/>
+          <GridRow label='Minimum:'>
+            <ComplexAttribute
+              name='min'
+              attribute={config.min}
+              onChange={this.handleOnChange}
+            />
+          </GridRow>
 
-        <label>Enabled</label>
-        <ValueProvidedFunction
-          name='enabled'
-          value={config.enabled}
-          provider={config.enabledProvider}
-          onChange={this.handleConfigChange}
-        />
+          <GridRow label='Enabled:'>
+            <ComplexAttribute
+              name='enabled'
+              label='Range responds to user input'
+              attribute={config.enabled}
+              onChange={this.handleOnChange}
+            />
+          </GridRow>
+
+        </Grid>
       </div>
     )
   }
@@ -184,7 +131,8 @@ class ConfigRange extends Component {
 export default connect(
   state => ({
     config: getConfigForRanges(state),
-    defaultConfig: getDefaultConfigForRanges()
+    defaultConfig: getDefaultConfigForRanges(),
+    getAvailableRangeName: root => getAvailableRangeName(state, root)
   }),
   dispatch => bindActionCreators({
     configRangeRemove,
