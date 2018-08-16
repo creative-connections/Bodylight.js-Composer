@@ -49,3 +49,24 @@ iframe.preview {
   height: 100vh;
   border: 0;
 }
+
+.ui.button.basic.link,
+.ui.button.basic.link:hover,
+.ui.button.basic.link:focus,
+.ui.button.basic.link:active {
+  background: none !important;
+  box-shadow: 0 0 !important;
+  display: inline !important;
+}
+
+.visible.transition.inline-block{
+  display: inline-block!important;
+}
+
+.visible.transition.inline{
+  display: inline!important;
+}
+
+.visible.transition.flex{
+  display: flex!important;
+}
