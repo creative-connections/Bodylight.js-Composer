@@ -12,7 +12,7 @@ import FunctionEditor from '@components/FunctionEditor'
 import InitialValue from './InitialValue'
 
 import update from 'immutability-helper'
-import InputFloat from '@components/form/InputFloat'
+import InputFloat from '@components/InputFloat'
 
 import ValueProvidedFunction from '@components/ValueProvidedFunction'
 

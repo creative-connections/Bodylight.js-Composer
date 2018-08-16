@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
-import InputFloat from '@components/form/InputFloat'
+import InputFloat from '@components/InputFloat'
 
 const renderInput = (initialValue, loadInitialValue, onChange) => {
   if (loadInitialValue === true) {

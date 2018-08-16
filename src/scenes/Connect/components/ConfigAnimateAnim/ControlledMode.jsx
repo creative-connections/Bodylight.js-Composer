@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Dropdown, Header, Grid, Form, Checkbox, Button, Divider, Transition, Segment } from 'semantic-ui-react'
 
 import FunctionEditor from '@components/FunctionEditor'
-import InputFloat from '@components/form/InputFloat'
+import InputFloat from '@components/InputFloat'
 
 import ValueProviderDropdown from './ValueProviderDropdown'
 

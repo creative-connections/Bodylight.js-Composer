@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 
 const floatRegExp = new RegExp('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$')
 
@@ -12,12 +12,12 @@ const handleValidationOnChange = (e, v, onChange) => {
 
 const InputFloat = props => {
   if (typeof props.onChange !== 'function') {
-    return <Form.Input { ...props } />
+    return <Input { ...props } />
   }
 
   const { onChange, ...parentProps } = props
 
-  return <Form.Input
+  return <Input
     { ...parentProps }
     onChange={(e, v) => handleValidationOnChange(e, v, onChange)}
   />

@@ -10,7 +10,7 @@ import ValueProviders from '@helpers/ValueProviders'
 import FunctionEditor from '@components/FunctionEditor'
 
 import update from 'immutability-helper'
-import InputFloat from '@components/form/InputFloat'
+import InputFloat from '@components/InputFloat'
 
 import { getConfigForRanges, getDefaultConfigForRanges } from '@reducers'
 

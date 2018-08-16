@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Form, Label } from 'semantic-ui-react'
-import InputFloat from '@components/form/InputFloat'
+import InputFloat from '@components/InputFloat'
 
 import update from 'immutability-helper'
 
