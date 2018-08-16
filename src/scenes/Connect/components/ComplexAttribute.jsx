@@ -7,12 +7,20 @@ import FunctionEditor from '@components/FunctionEditor'
 
 import ValueProviderDropdown from '@components/ValueProviderDropdown'
 
-const renderValueInput = (name, attribute, onChange) => {
+const renderValueInput = (name, label, attribute, onChange) => {
   if (attribute.typeof === 'number') {
     return <InputFloat
       className='inline-block'
       name={`${name}.value`}
       value={attribute.value}
+      onChange={onChange}
+    />
+  } else if (attribute.typeof === 'boolean') {
+    return <Checkbox
+      style={{padding: '0.8em 0em 0.8em 0em'}}
+      label={label}
+      name={`${name}.value`}
+      checked={attribute.value}
       onChange={onChange}
     />
   }
@@ -60,9 +68,14 @@ const renderFunction = (name, attribute, onChange) => {
 }
 
 const addFunction = (name, attribute, onChange) => {
+  const values = {
+    boolean: 'value => true;',
+    number: 'value => value;'
+  }
+
   onChange(null, {
     name: `${name}.function`,
-    value: 'value => value'
+    value: values[attribute.typeof]
   })
 }
 
@@ -80,13 +93,13 @@ const renderAddFunction = (name, attribute, onChange) => {
   return <ButtonLink onClick={() => addFunction(name, attribute, onChange)}>{'add function'}</ButtonLink>
 }
 
-const renderSimple = ({name, attribute, onChange}) => {
+const renderSimple = ({name, label, attribute, onChange}) => {
   return <Transition animation='slide right'
     transitionOnMount={true}
     duration={200}
     visible={true}>
     <div>
-      {renderValueInput(name, attribute, onChange)}
+      {renderValueInput(name, label, attribute, onChange)}
       {renderComplexCheckbox(name, attribute, onChange)}
     </div>
   </Transition>
