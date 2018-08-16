@@ -105,14 +105,14 @@ const renderSimple = ({name, label, attribute, onChange}) => {
   </Transition>
 }
 
-const renderComplex = ({name, attribute, onChange}) => {
+const renderComplex = ({name, attribute, forceComplex = false, onChange}) => {
   return <Transition transitionOnMount={true} animation='slide right'
     duration={200}
     visible={true}>
     <div>
       {renderProvider(name, attribute, onChange)}
       {renderAddFunction(name, attribute, onChange)}
-      {renderComplexCheckbox(name, attribute, onChange)}
+      {forceComplex === false && renderComplexCheckbox(name, attribute, onChange)}
       <div>
         {attribute.function !== null && renderFunction(name, attribute, onChange)}
       </div>
@@ -121,6 +121,9 @@ const renderComplex = ({name, attribute, onChange}) => {
 }
 
 const ComplexAttribute = (props) => {
+  if (props.forceComplex === true) {
+    return renderComplex(props)
+  }
   return (
     <div>
       {props.attribute.complex && renderComplex(props)}
