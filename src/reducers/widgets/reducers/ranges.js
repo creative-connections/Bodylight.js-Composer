@@ -52,10 +52,9 @@ export default function (state = {}, action) {
 }
 
 /**
- * Generates a new available 'unnamed_#' name.
+ * Generates a new available `${root}_#` name.
  */
-export const getAvailableRangeName = (state) => {
-  const root = 'unnamed'
+export const getAvailableRangeName = (state, root = 'unnamed') => {
   let counter = 1
   let name = root
   // if the name is already taken we sequentially generate a new one
