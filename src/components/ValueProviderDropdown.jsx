@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Form, Dropdown, Button } from 'semantic-ui-react'
+import { Dropdown, Button } from 'semantic-ui-react'
 
 import ValueProviders from '@helpers/ValueProviders'
 
@@ -10,6 +10,7 @@ class ValueProviderDropdown extends Component {
 
     const valueProviders = new ValueProviders()
     this.valueProvidersOptions = valueProviders.getForDropdown()
+    this.getText = this.getText.bind(this)
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -20,20 +21,26 @@ class ValueProviderDropdown extends Component {
     return false
   }
 
+  getText () {
+    if (this.props.value) {
+      return undefined
+    }
+    if (this.props.placeholder) {
+      return this.props.placeholder
+    }
+    return 'Select provider'
+  }
+
   render () {
-    return (
-      <div style={{display: 'inline'}}>
-        <Dropdown search selection
-          style={{minWidth: '20em'}}
-          placeholder='Value provider'
-          options={this.valueProvidersOptions}
-          name={this.props.name}
-          value={this.props.value}
-          onChange={this.props.onChange} >
-        </Dropdown>
-        { this.props.value !== null && <Button onClick={this.props.onClear}>X</Button> }
-      </div>
-    )
+    return <Dropdown search button labeled floating className='icon'
+      icon='code branch'
+      style={{minWidth: '20em'}}
+      text={this.getText()}
+      options={this.valueProvidersOptions}
+      name={this.props.name}
+      value={this.props.value}
+      onChange={this.props.onChange} >
+    </Dropdown>
   }
 }
 
