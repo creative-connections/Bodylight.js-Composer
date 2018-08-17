@@ -57,49 +57,39 @@ const defaultConfig = {
 
 }
 
-const defaultState = {
-  ranges: {}
-}
+const defaultState = {}
 
-const removeRange = (state, name) => {
+const remove = (state, name) => {
   return update(state, {
-    ranges: {
-      $unset: [name]
-    }
+    $unset: [name]
   })
 }
 
-const setRangeConfig = (state, name, config) => {
+const setConfig = (state, name, config) => {
   return update(state, {
-    ranges: {
-      [name]: {$set: config}
-    }
+    [name]: {$set: config}
   })
 }
 
-const checkRangeUndefined = (state, name) => {
-  if (state.ranges[name] === undefined) {
-    state = update(state, { ranges: { [name]: {$set: defaultConfig} } })
-    state = update(state, { ranges: { [name]: {name: {$set: name}} } })
+const checkUndefined = (state, name) => {
+  if (state[name] === undefined) {
+    state = update(state, { [name]: {$set: defaultConfig} })
+    state = update(state, { [name]: {name: {$set: name}} })
   }
   return state
 }
 
-const updateRangeKeyValue = (state, name, key, value) => {
-  state = checkRangeUndefined(state, name)
+const updateKeyValue = (state, name, key, value) => {
+  state = checkUndefined(state, name)
   return update(state, {
-    ranges: {
-      [name]: {[key]: {$set: value}}
-    }
+    [name]: {[key]: {$set: value}}
   })
 }
 
-const updateRangeKeyKeyValue = (state, name, key1, key2, value) => {
-  state = checkRangeUndefined(state, name)
+const updateKeyKeyValue = (state, name, key1, key2, value) => {
+  state = checkUndefined(state, name)
   return update(state, {
-    ranges: {
-      [name]: {[key1]: {[key2]: {$set: value}}}
-    }
+    [name]: {[key1]: {[key2]: {$set: value}}}
   })
 }
 
@@ -108,14 +98,14 @@ export default function (state = defaultState, action) {
     const { range, key, value } = action.payload
     const keys = key.split('.')
     if (keys.length === 1) {
-      state = updateRangeKeyValue(state, range.name, keys[0], value)
+      state = updateKeyValue(state, range.name, keys[0], value)
     } else if (keys.length === 2) {
-      state = updateRangeKeyKeyValue(state, range.name, keys[0], keys[1], value)
+      state = updateKeyKeyValue(state, range.name, keys[0], keys[1], value)
 
       // setting complex to false, means we have to clean up provider and function
       if (keys[1] === 'complex' && value === false) {
-        state = updateRangeKeyKeyValue(state, range.name, keys[0], 'provider', null)
-        state = updateRangeKeyKeyValue(state, range.name, keys[0], 'function', null)
+        state = updateKeyKeyValue(state, range.name, keys[0], 'provider', null)
+        state = updateKeyKeyValue(state, range.name, keys[0], 'function', null)
       }
     }
     return state
@@ -124,29 +114,29 @@ export default function (state = defaultState, action) {
   if (action.type === RENAME_RANGE) {
     const name = action.payload.range.name
     const newname = action.payload.newname
-    const config = state.ranges[name]
+    const config = state[name]
 
-    if (state.ranges[newname] !== undefined) {
+    if (state[newname] !== undefined) {
       return state
     }
 
-    state = removeRange(state, name)
-    state = setRangeConfig(state, newname, config)
-    state = updateRangeKeyValue(state, newname, 'name', newname)
+    state = remove(state, name)
+    state = setConfig(state, newname, config)
+    state = updateKeyValue(state, newname, 'name', newname)
 
     return state
   }
 
   if (action.type === CONFIG_RANGE_REMOVE) {
-    state = removeRange(state, action.payload.range.name)
+    state = remove(state, action.payload.range.name)
   }
 
   if (action.type === REMOVE_RANGE) {
-    return removeRange(state, action.payload.range.name)
+    return remove(state, action.payload.range.name)
   }
 
   return state
 }
 
-export const getConfigForRanges = state => state.ranges
+export const getConfigForRanges = state => state
 export const getDefaultConfigForRanges = () => defaultConfig
