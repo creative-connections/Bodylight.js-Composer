@@ -33,8 +33,7 @@ class ConfigRange extends Component {
    */
   getConfig () {
     if (this.props.config[this.props.range.name] === undefined) {
-      console.log(this.props.defaultConfig)
-      return update(this.props.defaultConfig, {})
+      return this.props.defaultConfig
     }
     return this.props.config[this.props.range.name]
   }
