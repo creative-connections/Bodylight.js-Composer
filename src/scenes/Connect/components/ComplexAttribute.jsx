@@ -1,5 +1,5 @@
 import React from 'react'
-import { Transition, Checkbox } from 'semantic-ui-react'
+import { Transition, Checkbox, Input } from 'semantic-ui-react'
 
 import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'
@@ -21,6 +21,13 @@ const renderValueInput = (name, label, attribute, onChange) => {
       label={label}
       name={`${name}.value`}
       checked={attribute.value}
+      onChange={onChange}
+    />
+  } else if (attribute.typeof === 'string') {
+    return <Input
+      className='inline-block'
+      name={`${name}.value`}
+      value={attribute.value}
       onChange={onChange}
     />
   }
@@ -69,7 +76,8 @@ const renderFunction = (name, attribute, onChange) => {
 const addFunction = (name, attribute, onChange) => {
   const values = {
     boolean: 'value => true;',
-    number: 'value => value;'
+    number: 'value => value;',
+    string: 'value => `${value}`'
   }
 
   onChange(null, {
