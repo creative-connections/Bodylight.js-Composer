@@ -1,7 +1,7 @@
 export default class Widget {
   constructor (configuration, typeIdentifier) {
     Object.assign(this, configuration)
-    this.typeIdentifier = 'range'
+    this.typeIdentifier = typeIdentifier
 
     this.component = this.locateComponent()
 
@@ -46,7 +46,7 @@ export default class Widget {
     const componentName = `${this.typeIdentifier}-${this.name}`
     const component = document.getElementsByName(componentName)[0]
     if (component === undefined) {
-      throw new ReferenceError(`Range (${this.name}) with name="${componentName}" not found.`)
+      throw new ReferenceError(`Widget (${this.name}) of type (${this.typeIdentifier}) with name="${componentName}" not found.`)
     }
     return component
   }
