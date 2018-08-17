@@ -8,6 +8,9 @@ export default function resolveValueProviders () {
     if (provider.type === ValueProviderType.MODEL_PARAMETER ||
         provider.type === ValueProviderType.MODEL_VARIABLE) {
       const target = models[provider.parent]
+      if (target === null) {
+        return null
+      }
       const name = provider.name
       return { target, name }
     }
@@ -17,8 +20,7 @@ export default function resolveValueProviders () {
     const providers = widget.getValueProviders()
     const resolved = []
     Object.entries(providers).forEach(([attribute, id]) => {
-      const {target, name} = resolve(id)
-      resolved[attribute] = {target, name}
+      resolved[attribute] = resolve(id)
     })
     widget.setValueProviders(resolved)
   })

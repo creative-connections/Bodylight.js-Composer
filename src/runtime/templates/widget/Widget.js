@@ -7,16 +7,17 @@ export default class Widget {
 
     console.log(`Widget (${this.typeIdentifier}) instance ${name}`)
 
+    this.valueProviders = []
+
     this.generateSetters()
     this.fillValueProviders()
     this.updateComponent()
   }
 
   addValueProvider (attribute, provider) {
-    if (this.valueProviders === undefined) {
-      this.valueProviders = []
+    if (provider !== null) {
+      this.valueProviders[attribute] = provider
     }
-    this.valueProviders[attribute] = provider
   }
 
   fillValueProviders () {
