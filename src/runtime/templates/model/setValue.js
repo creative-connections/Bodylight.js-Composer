@@ -1,3 +1,3 @@
-export default function setValue (identifier, value) {
-  this.setSingleReal(identifier, value)
+export default function setValue (reference, value) {
+  this.setSingleReal(reference, value)
 }

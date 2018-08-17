@@ -40,7 +40,7 @@ export default function initWidgets () {
         let range
 
         try {
-          range = new Range(name, configuration)
+          range = new Range(configuration)
         } catch (e) {
           if (e instanceof ReferenceError) {
             console.warn(e.message)

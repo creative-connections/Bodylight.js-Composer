@@ -122,6 +122,15 @@ class ConfigRange extends Component {
             />
           </GridRow>
 
+          <GridRow label='Reversed:'>
+            <ComplexAttribute
+              name='reversed'
+              label='Range output is reversed'
+              attribute={config.reversed}
+              onChange={this.handleOnChange}
+            />
+          </GridRow>
+
         </Grid>
       </div>
     )
