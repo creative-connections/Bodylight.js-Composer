@@ -71,13 +71,4 @@ export default class Range extends Widget {
     }
     super.setValueProvider(attribute, name, target)
   }
-
-  setValueProviders (providers) {
-    super.setValueProviders(providers)
-  }
-
-  setValue (attribute, value) {
-    this[attribute].value = value
-    this.setters[attribute](value)
-  }
 }

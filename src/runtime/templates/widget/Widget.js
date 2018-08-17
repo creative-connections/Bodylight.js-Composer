@@ -61,4 +61,9 @@ export default class Widget {
       setter()
     })
   }
+
+  setValue (attribute, value) {
+    this[attribute].value = value
+    this.setters[attribute](value)
+  }
 }
