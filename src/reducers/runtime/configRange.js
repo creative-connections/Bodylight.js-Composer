@@ -6,11 +6,6 @@ import {
   REMOVE_RANGE
 } from '@actions/types'
 
-/*
- * AttributeType:
- * 'value'
- */
-
 const defaultConfig = {
   name: null,
 
