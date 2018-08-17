@@ -5,6 +5,7 @@ import defaultModelOptions from './models/defaultModelOptions'
 
 import configurationScreen from './app/configurationScreen'
 import activeScreen from './app/activeScreen'
+import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
 
@@ -25,6 +26,7 @@ const reducers = combineReducers({
 
   configurationScreen,
   activeScreen,
+  functionEditorConfig,
 
   editorStorage,
 
@@ -35,6 +37,7 @@ const reducers = combineReducers({
   configRange,
   defaultConfigAnimateAnim,
   defaultConfigAnimateText
+
 })
 
 const stateScrubberReducer = (state, action) => {
@@ -65,3 +68,5 @@ export const getConfigForAnimateAnim = state => configAnimateAnimSelectors.getCo
 export const getConfigForAnimateText = state => configAnimateTextSelectors.getConfigForAnimateText(state.configAnimateText)
 
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
+
+export const getFunctionEditorConfig = state => functionEditorConfigSelectors.getFunctionEditorConfig(state.functionEditorConfig)

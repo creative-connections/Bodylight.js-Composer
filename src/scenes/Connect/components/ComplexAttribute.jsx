@@ -61,7 +61,6 @@ const renderFunction = (name, attribute, onChange) => {
         onChange={onChange}
         typeof={attribute.typeof}
       />
-      <ButtonLink onClick={() => removeFunction(name, attribute, onChange)}>{'remove function'}</ButtonLink>
 
     </div>
   </Transition>
@@ -76,13 +75,6 @@ const addFunction = (name, attribute, onChange) => {
   onChange(null, {
     name: `${name}.function`,
     value: values[attribute.typeof]
-  })
-}
-
-const removeFunction = (name, attribute, onChange) => {
-  onChange(null, {
-    name: `${name}.function`,
-    value: null
   })
 }
 
