@@ -45,6 +45,7 @@ import resolveValueProviders from './templates/resolveValueProviders'
 import Widget from './templates/widget/Widget'
 import AnimateAnim from './templates/widget/AnimateAnim'
 import AnimateText from './templates/widget/AnimateText'
+import initAnimateTexts from './templates/widget/AnimateText/init'
 import Range from './templates/widget/Range'
 
 class Builder {
@@ -134,6 +135,7 @@ class Builder {
     append(tpl(Widget))
     append(tpl(AnimateAnim))
     append(tpl(AnimateText))
+    append(tpl(initAnimateTexts))
     append(tpl(Range))
 
     append(tpl(createModelRuntime))
