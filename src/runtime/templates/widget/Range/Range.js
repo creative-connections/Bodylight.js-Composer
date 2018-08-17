@@ -4,9 +4,7 @@ export default class Range extends Widget {
   constructor (configuration) {
     super(configuration, 'range')
 
-    this.component.min = this.min
-    this.component.max = this.max
-    this.component.step = (this.max - this.min) / 1000
+    this.component.step = (this.component.max - this.component.min) / 1000
 
     // register change handler
     this.handleOnChange = this.handleOnChange.bind(this)
