@@ -80,6 +80,7 @@ const setRangeConfig = (state, name, config) => {
 const checkRangeUndefined = (state, name) => {
   if (state.ranges[name] === undefined) {
     state = update(state, { ranges: { [name]: {$set: defaultConfig} } })
+    state = update(state, { ranges: { [name]: {name: {$set: name}} } })
   }
   return state
 }
