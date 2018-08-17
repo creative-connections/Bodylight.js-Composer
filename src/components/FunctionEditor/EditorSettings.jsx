@@ -57,7 +57,7 @@ class EditorSettings extends Component {
       { key: 'xcode', text: 'xcode', value: 'xcode' }
     ]
     return <div style={{display: 'inline'}}>
-      <label>Lines: </label>
+      <label>Theme: </label>
       <Dropdown inline
         name='theme'
         value={theme}
