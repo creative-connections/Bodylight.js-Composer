@@ -25,7 +25,7 @@ const defaultConfig = {
     'enabled',
     'min',
     'max',
-    'reverse'
+    'reversed'
   ],
 
   enabled: {
@@ -115,6 +115,12 @@ export default function (state = defaultState, action) {
       state = updateRangeKeyValue(state, range.name, keys[0], value)
     } else if (keys.length === 2) {
       state = updateRangeKeyKeyValue(state, range.name, keys[0], keys[1], value)
+
+      // setting complex to false, means we have to clean up provider and function
+      if (keys[1] === 'complex' && value === false) {
+        state = updateRangeKeyKeyValue(state, range.name, keys[0], 'provider', null)
+        state = updateRangeKeyKeyValue(state, range.name, keys[0], 'function', null)
+      }
     }
     return state
   }
