@@ -47,6 +47,7 @@ import AnimateAnim from './templates/widget/AnimateAnim'
 import AnimateText from './templates/widget/AnimateText'
 import initAnimateTexts from './templates/widget/AnimateText/init'
 import Range from './templates/widget/Range'
+import initRanges from './templates/widget/Range/init'
 
 class Builder {
   constructor () {
@@ -137,6 +138,7 @@ class Builder {
     append(tpl(AnimateText))
     append(tpl(initAnimateTexts))
     append(tpl(Range))
+    append(tpl(initRanges))
 
     append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))
