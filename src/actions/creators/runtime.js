@@ -11,9 +11,9 @@ export const configAnimateAnimUpdate = (name, parent, config) => ({
   payload: { name, parent, config }
 })
 
-export const configAnimateTextUpdate = (name, parent, config) => ({
+export const configAnimateTextUpdate = (text, key, value) => ({
   type: CONFIG_ANIMATE_TEXT_UPDATE,
-  payload: { name, parent, config }
+  payload: { text, key, value }
 })
 
 export const configAnimateTextRemove = (name, parent) => ({

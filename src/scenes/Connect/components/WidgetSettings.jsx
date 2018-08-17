@@ -24,10 +24,7 @@ class WidgetSettings extends Component {
             parent={selectedWidget.parent}
           />
         case WidgetType.ANIMATE_TEXT:
-          return <ConfigAnimateText
-            name={selectedWidget.name}
-            parent={selectedWidget.parent}
-          />
+          return <ConfigAnimateText text={selectedWidget} />
         case WidgetType.RANGE:
           return <ConfigRange range={selectedWidget} />
 

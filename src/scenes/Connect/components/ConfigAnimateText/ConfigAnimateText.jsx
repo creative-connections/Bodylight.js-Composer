@@ -1,113 +1,79 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { toast } from 'react-toastify'
 
-import { Checkbox, Rail, Form, Dropdown, Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
+import { Header, Grid, Divider } from 'semantic-ui-react'
 
-import ValueProviderDropdown from '@components/ValueProviderDropdown'
-import FunctionEditor from '@components/FunctionEditor'
-
-import update from 'immutability-helper'
-
+import { getDefaultConfigForAnimateText, getConfigForAnimateText } from '@reducers'
 import { configAnimateTextUpdate, configAnimateTextRemove } from '@actions/actions'
+
+import GridRow from '../GridRow'
+import ComplexAttribute from '../ComplexAttribute'
 
 class ConfigAnimateText extends Component {
   constructor (props) {
     super(props)
 
     this.getConfig = this.getConfig.bind(this)
-    this.handleConfigChange = this.handleConfigChange.bind(this)
-    this.handleValueProviderOnClear = this.handleValueProviderOnClear.bind(this)
-    this.renderForm = this.renderForm.bind(this)
+    this.handleOnChange = this.handleOnChange.bind(this)
   }
 
   getConfig () {
-    const parent = this.props.configAnimateText[this.props.parent]
-    if (parent !== undefined && parent[this.props.name] !== undefined) {
-      return parent[this.props.name]
+    if (this.props.config[this.props.text.parent] === undefined ||
+       this.props.config[this.props.text.parent][this.props.text.name] === undefined) {
+      return this.props.defaultConfig
     }
-    // default configuration
-    return update(this.props.defaultConfigAnimateText, {})
+    return this.props.config[this.props.text.parent][this.props.text.name]
   }
 
-  handleConfigChange (e, {name, value, checked}) {
-    var config = this.getConfig()
-    if (config[name] === undefined) {
-      toast.error(`${name} is not a valid configuration option for Animate Text`)
+  handleOnChange (e, {name, value, checked}) {
+    if (typeof checked !== 'undefined') {
+      value = checked
     }
-
-    config = update(config, {[name]: {$set: value}})
-
-    this.props.configAnimateTextUpdate(
-      this.props.name,
-      this.props.parent,
-      config
-    )
-  }
-
-  handleValueProviderOnClear () {
-    this.props.configAnimateTextRemove(
-      this.props.name,
-      this.props.parent
-    )
+    this.props.configAnimateTextUpdate(this.props.text, name, value)
   }
 
   render () {
     const config = this.getConfig()
     return (
-      <Segment>
-        <Header as="h2">{this.props.parent}.{this.props.name}</Header>
-
-        <ValueProviderDropdown
-          name='valueProvider'
-          value={config.valueProvider}
-          onChange={this.handleConfigChange}
-          onClear={this.handleValueProviderOnClear}
-        />
-
+      <div>
         <Divider hidden/>
+        <Header as="h2">AnimateText: {this.props.text.name}</Header>
 
-        {this.renderForm(config)}
+        <Grid verticalAlign='middle' celled='internally'>
+          <GridRow label='Value:'>
+            <ComplexAttribute
+              name='value'
+              attribute={config.value}
+              onChange={this.handleOnChange}
+            />
+          </GridRow>
+        </Grid>
 
-      </Segment>
+        <br></br>
+
+        <Grid verticalAlign='middle' celled='internally'>
+          <GridRow label='visible:'>
+            <ComplexAttribute
+              label="Display the text"
+              name='visible'
+              attribute={config.visible}
+              onChange={this.handleOnChange}
+            />
+          </GridRow>
+        </Grid>
+      </div>
     )
   }
-
-  renderForm (config) {
-    if (config.valueProvider !== null) {
-      return (
-        <Form>
-          <Form.Field>
-            <label>{'Value transform function'}</label>
-            <FunctionEditor
-              name='transform'
-              value={config.transform}
-              onChange={this.handleConfigChange}
-            />
-          </Form.Field>
-
-          <Form.Field>
-            <label>{'Visibility function'}</label>
-            <FunctionEditor
-              name='visible'
-              value={config.visible}
-              onChange={this.handleConfigChange}
-              typeof='boolean'
-            />
-          </Form.Field>
-        </Form>
-      )
-    }
-    return null
-  }
 }
 
-function mapStateToProps ({ configAnimateText, defaultConfigAnimateText }) {
-  return { configAnimateText, defaultConfigAnimateText }
-}
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({configAnimateTextUpdate, configAnimateTextRemove}, dispatch)
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ConfigAnimateText)
+export default connect(
+  state => ({
+    config: getConfigForAnimateText(state),
+    defaultConfig: getDefaultConfigForAnimateText()
+  }),
+  dispatch => bindActionCreators({
+    configAnimateTextRemove,
+    configAnimateTextUpdate
+  }, dispatch)
+)(ConfigAnimateText)

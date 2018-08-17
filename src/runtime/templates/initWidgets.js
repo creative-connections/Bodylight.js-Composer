@@ -26,7 +26,16 @@ export default function initWidgets () {
       Object.entries(animatelist).forEach(([animateName, widgetlist]) => {
         const animate = animates[animateName]
         Object.entries(widgetlist).forEach(([name, configuration]) => {
-          widgets.push(new AnimateText(name, configuration, animate))
+          configuration.animate = animate
+          try {
+            widgets.push(new AnimateText(configuration))
+          } catch (e) {
+            if (e instanceof ReferenceError) {
+              console.warn(e.message)
+            } else {
+              throw e
+            }
+          }
         })
       })
       resolve()
