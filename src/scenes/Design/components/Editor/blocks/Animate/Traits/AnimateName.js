@@ -1,10 +1,10 @@
-import { ANIMATE_ID } from '../types'
+import { ANIMATE_NAME } from '../types'
 
 import configureStore from '@src/configureStore'
 import { getAnimates } from '@reducers'
 
 export default (editor) => {
-  editor.TraitManager.addType(ANIMATE_ID, {
+  editor.TraitManager.addType(ANIMATE_NAME, {
     getInputEl: function () {
       if (!this.inputEl) {
         let select = document.createElement('select')

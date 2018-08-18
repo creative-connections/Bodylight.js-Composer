@@ -1,10 +1,10 @@
 import addAnimateCanvas from './Components/AnimateCanvas'
-import addAnimateID from './Traits/AnimateID'
+import addAnimateName from './Traits/AnimateName'
 
 import { ANIMATE_CANVAS } from './types.js'
 
 export default (editor) => {
-  addAnimateID(editor)
+  addAnimateName(editor)
   addAnimateCanvas(editor)
 
   const blockManager = editor.BlockManager

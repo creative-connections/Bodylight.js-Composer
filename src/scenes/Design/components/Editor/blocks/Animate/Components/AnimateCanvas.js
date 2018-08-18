@@ -1,7 +1,7 @@
 import configureStore from '@src/configureStore'
 import AnimateRuntime from '@helpers/Animate/Runtime'
 
-import { ANIMATE_CANVAS, ANIMATE_ID } from '../types.js'
+import { ANIMATE_CANVAS, ANIMATE_NAME } from '../types.js'
 
 import update from 'immutability-helper'
 
@@ -24,7 +24,7 @@ export default (editor) => {
         tagName: 'canvas',
         classes: [],
         traits: [{
-          type: ANIMATE_ID,
+          type: ANIMATE_NAME,
           label: 'Animate',
           name: 'name'
         }],
