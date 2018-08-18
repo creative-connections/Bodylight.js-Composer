@@ -1,4 +1,4 @@
-import { BUTTON, BUTTON_ID } from '../types.js'
+import { BUTTON, BUTTON_NAME } from '../types.js'
 
 import configureStore from '@src/configureStore'
 import update from 'immutability-helper'
@@ -20,7 +20,7 @@ export default (editor) => {
         attributes: {},
         classes: [],
         traits: [{
-          type: BUTTON_ID,
+          type: BUTTON_NAME,
           label: 'name',
           name: 'name'
         }],

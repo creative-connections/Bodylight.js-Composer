@@ -1,11 +1,11 @@
 import addButton from './Components/Button'
-import addButtonID from './Traits/ButtonID'
+import addButtonName from './Traits/ButtonName'
 
 import { BUTTON } from './types.js'
 
 export default editor => {
   addButton(editor)
-  addButtonID(editor)
+  addButtonName(editor)
 
   const blockManager = editor.BlockManager
 

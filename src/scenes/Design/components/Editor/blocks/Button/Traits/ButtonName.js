@@ -1,18 +1,18 @@
-import { BUTTON_ID, BUTTON_PREFIX } from '../types'
+import { BUTTON_NAME, BUTTON_PREFIX } from '../types'
 
 import configureStore from '@src/configureStore'
 import { getButtons } from '@reducers'
 
 export default editor => {
-  editor.TraitManager.addType(BUTTON_ID, {
+  editor.TraitManager.addType(BUTTON_NAME, {
     getInputEl: function () {
       if (!this.inputEl) {
         let select = document.createElement('select')
 
         // create empty option as default
         let option = document.createElement('option')
-        select.add(option)
 
+        select.add(option)
         const currentValue = this.getModelValue()
         const buttons = getButtons(configureStore().store.getState())
 
