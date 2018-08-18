@@ -4,7 +4,9 @@ import {
   EDITOR_PLACE_ANIMATE,
   EDITOR_REMOVE_ANIMATE,
   EDITOR_PLACE_RANGE,
-  EDITOR_REMOVE_RANGE
+  EDITOR_REMOVE_RANGE,
+  EDITOR_PLACE_BUTTON,
+  EDITOR_REMOVE_BUTTON
 } from '@actions/types'
 
 export const editorStorageStore = data => ({
@@ -33,5 +35,15 @@ export const editorPlaceRange = name => ({
 
 export const editorRemoveRange = name => ({
   type: EDITOR_REMOVE_RANGE,
+  payload: name
+})
+
+export const editorPlaceButton = name => ({
+  type: EDITOR_PLACE_BUTTON,
+  payload: name
+})
+
+export const editorRemoveButton = name => ({
+  type: EDITOR_REMOVE_BUTTON,
   payload: name
 })
