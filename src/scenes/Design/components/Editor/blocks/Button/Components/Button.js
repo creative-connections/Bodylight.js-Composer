@@ -1,10 +1,12 @@
-import { BUTTON, BUTTON_NAME } from '../types.js'
+import { BUTTON, BUTTON_NAME, stripPrefix } from '../types.js'
 
 import configureStore from '@src/configureStore'
 import update from 'immutability-helper'
 
 import { getButtons } from '@reducers'
 import { editorPlaceButton, editorRemoveButton } from '@actions/actions'
+
+import { handleChangeName } from '../../commons/Components'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -61,33 +63,24 @@ export default (editor) => {
         return update(buttons[name], {name: {$set: name}})
       },
 
-      /**
-       * Callback on the event 'changeName'. Button provider has changed, we
-       * need to redraw it in the editor.
-       */
-      handleChangeName ({detail}) {
-        const name = this.el.getAttribute('name')
-
-        // update redux state that we have changed our endpoint
-        const {store} = configureStore()
-        store.dispatch(editorRemoveButton(detail.previous))
-        store.dispatch(editorPlaceButton(detail.new))
-
-        /*
-         * Trait sets this automatically somewhere down the lifecycle, but we
-         * need the value before that happens. This should be safe.
-         */
-        this.attr.name = name
-
-        this.render()
-      },
-
       handleClick () {
         // We want to open component settings when BUTTON_ID is unset
         if (this.getButton() === null) {
           editor.Panels.getButton('views', 'open-tm').set('active', true)
         }
+      },
+
+      handleChangeName (event) {
+        handleChangeName(this, event, editorPlaceButton, editorRemoveButton)
+      },
+
+      remove () {
+        defaultType.view.prototype.remove.apply(this, arguments)
+
+        const name = this.attr.name
+        configureStore().store.dispatch(editorRemoveButton(stripPrefix(name)))
       }
+
     })
   })
 }

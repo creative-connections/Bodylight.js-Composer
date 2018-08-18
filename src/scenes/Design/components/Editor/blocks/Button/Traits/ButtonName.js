@@ -1,4 +1,4 @@
-import { BUTTON_NAME, BUTTON_PREFIX } from '../types'
+import { BUTTON_NAME, addPrefix, stripPrefix } from '../types'
 
 import configureStore from '@src/configureStore'
 import { getButtons } from '@reducers'
@@ -18,7 +18,7 @@ export default editor => {
 
         Object.entries(buttons).forEach(([name, button]) => {
           const option = document.createElement('option')
-          const prefixedName = this.addPrefix(name)
+          const prefixedName = addPrefix(name)
 
           option.value = prefixedName
           option.text = name
@@ -37,17 +37,6 @@ export default editor => {
       return this.inputEl
     },
 
-    addPrefix (name) {
-      return `${BUTTON_PREFIX}${name}`
-    },
-
-    /**
-     * Strips PREFIX from name.
-     */
-    stripPrefix (name) {
-      return name.substring(BUTTON_PREFIX.length)
-    },
-
     /* Here we are overriding a private method in order to invoke changeName()
        on our target element. So we can redraw the canvas, if necessary */
     onValueChange (model, value, opts = {}) {
@@ -63,8 +52,8 @@ export default editor => {
 
       const event = new CustomEvent('changeName', {
         detail: {
-          'previous': this.stripPrefix(previous),
-          'new': this.stripPrefix(value)
+          'previous': stripPrefix(previous),
+          'new': stripPrefix(value)
         }
       })
       this.target.view.$el[0].dispatchEvent(event)
