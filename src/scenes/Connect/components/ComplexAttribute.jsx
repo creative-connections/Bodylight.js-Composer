@@ -93,19 +93,19 @@ const renderAddFunction = (name, attribute, onChange) => {
   return <ButtonLink onClick={() => addFunction(name, attribute, onChange)}>{'add function'}</ButtonLink>
 }
 
-const renderSimple = ({name, label, attribute, onChange}) => {
+const renderSimple = ({name, label, attribute, onChange, forceSimple = false}) => {
   return <Transition animation='slide right'
     transitionOnMount={true}
     duration={200}
     visible={true}>
     <div>
       {renderValueInput(name, label, attribute, onChange)}
-      {renderComplexCheckbox(name, attribute, onChange)}
+      {forceSimple === false && renderComplexCheckbox(name, attribute, onChange)}
     </div>
   </Transition>
 }
 
-const renderComplex = ({name, attribute, forceComplex = false, onChange}) => {
+const renderComplex = ({name, attribute, onChange, forceComplex = false}) => {
   return <Transition transitionOnMount={true} animation='slide right'
     duration={200}
     visible={true}>
@@ -123,6 +123,9 @@ const renderComplex = ({name, attribute, forceComplex = false, onChange}) => {
 const ComplexAttribute = (props) => {
   if (props.forceComplex === true) {
     return renderComplex(props)
+  }
+  if (props.forceSimple === true) {
+    return renderSimple(props)
   }
   return (
     <div>
