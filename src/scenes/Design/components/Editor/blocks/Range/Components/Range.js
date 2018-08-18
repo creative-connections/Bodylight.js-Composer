@@ -1,9 +1,11 @@
-import { RANGE, RANGE_NAME } from '../types.js'
+import { RANGE, RANGE_NAME, stripPrefix } from '../types.js'
 
 import configureStore from '@src/configureStore'
 import { getRanges } from '@reducers'
 
 import update from 'immutability-helper'
+
+import { handleChangeName } from '../../commons/Components'
 
 import { editorPlaceRange, editorRemoveRange } from '@actions/actions'
 
@@ -56,24 +58,15 @@ export default (editor) => {
         return update(ranges[name], {name: {$set: name}})
       },
 
-      /**
-       * Callback on the event 'changeName'. Range provider has changed, we
-       * need to redraw it in the editor.
-       */
-      handleChangeName () {
-        const name = this.el.getAttribute('name')
-        const previous = this.attr.name
+      handleChangeName (event) {
+        handleChangeName(this, event, editorPlaceRange, editorRemoveRange)
+      },
 
-        // update redux state that we have changed our endpoint
-        const {store} = configureStore()
-        store.dispatch(editorRemoveRange(previous))
-        store.dispatch(editorPlaceRange(name))
+      remove () {
+        defaultType.view.prototype.remove.apply(this, arguments)
 
-        /*
-         * Trait sets this automatically somewhere down the lifecycle, but we
-         * need the value before that happens. This should be safe.
-         */
-        this.attr.name = name
+        const name = this.attr.name
+        configureStore().store.dispatch(editorRemoveRange(stripPrefix(name)))
       },
 
       handleClick () {
