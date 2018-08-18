@@ -28,6 +28,7 @@ import ValueProviderType from '@helpers/ValueProviderType'
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
 import buildRangeConfig from './builders/widgets/Range/config'
+import buildButtonConfig from './builders/widgets/Button/config'
 
 import appendModels from './builders/models/models'
 import buildModelConfig from './builders/models/config'
@@ -43,12 +44,16 @@ import initValueProviders from './templates/initValueProviders'
 import resolveValueProviders from './templates/resolveValueProviders'
 
 import Widget from './templates/widget/Widget'
+
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
-import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import AnimateText from './templates/widget/AnimateText'
-import initAnimateTexts from './templates/widget/AnimateText/init'
 import Range from './templates/widget/Range'
+import Button from './templates/widget/Button'
+
+import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
+import initAnimateTexts from './templates/widget/AnimateText/init'
 import initRanges from './templates/widget/Range/init'
+import initButtons from './templates/widget/Button/init'
 
 class Builder {
   constructor () {
@@ -120,6 +125,7 @@ class Builder {
     append(`config.widgets.animateAnims = ${tpl(buildAnimateAnimConfig())}`)
     append(`config.widgets.animateTexts = ${tpl(buildAnimateTextConfig())}`)
     append(`config.widgets.ranges = ${tpl(buildRangeConfig())}`)
+    append(`config.widgets.buttons = ${tpl(buildButtonConfig())}`)
 
     // create model functions
     // TODO: refactor to config.models[model].functions with overrides
@@ -144,6 +150,9 @@ class Builder {
 
     append(tpl(Range))
     append(tpl(initRanges))
+
+    append(tpl(Button))
+    append(tpl(initButtons))
 
     append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))
