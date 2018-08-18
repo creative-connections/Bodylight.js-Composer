@@ -135,10 +135,19 @@ class ConfigButton extends Component {
             <br/><br/>
             <Checkbox
               radio
-              label='Value applied while pressing'
+              label='Value applied while pressed'
               name='mode'
               value={ButtonMode.PRESS}
               checked={config.mode === ButtonMode.PRESS}
+              onClick={this.handleOnChange}
+            />
+            <br/><br/>
+            <Checkbox
+              radio
+              label='Button triggers an event'
+              name='mode'
+              value={ButtonMode.TRIGGER}
+              checked={config.mode === ButtonMode.TRIGGER}
               onClick={this.handleOnChange}
             />
           </GridRow>

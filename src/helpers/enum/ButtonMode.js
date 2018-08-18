@@ -1,6 +1,7 @@
 const ButtonMode = {
   CLICK: 'click',
-  PRESS: 'press'
+  PRESS: 'press',
+  TRIGGER: 'trigger'
 }
 
 export default ButtonMode
