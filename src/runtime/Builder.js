@@ -43,7 +43,8 @@ import initValueProviders from './templates/initValueProviders'
 import resolveValueProviders from './templates/resolveValueProviders'
 
 import Widget from './templates/widget/Widget'
-import AnimateAnim from './templates/widget/AnimateAnim'
+import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
+import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import AnimateText from './templates/widget/AnimateText'
 import initAnimateTexts from './templates/widget/AnimateText/init'
 import Range from './templates/widget/Range'
@@ -134,9 +135,13 @@ class Builder {
 
     // append widget classes
     append(tpl(Widget))
-    append(tpl(AnimateAnim))
+
+    append(tpl(AnimateAnimControlled))
+    append(tpl(initAnimateAnimsControlled))
+
     append(tpl(AnimateText))
     append(tpl(initAnimateTexts))
+
     append(tpl(Range))
     append(tpl(initRanges))
 
