@@ -7,7 +7,7 @@ const defaultConfig = {
   mode: AnimateAnimMode.CONTROLLED,
   name: null,
   value: {
-    value: '',
+    value: 0,
     complex: false,
     provider: null,
     function: null,

@@ -13,6 +13,7 @@ import { getConfigForAnimateAnim, getDefaultConfigForAnimateAnim } from '@reduce
 import { configAnimateAnimUpdate, configAnimateAnimRemove } from '@actions'
 
 import GridRow from '../GridRow'
+import ComplexAttribute from '../ComplexAttribute'
 
 class ConfigAnimateAnim extends Component {
   constructor (props) {
@@ -64,10 +65,24 @@ class ConfigAnimateAnim extends Component {
               checked={config.mode === AnimateAnimMode.CONTINUOUS}
               onClick={this.handleOnChange}
             />
+
+          </GridRow>
+          <GridRow label='Value:'>
+            <ComplexAttribute
+              forceComplex={true}
+              name='value'
+              attribute={config.value}
+              onChange={this.handleOnChange}
+            />
           </GridRow>
         </Grid>
 
         {config.mode === AnimateAnimMode.CONTINUOUS && <ContinuousMode anim={this.props.anim}/>}
+        {config.mode === AnimateAnimMode.CONTROLLED && <ControlledMode
+          anim={this.props.anim}
+          onChange={this.handleOnChange}
+          config={config}
+        />}
       </div>
     )
   }
