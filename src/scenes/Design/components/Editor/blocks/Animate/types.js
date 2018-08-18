@@ -1,2 +1,2 @@
-export const ANIMATE_CANVAS = 'animate-canvas'
-export const ANIMATE_NAME = 'animate-name-trait'
+export const ANIMATE = 'animate-widget'
+export const ANIMATE_NAME = 'animate-widget-name-trait'

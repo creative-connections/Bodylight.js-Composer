@@ -1,7 +1,7 @@
 import addAnimateCanvas from './Components/AnimateCanvas'
 import addAnimateName from './Traits/AnimateName'
 
-import { ANIMATE_CANVAS } from './types.js'
+import { ANIMATE } from './types.js'
 
 export default (editor) => {
   addAnimateName(editor)
@@ -18,7 +18,7 @@ export default (editor) => {
       <div class="gjs-block-label">Animate</div>
     `,
     content: {
-      type: ANIMATE_CANVAS,
+      type: ANIMATE,
       style: {
         width: '100%',
         height: '100%'

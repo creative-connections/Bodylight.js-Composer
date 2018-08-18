@@ -1,7 +1,7 @@
 import configureStore from '@src/configureStore'
 import AnimateRuntime from '@helpers/Animate/Runtime'
 
-import { ANIMATE_CANVAS, ANIMATE_NAME } from '../types.js'
+import { ANIMATE, ANIMATE_NAME } from '../types.js'
 
 import update from 'immutability-helper'
 
@@ -16,7 +16,7 @@ export default (editor) => {
   const defaultType = components.getType('default')
   const defaultModel = defaultType.model
 
-  components.addType(ANIMATE_CANVAS, {
+  components.addType(ANIMATE, {
     model: defaultModel.extend({
       defaults: Object.assign({}, defaultModel.prototype.defaults, {
         draggable: '*',
@@ -32,8 +32,8 @@ export default (editor) => {
       })
     }, {
       isComponent: (el) => {
-        if (el.tagName === 'CANVAS' && el.classList.contains(ANIMATE_CANVAS)) {
-          return {type: ANIMATE_CANVAS}
+        if (el.tagName === 'CANVAS' && el.classList.contains(ANIMATE)) {
+          return {type: ANIMATE}
         }
       }
     }),
