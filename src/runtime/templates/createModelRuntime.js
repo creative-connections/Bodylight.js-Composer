@@ -42,6 +42,8 @@ export default function createModelRuntime (Model, config, functions) {
       model.updateValueListeners = functions.updateValueListeners.bind(model)
       model.updateInitialValueListeners = functions.updateInitialValueListeners.bind(model)
 
+      model.getReferenceFromName = functions.getReferenceFromName.bind(model)
+
       console.log(`Module ${model.config.identifier} ready.`)
       resolve(model)
     }).catch(err => {

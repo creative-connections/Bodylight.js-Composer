@@ -20,6 +20,7 @@ import registerValueSetter from './templates/model/registerValueSetter'
 import updateValueListeners from './templates/model/updateValueListeners'
 import updateInitialValueListeners from './templates/model/updateInitialValueListeners'
 import setValue from './templates/model/setValue'
+import getReferenceFromName from './templates/model/getReferenceFromName'
 
 import WidgetType from '@helpers/WidgetType'
 import ValueProviderType from '@helpers/ValueProviderType'
@@ -41,9 +42,13 @@ import initWidgets from './templates/initWidgets'
 import initValueProviders from './templates/initValueProviders'
 import resolveValueProviders from './templates/resolveValueProviders'
 
-import AnimateAnim from './templates/widget/AnimateAnim'
+import Widget from './templates/widget/Widget'
+import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
+import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import AnimateText from './templates/widget/AnimateText'
+import initAnimateTexts from './templates/widget/AnimateText/init'
 import Range from './templates/widget/Range'
+import initRanges from './templates/widget/Range/init'
 
 class Builder {
   constructor () {
@@ -76,6 +81,7 @@ class Builder {
     this.append('functions.updateValueListeners = ' + this.tpl(updateValueListeners))
     this.append('functions.updateInitialValueListeners = ' + this.tpl(updateInitialValueListeners))
     this.append('functions.registerValueSetter = ' + this.tpl(registerValueSetter))
+    this.append('functions.getReferenceFromName = ' + this.tpl(getReferenceFromName))
     this.append('functions.setValue = ' + this.tpl(setValue))
   }
 
@@ -128,9 +134,16 @@ class Builder {
     append(tpl(AnimateRuntime))
 
     // append widget classes
-    append(tpl(AnimateAnim))
+    append(tpl(Widget))
+
+    append(tpl(AnimateAnimControlled))
+    append(tpl(initAnimateAnimsControlled))
+
     append(tpl(AnimateText))
+    append(tpl(initAnimateTexts))
+
     append(tpl(Range))
+    append(tpl(initRanges))
 
     append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))

@@ -1,93 +1,51 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-import { Dropdown, Header, Grid, Form, Checkbox, Button, Divider, Transition, Segment } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
-import FunctionEditor from '@components/FunctionEditor'
-import InputFloat from '@components/InputFloat'
+import GridRow from '../GridRow'
+import ComplexAttribute from '../ComplexAttribute'
 
-import ValueProviderDropdown from './ValueProviderDropdown'
-
-/*
-NOTE: This component should be only used in 'key'ed context
-*/
-class ControlledMode extends Component {
-  constructor (props) {
-    super(props)
-  }
-
-  render () {
-    return (
-      <div>
-
-        <ValueProviderDropdown
-          name='valueProvider'
-          value={this.props.config.valueProvider}
-          onChange={this.props.onChange} />
-
-        <Form.Field>
-          <label>{'Value transform function'}</label>
-          <FunctionEditor
-            name='transform'
-            value={this.props.config.transform}
-            onChange={this.props.onChange}
-            typeof='number'
-          />
-        </Form.Field>
-
-        <Form.Field >
-          <label>Initial value</label>
-          <InputFloat
-            name='initialValue'
-            value={this.props.config.initialValue}
-            onChange={this.props.onChange}
-          >
-            <input />
-          </InputFloat>
-        </Form.Field>
-
-        <Form.Field >
-          <label>Minimum value</label>
-          <InputFloat
-            name='min'
-            value={this.props.config.min}
-            onChange={this.props.onChange}
-          >
-            <input />
-          </InputFloat>
-        </Form.Field>
-
-        <Form.Field >
-          <label>Maximum value</label>
-          <InputFloat
+const ControlledMode = props => {
+  const config = props.config
+  const onChange = props.onChange
+  return (
+    <div>
+      <br/>
+      <Grid verticalAlign='middle' celled='internally'>
+        <GridRow label='Maximum:'>
+          <ComplexAttribute
             name='max'
-            value={this.props.config.max}
-            onChange={this.props.onChange}
-          >
-            <input />
-          </InputFloat>
-        </Form.Field>
-
-        <Form.Field >
-          <Form.Checkbox
-            label='Automatically adjust min and max based on input value'
+            attribute={config.max}
+            onChange={onChange}
+          />
+        </GridRow>
+        <GridRow label='Minimum:'>
+          <ComplexAttribute
+            name='min'
+            attribute={config.min}
+            onChange={onChange}
+          />
+        </GridRow>
+        <GridRow label='Overflow:'>
+          <ComplexAttribute
+            forceSimple={true}
             name='overflow'
-            checked={this.props.config.overflow}
-            onChange={this.props.onChange}
+            label='Allow min/max to be automatically adjusted'
+            attribute={config.overflow}
+            onChange={onChange}
           />
-        </Form.Field>
-
-        <Form.Field >
-          <Form.Checkbox
-            label='Reverse animation'
-            name='reverse'
-            checked={this.props.config.reverse}
-            onChange={this.props.onChange}
+        </GridRow>
+        <GridRow label='Reversed:'>
+          <ComplexAttribute
+            name='reversed'
+            label='Value input is reversed'
+            attribute={config.reversed}
+            onChange={onChange}
           />
-        </Form.Field>
-
-      </div>
-    )
-  }
+        </GridRow>
+      </Grid>
+    </div>
+  )
 }
 
 export default ControlledMode

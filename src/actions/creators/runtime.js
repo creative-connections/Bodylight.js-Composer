@@ -6,14 +6,14 @@ import {
   CONFIG_RANGE_REMOVE
 } from '@actions/types'
 
-export const configAnimateAnimUpdate = (name, parent, config) => ({
+export const configAnimateAnimUpdate = (anim, key, value) => ({
   type: CONFIG_ANIMATE_ANIM_UPDATE,
-  payload: { name, parent, config }
+  payload: { anim, key, value }
 })
 
-export const configAnimateTextUpdate = (name, parent, config) => ({
+export const configAnimateTextUpdate = (text, key, value) => ({
   type: CONFIG_ANIMATE_TEXT_UPDATE,
-  payload: { name, parent, config }
+  payload: { text, key, value }
 })
 
 export const configAnimateTextRemove = (name, parent) => ({

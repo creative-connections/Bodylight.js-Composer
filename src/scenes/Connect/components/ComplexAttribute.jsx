@@ -1,5 +1,5 @@
 import React from 'react'
-import { Transition, Checkbox } from 'semantic-ui-react'
+import { Transition, Checkbox, Input } from 'semantic-ui-react'
 
 import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'
@@ -7,9 +7,24 @@ import FunctionEditor from '@components/FunctionEditor'
 
 import ValueProviderDropdown from '@components/ValueProviderDropdown'
 
-const renderValueInput = (name, attribute, onChange) => {
+const renderValueInput = (name, label, attribute, onChange) => {
   if (attribute.typeof === 'number') {
     return <InputFloat
+      className='inline-block'
+      name={`${name}.value`}
+      value={attribute.value}
+      onChange={onChange}
+    />
+  } else if (attribute.typeof === 'boolean') {
+    return <Checkbox
+      style={{padding: '0.8em 0em 0.8em 0em'}}
+      label={label}
+      name={`${name}.value`}
+      checked={attribute.value}
+      onChange={onChange}
+    />
+  } else if (attribute.typeof === 'string') {
+    return <Input
       className='inline-block'
       name={`${name}.value`}
       value={attribute.value}
@@ -53,23 +68,21 @@ const renderFunction = (name, attribute, onChange) => {
         onChange={onChange}
         typeof={attribute.typeof}
       />
-      <ButtonLink onClick={() => removeFunction(name, attribute, onChange)}>{'remove function'}</ButtonLink>
 
     </div>
   </Transition>
 }
 
 const addFunction = (name, attribute, onChange) => {
-  onChange(null, {
-    name: `${name}.function`,
-    value: 'value => value'
-  })
-}
+  const values = {
+    boolean: 'value => true;',
+    number: 'value => value;',
+    string: 'value => `${value}`'
+  }
 
-const removeFunction = (name, attribute, onChange) => {
   onChange(null, {
     name: `${name}.function`,
-    value: null
+    value: values[attribute.typeof]
   })
 }
 
@@ -80,26 +93,26 @@ const renderAddFunction = (name, attribute, onChange) => {
   return <ButtonLink onClick={() => addFunction(name, attribute, onChange)}>{'add function'}</ButtonLink>
 }
 
-const renderSimple = ({name, attribute, onChange}) => {
+const renderSimple = ({name, label, attribute, onChange, forceSimple = false}) => {
   return <Transition animation='slide right'
     transitionOnMount={true}
     duration={200}
     visible={true}>
     <div>
-      {renderValueInput(name, attribute, onChange)}
-      {renderComplexCheckbox(name, attribute, onChange)}
+      {renderValueInput(name, label, attribute, onChange)}
+      {forceSimple === false && renderComplexCheckbox(name, attribute, onChange)}
     </div>
   </Transition>
 }
 
-const renderComplex = ({name, attribute, onChange}) => {
+const renderComplex = ({name, attribute, onChange, forceComplex = false}) => {
   return <Transition transitionOnMount={true} animation='slide right'
     duration={200}
     visible={true}>
     <div>
       {renderProvider(name, attribute, onChange)}
       {renderAddFunction(name, attribute, onChange)}
-      {renderComplexCheckbox(name, attribute, onChange)}
+      {forceComplex === false && renderComplexCheckbox(name, attribute, onChange)}
       <div>
         {attribute.function !== null && renderFunction(name, attribute, onChange)}
       </div>
@@ -108,6 +121,12 @@ const renderComplex = ({name, attribute, onChange}) => {
 }
 
 const ComplexAttribute = (props) => {
+  if (props.forceComplex === true) {
+    return renderComplex(props)
+  }
+  if (props.forceSimple === true) {
+    return renderSimple(props)
+  }
   return (
     <div>
       {props.attribute.complex && renderComplex(props)}

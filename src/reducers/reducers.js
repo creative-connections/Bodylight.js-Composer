@@ -6,16 +6,12 @@ import defaultModelOptions from './models/defaultModelOptions'
 import configurationScreen from './app/configurationScreen'
 import activeScreen from './app/activeScreen'
 
+import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
-
 import widgets, * as widgetSelectors from './widgets'
-
 import configRange, * as configRangeSelectors from './runtime/configRange'
-
 import configAnimateAnim, * as configAnimateAnimSelectors from './runtime/configAnimateAnim'
 import configAnimateText, * as configAnimateTextSelectors from './runtime/configAnimateText'
-import defaultConfigAnimateAnim from './runtime/defaultConfigAnimateAnim'
-import defaultConfigAnimateText from './runtime/defaultConfigAnimateText'
 
 import { NEW_PROJECT } from '@actions/types'
 
@@ -25,6 +21,7 @@ const reducers = combineReducers({
 
   configurationScreen,
   activeScreen,
+  functionEditorConfig,
 
   editorStorage,
 
@@ -32,9 +29,7 @@ const reducers = combineReducers({
 
   configAnimateAnim,
   configAnimateText,
-  configRange,
-  defaultConfigAnimateAnim,
-  defaultConfigAnimateText
+  configRange
 })
 
 const stateScrubberReducer = (state, action) => {
@@ -62,6 +57,10 @@ export const getConfigForRanges = state => configRangeSelectors.getConfigForRang
 export const getDefaultConfigForRanges = configRangeSelectors.getDefaultConfigForRanges
 
 export const getConfigForAnimateAnim = state => configAnimateAnimSelectors.getConfigForAnimateAnim(state.configAnimateAnim)
+export const getDefaultConfigForAnimateAnim = configAnimateAnimSelectors.getDefaultConfigForAnimateAnim
 export const getConfigForAnimateText = state => configAnimateTextSelectors.getConfigForAnimateText(state.configAnimateText)
+export const getDefaultConfigForAnimateText = configAnimateTextSelectors.getDefaultConfigForAnimateText
 
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
+
+export const getFunctionEditorConfig = state => functionEditorConfigSelectors.getFunctionEditorConfig(state.functionEditorConfig)

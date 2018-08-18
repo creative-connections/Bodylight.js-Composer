@@ -1,7 +1,7 @@
 import configureStore from '@src/configureStore'
 import { getConfigForAnimateText } from '@reducers'
 
-import update from 'immutability-helper'
+import functionalize from '../functionalize'
 
 export default () => {
   const animates = getConfigForAnimateText(configureStore().store.getState())
@@ -9,16 +9,10 @@ export default () => {
   const config = {}
   Object.entries(animates).forEach(([animateName, animate]) => {
     config[animateName] = {}
-
     Object.entries(animate).forEach(([name, configuration]) => {
-      const transform = Function(`return ${configuration.transform}`)()
-      const visible = Function(`return ${configuration.visible}`)()
-
-      configuration = update(configuration, {
-        transform: {$set: transform},
-        visible: {$set: visible}
+      configuration.attributes.forEach(attribute => {
+        configuration = functionalize(configuration, attribute)
       })
-
       config[animateName][name] = configuration
     })
   })

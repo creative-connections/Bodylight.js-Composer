@@ -15,6 +15,7 @@ class ValueProviders {
 
   getForDropdown () {
     var options = []
+    options.push({ text: 'none', value: null })
     Object.entries(this.models).forEach(([modelName, model]) => {
       Object.entries(model.parameters).forEach(([componentName, component]) => {
         const value = {

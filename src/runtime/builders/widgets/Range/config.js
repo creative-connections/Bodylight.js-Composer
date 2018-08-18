@@ -1,19 +1,17 @@
 import configureStore from '@src/configureStore'
 import { getConfigForRanges } from '@reducers'
 
-import update from 'immutability-helper'
+import functionalize from '../functionalize'
 
 export default () => {
   const ranges = getConfigForRanges(configureStore().store.getState())
 
   const config = {}
   Object.entries(ranges).forEach(([name, configuration]) => {
-    const transform = Function(`return ${configuration.transform}`)()
-
-    configuration = update(configuration, {
-      transform: {$set: transform}
+    configuration.attributes.forEach(attribute => {
+      configuration = functionalize(configuration, attribute)
     })
-
+    configuration = functionalize(configuration, 'target')
     config[name] = configuration
   })
   return config

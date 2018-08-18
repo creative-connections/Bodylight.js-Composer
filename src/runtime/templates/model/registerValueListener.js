@@ -1,24 +1,24 @@
-export default function registerValueListener (listener, name) {
-  let id = null
-  if (this.config.parameters[name] !== undefined) {
-    id = this.config.parameters[name].reference
-  } else if (this.config.variables[name] !== undefined) {
-    id = this.config.variables[name].reference
-  }
+export default function registerValueListener (listener, name, attribute) {
+  const reference = this.getReferenceFromName(name)
 
-  if (id === null) {
+  if (reference === null) {
     return false
   }
-  const index = this.outputValuesLength
-  this.outputValuesIds[this.outputValuesLength++] = id
+
+  let index = this.outputValuesIds.indexOf(reference)
+
+  if (index === -1) {
+    index = this.outputValuesLength
+    this.outputValuesIds[this.outputValuesLength++] = reference
+  }
 
   this.valueListeners.push({
     target: listener,
-    identifier: name,
-    index: index
+    attribute,
+    index
   })
 
-  console.log(`${this.config.identifier}: registered value listener ${listener.name} as index ${index}`)
+  console.log(`${this.config.identifier}: registered value listener ${reference} from ${listener.name} as index ${index} to attribute ${attribute}`)
 
   return true
 }
