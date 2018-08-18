@@ -18,7 +18,7 @@ export const getRanges = state => rangesSelectors.getRanges(state.ranges)
 export const getButtons = state => buttonSelectors.getButtons(state.buttons)
 
 export const getAvailableRangeName = (state, root) => rangesSelectors.getAvailableRangeName(state.ranges, root)
-export const getAvailableButtonName = state => buttonsSelectors.getAvailableButtonName(state.buttons)
+export const getAvailableButtonName = (state, root) => buttonsSelectors.getAvailableButtonName(state.buttons, root)
 
 export const getSelectedWidget = state => appSelectors.getSelectedWidget(state.app)
 

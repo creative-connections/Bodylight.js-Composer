@@ -51,7 +51,7 @@ export const getButtons = state => widgetSelectors.getButtons(state.widgets)
 export const getModels = state => modelSelectors.getModels(state.models)
 
 export const getAvailableRangeName = (state, root) => widgetSelectors.getAvailableRangeName(state.widgets, root)
-export const getAvailableButtonName = state => widgetSelectors.getAvailableButtonName(state.widgets)
+export const getAvailableButtonName = (state, root) => widgetSelectors.getAvailableButtonName(state.widgets, root)
 
 export const getWidgetsForDropdown = state => widgetSelectors.getWidgetsForDropdown(state.widgets)
 
