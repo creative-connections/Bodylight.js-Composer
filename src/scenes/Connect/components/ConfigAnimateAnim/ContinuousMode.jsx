@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
 
-import { Dropdown, Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
+import GridRow from '../GridRow'
 
 class ContinuousMode extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   render () {
-    return <b>Not implemented yet</b>
+    return (
+      <div>
+        <br></br>
+        <Grid verticalAlign='middle' celled='internally'>
+          <GridRow label=''>
+            <p>Not implemented yet</p>
+          </GridRow>
+        </Grid>
+      </div>
+    )
   }
 }
 

@@ -66,6 +66,8 @@ class ConfigAnimateAnim extends Component {
             />
           </GridRow>
         </Grid>
+
+        {config.mode === AnimateAnimMode.CONTINUOUS && <ContinuousMode anim={this.props.anim}/>}
       </div>
     )
   }
