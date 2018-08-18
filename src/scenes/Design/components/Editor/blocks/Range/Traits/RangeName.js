@@ -1,10 +1,10 @@
-import { RANGE_ID } from '../types'
+import { RANGE_NAME } from '../types'
 
 import configureStore from '@src/configureStore'
 import { getRanges } from '@reducers'
 
 export default editor => {
-  editor.TraitManager.addType(RANGE_ID, {
+  editor.TraitManager.addType(RANGE_NAME, {
 
     getInputEl: function () {
       if (!this.inputEl) {

@@ -1,4 +1,4 @@
-import { RANGE, RANGE_ID } from '../types.js'
+import { RANGE, RANGE_NAME } from '../types.js'
 
 import configureStore from '@src/configureStore'
 import { getRanges } from '@reducers'
@@ -21,7 +21,7 @@ export default (editor) => {
         attributes: {type: 'range'},
         classes: [],
         traits: [{
-          type: RANGE_ID,
+          type: RANGE_NAME,
           label: 'Range',
           name: 'name'
         }],
