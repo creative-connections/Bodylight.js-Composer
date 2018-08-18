@@ -46,18 +46,34 @@ class ConfigButton extends Component {
     this.props.configButtonUpdate(this.props.button, name, value)
   }
 
-  renderClickMode (config) {
-    return <GridRow label='On click:'>
+  renderTarget (config) {
+    return <GridRow label='Target:' key={`${this.props.button.name}.target`}>
       <ComplexAttribute
-        name='onClick'
-        attribute={config.onClick}
+        forceComplex={true}
+        disableFunction={true}
+        name='target'
+        attribute={config.target}
         onChange={this.handleOnChange}
       />
     </GridRow>
   }
 
+  renderClickMode (config) {
+    return [
+      this.renderTarget(config),
+      <GridRow label='On click:' key={`${this.props.button.name}.onClick`}>
+        <ComplexAttribute
+          name='onClick'
+          attribute={config.onClick}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+    ]
+  }
+
   renderPressMode (config) {
     return [
+      this.renderTarget(config),
       <GridRow label='On press:' key={`${this.props.button.name}.onPress`}>
         <ComplexAttribute
           name='onPress'
@@ -96,15 +112,14 @@ class ConfigButton extends Component {
             </Transition>
           </GridRow>
 
-          <GridRow label='Target:'>
+          <GridRow label='Label:'>
             <ComplexAttribute
-              forceComplex={true}
-              disableFunction={true}
-              name='target'
-              attribute={config.target}
+              name='label'
+              attribute={config.label}
               onChange={this.handleOnChange}
             />
           </GridRow>
+
         </Grid>
         <br/>
         <Grid verticalAlign='middle' celled='internally'>
