@@ -68,7 +68,7 @@ const defaultConfig = {
 
   onRelease: {
     typeof: 'number',
-    value: 1,
+    value: 0,
     complex: false,
     provider: null,
     function: null
