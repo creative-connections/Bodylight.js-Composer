@@ -25,6 +25,8 @@ class ConfigRange extends Component {
 
     this.handleOnChange = this.handleOnChange.bind(this)
     this.handleAutoRename = this.handleAutoRename.bind(this)
+
+    this.renameRange = this.renameRange.bind(this)
   }
 
   /**
@@ -74,7 +76,7 @@ class ConfigRange extends Component {
             <Input
               name='name'
               value={this.props.range.name}
-              onChange={this.handleRename}
+              onChange={this.renameRange}
             />
 
             <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
