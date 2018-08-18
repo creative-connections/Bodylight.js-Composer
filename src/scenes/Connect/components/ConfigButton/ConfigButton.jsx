@@ -12,9 +12,9 @@ import FunctionEditor from '@components/FunctionEditor'
 import update from 'immutability-helper'
 import InputFloat from '@components/InputFloat'
 
-import { getConfigForRanges, getDefaultConfigForRanges } from '@reducers'
+import { getConfigForButton, getDefaultConfigForButton } from '@reducers'
 
-import { configRangeRemove, configRangeUpdate, renameRange, removeRange } from '@actions/actions'
+import { configButtonRemove, configButtonUpdate, renameButton, removeButton } from '@actions/actions'
 
 class ConfigButton extends Component {
   constructor (props) {
@@ -26,4 +26,16 @@ class ConfigButton extends Component {
   }
 }
 
-export default ConfigButton
+export default connect(
+  state => ({
+    config: getConfigForButton(state),
+    defaultConfig: getDefaultConfigForButton(),
+    getAvailableButtonName: root => getAvailableButtonName(state, root)
+  }),
+  dispatch => bindActionCreators({
+    configButtonRemove,
+    configButtonUpdate,
+    renameButton,
+    removeButton
+  }, dispatch)
+)(ConfigButton)

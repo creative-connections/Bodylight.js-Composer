@@ -3,7 +3,9 @@ import {
   CONFIG_ANIMATE_TEXT_UPDATE,
   CONFIG_ANIMATE_TEXT_REMOVE,
   CONFIG_RANGE_UPDATE,
-  CONFIG_RANGE_REMOVE
+  CONFIG_RANGE_REMOVE,
+  CONFIG_BUTTON_UPDATE,
+  CONFIG_BUTTON_REMOVE
 } from '@actions/types'
 
 export const configAnimateAnimUpdate = (anim, key, value) => ({
@@ -29,4 +31,14 @@ export const configRangeUpdate = (range, key, value) => ({
 export const configRangeRemove = (range) => ({
   type: CONFIG_RANGE_REMOVE,
   payload: { range }
+})
+
+export const configButtonUpdate = (button, key, value) => ({
+  type: CONFIG_BUTTON_UPDATE,
+  payload: { button, key, value }
+})
+
+export const configButtonRemove = (button) => ({
+  type: CONFIG_BUTTON_REMOVE,
+  payload: { button }
 })
