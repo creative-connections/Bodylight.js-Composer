@@ -1,13 +1,12 @@
 import configureStore from '@src/configureStore'
+import update from 'immutability-helper'
 import AnimateRuntime from '@helpers/Animate/Runtime'
 
-import { ANIMATE, ANIMATE_NAME } from '../types.js'
-
-import update from 'immutability-helper'
-
-import { editorPlaceAnimate, editorRemoveAnimate } from '@actions/actions'
-
+import { editorPlaceAnimate, editorRemoveAnimate } from '@actions'
 import { getAnimates } from '@reducers'
+
+import { ANIMATE, ANIMATE_NAME, stripPrefix } from '../types.js'
+import { handleChangeName } from '../../commons/Components'
 
 const animateRuntimeStore = {}
 
@@ -49,7 +48,7 @@ export default (editor) => {
        * @return {animate configuration}
        */
       getAnimate () {
-        const name = this.attr.name
+        const name = stripPrefix(this.attr.name)
         const animates = getAnimates(configureStore().store.getState())
         if (typeof name === 'undefined' || name === null || name === '' ||
             typeof animates[name] === 'undefined') {
@@ -74,21 +73,8 @@ export default (editor) => {
        * Callback on the event 'changeName'. Animate provider has changed, we
        * need to redraw it in the editor.
        */
-      handleChangeName () {
-        const name = this.el.getAttribute('name')
-        const previous = this.attr.name
-
-        // update redux state that we have changed our animate endpoint
-        const {store} = configureStore()
-        store.dispatch(editorRemoveAnimate(previous))
-        store.dispatch(editorPlaceAnimate(name))
-
-        /*
-         * Trait sets this automatically somewhere down the lifecycle, but we
-         * need the value before that happens. This should be safe.
-         */
-        this.attr.name = name
-
+      handleChangeName (event) {
+        handleChangeName(this, event, editorPlaceAnimate, editorRemoveAnimate)
         this.attachRuntime()
       },
 
@@ -237,7 +223,7 @@ export default (editor) => {
 
         // update redux state that we have removed our animate endpoint
         const name = this.attr.name
-        configureStore().store.dispatch(editorRemoveAnimate(name))
+        configureStore().store.dispatch(editorRemoveAnimate(stripPrefix(name)))
       }
 
     })
