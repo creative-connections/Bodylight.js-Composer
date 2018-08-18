@@ -6,6 +6,14 @@ import AnimateAnimMode from '@helpers/AnimateAnimMode'
 const defaultConfig = {
   mode: AnimateAnimMode.CONTROLLED,
   name: null,
+  attributes: [
+    'value',
+    'min',
+    'max',
+    'reversed',
+    'minspeed',
+    'maxspeed'
+  ],
   value: {
     value: 0,
     complex: false,
