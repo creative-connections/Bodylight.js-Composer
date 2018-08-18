@@ -22,7 +22,7 @@ class WidgetSettings extends Component {
         case WidgetType.RANGE:
           return <ConfigRange range={selectedWidget} />
         case WidgetType.BUTTON:
-          return <ConfigButton range={selectedWidget} />
+          return <ConfigButton button={selectedWidget} />
       }
     }
     return null
