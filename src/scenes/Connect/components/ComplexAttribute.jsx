@@ -105,13 +105,13 @@ const renderSimple = ({name, label, attribute, onChange, forceSimple = false}) =
   </Transition>
 }
 
-const renderComplex = ({name, attribute, onChange, forceComplex = false}) => {
+const renderComplex = ({name, attribute, onChange, forceComplex = false, disableFunction = false}) => {
   return <Transition transitionOnMount={true} animation='slide right'
     duration={200}
     visible={true}>
     <div>
       {renderProvider(name, attribute, onChange)}
-      {renderAddFunction(name, attribute, onChange)}
+      {!disableFunction && renderAddFunction(name, attribute, onChange)}
       {forceComplex === false && renderComplexCheckbox(name, attribute, onChange)}
       <div>
         {attribute.function !== null && renderFunction(name, attribute, onChange)}
