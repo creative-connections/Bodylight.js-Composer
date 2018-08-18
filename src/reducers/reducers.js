@@ -62,6 +62,7 @@ export const getConfigForRanges = state => configRangeSelectors.getConfigForRang
 export const getDefaultConfigForRanges = configRangeSelectors.getDefaultConfigForRanges
 
 export const getConfigForAnimateAnim = state => configAnimateAnimSelectors.getConfigForAnimateAnim(state.configAnimateAnim)
+export const getDefaultConfigForAnimateAnim = configAnimateAnimSelectors.getDefaultConfigForAnimateAnim
 export const getConfigForAnimateText = state => configAnimateTextSelectors.getConfigForAnimateText(state.configAnimateText)
 export const getDefaultConfigForAnimateText = configAnimateTextSelectors.getDefaultConfigForAnimateText
 
