@@ -69,3 +69,4 @@ export const getDefaultConfigForButton = configButtonSelectors.getDefaultConfigF
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
 
 export const getFunctionEditorConfig = state => functionEditorConfigSelectors.getFunctionEditorConfig(state.functionEditorConfig)
+export const getModelsForDropdown = state => modelSelectors.getModelsForDropdown(state.models)
