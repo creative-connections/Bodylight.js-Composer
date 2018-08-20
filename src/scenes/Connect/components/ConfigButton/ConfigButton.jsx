@@ -12,6 +12,8 @@ import ValueProviders from '@helpers/ValueProviders'
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
 
+import Events from '../Events'
+
 class ConfigButton extends Component {
   constructor (props) {
     super(props)
@@ -98,7 +100,6 @@ class ConfigButton extends Component {
       <div>
         <Divider hidden/>
         <Header as="h2">Button: {this.props.button.name}</Header>
-
         <Grid verticalAlign='middle' celled='internally'>
           <GridRow label='Name:'>
             <Input
@@ -106,12 +107,10 @@ class ConfigButton extends Component {
               value={this.props.button.name}
               onChange={this.rename}
             />
-
             <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
               <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
             </Transition>
           </GridRow>
-
           <GridRow label='Label:'>
             <ComplexAttribute
               name='label'
@@ -119,7 +118,6 @@ class ConfigButton extends Component {
               onChange={this.handleOnChange}
             />
           </GridRow>
-
         </Grid>
         <br/>
         <Grid verticalAlign='middle' celled='internally'>
@@ -173,8 +171,11 @@ class ConfigButton extends Component {
               onChange={this.handleOnChange}
             />
           </GridRow>
-
         </Grid>
+        <Events
+          widget={this.props.button}
+          config={config}
+        />
       </div>
     )
   }

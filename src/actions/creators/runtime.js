@@ -5,8 +5,13 @@ import {
   CONFIG_RANGE_UPDATE,
   CONFIG_RANGE_REMOVE,
   CONFIG_BUTTON_UPDATE,
-  CONFIG_BUTTON_REMOVE
+  CONFIG_BUTTON_REMOVE,
+  WIDGET_ACTION_ADD,
+  WIDGET_ACTION_REMOVE,
+  WIDGET_ACTION_UPDATE
 } from '@actions/types'
+
+import uuid from 'uuid/v4'
 
 export const configAnimateAnimUpdate = (anim, key, value) => ({
   type: CONFIG_ANIMATE_ANIM_UPDATE,
@@ -41,4 +46,22 @@ export const configButtonUpdate = (button, key, value) => ({
 export const configButtonRemove = (button) => ({
   type: CONFIG_BUTTON_REMOVE,
   payload: { button }
+})
+
+export const widgetActionAdd = (widget) => {
+  const id = uuid()
+  return {
+    type: WIDGET_ACTION_ADD,
+    payload: { id, widget }
+  }
+}
+
+export const widgetActionRemove = (widget, id) => ({
+  type: WIDGET_ACTION_REMOVE,
+  payload: { id, widget }
+})
+
+export const widgetActionUpdate = (widget, id, key, value) => ({
+  type: WIDGET_ACTION_UPDATE,
+  payload: { id, widget, key, value }
 })

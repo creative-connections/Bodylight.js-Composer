@@ -3,10 +3,19 @@ import {
   CONFIG_BUTTON_UPDATE,
   CONFIG_BUTTON_REMOVE,
   RENAME_BUTTON,
-  REMOVE_BUTTON
+  REMOVE_BUTTON,
+  WIDGET_ACTION_ADD,
+  WIDGET_ACTION_REMOVE,
+  WIDGET_ACTION_UPDATE
 } from '@actions/types'
 
+import WidgetType from '@helpers/WidgetType'
 import ButtonMode from '@helpers/enum/ButtonMode'
+import {
+  widgetActionAdd,
+  widgetActionRemove,
+  widgetActionUpdate
+} from './commons/actions'
 
 const defaultConfig = {
   name: null,
@@ -16,6 +25,16 @@ const defaultConfig = {
     provider: null,
     function: null,
     typeof: 'number'
+  },
+
+  events: [
+    'click',
+    'press',
+    'release'
+  ],
+
+  actions: {
+
   },
 
   attributes: [
@@ -142,6 +161,24 @@ export default function (state = {}, action) {
     state = updateKeyValue(state, newname, 'name', newname)
 
     return state
+  }
+
+  if (action.type === WIDGET_ACTION_ADD) {
+    if (action.payload.widget.type === WidgetType.BUTTON) {
+      state = widgetActionAdd(state, action.payload)
+    }
+  }
+
+  if (action.type === WIDGET_ACTION_REMOVE) {
+    if (action.payload.widget.type === WidgetType.BUTTON) {
+      state = widgetActionRemove(state, action.payload)
+    }
+  }
+
+  if (action.type === WIDGET_ACTION_UPDATE) {
+    if (action.payload.widget.type === WidgetType.BUTTON) {
+      state = widgetActionUpdate(state, action.payload)
+    }
   }
 
   return state

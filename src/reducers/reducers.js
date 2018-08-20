@@ -14,6 +14,8 @@ import configAnimateAnim, * as configAnimateAnimSelectors from './runtime/config
 import configAnimateText, * as configAnimateTextSelectors from './runtime/configAnimateText'
 import configButton, * as configButtonSelectors from './runtime/configButton'
 
+import actions, * as actionSelectors from './actions/actions'
+
 import { NEW_PROJECT } from '@actions/types'
 
 const reducers = combineReducers({
@@ -31,7 +33,9 @@ const reducers = combineReducers({
   configAnimateAnim,
   configAnimateText,
   configRange,
-  configButton
+  configButton,
+
+  actions
 })
 
 const stateScrubberReducer = (state, action) => {
@@ -69,4 +73,8 @@ export const getDefaultConfigForButton = configButtonSelectors.getDefaultConfigF
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
 
 export const getFunctionEditorConfig = state => functionEditorConfigSelectors.getFunctionEditorConfig(state.functionEditorConfig)
+
+export const getActions = state => actionSelectors.getActions(state.actions)
+export const getDefaultForAction = actionSelectors.getDefaultForAction
+
 export const getModelsForDropdown = state => modelSelectors.getModelsForDropdown(state.models)
