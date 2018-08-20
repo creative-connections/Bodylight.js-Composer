@@ -44,6 +44,9 @@ export default function createModelRuntime (Model, config, functions) {
 
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
 
+      model.play = functions.play.bind(model)
+      model.pause = functions.pause.bind(model)
+
       console.log(`Module ${model.config.identifier} ready.`)
       resolve(model)
     }).catch(err => {

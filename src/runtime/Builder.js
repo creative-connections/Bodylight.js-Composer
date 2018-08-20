@@ -21,6 +21,8 @@ import updateValueListeners from './templates/model/updateValueListeners'
 import updateInitialValueListeners from './templates/model/updateInitialValueListeners'
 import setValue from './templates/model/setValue'
 import getReferenceFromName from './templates/model/getReferenceFromName'
+import play from './templates/model/play'
+import pause from './templates/model/pause'
 
 import WidgetType from '@helpers/WidgetType'
 import ValueProviderType from '@helpers/ValueProviderType'
@@ -55,6 +57,9 @@ import initAnimateTexts from './templates/widget/AnimateText/init'
 import initRanges from './templates/widget/Range/init'
 import initButtons from './templates/widget/Button/init'
 
+// API
+import getModel from './templates/api/getModel'
+
 class Builder {
   constructor () {
     this.clearSrc()
@@ -88,6 +93,8 @@ class Builder {
     this.append('functions.registerValueSetter = ' + this.tpl(registerValueSetter))
     this.append('functions.getReferenceFromName = ' + this.tpl(getReferenceFromName))
     this.append('functions.setValue = ' + this.tpl(setValue))
+    this.append('functions.play = ' + this.tpl(play))
+    this.append('functions.pause = ' + this.tpl(pause))
   }
 
   build () {
@@ -163,6 +170,9 @@ class Builder {
     append(tpl(resolveValueProviders))
 
     append(tpl(init))
+
+    // API
+    append(tpl(getModel))
 
     // initialize everything
     append('init()')

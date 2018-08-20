@@ -29,10 +29,7 @@ export default function init () {
 
   this.fmi2ExitInitializationMode(this.inst)
 
-  this.modelTickInterval = window.setInterval(
-    this.modelTick,
-    this.config.interval
-  )
+  this.modelTickInterval = null
 
-  createjs.Ticker.addEventListener('tick', this.stageTick)
+  this.play()
 }
