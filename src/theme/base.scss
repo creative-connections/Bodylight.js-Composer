@@ -131,15 +131,20 @@ div#main-menu {
       list-style: none;
       margin: 0 0 0 0;
       padding: 0 0 0 0;
+    }
 
-      > ul > li {
-        text-indent: 0.6em;
+    ul.menu-tree-items {
+      > li > ul > li{
+        text-indent: 1.6em;
       }
-      > ul > li > ul > li {
-        text-indent: 2.7em;
+    }
+
+    ul.menu-tree-animates {
+      > li > ul > li {
+        text-indent: 0.5em;
       }
-      > ul > li > ul > li > ul > li {
-        text-indent: 3em;
+      > li > ul > li > ul > li {
+        text-indent: 2.6em;
       }
     }
   }

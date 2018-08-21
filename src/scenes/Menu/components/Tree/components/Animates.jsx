@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import TreeNode from './TreeNode'
 
 class Animates extends Component {
@@ -48,7 +48,7 @@ class Animates extends Component {
   }
 
   render () {
-    return <ul>
+    return <ul className='menu-tree-animates'>
       <TreeNode name='Animate' collapsable={true}>
         {this.renderAnimates()}
       </TreeNode>

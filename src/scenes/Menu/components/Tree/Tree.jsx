@@ -6,6 +6,7 @@ import { Segment, Divider, Container, Menu, Input } from 'semantic-ui-react'
 
 import Models from './components/Models'
 import Animates from './components/Animates'
+import Items from './components/Items'
 
 import TreeNode from './components/TreeNode'
 
@@ -41,6 +42,11 @@ class Tree extends Component {
       { this.renderSearch() }
       <Divider id='menu-tree-divider'/>
       <Segment id='menu-tree'>
+        <Items
+          name='Buttons'
+          items={this.props.widgets.buttons}
+          selected={this.props.selected}
+          onClick={this.onClick}/>
         <Animates
           animates={this.props.widgets.animates}
           selected={this.props.selected}
