@@ -15,7 +15,7 @@ const defaultConfig = {
         value: null
       }
     },
-    function: ''
+    function: `getModel(model).pause()`
   }
 }
 
