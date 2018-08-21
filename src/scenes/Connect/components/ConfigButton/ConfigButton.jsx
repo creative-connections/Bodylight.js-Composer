@@ -49,7 +49,7 @@ class ConfigButton extends Component {
   }
 
   renderTarget (config) {
-    return <GridRow label='Target:' key={`${this.props.button.name}.target`}>
+    return <GridRow label='Target:' key={`target`}>
       <ComplexAttribute
         forceComplex={true}
         disableFunction={true}
@@ -63,7 +63,7 @@ class ConfigButton extends Component {
   renderClickMode (config) {
     return [
       this.renderTarget(config),
-      <GridRow label='On click:' key={`${this.props.button.name}.onClick`}>
+      <GridRow label='On click:' key={`onClick`}>
         <ComplexAttribute
           name='onClick'
           attribute={config.onClick}
@@ -76,14 +76,14 @@ class ConfigButton extends Component {
   renderPressMode (config) {
     return [
       this.renderTarget(config),
-      <GridRow label='On press:' key={`${this.props.button.name}.onPress`}>
+      <GridRow label='On press:' key={`onPress`}>
         <ComplexAttribute
           name='onPress'
           attribute={config.onPress}
           onChange={this.handleOnChange}
         />
       </GridRow>,
-      <GridRow label='On release:' key={`${this.props.button.name}.onRelease`}>
+      <GridRow label='On release:' key={`onRelease`}>
         <ComplexAttribute
           name='onRelease'
           attribute={config.onRelease}
