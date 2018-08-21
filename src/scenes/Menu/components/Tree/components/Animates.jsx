@@ -48,12 +48,11 @@ class Animates extends Component {
   }
 
   render () {
-    return <Fragment>
+    return <ul>
       <TreeNode name='Animate' collapsable={true}>
         {this.renderAnimates()}
       </TreeNode>
-
-    </Fragment>
+    </ul>
   }
 }
 

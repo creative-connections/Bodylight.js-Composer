@@ -41,12 +41,10 @@ class Tree extends Component {
       { this.renderSearch() }
       <Divider id='menu-tree-divider'/>
       <Segment id='menu-tree'>
-        <ul>
-          <Animates
-            animates={this.props.widgets.animates}
-            selected={this.props.selected}
-            onClick={this.onClick}/>
-        </ul>
+        <Animates
+          animates={this.props.widgets.animates}
+          selected={this.props.selected}
+          onClick={this.onClick}/>
       </Segment>
     </Fragment>
   }
