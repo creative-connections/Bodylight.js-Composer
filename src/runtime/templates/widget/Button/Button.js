@@ -17,7 +17,30 @@ export default class Button extends Widget {
       this.component.addEventListener('click', this.handleOnClick)
     }
 
+    // event triggers
+    this.triggerPress = this.triggerPress.bind(this)
+    this.triggerRelease = this.triggerRelease.bind(this)
+    this.triggerClick = this.triggerClick.bind(this)
+
+    this.component.addEventListener('mousedown', this.triggerPress)
+    this.component.addEventListener('keydown', this.triggerPress)
+    this.component.addEventListener('mouseup', this.triggerRelease)
+    this.component.addEventListener('keyup', this.triggerRelease)
+    this.component.addEventListener('click', this.triggerClick)
+
     this.addValueProvider('target', this.target.provider)
+  }
+
+  triggerPress () {
+    this.dispatchEvent(new Event('press'))
+  }
+
+  triggerRelease () {
+    this.dispatchEvent(new Event('release'))
+  }
+
+  triggerClick () {
+    this.dispatchEvent(new Event('click'))
   }
 
   handleOnClick () {
