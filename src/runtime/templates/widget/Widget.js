@@ -12,6 +12,10 @@ export default class Widget {
     this.generateSetters()
     this.fillValueProviders()
     this.updateComponent()
+
+    // EventTarget listeners
+    this.listeners = {}
+    this.loadEventListeners()
   }
 
   addValueProvider (attribute, provider) {
@@ -65,5 +69,46 @@ export default class Widget {
   setValue (attribute, value) {
     this[attribute].value = value
     this.setters[attribute](value)
+  }
+
+  loadEventListeners () {
+    if (this.actions === undefined || this.actions === null) {
+      return
+    }
+    Object.entries(this.actions).forEach(([key, action]) => {
+      this.addEventListener(action.event, action.function)
+    })
+  }
+
+  addEventListener (type, callback) {
+    if (!(type in this.listeners)) {
+      this.listeners[type] = []
+    }
+    this.listeners[type].push(callback)
+  }
+
+  removeEventListener (type, callback) {
+    if (!(type in this.listeners)) {
+      return
+    }
+    let stack = this.listeners[type]
+    for (let i = 0, l = stack.length; i < l; i++) {
+      if (stack[i] === callback) {
+        stack.splice(i, 1)
+        return
+      }
+    }
+  }
+
+  dispatchEvent (event) {
+    if (!(event.type in this.listeners)) {
+      return true
+    }
+    let stack = this.listeners[event.type].slice()
+
+    for (let i = 0, l = stack.length; i < l; i++) {
+      stack[i].call(this, event)
+    }
+    return !event.defaultPrevented
   }
 }
