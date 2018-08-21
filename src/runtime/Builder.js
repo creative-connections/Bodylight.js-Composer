@@ -35,6 +35,8 @@ import buildButtonConfig from './builders/widgets/Button/config'
 import appendModels from './builders/models/models'
 import buildModelConfig from './builders/models/config'
 
+import buildActionConfig from './builders/actions/config'
+
 import appendAnimates from './builders/animates/animates'
 
 import getEditorHtml from './builders/editor/html'
@@ -127,6 +129,8 @@ class Builder {
     // create config object
     append('const config = {}')
     append(`config.models = ${tpl(buildModelConfig())}`)
+
+    append(`config.actions = ${tpl(buildActionConfig())}`)
 
     append('config.widgets = {}')
     append(`config.widgets.animateAnims = ${tpl(buildAnimateAnimConfig())}`)
