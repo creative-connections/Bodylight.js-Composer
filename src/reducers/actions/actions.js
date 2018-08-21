@@ -4,8 +4,8 @@ import ArgumentType from '@helpers/enum/ArgumentType'
 
 const defaultConfig = {
   pauseModel: {
-    name: 'pauseModel',
-    label: 'Pause model',
+    name: 'stopModel',
+    label: 'Stop model',
     description: 'Pauses the selected model and any synchronized models.',
     args: {
       length: 1,
@@ -16,6 +16,20 @@ const defaultConfig = {
       }
     },
     function: `getModel(model).pause()`
+  },
+  startModel: {
+    name: 'startModel',
+    label: 'Start model',
+    description: 'Starts the selected model and any synchronized models.',
+    args: {
+      length: 1,
+      0: {
+        name: 'model',
+        type: ArgumentType.MODEL,
+        value: null
+      }
+    },
+    function: `getModel(model).play()`
   }
 }
 
