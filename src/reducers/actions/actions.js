@@ -30,6 +30,15 @@ const defaultConfig = {
       }
     },
     function: `getModel(model).play()`
+  },
+  updateThisWidget: {
+    name: 'updateThisWidget',
+    label: 'Update this widget',
+    description: 'Updates values for this widget. Useful for refreshing unprovided functions',
+    args: {
+      length: 0
+    },
+    function: `window.setTimeout(this.updateComponent(), 50)`
   }
 }
 
