@@ -8,4 +8,6 @@ export default function pause () {
   window.clearInterval(this.modelTickInterval)
   this.modelTickInterval = null
   createjs.Ticker.removeEventListener('tick', this.stageTick)
+
+  this.running = false
 }

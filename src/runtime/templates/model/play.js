@@ -8,4 +8,6 @@ export default function play () {
     this.config.interval
   )
   createjs.Ticker.addEventListener('tick', this.stageTick)
+
+  this.running = true
 }
