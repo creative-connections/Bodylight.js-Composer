@@ -1,5 +1,3 @@
-import update from 'immutability-helper'
-
 import {
   ADD_BUTTON,
   RENAME_BUTTON,
@@ -7,6 +5,10 @@ import {
   EDITOR_PLACE_BUTTON,
   EDITOR_REMOVE_BUTTON
 } from '@actions/types'
+
+import WidgetType from '@helpers/WidgetType'
+import memoize from 'memoize-one'
+import update from 'immutability-helper'
 
 const removeButton = (state, name) => {
   return update(state, {
@@ -65,3 +67,19 @@ export const getAvailableButtonName = (state, root = 'unnamed') => {
 }
 
 export const getButtons = state => state
+
+const getButtonsForTreeMemoized = memoize((state, generateWidgetId) => {
+  const buttons = {}
+  Object.entries(state).forEach(([key, button]) => {
+    buttons[key] = {
+      id: generateWidgetId(WidgetType.BUTTON, button.name),
+      type: WidgetType.BUTTON,
+      name: button.name
+    }
+  })
+  return buttons
+})
+
+export const getButtonsForTree = (state, generateWidgetId) => {
+  return getButtonsForTreeMemoized(state, generateWidgetId)
+}
