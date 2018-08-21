@@ -7,6 +7,8 @@ import Preview from '@scenes/Preview'
 import Connect from '@scenes/Connect'
 import Design from '@scenes/Design'
 
+import { getActiveScreen } from '@reducers'
+
 class DisplayContainer extends Component {
   render () {
     const screen = this.props.activeScreen
@@ -39,8 +41,8 @@ class DisplayContainer extends Component {
   }
 }
 
-function mapStateToProps ({ activeScreen }) {
-  return { activeScreen }
-}
-
-export default connect(mapStateToProps)(DisplayContainer)
+export default connect(
+  state => ({
+    activeScreen: getActiveScreen(state)
+  })
+)(DisplayContainer)

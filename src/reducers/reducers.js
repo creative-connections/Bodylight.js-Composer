@@ -4,7 +4,7 @@ import models, * as modelSelectors from './models/models'
 import defaultModelOptions from './models/defaultModelOptions'
 
 import configurationScreen from './app/configurationScreen'
-import activeScreen from './app/activeScreen'
+import activeScreen, * as activeScreenSelectors from './app/activeScreen'
 
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
@@ -78,3 +78,5 @@ export const getActions = state => actionSelectors.getActions(state.actions)
 export const getDefaultForAction = actionSelectors.getDefaultForAction
 
 export const getModelsForDropdown = state => modelSelectors.getModelsForDropdown(state.models)
+
+export const getActiveScreen = state => activeScreenSelectors.getActiveScreen(state.activeScreen)

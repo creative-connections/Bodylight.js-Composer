@@ -6,6 +6,7 @@ import ActiveScreen from '@helpers/ActiveScreenEnum'
 
 import { Menu } from 'semantic-ui-react'
 
+import { getActiveScreen } from '@reducers'
 import { selectScreen } from '@actions/actions'
 
 class ScreenSelector extends Component {
@@ -42,12 +43,11 @@ class ScreenSelector extends Component {
   }
 }
 
-function mapStateToProps ({ activeScreen }) {
-  return { activeScreen }
-}
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ selectScreen }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScreenSelector)
+export default connect(
+  state => ({
+    activeScreen: getActiveScreen(state)
+  }),
+  dispatch => bindActionCreators({
+    selectScreen
+  }, dispatch)
+)(ScreenSelector)
