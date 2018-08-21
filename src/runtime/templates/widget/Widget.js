@@ -76,7 +76,7 @@ export default class Widget {
       return
     }
     Object.entries(this.actions).forEach(([key, action]) => {
-      this.addEventListener(action.event, action.function)
+      this.addEventListener(action.event, action.function.bind(this))
     })
   }
 

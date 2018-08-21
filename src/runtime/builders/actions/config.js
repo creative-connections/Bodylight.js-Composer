@@ -10,7 +10,7 @@ const functionalize = action => {
       args += ','
     }
   }
-  const fn = `(${args}) => {${action.function}}`
+  const fn = `function(${args}) {${action.function}}`
   return new Function(`return ${fn}`)()
 }
 
