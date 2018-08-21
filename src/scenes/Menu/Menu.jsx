@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 
 import { Container, Menu } from 'semantic-ui-react'
 
@@ -8,12 +8,12 @@ import Tree from './components/Tree'
 
 const AppMenu = () => {
   return (
-    <Menu vertical fixed='left' style={{width: 250 + 'px'}}>
-      <Container>
+    <Menu vertical fixed='left' id='main-menu'>
+      <Fragment>
         <MenuHeader/>
         <ScreenSelector/>
         <Tree/>
-      </Container>
+      </Fragment>
     </Menu>
   )
 }

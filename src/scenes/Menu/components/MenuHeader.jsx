@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -19,14 +19,14 @@ class MenuHeader extends Component {
 
   render () {
     return (
-      <div>
+      <Fragment>
         <Menu.Item header>Bodylight.js Composer</Menu.Item>
         <Dropdown item text='File'>
           <Dropdown.Menu style={{ minWidth: 15 + 'em' }}>
             <Dropdown.Item onClick={this.handleNew}>New</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-      </div>
+      </Fragment>
     )
   }
 }

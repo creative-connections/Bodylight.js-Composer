@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -18,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css'
 class App extends Component {
   render () {
     return (
-      <div>
+      <Fragment>
         <ToastContainer position="top-right" closeOnClick draggable pauseOnHover pauseOnVisibilityChange />
 
         <Menu/>
@@ -26,7 +26,7 @@ class App extends Component {
         <Container style={{ marginLeft: 250 + 'px' }} >
           <DisplayContainer />
         </Container>
-      </div>
+      </Fragment>
     )
   }
 }

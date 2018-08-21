@@ -2,6 +2,14 @@
 @import 'normalize-scss';
 @include normalize();
 
+html, body {
+  height: 100%;
+}
+
+div#app {
+  height: 100%;
+}
+
 body {
   margin: 0;
 }
@@ -73,4 +81,72 @@ iframe.preview {
 
 .ui.inline.dropdown .menu{
   margin-top: 0 !important;
+}
+
+div#main-menu {
+  width: 250px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  > #menu-tree {
+
+    //direction: rtl;
+    margin: 0 0 0 0;
+    padding: 0.2em 0 1em 0;
+
+    border: none;
+    box-shadow: none;
+       box-shadow-top:         inset 0 0 10px #000000;
+
+    overflow-x: auto;
+    overflow-y: auto;
+
+    * {
+      direction: ltr;
+
+      >*.selected {
+        color: #cc3434;
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.1);
+
+        >ul, >li {
+          color: black;
+          font-weight: normal;
+          background-color: white;
+        }
+
+      }
+    }
+
+    i {
+      width: auto;
+      color: #666;
+    }
+
+    ul, li {
+      text-indent: 0.1em;
+      cursor: pointer;
+
+      list-style: none;
+      margin: 0 0 0 0;
+      padding: 0 0 0 0;
+
+      > ul > li {
+        text-indent: 0.6em;
+      }
+      > ul > li > ul > li {
+        text-indent: 2.7em;
+      }
+      > ul > li > ul > li > ul > li {
+        text-indent: 3em;
+      }
+    }
+  }
+
+  > #menu-tree-divider {
+    padding: 0;
+    margin: 0;
+    border-bottom: 0;
+  }
 }
