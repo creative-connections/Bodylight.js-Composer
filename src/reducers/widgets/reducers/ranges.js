@@ -1,5 +1,3 @@
-import update from 'immutability-helper'
-
 import {
   ADD_RANGE,
   RENAME_RANGE,
@@ -7,6 +5,10 @@ import {
   EDITOR_PLACE_RANGE,
   EDITOR_REMOVE_RANGE
 } from '@actions/types'
+
+import WidgetType from '@helpers/WidgetType'
+import memoize from 'memoize-one'
+import update from 'immutability-helper'
 
 const removeRange = (state, name) => {
   return update(state, {
@@ -65,3 +67,19 @@ export const getAvailableRangeName = (state, root = 'unnamed') => {
 }
 
 export const getRanges = state => state
+
+const getRangesForTreeMemoized = memoize((state, generateWidgetId) => {
+  const ranges = {}
+  Object.entries(state).forEach(([key, range]) => {
+    ranges[key] = {
+      id: generateWidgetId(WidgetType.RANGE, range.name),
+      type: WidgetType.RANGE,
+      name: range.name
+    }
+  })
+  return ranges
+})
+
+export const getRangesForTree = (state, generateWidgetId) => {
+  return getRangesForTreeMemoized(state, generateWidgetId)
+}

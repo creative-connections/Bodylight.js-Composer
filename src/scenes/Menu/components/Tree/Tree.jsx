@@ -43,8 +43,13 @@ class Tree extends Component {
       <Divider id='menu-tree-divider'/>
       <Segment id='menu-tree'>
         <Items
-          name='Buttons'
+          name='Button'
           items={this.props.widgets.buttons}
+          selected={this.props.selected}
+          onClick={this.onClick}/>
+        <Items
+          name='Range'
+          items={this.props.widgets.ranges}
           selected={this.props.selected}
           onClick={this.onClick}/>
         <Animates

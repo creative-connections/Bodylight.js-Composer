@@ -124,13 +124,17 @@ div#main-menu {
       color: #666;
     }
 
-    ul, li {
+    ul {
       text-indent: 0.1em;
       cursor: pointer;
 
       list-style: none;
       margin: 0 0 0 0;
       padding: 0 0 0 0;
+    }
+
+    >ul {
+      margin: 0 0 0.4em 0;
     }
 
     ul.menu-tree-items {
