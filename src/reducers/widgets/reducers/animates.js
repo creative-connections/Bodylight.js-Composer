@@ -5,7 +5,9 @@ import {
   EDITOR_STORAGE_CLEAR
 } from '@actions/types'
 
+import WidgetType from '@helpers/WidgetType'
 import update from 'immutability-helper'
+import memoize from 'memoize-one'
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -36,3 +38,45 @@ export default function (state = {}, action) {
 }
 
 export const getAnimates = state => state
+
+const getAnimsForTreeMemoized = memoize((parent, anim, generateWidgetId) => {
+  const anims = {}
+  Object.entries(anim).forEach(([key, name]) => {
+    anims[key] = {
+      id: generateWidgetId(WidgetType.ANIMATE_ANIM, name, parent),
+      type: WidgetType.ANIMATE_ANIM,
+      name: name
+    }
+  })
+  return anims
+})
+
+const getTextsForTreeMemoized = memoize((parent, text, generateWidgetId) => {
+  const texts = {}
+  Object.entries(text).forEach(([key, name]) => {
+    texts[key] = {
+      id: generateWidgetId(WidgetType.ANIMATE_TEXT, name, parent),
+      type: WidgetType.ANIMATE_TEXT,
+      name: name
+    }
+  })
+  return texts
+})
+
+const getAnimatesForTreeMemoized = memoize((state, generateWidgetId) => {
+  const animates = {}
+  Object.entries(state).forEach(([key, animate]) => {
+    animates[key] = {
+      id: generateWidgetId(WidgetType.ANIMATE, animate.name),
+      type: WidgetType.ANIMATE,
+      name: animate.name
+    }
+    animates[key].texts = getTextsForTreeMemoized(animate.name, animate.components.text, generateWidgetId)
+    animates[key].anims = getAnimsForTreeMemoized(animate.name, animate.components.anim, generateWidgetId)
+  })
+  return animates
+})
+
+export const getAnimatesForTree = (state, generateWidgetId) => {
+  return getAnimatesForTreeMemoized(state, generateWidgetId)
+}

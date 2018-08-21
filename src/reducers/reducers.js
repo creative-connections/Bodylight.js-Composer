@@ -8,13 +8,14 @@ import activeScreen, * as activeScreenSelectors from './app/activeScreen'
 
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
-import widgets, * as widgetSelectors from './widgets'
+
 import configRange, * as configRangeSelectors from './runtime/configRange'
 import configAnimateAnim, * as configAnimateAnimSelectors from './runtime/configAnimateAnim'
 import configAnimateText, * as configAnimateTextSelectors from './runtime/configAnimateText'
 import configButton, * as configButtonSelectors from './runtime/configButton'
 
 import actions, * as actionSelectors from './actions/actions'
+import widgets, * as widgetSelectors from './widgets'
 
 import { NEW_PROJECT } from '@actions/types'
 
@@ -60,6 +61,7 @@ export const getAvailableButtonName = (state, root) => widgetSelectors.getAvaila
 export const getWidgetsForDropdown = state => widgetSelectors.getWidgetsForDropdown(state.widgets)
 
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
+export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(state.widgets)
 
 export const getConfigForRanges = state => configRangeSelectors.getConfigForRanges(state.configRange)
 export const getDefaultConfigForRanges = configRangeSelectors.getDefaultConfigForRanges

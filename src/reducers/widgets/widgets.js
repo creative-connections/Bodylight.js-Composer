@@ -6,6 +6,8 @@ import ranges, * as rangesSelectors from './reducers/ranges'
 import buttons, * as buttonsSelectors from './reducers/buttons'
 import app, * as appSelectors from './reducers/app'
 
+import memoize from 'memoize-one'
+
 export default combineReducers({
   animates,
   ranges,
@@ -73,3 +75,46 @@ export const getWidgetsForDropdown = state => {
 
   return options
 }
+
+const getWidgetsForTreeMemoized = memoize(state => {
+  const widgets = {}
+  widgets.animates = animatesSelectors.getAnimatesForTree(state.animates, generateWidgetId)
+  return widgets
+})
+
+export const getWidgetsForTree = state => {
+  return getWidgetsForTreeMemoized(state)
+}
+
+/*
+const test = {
+  models: {
+    [modelName]: {
+      id: generateWidgetId(),
+      type: WidgetType.MODEL,
+      name: name
+    }
+  },
+  animates: {
+    [animateName]: {
+      id: generateWidgetId(),
+      type: WidgetType.ANIMATE,
+      name: name,
+      anim: {
+        [animName]: {
+          id: generateWidgetId(),
+          type: WidgetType.ANIMATE_ANIM,
+          name: name
+        }
+      },
+      text: {
+        [textName]: {
+          id: generateWidgetId(),
+          type: WidgetType.ANIMATE_TEXT,
+          name: name
+        }
+      }
+    }
+  }
+}
+*/
