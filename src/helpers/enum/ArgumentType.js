@@ -3,3 +3,11 @@ const ArgumentType = {
 }
 
 export default ArgumentType
+
+export const argumentTypeToTypeof = type => {
+  switch (type) {
+    case ArgumentType.MODEL: {
+      return 'string'
+    }
+  }
+}
