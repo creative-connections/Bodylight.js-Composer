@@ -36,7 +36,6 @@ class Tree extends Component {
   }
 
   render () {
-    console.log(this.props.widgets)
     return <Fragment>
 
       { this.renderSearch() }

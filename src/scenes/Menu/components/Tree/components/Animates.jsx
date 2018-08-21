@@ -48,7 +48,6 @@ class Animates extends Component {
   }
 
   render () {
-    console.log('animates render')
     return <Fragment>
       <TreeNode name='Animate' collapsable={true}>
         {this.renderAnimates()}
