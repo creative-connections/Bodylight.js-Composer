@@ -15,6 +15,7 @@ function init () {
     ]).then(() => {
       resolveValueProviders()
       Object.entries(models).forEach(([name, model]) => model.init())
+      Object.entries(widgets).forEach(([name, widget]) => widget.updateComponent())
     })
   }
   )
