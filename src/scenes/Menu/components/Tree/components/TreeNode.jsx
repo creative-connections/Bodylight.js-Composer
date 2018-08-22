@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Icon } from 'semantic-ui-react'
 
+import WidgetType from '@helpers/WidgetType'
+
 class TreeNode extends Component {
   constructor (props) {
     super(props)
@@ -10,6 +12,22 @@ class TreeNode extends Component {
     }
 
     this.onIconClick = this.onIconClick.bind(this)
+    this.getIcon = this.getIcon.bind(this)
+  }
+
+  getIcon () {
+    if (this.props.type === WidgetType.ANIMATE_TEXT) {
+      return 'text cursor'
+    }
+    if (this.props.type === WidgetType.ANIMATE_ANIM) {
+      return 'picture'
+    }
+    if (this.props.type === WidgetType.RANGE) {
+      return 'arrows alternate horizontal'
+    }
+    if (this.props.type === WidgetType.BUTTON) {
+      return 'square'
+    }
   }
 
   onIconClick () {
@@ -22,12 +40,14 @@ class TreeNode extends Component {
     if (this.state.collapsed) {
       return <Fragment>
         <Icon size='small' name="plus square outline" onClick={this.onIconClick}/>
+        <Icon name={this.getIcon()}/>
         {this.props.name}
       </Fragment>
     }
 
     return <Fragment>
       <Icon size='small' name="minus square outline" onClick={this.onIconClick}/>
+      <Icon name={this.getIcon()}/>
       {this.props.name}
       <ul>{this.props.children}</ul>
     </Fragment>
@@ -56,6 +76,7 @@ class TreeNode extends Component {
     }
     return (
       <li className={className} onClick={this.props.onClick} data-id={this.props.id}>
+        <Icon name={this.getIcon()}/>
         {this.props.name}
       </li>
     )

@@ -8,6 +8,7 @@ class Items extends Component {
         key={item.id}
         id={item.id}
         name={item.name}
+        type={item.type}
         onClick={this.props.onClick}
         selected={this.props.selected}
       />

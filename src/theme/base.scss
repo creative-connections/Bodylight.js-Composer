@@ -139,16 +139,16 @@ div#main-menu {
 
     ul.menu-tree-items {
       > li > ul > li{
-        text-indent: 1.6em;
+        text-indent: 0.8em;
       }
     }
 
     ul.menu-tree-animates {
       > li > ul > li {
-        text-indent: 0.7em;
+        text-indent: 0.8em;
       }
       > li > ul > li > ul > li {
-        text-indent: 2.6em;
+        text-indent: 1.4em;
       }
     }
   }

@@ -10,6 +10,7 @@ class Animates extends Component {
           key={anim.id}
           id={anim.id}
           name={anim.name}
+          type={anim.type}
           onClick={this.props.onClick}
           selected={this.props.selected}
         />)
@@ -21,6 +22,7 @@ class Animates extends Component {
           key={text.id}
           id={text.id}
           name={text.name}
+          type={text.type}
           onClick={this.props.onClick}
           selected={this.props.selected}
         />)
@@ -35,6 +37,7 @@ class Animates extends Component {
         key={animate.id}
         id={animate.id}
         name={animate.name}
+        type={animate.type}
         onClick={this.props.onClick}
         selected={this.props.selected}
         collapsable={true} >
