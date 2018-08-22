@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import { Input, Checkbox, Header, Grid, Divider, Transition } from 'semantic-ui-react'
 import { configGetButton } from '@reducers'
-import { configButtonRemove, configButtonUpdate, renameButton, removeButton } from '@actions'
+import { updateConfig, renameButton, removeButton } from '@actions'
 
 import ButtonLink from '@components/ButtonLink'
 import ButtonMode from '@helpers/enum/ButtonMode'
@@ -38,7 +38,7 @@ class ConfigButton extends Component {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
-    this.props.configButtonUpdate(this.props.button, name, value)
+    this.props.updateConfig(this.props.button, name, value)
   }
 
   renderTarget (config) {
@@ -178,8 +178,7 @@ export default connect(
     config: configGetButton(state, props.button.id)
   }),
   dispatch => bindActionCreators({
-    configButtonRemove,
-    configButtonUpdate,
+    updateConfig,
     renameButton,
     removeButton
   }, dispatch)
