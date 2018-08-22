@@ -13,3 +13,10 @@ export const addWidget = (state, payload, type) => {
 
   return update(state, { [payload.id]: {$set: widget} })
 }
+
+export const getWidget = (state, id) => {
+  if (state[id] === undefined) {
+    return null
+  }
+  return state[id]
+}

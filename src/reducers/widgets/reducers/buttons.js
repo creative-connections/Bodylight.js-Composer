@@ -4,7 +4,7 @@ import {
 
 import memoize from 'memoize-one'
 import WidgetType from '@helpers/enum/WidgetType'
-import { addWidget } from '../commons/widget.js'
+import { addWidget, getWidget } from '../commons/widget.js'
 
 const type = WidgetType.BUTTON
 
@@ -28,6 +28,9 @@ const getButtonsForTreeMemoized = memoize((state, generateWidgetId) => {
   })
   return buttons
 })
+
+export const get = getWidget
+export const getAll =
 
 export const getButtonsForTree = (state, generateWidgetId) => {
   return getButtonsForTreeMemoized(state, generateWidgetId)
