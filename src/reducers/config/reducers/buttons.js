@@ -11,9 +11,9 @@ import {
 import WidgetType from '@helpers/enum/WidgetType'
 import ButtonMode from '@helpers/enum/ButtonMode'
 import {
-  widgetActionAdd,
-  widgetActionRemove,
-  widgetActionUpdate
+  addWidgetAction,
+  removeWidgetAction,
+  updateWidgetAction
 } from '../commons/actions'
 
 import {
@@ -100,34 +100,23 @@ const defaultConfig = {
 
 }
 
+const type = WidgetType.BUTTON
+
 export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
-      return addWidget(state, action.payload, WidgetType.BUTTON, defaultConfig)
+      return addWidget(state, action.payload, type, defaultConfig)
     case RENAME_WIDGET:
-      return renameWidget(state, action.payload, WidgetType.BUTTON)
+      return renameWidget(state, action.payload, type)
     case UPDATE_WIDGET_CONFIG:
-      return updateWidget(state, action.payload, WidgetType.BUTTON)
+      return updateWidget(state, action.payload, type)
+    case ADD_WIDGET_ACTION:
+      return addWidgetAction(state, action.payload, type)
+    case REMOVE_WIDGET_ACTION:
+      return removeWidgetAction(state, action.payload, type)
+    case UPDATE_WIDGET_ACTION:
+      return updateWidgetAction(state, action.payload, type)
   }
-
-  if (action.type === ADD_WIDGET_ACTION) {
-    if (action.payload.widget.type === WidgetType.BUTTON) {
-      state = widgetActionAdd(state, action.payload)
-    }
-  }
-
-  if (action.type === REMOVE_WIDGET_ACTION) {
-    if (action.payload.widget.type === WidgetType.BUTTON) {
-      state = widgetActionRemove(state, action.payload)
-    }
-  }
-
-  if (action.type === UPDATE_WIDGET_ACTION) {
-    if (action.payload.widget.type === WidgetType.BUTTON) {
-      state = widgetActionUpdate(state, action.payload)
-    }
-  }
-
   return state
 }
 

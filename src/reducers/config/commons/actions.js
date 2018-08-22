@@ -1,54 +1,45 @@
 import update from 'immutability-helper'
 
-export const widgetActionAdd = (state, {widget, id}) => {
-  const empty = {
-    id: id,
-    event: null,
-    action: null,
-    args: []
-  }
+export const addWidgetAction = (state, {widget, id}, type) => {
+  if (widget.type !== type) { return state }
 
+  // default unconfigured action state
+  const action = { id: id, event: null, action: null, args: [] }
   return update(state, {
-    [widget.name]: {
-      actions: {
-        [id]: { $set: empty }
-      }
-    }
+    [widget.id]: { actions: {
+      [id]: { $set: action }
+    }}
   })
 }
 
-export const widgetActionRemove = (state, {widget, id}) => {
+export const removeWidgetAction = (state, {widget, id}, type) => {
+  if (widget.type !== type) { return state }
   return update(state, {
-    [widget.name]: {
-      actions: {
-        $unset: [id]
-      }
-    }
+    [widget.id]: { actions: {
+      $unset: [id]
+    }}
   })
 }
 
-export const widgetActionUpdate = (state, {widget, id, key, value}) => {
+const updateWidgetActionArgument = (state, widget, id, value) => {
+  return update(state, {
+    [widget.id]: { actions: {
+      [id]: { args: { [value.id]: { $set: value.value } } }
+    }}
+  })
+}
+
+export const updateWidgetAction = (state, {widget, id, key, value}, type) => {
+  if (widget.type !== type) { return state }
+
+  // updating function arguments
   if (key === 'args') {
-    return update(state, {
-      [widget.name]: {
-        actions: {
-          [id]: {
-            args: {
-              [value.id]: { $set: value.value }
-            }
-          }
-        }
-      }
-    })
+    return updateWidgetActionArgument(state, widget, id, value)
   }
 
   return update(state, {
-    [widget.name]: {
-      actions: {
-        [id]: {
-          [key]: { $set: value }
-        }
-      }
-    }
+    [widget.id]: { actions: {
+      [id]: { [key]: { $set: value } }
+    }}
   })
 }
