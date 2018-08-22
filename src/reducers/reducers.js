@@ -12,10 +12,11 @@ import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
 import configRange, * as configRangeSelectors from './config/configRange'
 import configAnimateAnim, * as configAnimateAnimSelectors from './config/configAnimateAnim'
 import configAnimateText, * as configAnimateTextSelectors from './config/configAnimateText'
-import configButton, * as configButtonSelectors from './config/configButton'
 
 import actions, * as actionSelectors from './actions/actions'
+
 import widgets, * as widgetSelectors from './widgets'
+import config, * as configSelectors from './config'
 
 import { NEW_PROJECT } from '@actions/types'
 
@@ -30,11 +31,11 @@ const reducers = combineReducers({
   editorStorage,
 
   widgets,
+  config,
 
   configAnimateAnim,
   configAnimateText,
   configRange,
-  configButton,
 
   actions
 })
@@ -66,8 +67,9 @@ export const getConfigForAnimateAnim = state => configAnimateAnimSelectors.getCo
 export const getDefaultConfigForAnimateAnim = configAnimateAnimSelectors.getDefaultConfigForAnimateAnim
 export const getConfigForAnimateText = state => configAnimateTextSelectors.getConfigForAnimateText(state.configAnimateText)
 export const getDefaultConfigForAnimateText = configAnimateTextSelectors.getDefaultConfigForAnimateText
-export const getConfigForButton = state => configButtonSelectors.getConfigForButton(state.configButton)
-export const getDefaultConfigForButton = configButtonSelectors.getDefaultConfigForButton
+
+export const configGetAllButtons = state => configSelectors.configGetAllButtons(state.config)
+export const configGetButton = (state, id) => configSelectors.configGetButton(state.config, id)
 
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
 

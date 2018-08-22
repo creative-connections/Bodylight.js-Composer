@@ -1,5 +1,6 @@
 import update from 'immutability-helper'
 import {
+  ADD_WIDGET,
   CONFIG_BUTTON_UPDATE,
   CONFIG_BUTTON_REMOVE,
   RENAME_BUTTON,
@@ -15,10 +16,14 @@ import {
   widgetActionAdd,
   widgetActionRemove,
   widgetActionUpdate
-} from './commons/actions'
+} from '../commons/actions'
+
+import {
+  addWidget
+} from '../commons/widget'
 
 const defaultConfig = {
-  name: null,
+  name: 'unnamed',
   mode: ButtonMode.CLICK,
   target: {
     value: null,
@@ -130,6 +135,10 @@ const updateKeyKeyValue = (state, name, key1, key2, value) => {
 }
 
 export default function (state = {}, action) {
+  if (action.type === ADD_WIDGET) {
+    return addWidget(state, action.payload, WidgetType.BUTTON, defaultConfig)
+  }
+
   if (action.type === CONFIG_BUTTON_UPDATE) {
     const { button, key, value } = action.payload
     const keys = key.split('.')
@@ -184,5 +193,5 @@ export default function (state = {}, action) {
   return state
 }
 
-export const getConfigForButton = state => state
-export const getDefaultConfigForButton = () => defaultConfig
+export const getAll = state => state
+export const get = (state, id) => state[id]

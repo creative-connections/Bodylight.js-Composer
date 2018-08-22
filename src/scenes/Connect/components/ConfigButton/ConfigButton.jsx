@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { Input, Checkbox, Header, Grid, Divider, Transition } from 'semantic-ui-react'
-import { getConfigForButton, getDefaultConfigForButton, getAvailableButtonName } from '@reducers'
+import { configGetButton, getAvailableButtonName } from '@reducers'
 import { configButtonRemove, configButtonUpdate, renameButton, removeButton } from '@actions'
 
 import ButtonLink from '@components/ButtonLink'
@@ -23,15 +23,8 @@ class ConfigButton extends Component {
     this.rename = this.rename.bind(this)
   }
 
-  getConfig () {
-    if (this.props.config[this.props.button.name] === undefined) {
-      return this.props.defaultConfig
-    }
-    return this.props.config[this.props.button.name]
-  }
-
   handleAutoRename () {
-    let config = this.getConfig()
+    let config = this.props.config
     const provider = ValueProviders.value(config.target.provider)
     const generatedName = this.props.getAvailableButtonName(`${provider.parent}.${provider.name}`)
     this.rename(null, {value: generatedName})
@@ -94,7 +87,7 @@ class ConfigButton extends Component {
   }
 
   render () {
-    const config = this.getConfig()
+    const config = this.props.config
 
     return (
       <div>
@@ -181,11 +174,12 @@ class ConfigButton extends Component {
 }
 
 export default connect(
-  state => ({
-    config: getConfigForButton(state),
-    defaultConfig: getDefaultConfigForButton(),
-    getAvailableButtonName: root => getAvailableButtonName(state, root)
-  }),
+  (state, props) => {
+    return {
+      config: configGetButton(state, props.button.id),
+      getAvailableButtonName: root => getAvailableButtonName(state, root)
+    }
+  },
   dispatch => bindActionCreators({
     configButtonRemove,
     configButtonUpdate,
