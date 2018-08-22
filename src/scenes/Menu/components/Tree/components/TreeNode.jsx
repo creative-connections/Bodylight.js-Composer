@@ -21,13 +21,13 @@ class TreeNode extends Component {
   renderItem () {
     if (this.state.collapsed) {
       return <Fragment>
-        <Icon name="plus square outline" onClick={this.onIconClick}/>
+        <Icon size='small' name="plus square outline" onClick={this.onIconClick}/>
         {this.props.name}
       </Fragment>
     }
 
     return <Fragment>
-      <Icon name="minus square outline" onClick={this.onIconClick}/>
+      <Icon size='small' name="minus square outline" onClick={this.onIconClick}/>
       {this.props.name}
       <ul>{this.props.children}</ul>
     </Fragment>
