@@ -21,8 +21,7 @@ class WidgetMenu extends Component {
   }
 
   addRange () {
-    const name = this.props.getAvailableRangeName()
-    this.props.addRange(name)
+    this.props.addRange()
   }
 
   addButton () {

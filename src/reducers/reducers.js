@@ -9,7 +9,6 @@ import activeScreen, * as activeScreenSelectors from './app/activeScreen'
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
 
-import configRange, * as configRangeSelectors from './config/configRange'
 import configAnimateAnim, * as configAnimateAnimSelectors from './config/configAnimateAnim'
 import configAnimateText, * as configAnimateTextSelectors from './config/configAnimateText'
 
@@ -35,7 +34,6 @@ const reducers = combineReducers({
 
   configAnimateAnim,
   configAnimateText,
-  configRange,
 
   actions
 })
@@ -61,8 +59,6 @@ export const getAvailableRangeName = (state, root) => widgetSelectors.getAvailab
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
 export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(state.widgets)
 
-export const getConfigForRanges = state => configRangeSelectors.getConfigForRanges(state.configRange)
-export const getDefaultConfigForRanges = configRangeSelectors.getDefaultConfigForRanges
 export const getConfigForAnimateAnim = state => configAnimateAnimSelectors.getConfigForAnimateAnim(state.configAnimateAnim)
 export const getDefaultConfigForAnimateAnim = configAnimateAnimSelectors.getDefaultConfigForAnimateAnim
 export const getConfigForAnimateText = state => configAnimateTextSelectors.getConfigForAnimateText(state.configAnimateText)
@@ -70,6 +66,8 @@ export const getDefaultConfigForAnimateText = configAnimateTextSelectors.getDefa
 
 export const configGetAllButtons = state => configSelectors.configGetAllButtons(state.config)
 export const configGetButton = (state, id) => configSelectors.configGetButton(state.config, id)
+export const configGetAllRange = state => configSelectors.configGetAllRanges(state.config)
+export const configGetRange = (state, id) => configSelectors.configGetRange(state.config, id)
 
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
 
