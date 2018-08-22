@@ -17,11 +17,27 @@ class Tree extends Component {
   constructor (props) {
     super(props)
     this.onClick = this.onClick.bind(this)
+    this.onSearch = this.onSearch.bind(this)
+
+    this.state = {
+      filter: null
+    }
+  }
+
+  onSearch (e, {value}) {
+    if (value === '') {
+      value = null
+    }
+    const filter = new RegExp(value, 'i')
+    this.setState({
+      filter
+    })
+    console.log(filter)
   }
 
   renderSearch () {
     return <Menu.Item position='right'>
-      <Input icon='search' placeholder='Search...' />
+      <Input icon='search' placeholder='Filter...' onChange={this.onSearch}/>
     </Menu.Item>
   }
 
@@ -46,15 +62,18 @@ class Tree extends Component {
           name='Button'
           items={this.props.widgets.buttons}
           selected={this.props.selected}
+          filter={this.state.filter}
           onClick={this.onClick}/>
         <Items
           name='Range'
           items={this.props.widgets.ranges}
           selected={this.props.selected}
+          filter={this.state.filter}
           onClick={this.onClick}/>
         <Animates
           animates={this.props.widgets.animates}
           selected={this.props.selected}
+          filter={this.state.filter}
           onClick={this.onClick}/>
       </Segment>
     </Fragment>

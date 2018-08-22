@@ -17,7 +17,9 @@ class Items extends Component {
   renderItems () {
     const items = []
     Object.entries(this.props.items).forEach(([key, item]) => {
-      items.push(this.renderItem(item))
+      if (this.props.filter === null || item.name.search(this.props.filter) !== -1) {
+        items.push(this.renderItem(item))
+      }
     })
     return items
   }
