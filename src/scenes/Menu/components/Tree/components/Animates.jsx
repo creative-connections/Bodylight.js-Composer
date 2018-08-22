@@ -4,23 +4,23 @@ import TreeNode from './TreeNode'
 class Animates extends Component {
   renderItems (anims, texts) {
     const out = []
-    Object.entries(texts).forEach(([key, text]) => {
-      if (this.props.filter === null || text.name.search(this.props.filter) !== -1) {
-        out.push(<TreeNode
-          key={text.id}
-          id={text.id}
-          name={text.name}
-          onClick={this.props.onClick}
-          selected={this.props.selected}
-        />)
-      }
-    })
     Object.entries(anims).forEach(([key, anim]) => {
       if (this.props.filter === null || anim.name.search(this.props.filter) !== -1) {
         out.push(<TreeNode
           key={anim.id}
           id={anim.id}
           name={anim.name}
+          onClick={this.props.onClick}
+          selected={this.props.selected}
+        />)
+      }
+    })
+    Object.entries(texts).forEach(([key, text]) => {
+      if (this.props.filter === null || text.name.search(this.props.filter) !== -1) {
+        out.push(<TreeNode
+          key={text.id}
+          id={text.id}
+          name={text.name}
           onClick={this.props.onClick}
           selected={this.props.selected}
         />)
