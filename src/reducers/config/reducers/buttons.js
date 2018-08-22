@@ -3,10 +3,6 @@ import {
   ADD_WIDGET,
   RENAME_WIDGET,
   UPDATE_WIDGET_CONFIG,
-  CONFIG_BUTTON_UPDATE,
-  CONFIG_BUTTON_REMOVE,
-  RENAME_BUTTON,
-  REMOVE_BUTTON,
   WIDGET_ACTION_ADD,
   WIDGET_ACTION_REMOVE,
   WIDGET_ACTION_UPDATE
@@ -102,18 +98,6 @@ const defaultConfig = {
     function: null
   }
 
-}
-
-const remove = (state, name) => {
-  return update(state, {
-    $unset: [name]
-  })
-}
-
-const setConfig = (state, name, config) => {
-  return update(state, {
-    [name]: {$set: config}
-  })
 }
 
 export default function (state = {}, action) {
