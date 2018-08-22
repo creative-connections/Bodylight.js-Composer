@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Input, Checkbox, Header, Grid, Divider, Transition } from 'semantic-ui-react'
+import { Input, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
 import { configGetButton } from '@reducers'
 import { updateConfig, renameButton, removeButton } from '@actions'
 

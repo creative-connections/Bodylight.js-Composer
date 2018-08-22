@@ -1,4 +1,3 @@
-import update from 'immutability-helper'
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
