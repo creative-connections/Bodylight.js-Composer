@@ -98,7 +98,6 @@ class ConfigButton extends Component {
 
     return (
       <div>
-        <Divider hidden/>
         <Header as="h2">Button: {this.props.button.name}</Header>
         <Grid verticalAlign='middle' celled='internally'>
           <GridRow label='Name:'>

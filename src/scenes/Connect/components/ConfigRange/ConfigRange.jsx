@@ -68,7 +68,6 @@ class ConfigRange extends Component {
 
     return (
       <div>
-        <Divider hidden/>
         <Header as="h2">Range: {this.props.range.name}</Header>
 
         <Grid verticalAlign='middle' celled='internally'>

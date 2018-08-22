@@ -37,7 +37,6 @@ class ConfigAnimateText extends Component {
     const config = this.getConfig()
     return (
       <div>
-        <Divider hidden/>
         <Header as="h2">AnimateText: {this.props.text.name}</Header>
 
         <Grid verticalAlign='middle' celled='internally'>

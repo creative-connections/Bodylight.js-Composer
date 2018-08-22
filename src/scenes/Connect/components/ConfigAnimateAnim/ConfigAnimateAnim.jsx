@@ -42,7 +42,6 @@ class ConfigAnimateAnim extends Component {
 
     return (
       <div>
-        <Divider hidden/>
         <Header as="h2">Anim: {this.props.anim.name}</Header>
 
         <Grid verticalAlign='middle' celled='internally'>

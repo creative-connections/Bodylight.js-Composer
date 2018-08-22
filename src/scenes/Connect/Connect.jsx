@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import { Grid, Segment, Button, Header, Sticky } from 'semantic-ui-react'
 
-import WidgetDropdown from './components/WidgetDropdown'
 import WidgetMenu from './components/WidgetMenu'
 import WidgetSettings from './components/WidgetSettings'
 
@@ -17,7 +16,6 @@ class Connect extends Component {
       <Grid padded centered>
         <Grid.Row centered padded='horizontally'>
           <Grid.Column width={12}>
-            <WidgetDropdown />
             <WidgetSettings />
           </Grid.Column>
           <Grid.Column width={4}>
