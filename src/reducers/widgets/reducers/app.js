@@ -18,7 +18,7 @@ export default function (state = defaultState, action) {
     case SELECT_WIDGET:
       return selectWidget(state, action.payload.id)
     case ADD_WIDGET:
-      return selectWIDGET(state, action.payload.id)
+      return selectWidget(state, action.payload.id)
   }
   return state
 }
