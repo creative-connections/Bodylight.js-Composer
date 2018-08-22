@@ -1,10 +1,10 @@
 import addAnimate from './Components/Animate'
-import addAnimateName from './Traits/AnimateName'
+import addAnimateID from './Traits/AnimateID'
 
 import { ANIMATE } from './types.js'
 
 export default (editor) => {
-  addAnimateName(editor)
+  addAnimateID(editor)
   addAnimate(editor)
 
   const blockManager = editor.BlockManager

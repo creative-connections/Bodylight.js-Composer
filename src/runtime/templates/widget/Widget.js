@@ -48,10 +48,9 @@ export default class Widget {
   }
 
   locateComponent () {
-    const componentName = `${this.typeIdentifier}-${this.name}`
-    const component = document.getElementsByName(componentName)[0]
+    const component = document.getElementById(this.id)
     if (component === undefined) {
-      throw new ReferenceError(`Widget (${this.name}) of type (${this.typeIdentifier}) with name="${componentName}" not found.`)
+      throw new ReferenceError(`Widget (${this.name}) of type (${this.typeIdentifier}) was not found.`)
     }
     return component
   }

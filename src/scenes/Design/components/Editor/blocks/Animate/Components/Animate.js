@@ -5,8 +5,8 @@ import AnimateRuntime from '@helpers/Animate/Runtime'
 import { editorPlaceAnimate, editorRemoveAnimate } from '@actions'
 import { getAnimates } from '@reducers'
 
-import { ANIMATE, ANIMATE_NAME, stripPrefix } from '../types.js'
-import { handleChangeName } from '../../commons/Components'
+import { ANIMATE, ANIMATE_ID } from '../types.js'
+import { handleChangeID } from '../../commons/Components'
 
 const animateRuntimeStore = {}
 
@@ -23,9 +23,9 @@ export default (editor) => {
         tagName: 'canvas',
         classes: [],
         traits: [{
-          type: ANIMATE_NAME,
+          type: ANIMATE_ID,
           label: 'Animate',
-          name: 'name'
+          name: 'id'
         }],
         resizable: true
       })
@@ -39,7 +39,7 @@ export default (editor) => {
 
     view: defaultType.view.extend({
       events: {
-        changeName: 'handleChangeName',
+        changeID: 'handleChangeID',
         click: 'handleClick'
       },
 
@@ -48,13 +48,13 @@ export default (editor) => {
        * @return {animate configuration}
        */
       getAnimate () {
-        const name = stripPrefix(this.attr.name)
+        const id = this.attr.id
         const animates = getAnimates(configureStore().store.getState())
-        if (typeof name === 'undefined' || name === null || name === '' ||
-            typeof animates[name] === 'undefined') {
+        if (typeof id === 'undefined' || id === null || id === '' ||
+            typeof animates[id] === 'undefined') {
           return null
         }
-        return update(animates[name], {name: {$set: name}})
+        return update(animates[id], {id: {$set: id}})
       },
 
       clearCanvas () {
@@ -70,11 +70,11 @@ export default (editor) => {
       },
 
       /**
-       * Callback on the event 'changeName'. Animate provider has changed, we
+       * Callback on the event 'changeID'. Animate provider has changed, we
        * need to redraw it in the editor.
        */
-      handleChangeName (event) {
-        handleChangeName(this, event, editorPlaceAnimate, editorRemoveAnimate)
+      handleChangeID (event) {
+        handleChangeID(this, event, editorPlaceAnimate, editorRemoveAnimate)
         this.attachRuntime()
       },
 
@@ -222,8 +222,8 @@ export default (editor) => {
         this.deregisterUpdateHandler()
 
         // update redux state that we have removed our animate endpoint
-        const name = this.attr.name
-        configureStore().store.dispatch(editorRemoveAnimate(stripPrefix(name)))
+        const id = this.attr.id
+        configureStore().store.dispatch(editorRemoveAnimate(id))
       }
 
     })

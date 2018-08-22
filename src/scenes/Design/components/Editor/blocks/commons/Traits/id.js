@@ -1,6 +1,6 @@
 import configureStore from '@src/configureStore'
 
-export const getInputEl = (trait, addPrefix, getComponents) => {
+export const getInputEl = (trait, getComponents) => {
   if (!trait.inputEl) {
     let select = document.createElement('select')
 
@@ -11,17 +11,17 @@ export const getInputEl = (trait, addPrefix, getComponents) => {
     const currentValue = trait.getModelValue()
     const components = getComponents(configureStore().store.getState())
 
-    Object.entries(components).forEach(([name, component]) => {
+    Object.entries(components).forEach(([id, component]) => {
       const option = document.createElement('option')
-      const prefixedName = addPrefix(name)
 
-      option.value = prefixedName
-      option.text = name
-      if (prefixedName === currentValue) {
+      option.value = id
+      option.text = component.name
+
+      if (id === currentValue) {
         option.selected = true
       }
       // don't show already placed components in the list, unless it's us
-      if (component.placed === undefined || prefixedName === currentValue) {
+      if (component.placed === false || id === currentValue) {
         select.add(option)
       }
     })
@@ -32,7 +32,7 @@ export const getInputEl = (trait, addPrefix, getComponents) => {
 
 /* Here we are overriding a private method in order to invoke changeName()
        on our target element. So we can redraw the canvas, if necessary */
-export const onValueChange = (trait, stripPrefix, model, value, opts = {}) => {
+export const onValueChange = (trait, model, value, opts = {}) => {
   let previous
 
   if (opts.fromTarget) {
@@ -43,10 +43,10 @@ export const onValueChange = (trait, stripPrefix, model, value, opts = {}) => {
     model.setTargetValue(value, opts)
   }
 
-  const event = new CustomEvent('changeName', {
+  const event = new CustomEvent('changeID', {
     detail: {
-      'previous': stripPrefix(previous),
-      'new': stripPrefix(value)
+      'previous': previous,
+      'new': value
     }
   })
 

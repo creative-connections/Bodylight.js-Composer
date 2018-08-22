@@ -3,6 +3,9 @@ import WidgetType from '@helpers/enum/WidgetType'
 
 export const addWidget = (state, payload, type, defaultConfig) => {
   if (type !== payload.type) { return state }
+  defaultConfig = update(defaultConfig, {
+    id: {$set: payload.id}
+  })
   return update(state, { [payload.id]: {$set: defaultConfig} })
 }
 

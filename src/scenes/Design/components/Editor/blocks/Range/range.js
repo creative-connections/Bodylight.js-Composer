@@ -1,11 +1,11 @@
 import addRange from './Components/Range'
-import addRangeName from './Traits/RangeName'
+import addRangeID from './Traits/RangeID'
 
 import { RANGE } from './types.js'
 
 export default editor => {
   addRange(editor)
-  addRangeName(editor)
+  addRangeID(editor)
 
   const blockManager = editor.BlockManager
 
