@@ -7,6 +7,7 @@ export const addWidget = (state, payload, type) => {
   const widget = {
     id: payload.id,
     name: 'unnamed',
+    type: payload.type,
     placed: false,
     configured: true
   }
