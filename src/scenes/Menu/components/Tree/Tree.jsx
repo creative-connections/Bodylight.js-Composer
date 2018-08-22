@@ -25,14 +25,13 @@ class Tree extends Component {
   }
 
   onSearch (e, {value}) {
+    let filter = new RegExp(value, 'i')
     if (value === '') {
-      value = null
+      filter = null
     }
-    const filter = new RegExp(value, 'i')
     this.setState({
       filter
     })
-    console.log(filter)
   }
 
   renderSearch () {
