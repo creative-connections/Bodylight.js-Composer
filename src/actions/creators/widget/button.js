@@ -1,6 +1,6 @@
 import {
   ADD_WIDGET,
-  RENAME_BUTTON,
+  RENAME_WIDGET,
   REMOVE_BUTTON
 } from '@actions/types'
 
@@ -15,10 +15,13 @@ export const addButton = () => ({
   }
 })
 
-export const renameButton = (button, newname) => {
-  console.warn('renameButton not implemented yet')
-  return {payload: 'nie'}
-}
+export const renameButton = (button, name) => ({
+  type: RENAME_WIDGET,
+  payload: {
+    widget: button,
+    name
+  }
+})
 
 export const removeButton = button => {
   console.warn('removeButton not implemented yet')
