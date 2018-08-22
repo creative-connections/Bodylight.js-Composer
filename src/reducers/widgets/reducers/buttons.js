@@ -1,9 +1,10 @@
 import {
-  ADD_WIDGET
+  ADD_WIDGET,
+  RENAME_WIDGET
 } from '@actions/types'
 
 import WidgetType from '@helpers/enum/WidgetType'
-import { addWidget, getWidget } from '../commons/widget.js'
+import { addWidget, getWidget, renameWidget } from '../commons/widget.js'
 import memoize from 'memoize-one'
 
 const type = WidgetType.BUTTON
@@ -11,6 +12,9 @@ const type = WidgetType.BUTTON
 export default function (state = {}, action) {
   if (action.type === ADD_WIDGET) {
     return addWidget(state, action.payload, type)
+  }
+  if (action.type === RENAME_WIDGET) {
+    return renameWidget(state, action.payload, type)
   }
   return state
 }

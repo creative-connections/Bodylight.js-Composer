@@ -1,6 +1,7 @@
 import update from 'immutability-helper'
 import {
   ADD_WIDGET,
+  RENAME_WIDGET,
   CONFIG_BUTTON_UPDATE,
   CONFIG_BUTTON_REMOVE,
   RENAME_BUTTON,
@@ -19,7 +20,8 @@ import {
 } from '../commons/actions'
 
 import {
-  addWidget
+  addWidget,
+  renameWidget
 } from '../commons/widget'
 
 const defaultConfig = {
@@ -139,6 +141,10 @@ export default function (state = {}, action) {
     return addWidget(state, action.payload, WidgetType.BUTTON, defaultConfig)
   }
 
+  if (action.type === RENAME_WIDGET) {
+    return renameWidget(state, action.payload, WidgetType.BUTTON)
+  }
+
   if (action.type === CONFIG_BUTTON_UPDATE) {
     const { button, key, value } = action.payload
     const keys = key.split('.')
@@ -153,22 +159,6 @@ export default function (state = {}, action) {
         state = updateKeyKeyValue(state, button.name, keys[0], 'function', null)
       }
     }
-    return state
-  }
-
-  if (action.type === RENAME_BUTTON) {
-    const name = action.payload.button.name
-    const newname = action.payload.newname
-    const config = state[name]
-
-    if (state[newname] !== undefined) {
-      return state
-    }
-
-    state = remove(state, name)
-    state = setConfig(state, newname, config)
-    state = updateKeyValue(state, newname, 'name', newname)
-
     return state
   }
 
