@@ -15,7 +15,7 @@ export default combineReducers({
 })
 
 export const getAnimates = state => animatesSelectors.getAnimates(state.animates)
-export const getRanges = state => rangesSelectors.getRanges(state.ranges)
+export const getRanges = state => rangesSelectors.getAll(state.ranges)
 export const getButtons = state => buttonsSelectors.getAll(state.buttons)
 
 export const getAvailableRangeName = (state, root) => rangesSelectors.getAvailableRangeName(state.ranges, root)
@@ -23,6 +23,9 @@ export const getAvailableRangeName = (state, root) => rangesSelectors.getAvailab
 const getWidgetMemoized = memoize((state, id) => {
   let widget = null
   if ((widget = buttonsSelectors.get(state.buttons, id)) !== null) {
+    return widget
+  }
+  if ((widget = rangesSelectors.get(state.ranges, id)) !== null) {
     return widget
   }
   return widget
@@ -38,8 +41,9 @@ export const getSelectedWidget = state => {
 }
 
 const getWidgetsForTreeMemoized = memoize(state => {
-  const widgets = {animates: {}, ranges: {}}
+  const widgets = {animates: {}}
   widgets.buttons = buttonsSelectors.getAll(state.buttons)
+  widgets.ranges = rangesSelectors.getAll(state.ranges)
   return widgets
 })
 
