@@ -96,6 +96,7 @@
     "redux-promise": "^0.6.0",
     "semantic-ui-less": "github:Semantic-Org/Semantic-UI-LESS",
     "semantic-ui-react": "^0.81.3",
+    "slugid": "^2.0.0",
     "to-ast": "^1.0.0",
     "uuid": "^3.3.2",
     "webfontloader": "^1.6.28"
