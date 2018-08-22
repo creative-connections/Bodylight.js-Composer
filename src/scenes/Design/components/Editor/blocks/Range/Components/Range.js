@@ -1,7 +1,7 @@
 import { RANGE, RANGE_ID } from '../types.js'
 
 import configureStore from '@src/configureStore'
-import { getRanges } from '@reducers'
+import { configGetRange } from '@reducers'
 
 import update from 'immutability-helper'
 
@@ -48,14 +48,11 @@ export default (editor) => {
        */
       getRange () {
         const id = this.attr.id
-        const ranges = getRanges(configureStore().store.getState())
 
-        if (typeof id === 'undefined' || id === null || id === '' ||
-            typeof ranges[id] === 'undefined') {
+        if (typeof id === 'undefined' || id === null || id === '') {
           return null
         }
-
-        return update(ranges[id], {id: {$set: id}})
+        return configGetRange(configureStore().store.getState(), id)
       },
 
       handleChangeID (event) {

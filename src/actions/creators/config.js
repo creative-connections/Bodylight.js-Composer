@@ -33,16 +33,6 @@ export const configAnimateTextRemove = (name, parent) => ({
   payload: { name, parent }
 })
 
-export const configRangeUpdate = (range, key, value) => ({
-  type: CONFIG_RANGE_UPDATE,
-  payload: { range, key, value }
-})
-
-export const configRangeRemove = (range) => ({
-  type: CONFIG_RANGE_REMOVE,
-  payload: { range }
-})
-
 export const widgetActionAdd = (widget) => {
   const id = uuid()
   return {

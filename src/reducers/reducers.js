@@ -66,7 +66,7 @@ export const getDefaultConfigForAnimateText = configAnimateTextSelectors.getDefa
 
 export const configGetAllButtons = state => configSelectors.configGetAllButtons(state.config)
 export const configGetButton = (state, id) => configSelectors.configGetButton(state.config, id)
-export const configGetAllRange = state => configSelectors.configGetAllRanges(state.config)
+export const configGetAllRanges = state => configSelectors.configGetAllRanges(state.config)
 export const configGetRange = (state, id) => configSelectors.configGetRange(state.config, id)
 
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)

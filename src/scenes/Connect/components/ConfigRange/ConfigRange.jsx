@@ -48,7 +48,7 @@ class ConfigRange extends Component {
       value = checked
     }
 
-    this.props.configRangeUpdate(this.props.range, name, value)
+    this.props.updateConfig(this.props.range, name, value)
   }
 
   render () {
