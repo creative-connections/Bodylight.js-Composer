@@ -16,7 +16,7 @@ export default combineReducers({
 
 export const getAnimates = state => animatesSelectors.getAnimates(state.animates)
 export const getRanges = state => rangesSelectors.getRanges(state.ranges)
-export const getButtons = state => buttonsSelectors.getButtons(state.buttons)
+export const getButtons = state => buttonsSelectors.getAll(state.buttons)
 
 export const getAvailableRangeName = (state, root) => rangesSelectors.getAvailableRangeName(state.ranges, root)
 export const getAvailableButtonName = (state, root) => buttonsSelectors.getAvailableButtonName(state.buttons, root)
