@@ -16,7 +16,7 @@ export const RENAME_WIDGET = 'widget/RENAME'
 
 export const SELECT_WIDGET = 'app/SELECT_WIDGET'
 
-export const UPDATE_CONFIG = 'config/UPDATE'
+export const UPDATE_WIDGET_CONFIG = 'config/UPDATE'
 
 export const REMOVE_BUTTON = 'REMOVE_BUTTON'
 

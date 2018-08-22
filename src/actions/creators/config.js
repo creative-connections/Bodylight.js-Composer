@@ -1,5 +1,5 @@
 import {
-  UPDATE_CONFIG,
+  UPDATE_WIDGET_CONFIG,
 
   CONFIG_ANIMATE_ANIM_UPDATE,
   CONFIG_ANIMATE_TEXT_UPDATE,
@@ -16,7 +16,7 @@ import {
 import uuid from 'uuid/v4'
 
 export const updateConfig = (widget, key, value) => ({
-  type: UPDATE_CONFIG,
+  type: UPDATE_WIDGET_CONFIG,
   payload: { widget, key, value }
 })
 
