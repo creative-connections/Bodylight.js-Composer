@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import WidgetType from '@helpers/enum/WidgetType'
 
 import animates, * as animatesSelectors from './reducers/animates'
 import ranges, * as rangesSelectors from './reducers/ranges'
@@ -22,30 +21,26 @@ export const getButtons = state => buttonsSelectors.getButtons(state.buttons)
 export const getAvailableRangeName = (state, root) => rangesSelectors.getAvailableRangeName(state.ranges, root)
 export const getAvailableButtonName = (state, root) => buttonsSelectors.getAvailableButtonName(state.buttons, root)
 
-export const getSelectedWidget = state => appSelectors.getSelectedWidget(state.app)
-
-export const generateWidgetId = (type, name, parent = null) => {
-  /*
-   * Since JSON.stringify does not guarantee any particular order, we have to
-   * create our own stringification. We only rely on it for string escapement.
-   */
-  let output = '{'
-  output += `"type":${JSON.stringify(type)}`
-  output += `,"name":${JSON.stringify(name)}`
-  // some widgets do not require a parent (e.g. ranges)
-  if (parent !== null) {
-    output += `,"parent":${JSON.stringify(parent)}`
+const getWidgetMemoized = memoize((state, id) => {
+  let widget = null
+  if ((widget = buttonsSelectors.get(state.buttons, id)) !== null) {
+    return widget
   }
-  output += `}`
+  return widget
+})
 
-  return output
+export const getWidget = (state, id) => {
+  return getWidgetMemoized(state, id)
+}
+
+export const getSelectedWidget = state => {
+  const id = appSelectors.getSelectedWidgetID(state.app)
+  return getWidget(state, id)
 }
 
 const getWidgetsForTreeMemoized = memoize(state => {
-  const widgets = {}
-  widgets.animates = animatesSelectors.getAnimatesForTree(state.animates, generateWidgetId)
-  widgets.buttons = buttonsSelectors.getButtonsForTree(state.buttons, generateWidgetId)
-  widgets.ranges = rangesSelectors.getRangesForTree(state.ranges, generateWidgetId)
+  const widgets = {animates: {}, ranges: {}}
+  widgets.buttons = buttonsSelectors.getAll(state.buttons)
   return widgets
 })
 

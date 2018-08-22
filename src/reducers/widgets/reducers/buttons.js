@@ -2,9 +2,9 @@ import {
   ADD_WIDGET
 } from '@actions/types'
 
-import memoize from 'memoize-one'
 import WidgetType from '@helpers/enum/WidgetType'
 import { addWidget, getWidget } from '../commons/widget.js'
+import memoize from 'memoize-one'
 
 const type = WidgetType.BUTTON
 
@@ -15,23 +15,5 @@ export default function (state = {}, action) {
   return state
 }
 
-export const getButtons = state => state
-
-const getButtonsForTreeMemoized = memoize((state, generateWidgetId) => {
-  const buttons = {}
-  Object.entries(state).forEach(([key, button]) => {
-    buttons[key] = {
-      id: button.id,
-      name: button.name,
-      type: WidgetType.BUTTON
-    }
-  })
-  return buttons
-})
-
-export const get = getWidget
-export const getAll =
-
-export const getButtonsForTree = (state, generateWidgetId) => {
-  return getButtonsForTreeMemoized(state, generateWidgetId)
-}
+export const get = memoize(getWidget)
+export const getAll = state => state
