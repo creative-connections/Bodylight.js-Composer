@@ -41,41 +41,6 @@ export const generateWidgetId = (type, name, parent = null) => {
   return output
 }
 
-export const getWidgetsForDropdown = state => {
-  var options = []
-  Object.entries(state.buttons).forEach(([name, button]) => {
-    options.push({
-      text: `button: ${name}`,
-      value: generateWidgetId(WidgetType.BUTTON, name)
-    })
-  })
-
-  Object.entries(state.ranges).forEach(([name, range]) => {
-    options.push({
-      text: `range: ${name}`,
-      value: generateWidgetId(WidgetType.RANGE, name)
-    })
-  })
-
-  Object.entries(state.animates).forEach(([animateName, animate]) => {
-    animate.components.anim.forEach(componentName => {
-      options.push({
-        text: `${animateName}: ${componentName}`,
-        value: generateWidgetId(WidgetType.ANIMATE_ANIM, componentName, animateName)
-      })
-    })
-
-    animate.components.text.forEach(componentName => {
-      options.push({
-        text: `${animateName}: ${componentName}`,
-        value: generateWidgetId(WidgetType.ANIMATE_TEXT, componentName, animateName)
-      })
-    })
-  })
-
-  return options
-}
-
 const getWidgetsForTreeMemoized = memoize(state => {
   const widgets = {}
   widgets.animates = animatesSelectors.getAnimatesForTree(state.animates, generateWidgetId)
