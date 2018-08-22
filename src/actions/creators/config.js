@@ -6,9 +6,9 @@ import {
   CONFIG_ANIMATE_TEXT_REMOVE,
   CONFIG_RANGE_UPDATE,
   CONFIG_RANGE_REMOVE,
-  WIDGET_ACTION_ADD,
-  WIDGET_ACTION_REMOVE,
-  WIDGET_ACTION_UPDATE
+  ADD_WIDGET_ACTION,
+  REMOVE_WIDGET_ACTION,
+  UPDATE_WIDGET_ACTION
 } from '@actions/types'
 
 import uuid from 'uuid/v4'
@@ -46,17 +46,17 @@ export const configRangeRemove = (range) => ({
 export const widgetActionAdd = (widget) => {
   const id = uuid()
   return {
-    type: WIDGET_ACTION_ADD,
+    type: ADD_WIDGET_ACTION,
     payload: { id, widget }
   }
 }
 
 export const widgetActionRemove = (widget, id) => ({
-  type: WIDGET_ACTION_REMOVE,
+  type: REMOVE_WIDGET_ACTION,
   payload: { id, widget }
 })
 
 export const widgetActionUpdate = (widget, id, key, value) => ({
-  type: WIDGET_ACTION_UPDATE,
+  type: UPDATE_WIDGET_ACTION,
   payload: { id, widget, key, value }
 })

@@ -3,9 +3,9 @@ import {
   ADD_WIDGET,
   RENAME_WIDGET,
   UPDATE_WIDGET_CONFIG,
-  WIDGET_ACTION_ADD,
-  WIDGET_ACTION_REMOVE,
-  WIDGET_ACTION_UPDATE
+  ADD_WIDGET_ACTION,
+  REMOVE_WIDGET_ACTION,
+  UPDATE_WIDGET_ACTION
 } from '@actions/types'
 
 import WidgetType from '@helpers/enum/WidgetType'
@@ -110,19 +110,19 @@ export default function (state = {}, action) {
       return updateWidget(state, action.payload, WidgetType.BUTTON)
   }
 
-  if (action.type === WIDGET_ACTION_ADD) {
+  if (action.type === ADD_WIDGET_ACTION) {
     if (action.payload.widget.type === WidgetType.BUTTON) {
       state = widgetActionAdd(state, action.payload)
     }
   }
 
-  if (action.type === WIDGET_ACTION_REMOVE) {
+  if (action.type === REMOVE_WIDGET_ACTION) {
     if (action.payload.widget.type === WidgetType.BUTTON) {
       state = widgetActionRemove(state, action.payload)
     }
   }
 
-  if (action.type === WIDGET_ACTION_UPDATE) {
+  if (action.type === UPDATE_WIDGET_ACTION) {
     if (action.payload.widget.type === WidgetType.BUTTON) {
       state = widgetActionUpdate(state, action.payload)
     }

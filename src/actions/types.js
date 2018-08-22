@@ -14,9 +14,13 @@ export const REMOVE_RANGE = 'REMOVE_RANGE'
 export const ADD_WIDGET = 'widget/ADD'
 export const RENAME_WIDGET = 'widget/RENAME'
 
-export const SELECT_WIDGET = 'app/SELECT_WIDGET'
+export const UPDATE_WIDGET_CONFIG = 'widget/config/UPDATE'
 
-export const UPDATE_WIDGET_CONFIG = 'config/UPDATE'
+export const ADD_WIDGET_ACTION = 'widget/config/action/ADD'
+export const REMOVE_WIDGET_ACTION = 'widget/config/action/REMOVE'
+export const UPDATE_WIDGET_ACTION = 'widget/config/action/UPDATE'
+
+export const SELECT_WIDGET = 'app/SELECT_WIDGET'
 
 export const REMOVE_BUTTON = 'REMOVE_BUTTON'
 
@@ -39,7 +43,3 @@ export const EDITOR_PLACE_BUTTON = 'EDITOR_PLACE_BUTTON'
 export const EDITOR_REMOVE_BUTTON = 'EDITOR_REMOVE_BUTTON'
 
 export const FUNCTION_EDITOR_CONFIG_CHANGE = 'FUNCTION_EDITOR_CONFIG_CHANGE'
-
-export const WIDGET_ACTION_ADD = 'WIDGET_ACTION_ADD'
-export const WIDGET_ACTION_REMOVE = 'WIDGET_ACTION_REMOVE'
-export const WIDGET_ACTION_UPDATE = 'WIDGET_ACTION_UPDATE'
