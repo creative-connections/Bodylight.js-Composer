@@ -11,6 +11,8 @@ export const ADD_RANGE = 'ADD_RANGE'
 export const RENAME_RANGE = 'RENAME_RANGE'
 export const REMOVE_RANGE = 'REMOVE_RANGE'
 
+export const ADD_WIDGET = 'ADD_WIDGET'
+
 export const ADD_BUTTON = 'ADD_BUTTON'
 export const RENAME_BUTTON = 'RENAME_BUTTON'
 export const REMOVE_BUTTON = 'REMOVE_BUTTON'
