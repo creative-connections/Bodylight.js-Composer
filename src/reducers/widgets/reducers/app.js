@@ -9,7 +9,7 @@ import {
 } from '@actions/types'
 import update from 'immutability-helper'
 
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import { generateWidgetId } from '../widgets'
 
 const defaultState = {

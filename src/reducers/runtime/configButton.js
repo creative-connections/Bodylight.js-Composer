@@ -9,7 +9,7 @@ import {
   WIDGET_ACTION_UPDATE
 } from '@actions/types'
 
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import ButtonMode from '@helpers/enum/ButtonMode'
 import {
   widgetActionAdd,

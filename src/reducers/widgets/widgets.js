@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 
 import animates, * as animatesSelectors from './reducers/animates'
 import ranges, * as rangesSelectors from './reducers/ranges'

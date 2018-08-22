@@ -5,7 +5,7 @@ import {
   EDITOR_STORAGE_CLEAR
 } from '@actions/types'
 
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
 import memoize from 'memoize-one'
 

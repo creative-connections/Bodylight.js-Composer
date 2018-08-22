@@ -24,7 +24,7 @@ import getReferenceFromName from './templates/model/getReferenceFromName'
 import play from './templates/model/play'
 import pause from './templates/model/pause'
 
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import ValueProviderType from '@helpers/ValueProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'

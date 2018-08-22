@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import { getSelectedWidget } from '@reducers'
 
 import ConfigAnimateAnim from './ConfigAnimateAnim'

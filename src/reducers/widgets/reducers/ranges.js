@@ -6,7 +6,7 @@ import {
   EDITOR_REMOVE_RANGE
 } from '@actions/types'
 
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import memoize from 'memoize-one'
 import update from 'immutability-helper'
 
