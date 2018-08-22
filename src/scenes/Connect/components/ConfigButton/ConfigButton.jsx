@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { Input, Checkbox, Header, Grid, Divider, Transition } from 'semantic-ui-react'
-import { configGetButton, getAvailableButtonName } from '@reducers'
+import { configGetButton } from '@reducers'
 import { configButtonRemove, configButtonUpdate, renameButton, removeButton } from '@actions'
 
 import ButtonLink from '@components/ButtonLink'
@@ -26,7 +26,7 @@ class ConfigButton extends Component {
   handleAutoRename () {
     let config = this.props.config
     const provider = ValueProviders.value(config.target.provider)
-    const generatedName = this.props.getAvailableButtonName(`${provider.parent}.${provider.name}`)
+    const generatedName = `${provider.parent}.${provider.name}`
     this.rename(null, {value: generatedName})
   }
 
@@ -174,12 +174,9 @@ class ConfigButton extends Component {
 }
 
 export default connect(
-  (state, props) => {
-    return {
-      config: configGetButton(state, props.button.id),
-      getAvailableButtonName: root => getAvailableButtonName(state, root)
-    }
-  },
+  (state, props) => ({
+    config: configGetButton(state, props.button.id)
+  }),
   dispatch => bindActionCreators({
     configButtonRemove,
     configButtonUpdate,
