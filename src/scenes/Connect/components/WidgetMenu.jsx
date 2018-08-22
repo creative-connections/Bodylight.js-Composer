@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -28,16 +28,21 @@ class WidgetMenu extends Component {
     this.props.addButton()
   }
 
+  addModel () {
+    console.warn('not implemented yet')
+  }
+
   render () {
     return (
-      <div>
-        <Segment>
-          <Button onClick={this.addRange}>Add range</Button>
-        </Segment>
-        <Segment>
-          <Button onClick={this.addButton}>Add button</Button>
-        </Segment>
-      </div>
+      <Fragment>
+        <Button onClick={this.addModel}>Add model</Button>
+        <br/>
+        <br/>
+        <Button onClick={this.addRange}>Add range</Button>
+        <br/>
+        <br/>
+        <Button onClick={this.addButton}>Add button</Button>
+      </Fragment>
     )
   }
 }

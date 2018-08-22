@@ -1,8 +1,5 @@
 import { combineReducers } from 'redux'
 
-import models, * as modelSelectors from './models/models'
-import defaultModelOptions from './models/defaultModelOptions'
-
 import configurationScreen from './app/configurationScreen'
 import activeScreen, * as activeScreenSelectors from './app/activeScreen'
 
@@ -20,9 +17,6 @@ import config, * as configSelectors from './config'
 import { NEW_PROJECT } from '@actions/types'
 
 const reducers = combineReducers({
-  models,
-  defaultModelOptions,
-
   configurationScreen,
   activeScreen,
   functionEditorConfig,
@@ -52,8 +46,6 @@ export const getAnimates = state => widgetSelectors.getAnimates(state.widgets)
 export const getRanges = state => widgetSelectors.getRanges(state.widgets)
 export const getButtons = state => widgetSelectors.getButtons(state.widgets)
 
-export const getModels = state => modelSelectors.getModels(state.models)
-
 export const getAvailableRangeName = (state, root) => widgetSelectors.getAvailableRangeName(state.widgets, root)
 
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
@@ -75,7 +67,5 @@ export const getFunctionEditorConfig = state => functionEditorConfigSelectors.ge
 
 export const getActions = state => actionSelectors.getActions(state.actions)
 export const getDefaultForAction = actionSelectors.getDefaultForAction
-
-export const getModelsForDropdown = state => modelSelectors.getModelsForDropdown(state.models)
 
 export const getActiveScreen = state => activeScreenSelectors.getActiveScreen(state.activeScreen)
