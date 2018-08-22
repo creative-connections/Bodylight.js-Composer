@@ -1,4 +1,6 @@
 import {
+  UPDATE_CONFIG,
+
   CONFIG_ANIMATE_ANIM_UPDATE,
   CONFIG_ANIMATE_TEXT_UPDATE,
   CONFIG_ANIMATE_TEXT_REMOVE,
@@ -12,6 +14,11 @@ import {
 } from '@actions/types'
 
 import uuid from 'uuid/v4'
+
+export const updateConfig = (widget, key, value) => ({
+  type: UPDATE_CONFIG,
+  payload: { widget, key, value }
+})
 
 export const configAnimateAnimUpdate = (anim, key, value) => ({
   type: CONFIG_ANIMATE_ANIM_UPDATE,

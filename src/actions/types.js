@@ -14,11 +14,11 @@ export const REMOVE_RANGE = 'REMOVE_RANGE'
 export const ADD_WIDGET = 'widget/ADD'
 export const RENAME_WIDGET = 'widget/RENAME'
 
-export const ADD_BUTTON = 'ADD_BUTTON'
-export const RENAME_BUTTON = 'RENAME_BUTTON'
-export const REMOVE_BUTTON = 'REMOVE_BUTTON'
+export const SELECT_WIDGET = 'app/SELECT_WIDGET'
 
-export const SELECT_WIDGET = 'SELECT_WIDGET'
+export const UPDATE_CONFIG = 'config/UPDATE'
+
+export const REMOVE_BUTTON = 'REMOVE_BUTTON'
 
 export const CONFIG_ANIMATE_ANIM_UPDATE = 'CONFIG_ANIMATE_ANIM_UPDATE'
 
