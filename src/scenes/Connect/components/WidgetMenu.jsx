@@ -5,8 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Dropdown, Button, Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
 
 import {
-  getAvailableRangeName,
-  getAvailableButtonName
+  getAvailableRangeName
 } from '@reducers'
 
 import {
@@ -27,8 +26,7 @@ class WidgetMenu extends Component {
   }
 
   addButton () {
-    const name = this.props.getAvailableButtonName()
-    this.props.addButton(name)
+    this.props.addButton()
   }
 
   render () {
@@ -47,7 +45,6 @@ class WidgetMenu extends Component {
 
 export default connect(
   state => ({
-    'getAvailableButtonName': () => getAvailableButtonName(state),
     'getAvailableRangeName': () => getAvailableRangeName(state)
   }),
   dispatch => bindActionCreators({

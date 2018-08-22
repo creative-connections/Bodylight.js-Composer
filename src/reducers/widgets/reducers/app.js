@@ -41,7 +41,7 @@ export default function (state = defaultState, action) {
   }
 
   if (action.type === ADD_BUTTON) {
-    return selectWidget(state, generateWidgetId(WidgetType.BUTTON, action.payload.name))
+    // return selectWidget(state, generateWidgetId(WidgetType.BUTTON, action.payload.name))
   }
 
   if (action.type === RENAME_BUTTON) {
