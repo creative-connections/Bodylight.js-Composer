@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 
 import configurationScreen from './app/configurationScreen'
-import activeScreen, * as activeScreenSelectors from './app/activeScreen'
 
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
@@ -18,7 +17,6 @@ import { NEW_PROJECT } from '@actions/types'
 
 const reducers = combineReducers({
   configurationScreen,
-  activeScreen,
   functionEditorConfig,
 
   editorStorage,
@@ -67,5 +65,3 @@ export const getFunctionEditorConfig = state => functionEditorConfigSelectors.ge
 
 export const getActions = state => actionSelectors.getActions(state.actions)
 export const getDefaultForAction = actionSelectors.getDefaultForAction
-
-export const getActiveScreen = state => activeScreenSelectors.getActiveScreen(state.activeScreen)

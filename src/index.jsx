@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ToastContainer } from 'react-toastify'
@@ -36,7 +37,9 @@ const {store, persistor} = configureStore()
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+      <Router>
+        <Route path='/' component={App} />
+      </Router>
     </PersistGate>
   </Provider>,
 

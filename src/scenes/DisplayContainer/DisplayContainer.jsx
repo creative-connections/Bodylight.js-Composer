@@ -1,48 +1,16 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment } from 'react'
+import { Route } from 'react-router-dom'
 
-import ActiveScreen from '@helpers/ActiveScreenEnum'
-import Configuration from '@scenes/Configuration'
 import Preview from '@scenes/Preview'
 import Connect from '@scenes/Connect'
 import Design from '@scenes/Design'
 
-import { getActiveScreen } from '@reducers'
-
-class DisplayContainer extends Component {
-  render () {
-    const screen = this.props.activeScreen
-
-    if (screen === ActiveScreen.CONFIG) {
-      return [
-        <Configuration key="configuration"/>
-      ]
-    }
-
-    if (screen === ActiveScreen.CONNECT) {
-      return [
-        <Connect key="connect"/>
-      ]
-    }
-
-    if (screen === ActiveScreen.DESIGN) {
-      return [
-        <Design key="design"/>
-      ]
-    }
-
-    if (screen === ActiveScreen.PREVIEW) {
-      return [
-        <Preview key="preview"/>
-      ]
-    }
-
-    return null
-  }
+const DisplayContainer = () => {
+  return <Fragment>
+    <Route exact path="/" component={Connect}/>
+    <Route path="/design" component={Design} />
+    <Route path="/preview" component={Preview} />
+  </Fragment>
 }
 
-export default connect(
-  state => ({
-    activeScreen: getActiveScreen(state)
-  })
-)(DisplayContainer)
+export default DisplayContainer

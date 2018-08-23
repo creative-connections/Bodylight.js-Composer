@@ -1,53 +1,31 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import ActiveScreen from '@helpers/ActiveScreenEnum'
+import React, { Component, Fragment } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import { Menu } from 'semantic-ui-react'
-
-import { getActiveScreen } from '@reducers'
-import { selectScreen } from '@actions/actions'
 
 class ScreenSelector extends Component {
   constructor (props) {
     super(props)
-
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick (e, {name}) {
-    this.props.selectScreen(name)
+  handleClick () {
+    this.forceUpdate()
   }
 
   render () {
-    return (
-      <div>
-        <Menu.Item name={ActiveScreen.CONFIG} active={this.props.activeScreen === ActiveScreen.CONFIG} onClick={this.handleClick}>
-              Configuration
-        </Menu.Item>
-
-        <Menu.Item name={ActiveScreen.CONNECT} active={this.props.activeScreen === ActiveScreen.CONNECT} onClick={this.handleClick}>
-              Connect
-        </Menu.Item>
-
-        <Menu.Item name={ActiveScreen.DESIGN} active={this.props.activeScreen === ActiveScreen.DESIGN} onClick={this.handleClick}>
-              Design
-        </Menu.Item>
-
-        <Menu.Item name={ActiveScreen.PREVIEW} active={this.props.activeScreen === ActiveScreen.PREVIEW} onClick={this.handleClick}>
-              Preview
-        </Menu.Item>
-      </div>
-    )
+    return <Fragment>
+      <NavLink to='/' exact activeClassName="active" onClick={this.handleClick}>
+        <Menu.Item className='link'>Connect</Menu.Item>
+      </NavLink>
+      <NavLink to='/design' activeClassName="active" onClick={this.handleClick}>
+        <Menu.Item className='link'>Design</Menu.Item>
+      </NavLink>
+      <NavLink to='/preview' activeClassName="active" onClick={this.handleClick}>
+        <Menu.Item className='link'>Preview</Menu.Item>
+      </NavLink>
+    </Fragment>
   }
 }
 
-export default connect(
-  state => ({
-    activeScreen: getActiveScreen(state)
-  }),
-  dispatch => bindActionCreators({
-    selectScreen
-  }, dispatch)
-)(ScreenSelector)
+export default ScreenSelector
