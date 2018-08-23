@@ -3,6 +3,8 @@ import models, * as modelsSelectors from './reducers/models'
 import buttons, * as buttonsSelectors from './reducers/buttons'
 import ranges, * as rangesSelectors from './reducers/ranges'
 
+import memoize from 'memoize-one'
+
 export default combineReducers({
   models,
   buttons,
@@ -17,3 +19,15 @@ export const configGetButton = (state, id) => buttonsSelectors.get(state.buttons
 
 export const configGetAllRanges = state => rangesSelectors.getAll(state.ranges)
 export const configGetRange = (state, id) => rangesSelectors.get(state.ranges, id)
+
+const getProvidersForDropdownMemoized = memoize(state => {
+  const options = [ { text: 'none', value: null } ]
+  return options.concat(
+    modelsSelectors.getProvidersForDropdown(state.models)
+  )
+})
+
+export const getProvidersForDropdown = (state) => {
+  console.log(getProvidersForDropdownMemoized(state))
+  return getProvidersForDropdownMemoized(state)
+}

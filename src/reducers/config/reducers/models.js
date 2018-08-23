@@ -9,9 +9,11 @@ import {
   renameWidget
 } from '../commons/widget'
 
+import memoize from 'memoize-one'
 import update from 'immutability-helper'
 import WidgetType from '@helpers/enum/WidgetType'
 import ModelMode from '@helpers/enum/ModelMode'
+import ProviderType from '@helpers/enum/ProviderType'
 
 const defaultConfig = {
   mode: ModelMode.CONTINUOUS,
@@ -67,3 +69,34 @@ export default function (state = {}, action) {
 
 export const getAll = state => state
 export const get = (state, id) => state[id]
+
+const generateProviderID = (type, id, parent) => {
+  return `{"type":"${JSON.stringify(type)},"` +
+          `"id":"${JSON.stringify(id)},"` +
+          `"parent":"${JSON.stringify(parent)}"}`
+}
+
+const getProvidersForDropdownMemoized = memoize(state => {
+  const options = []
+  Object.entries(state).forEach(([modelID, model]) => {
+    Object.entries(model.parameters).forEach(([parameterID, parameter]) => {
+      const ID = generateProviderID(ProviderType.MODEL_PARAMETER, parameterID, modelID)
+      options.push({
+        text: `${model.name} (parameter): ${parameter.name}`,
+        value: ID
+      })
+    })
+    Object.entries(model.variables).forEach(([variableID, variable]) => {
+      const ID = generateProviderID(ProviderType.MODEL_VARIABLE, variableID, modelID)
+      options.push({
+        text: `${model.name} (variable): ${variable.name}`,
+        value: ID
+      })
+    })
+  })
+  return options
+})
+
+export const getProvidersForDropdown = state => {
+  return getProvidersForDropdownMemoized(state)
+}

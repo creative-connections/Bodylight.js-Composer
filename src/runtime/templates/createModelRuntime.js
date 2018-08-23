@@ -22,7 +22,7 @@ export default function createModelRuntime (Model, config, functions) {
 
       // global defines
       model.WidgetType = WidgetType
-      model.ValueProviderType = ValueProviderType
+      model.ProviderType = ProviderType
 
       model.modelTick = functions.modelTick.bind(model)
       model.stageTick = functions.stageTick.bind(model)

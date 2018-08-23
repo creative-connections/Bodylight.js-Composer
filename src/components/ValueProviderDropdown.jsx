@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
-
-import { Dropdown, Button } from 'semantic-ui-react'
-
-import ValueProviders from '@helpers/ValueProviders'
+import { connect } from 'react-redux'
+import { Dropdown } from 'semantic-ui-react'
+import { getProvidersForDropdown } from '@reducers'
 
 class ValueProviderDropdown extends Component {
   constructor (props) {
     super(props)
-
-    const valueProviders = new ValueProviders()
-    this.valueProvidersOptions = valueProviders.getForDropdown()
     this.getText = this.getText.bind(this)
   }
 
@@ -36,7 +32,7 @@ class ValueProviderDropdown extends Component {
       icon='code branch'
       style={{minWidth: '20em'}}
       text={this.getText()}
-      options={this.valueProvidersOptions}
+      options={this.props.options}
       name={this.props.name}
       value={this.props.value}
       onChange={this.props.onChange} >
@@ -44,4 +40,9 @@ class ValueProviderDropdown extends Component {
   }
 }
 
-export default ValueProviderDropdown
+export default connect(
+  (state, props) => ({
+    options: getProvidersForDropdown(state)
+  }),
+  null
+)(ValueProviderDropdown)

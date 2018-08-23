@@ -6,8 +6,6 @@ import update from 'immutability-helper'
 
 import { Input, Header, Grid, Divider, Transition } from 'semantic-ui-react'
 
-import ValueProviders from '@helpers/ValueProviders'
-
 import { configGetRange } from '@reducers'
 import { updateConfig, renameRange, removeRange } from '@actions/actions'
 
@@ -30,7 +28,7 @@ class ConfigRange extends Component {
 
   handleAutoRename () {
     let config = this.props.config
-    const provider = ValueProviders.value(config.target.provider)
+    // const providert= ValueProviders.value(config.target.provider)
     const generatedName = `${provider.parent}.${provider.name}`
     this.renameRange(null, {value: generatedName})
   }

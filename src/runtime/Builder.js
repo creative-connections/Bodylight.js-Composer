@@ -25,7 +25,7 @@ import play from './templates/model/play'
 import pause from './templates/model/pause'
 
 import WidgetType from '@helpers/enum/WidgetType'
-import ValueProviderType from '@helpers/ValueProviderType'
+import ProviderType from '@helpers/enum/ProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
@@ -52,8 +52,8 @@ import Widget from './templates/widget/Widget'
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
 import AnimateText from './templates/widget/AnimateText'
 import Range from './templates/widget/Range'
-import Button from './templates/widget/Button'
 
+import Button from './templates/widget/Button'
 import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import initAnimateTexts from './templates/widget/AnimateText/init'
 import initRanges from './templates/widget/Range/init'
@@ -145,7 +145,7 @@ class Builder {
 
     // append enums for used types
     append(`const WidgetType = ${tpl(WidgetType)}`)
-    append(`const ValueProviderType = ${tpl(ValueProviderType)}`)
+    append(`const ProviderType = ${tpl(ProviderType)}`)
 
     // append class AnimateRuntime
     append(tpl(AnimateRuntime))

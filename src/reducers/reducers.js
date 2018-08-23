@@ -61,6 +61,8 @@ export const configGetButton = (state, id) => configSelectors.configGetButton(st
 export const configGetAllRanges = state => configSelectors.configGetAllRanges(state.config)
 export const configGetRange = (state, id) => configSelectors.configGetRange(state.config, id)
 
+export const getProvidersForDropdown = state => configSelectors.getProvidersForDropdown(state.config)
+
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
 
 export const getFunctionEditorConfig = state => functionEditorConfigSelectors.getFunctionEditorConfig(state.functionEditorConfig)

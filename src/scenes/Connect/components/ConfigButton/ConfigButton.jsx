@@ -8,7 +8,6 @@ import { updateConfig, renameButton, removeButton } from '@actions'
 
 import ButtonLink from '@components/ButtonLink'
 import ButtonMode from '@helpers/enum/ButtonMode'
-import ValueProviders from '@helpers/ValueProviders'
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
 
@@ -25,7 +24,7 @@ class ConfigButton extends Component {
 
   handleAutoRename () {
     let config = this.props.config
-    const provider = ValueProviders.value(config.target.provider)
+    // const provider = ValueProviders.value(config.target.provider)
     const generatedName = `${provider.parent}.${provider.name}`
     this.rename(null, {value: generatedName})
   }
