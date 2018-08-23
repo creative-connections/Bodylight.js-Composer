@@ -55,7 +55,13 @@ class ConfigModel extends Component {
 
   renderOneshot (config) {
     return <GridRow>
-      <p>One shot mode is not implemented yet</p>
+      <p>Not implemented yet</p>
+    </GridRow>
+  }
+
+  renderTicked (config) {
+    return <GridRow>
+      <p>Not implemented yet</p>
     </GridRow>
   }
 
@@ -79,6 +85,15 @@ class ConfigModel extends Component {
           <br/><br/>
           <Checkbox
             radio
+            label='External tick'
+            name='mode'
+            value={ModelMode.TICKED}
+            checked={config.mode === ModelMode.TICKED}
+            onClick={this.handleOnChange}
+          />
+          <br/><br/>
+          <Checkbox
+            radio
             label='One shot'
             name='mode'
             value={ModelMode.ONESHOT}
@@ -88,6 +103,7 @@ class ConfigModel extends Component {
         </GridRow>
         { config.mode === ModelMode.CONTINUOUS && this.renderContinuous(config)}
         { config.mode === ModelMode.ONESHOT && this.renderOneshot(config)}
+        { config.mode === ModelMode.TICKED && this.renderTicked(config)}
       </Grid>
     </Fragment>
   }

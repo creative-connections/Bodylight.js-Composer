@@ -1,6 +1,7 @@
 const ModelMode = {
   CONTINUOUS: 'continuous',
-  ONESHOT: 'oneshot'
+  ONESHOT: 'oneshot',
+  TICKED: 'ticked'
 }
 
 export default ModelMode
