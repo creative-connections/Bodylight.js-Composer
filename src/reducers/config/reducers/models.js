@@ -18,6 +18,7 @@ const defaultConfig = {
 
   id: null,
   name: null,
+  originalName: null,
   js: null,
   guid: null,
   identifier: null,
@@ -34,6 +35,7 @@ const addModel = (state, payload, type, defaultConfig) => {
   defaultConfig = update(defaultConfig, {
     id: {$set: payload.id},
     name: {$set: payload.name},
+    originalName: {$set: payload.name},
     js: {$set: payload.js},
     guid: {$set: payload.modelDescription.guid},
     identifier: {$set: payload.modelDescription.modelIdentifier},
