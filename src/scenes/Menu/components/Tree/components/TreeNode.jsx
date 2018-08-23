@@ -28,6 +28,9 @@ class TreeNode extends Component {
     if (this.props.type === WidgetType.BUTTON) {
       return 'square'
     }
+    if (this.props.type === WidgetType.MODEL) {
+      return 'cog'
+    }
   }
 
   onIconClick () {
