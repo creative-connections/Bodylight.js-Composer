@@ -9,7 +9,7 @@ function validateContains (zip, name) {
   }
 }
 
-export default function unzipModel (file) {
+export default function unzipAndValidate (file) {
   return new Promise((resolve, reject) => {
     const jszip = new Zip()
 

@@ -155,7 +155,7 @@ class AnimateLoader extends Component {
       <Transition visible={this.props.display} animation='slide down' duration={150}>
         <div>
 
-          <BusySignal isBusy={this.state.pending}/>
+          <BusySignal busy={this.state.pending}/>
 
           <DropZone display={this.state.displayDropZone}
             onDropAccepted={this.fileUploaded}

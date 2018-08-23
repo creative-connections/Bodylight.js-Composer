@@ -128,7 +128,7 @@ class ModelLoader extends Component {
             imgSrc='/images/wafmi.png'
           />
 
-          <BusySignal isBusy={this.state.pendingExtraction} />
+          <BusySignal busy={this.state.pendingExtraction} />
           <ModelInfo
             modelDescription={this.state.modelDescription}
           />
