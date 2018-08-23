@@ -32,8 +32,8 @@ import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
 import buildRangeConfig from './builders/widgets/Range/config'
 import buildButtonConfig from './builders/widgets/Button/config'
 
-import appendModels from './builders/models/models'
-import buildModelConfig from './builders/models/config'
+import appendModels from './builders/widgets/models/models'
+import buildModelConfig from './builders/widgets/models/config'
 
 import buildActionConfig from './builders/actions/config'
 
