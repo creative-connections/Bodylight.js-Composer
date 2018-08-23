@@ -1,24 +1,18 @@
 import configureStore from '@src/configureStore'
-import {
-  getModels
-} from '@reducers'
+import { configGetAllModels } from '@reducers'
+import update from 'immutability-helper'
 
 export default () => {
   const state = configureStore().store.getState()
-  const models = getModels(state)
+  const models = configGetAllModels(state)
 
   const config = {}
-  Object.entries(models).forEach(([name, model]) => {
-    let configuration = {}
-    configuration.interval = model.interval
-    configuration.stepSize = parseFloat(model.stepSize)
-    configuration.guid = model.guid
-    configuration.identifier = model.modelIdentifier
-    configuration.name = model.name
-    configuration.parameters = model.parameters
-    configuration.variables = model.variables
+  Object.entries(models).forEach(([id, configuration]) => {
+    configuration = update(configuration, {
+      stepSize: {$set: parseFloat(configuration.stepSize)}
+    })
 
-    config[name] = configuration
+    config[id] = configuration
   })
 
   return config

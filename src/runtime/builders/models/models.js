@@ -3,17 +3,13 @@ import {
   configGetAllModels
 } from '@reducers'
 
-/*
- * We need to rename the model JavaScript, since it creates a variable with
- * 'name' on initialization. But we might have multiple instances of the same
- * model, therefore we need to rename it.
- */
-const renameModelToID = (js, name, id) => {
+const functionalize = (js, name) => {
   /*
-   * TODO: replace with something more sophisticated (AST)
+   * js contents (simplified): var name = function(name) {...}; {module export}
    */
-  js = js.replace(name, id)
-  return js
+  const fn = `${js} ;return ${name}`
+  const fun = new Function(fn)
+  return fun
 }
 
 export default (append, tpl) => {
@@ -21,8 +17,7 @@ export default (append, tpl) => {
   const models = configGetAllModels(state)
 
   Object.entries(models).forEach(([id, config]) => {
-    const js = renameModelToID(config.js, config.originalName, id)
-    append(js)
-    append(`models.${id} = ${id}`)
+    const js = functionalize(config.js, config.originalName)
+    append(`models.${id} = ${tpl(js)}`)
   })
 }

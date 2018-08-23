@@ -1,6 +1,6 @@
 export default function createModelRuntime (Model, config, functions) {
   return new Promise((resolve, reject) => {
-    Model().ready.then(model => {
+    Model()().ready.then(model => {
       // save configuration information about this instance
       model.config = config
 
@@ -47,7 +47,7 @@ export default function createModelRuntime (Model, config, functions) {
       model.play = functions.play.bind(model)
       model.pause = functions.pause.bind(model)
 
-      console.log(`Module ${model.config.identifier} ready.`)
+      console.log(`Model ${model.config.name} ready.`)
       resolve(model)
     }).catch(err => {
       reject(err)
