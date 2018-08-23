@@ -54,6 +54,8 @@ export const getDefaultConfigForAnimateAnim = configAnimateAnimSelectors.getDefa
 export const getConfigForAnimateText = state => configAnimateTextSelectors.getConfigForAnimateText(state.configAnimateText)
 export const getDefaultConfigForAnimateText = configAnimateTextSelectors.getDefaultConfigForAnimateText
 
+export const configGetAllModels = state => configSelectors.configGetAllModels(state.config)
+export const configGetModel = (state, id) => configSelectors.configGetModel(state.config, id)
 export const configGetAllButtons = state => configSelectors.configGetAllButtons(state.config)
 export const configGetButton = (state, id) => configSelectors.configGetButton(state.config, id)
 export const configGetAllRanges = state => configSelectors.configGetAllRanges(state.config)

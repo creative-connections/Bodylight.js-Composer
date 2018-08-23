@@ -10,7 +10,7 @@ export default combineReducers({
 })
 
 export const configGetAllModels = state => modelsSelectors.getAll(state.models)
-export const configGetModels = (state, id) => modelsSelectors.get(state.models, id)
+export const configGetModel = (state, id) => modelsSelectors.get(state.models, id)
 
 export const configGetAllButtons = state => buttonsSelectors.getAll(state.buttons)
 export const configGetButton = (state, id) => buttonsSelectors.get(state.buttons, id)

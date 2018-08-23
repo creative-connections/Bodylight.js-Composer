@@ -25,12 +25,9 @@ export const getAvailableRangeName = (state, root) => rangesSelectors.getAvailab
 
 const getWidgetMemoized = memoize((state, id) => {
   let widget = null
-  if ((widget = buttonsSelectors.get(state.buttons, id)) !== null) {
-    return widget
-  }
-  if ((widget = rangesSelectors.get(state.ranges, id)) !== null) {
-    return widget
-  }
+  if ((widget = buttonsSelectors.get(state.buttons, id)) !== null) { return widget }
+  if ((widget = rangesSelectors.get(state.ranges, id)) !== null) { return widget }
+  if ((widget = modelsSelectors.get(state.models, id)) !== null) { return widget }
   return widget
 })
 
