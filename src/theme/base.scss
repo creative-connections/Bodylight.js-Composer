@@ -83,6 +83,37 @@ iframe.preview {
   margin-top: 0 !important;
 }
 
+#dropzone {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+
+
+  .dropzone {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px dashed #AAA;
+    border-radius: 5px;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 1.8em;
+    padding: 54px 54px;
+
+    div {
+      margin: 1.5em;
+    }
+
+    div.description {
+      font-size: 0.7em;
+      color: #555;
+    }
+  }
+}
+
 div#main-menu {
   width: 250px;
   min-height: 100%;

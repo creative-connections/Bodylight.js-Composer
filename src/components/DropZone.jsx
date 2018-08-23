@@ -1,43 +1,27 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
+import { Image } from 'semantic-ui-react'
 
-import { Card, Image } from 'semantic-ui-react'
-
-const DropZone = ({onDropAccepted, onDropRejected, accept, imgSrc, header = 'Upload a file', description = '', display = false}) => {
-  if (!display) {
-    return null
-  }
-
-  const overlayStyle = {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    padding: '2.5em 0',
-    textAlign: 'center',
-    color: '#fff'
-  }
-
-  return (
-    <Card>
-      <Card.Content>
-        <Card.Header>{header}</Card.Header>
-        <Card.Description>{description}</Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <Dropzone multiple={false}
-          onDropAccepted={onDropAccepted}
-          onDropRejected={onDropRejected}
-          accept={accept}
-        >
-          <div style={overlayStyle}>
-            <Image src={imgSrc} size='small'/>
-          </div>
-        </Dropzone>
-      </Card.Content>
-    </Card>
-  )
+const DropZone = ({
+  onDropAccepted,
+  onDropRejected,
+  accept,
+  imgSrc,
+  description = ''
+}) => {
+  return <div id='dropzone'>
+    <Dropzone
+      multiple={false}
+      onDropAccepted={onDropAccepted}
+      onDropRejected={onDropRejected}
+      accept={accept}
+      className='dropzone'
+    >
+      <div>{'Drop files here or click to upload.'}</div>
+      <div><Image src={imgSrc} size='small'/></div>
+      <div className='description'>{description}</div>
+    </Dropzone>
+  </div>
 }
 
 export default DropZone
