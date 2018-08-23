@@ -55,6 +55,9 @@ class Animates extends Component {
   }
 
   render () {
+    if (Object.keys(this.props.animates).length === 0) {
+      return null
+    }
     return <ul className='menu-tree-animates'>
       <TreeNode name='Animate' collapsable={true}>
         {this.renderAnimates()}

@@ -26,6 +26,9 @@ class Items extends Component {
   }
 
   render () {
+    if (Object.keys(this.props.items).length === 0) {
+      return null
+    }
     return <ul className='menu-tree-items'>
       <TreeNode name={this.props.name} collapsable={true}>
         {this.renderItems()}
