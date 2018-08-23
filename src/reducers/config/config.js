@@ -28,6 +28,5 @@ const getProvidersForDropdownMemoized = memoize(state => {
 })
 
 export const getProvidersForDropdown = (state) => {
-  console.log(getProvidersForDropdownMemoized(state))
   return getProvidersForDropdownMemoized(state)
 }
