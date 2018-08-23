@@ -51,6 +51,8 @@ export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
       return addModel(state, action.payload, type, defaultConfig)
+    case UPDATE_WIDGET_CONFIG:
+      return updateWidget(state, action.payload, type)
   }
   return state
 }

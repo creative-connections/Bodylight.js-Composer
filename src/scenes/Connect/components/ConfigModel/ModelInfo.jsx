@@ -15,9 +15,6 @@ const ModelInfo = ({config}) => {
   return <Fragment>
     <Header as="h2">Model: {config.name}</Header>
     <Grid verticalAlign='middle' celled='internally'>
-      <GridRow label='Name:'>
-        <p>{config.name}</p>
-      </GridRow>
       <GridRow label='Parameters:'>
         <Segment style={{overflow: 'auto', maxHeight: '20em', maxWidth: '30em'}}>
           <SimpleList
