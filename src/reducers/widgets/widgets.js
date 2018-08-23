@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 
+import models, * as modelsSelectors from './reducers/models'
 import animates, * as animatesSelectors from './reducers/animates'
 import ranges, * as rangesSelectors from './reducers/ranges'
 import buttons, * as buttonsSelectors from './reducers/buttons'
@@ -8,12 +9,14 @@ import app, * as appSelectors from './reducers/app'
 import memoize from 'memoize-one'
 
 export default combineReducers({
+  models,
   animates,
   ranges,
   buttons,
   app
 })
 
+export const getModels = state => modelsSelectors.getAll(state.models)
 export const getAnimates = state => animatesSelectors.getAnimates(state.animates)
 export const getRanges = state => rangesSelectors.getAll(state.ranges)
 export const getButtons = state => buttonsSelectors.getAll(state.buttons)
