@@ -1,12 +1,24 @@
 import Zip from 'jszip'
+import toAST from 'to-ast'
+import escodegen from 'escodegen'
 
-function validateContains (zip, name) {
+const validateContains = (zip, name) => {
   if (zip.files[name + '.js'] === undefined) {
     throw Error(`Zip file does not contain the compiled JavaScript file ''${name}.js'`)
   }
   if (zip.files['modelDescription.xml'] === undefined) {
     throw Error("Zip file does not contain the 'modelDescription.xml' file ")
   }
+}
+
+const postProcessJs = (js, name) => {
+  /*
+   * js contents (simplified):
+   * var name = function(name) {...}; {module export}
+   */
+  const fun = new Function(`${js} ;return ${name}`)
+  js = escodegen.generate(toAST(fun))
+  return js
 }
 
 export default function unzipAndValidate (file) {
@@ -28,7 +40,7 @@ export default function unzipAndValidate (file) {
       Promise.all([js, xml]).then((vals) => {
         var payload = {
           name: name,
-          js: vals[0],
+          js: postProcessJs(vals[0], name),
           modelDescription: vals[1]
         }
         return resolve(payload)
