@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
+import { Redirect } from 'react-router-dom'
 
 import DropZone from '@components/DropZone'
 import BusySignal from '@components/BusySignal'
@@ -16,7 +17,8 @@ class AddModel extends Component {
     this.fileUploaded = this.fileUploaded.bind(this)
     this.fileRejected = this.fileRejected.bind(this)
     this.state = {
-      pending: false
+      pending: false,
+      redirect: false
     }
   }
 
@@ -36,10 +38,13 @@ class AddModel extends Component {
       let modelDescription = files['modelDescription']
       modelDescription = parseModelDescription(modelDescription)
       this.props.addModel(name, js, modelDescription)
+      this.setState({
+        redirect: true,
+        pending: false
+      })
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`
       toast.error(msg)
-    }).finally(() => {
       this.setState({
         pending: false
       })
@@ -49,6 +54,7 @@ class AddModel extends Component {
   render () {
     return <Fragment>
       <BusySignal busy={this.state.pending} />
+      {this.state.redirect && <Redirect to="/"/>}
       <DropZone display={true}
         onDropAccepted={this.fileUploaded}
         onDropRejected={this.fileRejected}
