@@ -1,5 +1,5 @@
-import { ADD_WIDGET } from '@actions/types'
-import { getWidget } from '../commons/widget.js'
+import { ADD_WIDGET, RENAME_WIDGET } from '@actions/types'
+import { getWidget, renameWidget } from '../commons/widget.js'
 import WidgetType from '@helpers/enum/WidgetType'
 import memoize from 'memoize-one'
 import update from 'immutability-helper'
@@ -22,6 +22,8 @@ export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
       return addModel(state, action.payload, type)
+    case RENAME_WIDGET:
+      return renameWidget(state, action.payload, type)
   }
   return state
 }

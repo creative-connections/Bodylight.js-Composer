@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
 
-import { updateConfig } from '@actions'
+import { updateConfig, renameModel } from '@actions'
 import { configGetModel } from '@reducers'
 import ModelInfo from './ModelInfo'
 import ModelMode from '@helpers/enum/ModelMode'
@@ -14,6 +14,7 @@ class ConfigModel extends Component {
   constructor (props) {
     super(props)
     this.handleOnChange = this.handleOnChange.bind(this)
+    this.renameModel = this.renameModel.bind(this)
   }
 
   handleOnChange (e, {name, value, checked}) {
@@ -21,6 +22,10 @@ class ConfigModel extends Component {
       value = checked
     }
     this.props.updateConfig(this.props.model, name, value)
+  }
+
+  renameModel (e, {value}) {
+    this.props.renameModel(this.props.model, value)
   }
 
   renderTps (config) {
@@ -73,6 +78,14 @@ class ConfigModel extends Component {
       <ModelInfo config={config}/>
       <Divider hidden/>
       <Grid verticalAlign='middle' celled='internally'>
+
+        <GridRow label='Name:'>
+          <Input
+            name='name'
+            value={this.props.model.name}
+            onChange={this.renameModel}
+          />
+        </GridRow>
         <GridRow label='Mode:'>
           <Checkbox
             radio
@@ -114,6 +127,7 @@ export default connect(
     config: configGetModel(state, props.model.id)
   }),
   dispatch => bindActionCreators({
-    updateConfig
+    updateConfig,
+    renameModel
   }, dispatch)
 )(ConfigModel)

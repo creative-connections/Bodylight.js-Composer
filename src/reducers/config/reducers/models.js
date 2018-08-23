@@ -1,10 +1,12 @@
 import {
   ADD_WIDGET,
+  RENAME_WIDGET,
   UPDATE_WIDGET_CONFIG
 } from '@actions/types'
 
 import {
-  updateWidget
+  updateWidget,
+  renameWidget
 } from '../commons/widget'
 
 import update from 'immutability-helper'
@@ -55,6 +57,8 @@ export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
       return addModel(state, action.payload, type, defaultConfig)
+    case RENAME_WIDGET:
+      return renameWidget(state, action.payload, type)
     case UPDATE_WIDGET_CONFIG:
       return updateWidget(state, action.payload, type)
   }

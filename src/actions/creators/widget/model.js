@@ -1,5 +1,6 @@
 import {
-  ADD_WIDGET
+  ADD_WIDGET,
+  RENAME_WIDGET
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
@@ -17,3 +18,11 @@ export const addModel = (name, js, modelDescription) => {
     }
   }
 }
+
+export const renameModel = (model, name) => ({
+  type: RENAME_WIDGET,
+  payload: {
+    widget: model,
+    name
+  }
+})
