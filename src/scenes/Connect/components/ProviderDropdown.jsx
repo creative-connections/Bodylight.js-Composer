@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Dropdown } from 'semantic-ui-react'
 import { getProvidersForDropdown } from '@reducers'
 
-class ValueProviderDropdown extends Component {
+class ProviderDropdown extends Component {
   constructor (props) {
     super(props)
     this.getText = this.getText.bind(this)
@@ -45,4 +45,4 @@ export default connect(
     options: getProvidersForDropdown(state)
   }),
   null
-)(ValueProviderDropdown)
+)(ProviderDropdown)
