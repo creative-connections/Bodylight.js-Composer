@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { NavLink } from 'react-router-dom'
 
-import { Dropdown, Button, Header, Grid, Divider, Transition, Segment } from 'semantic-ui-react'
+import { Dropdown, Divider, Button, Header, Grid, Transition, Segment } from 'semantic-ui-react'
 
 import {
   getAvailableRangeName
@@ -28,19 +29,15 @@ class WidgetMenu extends Component {
     this.props.addButton()
   }
 
-  addModel () {
-    console.warn('not implemented yet')
-  }
-
   render () {
     return (
       <Fragment>
-        <Button onClick={this.addModel}>Add model</Button>
-        <br/>
-        <br/>
+        <NavLink to='/add/model'>
+          <Button>Add model</Button>
+        </NavLink>
+        <Divider hidden/>
         <Button onClick={this.addRange}>Add range</Button>
-        <br/>
-        <br/>
+        <Divider hidden/>
         <Button onClick={this.addButton}>Add button</Button>
       </Fragment>
     )
