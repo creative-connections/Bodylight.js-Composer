@@ -21,6 +21,7 @@ const defaultConfig = {
   js: null,
   guid: null,
   identifier: null,
+  modelName: null,
   parameters: null,
   variables: null,
   description: null,
@@ -32,10 +33,11 @@ const addModel = (state, payload, type, defaultConfig) => {
   if (type !== payload.type) { return state }
   defaultConfig = update(defaultConfig, {
     id: {$set: payload.id},
-    name: {$set: payload.modelDescription.modelName},
+    name: {$set: payload.name},
     js: {$set: payload.js},
     guid: {$set: payload.modelDescription.guid},
     identifier: {$set: payload.modelDescription.modelIdentifier},
+    modelName: {$set: payload.modelDescription.modelName},
     variables: {$set: payload.modelDescription.variables},
     parameters: {$set: payload.modelDescription.parameters},
     description: {$set: payload.modelDescription.description},

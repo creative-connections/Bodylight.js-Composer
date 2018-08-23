@@ -69,8 +69,8 @@ class ConfigModel extends Component {
     const config = this.props.config
 
     return <Fragment>
+      <Header as="h2">Model: {config.name}</Header>
       <ModelInfo config={config}/>
-
       <Divider hidden/>
       <Grid verticalAlign='middle' celled='internally'>
         <GridRow label='Mode:'>
