@@ -44,6 +44,7 @@ const getWidgetsForTreeMemoized = memoize(state => {
   const widgets = {animates: {}}
   widgets.buttons = buttonsSelectors.getAll(state.buttons)
   widgets.ranges = rangesSelectors.getAll(state.ranges)
+  widgets.models = modelsSelectors.getAll(state.models)
   return widgets
 })
 

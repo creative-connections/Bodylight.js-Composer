@@ -57,6 +57,11 @@ class Tree extends Component {
       { this.renderSearch() }
       <Divider id='menu-tree-divider'/>
       <Segment id='menu-tree'>
+        <Items name='Model'
+          items={this.props.widgets.models}
+          selected={this.props.selected}
+          filter={this.state.filter}
+          onClick={this.onClick}/>
         <Items
           name='Button'
           items={this.props.widgets.buttons}
