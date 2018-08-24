@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom'
 import Preview from '@scenes/Preview'
 import Connect from '@scenes/Connect'
 import Design from '@scenes/Design'
-import AddModel from '@scenes/AddModel'
+import AddModel from '@scenes/Add/AddModel'
 
 const DisplayContainer = () => {
   return <Fragment>
