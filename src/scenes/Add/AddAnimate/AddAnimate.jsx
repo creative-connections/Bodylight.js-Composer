@@ -42,8 +42,8 @@ class AddAnimate extends Component {
           generateHash(source).then(hash => {
             this.props.addAnimate(source, hash, rootComponent, components)
             this.setState({
-              pending: false
-            // redirect: true
+              pending: false,
+              redirect: true
             })
           })
         }).catch(error => {
