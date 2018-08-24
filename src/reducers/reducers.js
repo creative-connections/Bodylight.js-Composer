@@ -5,8 +5,6 @@ import configurationScreen from './app/configurationScreen'
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
 
-import configAnimateAnim, * as configAnimateAnimSelectors from './config/configAnimateAnim'
-
 import actions, * as actionSelectors from './actions/actions'
 
 import widgets, * as widgetSelectors from './widgets'
@@ -22,8 +20,6 @@ const reducers = combineReducers({
 
   widgets,
   config,
-
-  configAnimateAnim,
 
   actions
 })
@@ -47,9 +43,6 @@ export const getAvailableRangeName = (state, root) => widgetSelectors.getAvailab
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
 export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(state.widgets)
 
-export const getConfigForAnimateAnim = state => configAnimateAnimSelectors.getConfigForAnimateAnim(state.configAnimateAnim)
-export const getDefaultConfigForAnimateAnim = configAnimateAnimSelectors.getDefaultConfigForAnimateAnim
-
 export const configGetAllModels = state => configSelectors.configGetAllModels(state.config)
 export const configGetModel = (state, id) => configSelectors.configGetModel(state.config, id)
 export const configGetAllButtons = state => configSelectors.configGetAllButtons(state.config)
@@ -58,6 +51,8 @@ export const configGetAllRanges = state => configSelectors.configGetAllRanges(st
 export const configGetRange = (state, id) => configSelectors.configGetRange(state.config, id)
 export const configGetAllAnimateTexts = state => configSelectors.configGetAllAnimateTexts(state.config)
 export const configGetAnimateText = (state, id) => configSelectors.configGetAnimateText(state.config, id)
+export const configGetAllAnimateAnims = state => configSelectors.configGetAllAnimateAnims(state.config)
+export const configGetAnimateAnim = (state, id) => configSelectors.configGetAnimateAnim(state.config, id)
 
 export const getProvidersForDropdown = state => configSelectors.getProvidersForDropdown(state.config)
 

@@ -4,6 +4,7 @@ import buttons, * as buttonsSelectors from './reducers/buttons'
 import ranges, * as rangesSelectors from './reducers/ranges'
 import animates, * as animatesSelectors from './reducers/animates'
 import animateTexts, * as animateTextsSelectors from './reducers/animateTexts'
+import animateAnims, * as animateAnimsSelectors from './reducers/animateAnims'
 
 import memoize from 'memoize-one'
 
@@ -12,14 +13,17 @@ export default combineReducers({
   buttons,
   ranges,
   animates,
-  animateTexts
+  animateTexts,
+  animateAnims
 })
 
 export const configGetAllAnimates = state => animatesSelectors.getAll(state.animates)
 export const configGetAnimate = (state, id) => animatesSelectors.get(state.animates, id)
 
-export const configGetAllAnimateTexts = state => manimateTextsSelectorsodelsSelectors.getAll(state.animateTexts)
+export const configGetAllAnimateTexts = state => animateTextsSelectors.getAll(state.animateTexts)
 export const configGetAnimateText = (state, id) => animateTextsSelectors.get(state.animateTexts, id)
+export const configGetAllAnimateAnims = state => animateAnimsSelectors.getAll(state.animateAnims)
+export const configGetAnimateAnim = (state, id) => animateAnimsSelectors.get(state.animateAnims, id)
 
 export const configGetAllModels = state => modelsSelectors.getAll(state.models)
 export const configGetModel = (state, id) => modelsSelectors.get(state.models, id)
