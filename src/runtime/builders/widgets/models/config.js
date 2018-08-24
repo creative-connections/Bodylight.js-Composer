@@ -9,7 +9,8 @@ export default () => {
   const config = {}
   Object.entries(models).forEach(([id, configuration]) => {
     configuration = update(configuration, {
-      stepSize: {$set: parseFloat(configuration.stepSize)}
+      stepSize: {$set: parseFloat(configuration.stepSize)},
+      js: {$set: undefined}
     })
 
     config[id] = configuration
