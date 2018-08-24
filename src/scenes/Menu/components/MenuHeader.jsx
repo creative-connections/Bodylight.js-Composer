@@ -29,6 +29,10 @@ class MenuHeader extends Component {
   }
 }
 
-export default connect(undefined, dispatch => {
-  bindActionCreators({ newProject }, dispatch)
-})(MenuHeader)
+export default connect(
+  state => ({
+  }),
+  dispatch => bindActionCreators({
+    newProject
+  }, dispatch)
+)(MenuHeader)

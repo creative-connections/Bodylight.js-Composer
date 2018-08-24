@@ -29,7 +29,6 @@ const getWidgetMemoized = memoize((state, id) => {
   if ((widget = rangesSelectors.get(state.ranges, id)) !== null) { return widget }
   if ((widget = modelsSelectors.get(state.models, id)) !== null) { return widget }
   if ((widget = animatesSelectors.get(state.animates, id)) !== null) { return widget }
-  console.log(widget)
   return widget
 })
 
