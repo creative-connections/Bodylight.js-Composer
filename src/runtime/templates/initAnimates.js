@@ -2,16 +2,16 @@
 
 export default function initAnimates () {
   const promises = []
-  Object.entries(animates).forEach(([name, source]) => {
-    // find our canvas by name
-    const element = document.getElementsByName(`animate-${name}`)[0]
-    if (typeof element === 'undefined') {
+  Object.entries(animates).forEach(([id, {source, root}]) => {
+    // find our canvas by id
+    const element = document.getElementById(id)
+    if (element === null) {
       return
     }
 
     const promise = new Promise(resolve => {
-      createAnimateRuntime(name, source, element).then(animate => {
-        animates[name] = animate[name]
+      createAnimateRuntime(root, source, element).then(runtime => {
+        animates[id] = runtime
         resolve()
       })
     })

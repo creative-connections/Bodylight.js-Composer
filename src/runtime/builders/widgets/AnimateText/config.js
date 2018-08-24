@@ -1,20 +1,22 @@
 import configureStore from '@src/configureStore'
-import { getConfigForAnimateText } from '@reducers'
+import { configGetAllAnimateTexts } from '@reducers'
 
 import functionalize from '../functionalize'
 
 export default () => {
-  const animates = getConfigForAnimateText(configureStore().store.getState())
+  const texts = configGetAllAnimateTexts(configureStore().store.getState())
 
   const config = {}
-  Object.entries(animates).forEach(([animateName, animate]) => {
-    config[animateName] = {}
-    Object.entries(animate).forEach(([name, configuration]) => {
-      configuration.attributes.forEach(attribute => {
-        configuration = functionalize(configuration, attribute)
-      })
-      config[animateName][name] = configuration
+  Object.entries(texts).forEach(([id, configuration]) => {
+    if (config[configuration.parent] === undefined) {
+      config[configuration.parent] = { }
+    }
+
+    configuration.attributes.forEach(attribute => {
+      configuration = functionalize(configuration, attribute)
     })
+
+    config[configuration.parent][id] = configuration
   })
 
   return config

@@ -37,7 +37,7 @@ import buildModelConfig from './builders/widgets/models/config'
 
 import buildActionConfig from './builders/actions/config'
 
-import appendAnimates from './builders/animates/animates'
+import appendAnimates from './builders/widgets/animates/animates'
 
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
