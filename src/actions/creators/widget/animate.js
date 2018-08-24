@@ -5,7 +5,8 @@ import {
 import generateID from '@helpers/generateID'
 import WidgetType from '@helpers/enum/WidgetType'
 
-export const addAnimate = (source, name, components) => {
+export const addAnimate = (source, animateName, components) => {
+  const animateID = generateID()
   const anim = {}
   const text = {}
 
@@ -14,6 +15,7 @@ export const addAnimate = (source, name, components) => {
     anim[id] = {
       id,
       name,
+      parent: animateID,
       type: WidgetType.ANIMATE_ANIM,
       placed: false,
       configured: false
@@ -25,6 +27,7 @@ export const addAnimate = (source, name, components) => {
     text[id] = {
       id,
       name,
+      parent: animateID,
       type: WidgetType.ANIMATE_TEXT,
       placed: false,
       configured: false
@@ -34,9 +37,9 @@ export const addAnimate = (source, name, components) => {
   return {
     type: ADD_WIDGET,
     payload: {
-      id: generateID(),
+      id: animateID,
       type: WidgetType.ANIMATE,
-      name,
+      name: animateName,
       anim,
       text
     }

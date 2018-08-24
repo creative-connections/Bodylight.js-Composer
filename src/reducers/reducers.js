@@ -6,7 +6,6 @@ import functionEditorConfig, * as functionEditorConfigSelectors from './app/func
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
 
 import configAnimateAnim, * as configAnimateAnimSelectors from './config/configAnimateAnim'
-import configAnimateText, * as configAnimateTextSelectors from './config/configAnimateText'
 
 import actions, * as actionSelectors from './actions/actions'
 
@@ -25,7 +24,6 @@ const reducers = combineReducers({
   config,
 
   configAnimateAnim,
-  configAnimateText,
 
   actions
 })
@@ -51,8 +49,6 @@ export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(stat
 
 export const getConfigForAnimateAnim = state => configAnimateAnimSelectors.getConfigForAnimateAnim(state.configAnimateAnim)
 export const getDefaultConfigForAnimateAnim = configAnimateAnimSelectors.getDefaultConfigForAnimateAnim
-export const getConfigForAnimateText = state => configAnimateTextSelectors.getConfigForAnimateText(state.configAnimateText)
-export const getDefaultConfigForAnimateText = configAnimateTextSelectors.getDefaultConfigForAnimateText
 
 export const configGetAllModels = state => configSelectors.configGetAllModels(state.config)
 export const configGetModel = (state, id) => configSelectors.configGetModel(state.config, id)
@@ -60,6 +56,8 @@ export const configGetAllButtons = state => configSelectors.configGetAllButtons(
 export const configGetButton = (state, id) => configSelectors.configGetButton(state.config, id)
 export const configGetAllRanges = state => configSelectors.configGetAllRanges(state.config)
 export const configGetRange = (state, id) => configSelectors.configGetRange(state.config, id)
+export const configGetAllAnimateTexts = state => configSelectors.configGetAllAnimateTexts(state.config)
+export const configGetAnimateText = (state, id) => configSelectors.configGetAnimateText(state.config, id)
 
 export const getProvidersForDropdown = state => configSelectors.getProvidersForDropdown(state.config)
 
