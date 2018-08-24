@@ -62,13 +62,13 @@ export default class Range extends Widget {
     }
   }
 
-  setValueProvider (attribute, name, target) {
+  setValueProvider (attribute, id, target) {
     if (attribute === 'target') {
-      target.registerInitialValueListener(this, name, attribute)
-      this.target.reference = target.registerValueSetter(name)
+      target.registerInitialValueListener(this, id, attribute)
+      this.target.reference = target.registerValueSetter(id)
       this.target.provider = target
       return
     }
-    super.setValueProvider(attribute, name, target)
+    super.setValueProvider(attribute, id, target)
   }
 }

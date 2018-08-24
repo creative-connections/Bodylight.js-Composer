@@ -11,8 +11,8 @@ export default function resolveValueProviders () {
       if (target === null) {
         return null
       }
-      const name = provider.name
-      return { target, name }
+      const id = provider.id
+      return { target, id }
     }
   }
 

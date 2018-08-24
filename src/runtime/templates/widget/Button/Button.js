@@ -102,12 +102,12 @@ export default class Button extends Widget {
     }
   }
 
-  setValueProvider (attribute, name, target) {
+  setValueProvider (attribute, id, target) {
     if (attribute === 'target') {
-      this.target.reference = target.registerValueSetter(name)
+      this.target.reference = target.registerValueSetter(id)
       this.target.provider = target
       return
     }
-    super.setValueProvider(attribute, name, target)
+    super.setValueProvider(attribute, id, target)
   }
 }
