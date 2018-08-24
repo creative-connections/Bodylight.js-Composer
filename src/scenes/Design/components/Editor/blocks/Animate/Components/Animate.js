@@ -3,7 +3,7 @@ import update from 'immutability-helper'
 import AnimateRuntime from '@runtime/templates/AnimateRuntime'
 
 import { editorPlaceAnimate, editorRemoveAnimate } from '@actions'
-import { getAnimates } from '@reducers'
+import { configGetAnimate } from '@reducers'
 
 import { ANIMATE, ANIMATE_ID } from '../types.js'
 import { handleChangeID } from '../../commons/Components'
@@ -49,12 +49,10 @@ export default (editor) => {
        */
       getAnimate () {
         const id = this.attr.id
-        const animates = getAnimates(configureStore().store.getState())
-        if (typeof id === 'undefined' || id === null || id === '' ||
-            typeof animates[id] === 'undefined') {
+        if (typeof id === 'undefined' || id === null || id === '') {
           return null
         }
-        return update(animates[id], {id: {$set: id}})
+        return configGetAnimate(configureStore().store.getState(), id)
       },
 
       clearCanvas () {
@@ -130,17 +128,20 @@ export default (editor) => {
           return this.drawPlaceholder()
         }
 
-        this.runtime = animateRuntimeStore[animate.name]
-
-        // check store for runtime presence
-        if (this.runtime === undefined) {
-          this.runtime = new AnimateRuntime(animate.source, animate.name)
+        const cachedRuntime = animateRuntimeStore[animate.name]
+        if (cachedRuntime === undefined || cachedRuntime.hash !== animate.hash) {
+          const js = AnimateRuntime.functionalizeSource(animate.js)
+          this.runtime = new AnimateRuntime(animate.originalName, js)
           this.runtime.init(this.el, false, false).then()
 
           // save for future use
-          animateRuntimeStore[animate.name] = this.runtime
+          animateRuntimeStore[animate.name] = {
+            runtime: this.runtime,
+            hash: animate.hash
+          }
         } else {
           // we already have a runtime up and running, just attach
+          this.runtime = cachedRuntime.runtime
           this.runtime.attachCanvas(this.el)
         }
 

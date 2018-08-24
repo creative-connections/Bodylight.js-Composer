@@ -20,7 +20,7 @@ const defaultConfig = {
   hash: null
 }
 
-const addModel = (state, payload, type, defaultConfig) => {
+const addAnimate = (state, payload, type, defaultConfig) => {
   if (type !== payload.type) { return state }
   defaultConfig = update(defaultConfig, {
     id: {$set: payload.id},
@@ -37,7 +37,7 @@ const type = WidgetType.ANIMATE
 export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
-      return addModel(state, action.payload, type, defaultConfig)
+      return addAnimate(state, action.payload, type, defaultConfig)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
     case UPDATE_WIDGET_CONFIG:

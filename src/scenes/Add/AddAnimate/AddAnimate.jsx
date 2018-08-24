@@ -36,11 +36,12 @@ class AddAnimate extends Component {
     reader.onloadend = () => {
       preprocess(reader.result).then(preprocessed => {
         const rootComponent = file.name.replace(/\.[^/.]+$/, '')
-        const source = Runtime.functionalizeSource(preprocessed)
+        const runnable = Runtime.functionalizeSource(preprocessed)
+        const js = preprocessed
 
-        Runtime.getComponentNames(source, rootComponent).then(components => {
-          generateHash(source).then(hash => {
-            this.props.addAnimate(source, hash, rootComponent, components)
+        Runtime.getComponentNames(runnable, rootComponent).then(components => {
+          generateHash(js).then(hash => {
+            this.props.addAnimate(js, hash, rootComponent, components)
             this.setState({
               pending: false,
               redirect: true
