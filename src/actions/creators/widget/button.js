@@ -1,7 +1,6 @@
 import {
   ADD_WIDGET,
-  RENAME_WIDGET,
-  REMOVE_BUTTON
+  RENAME_WIDGET
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
@@ -22,8 +21,3 @@ export const renameButton = (button, name) => ({
     name
   }
 })
-
-export const removeButton = button => {
-  console.warn('removeButton not implemented yet')
-  return {payload: 'nie'}
-}

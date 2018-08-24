@@ -1,17 +1,8 @@
 export const NEW_PROJECT = 'NEW_PROJECT'
 
-export const CNFSCR_SELECT_MODEL = 'CNFSCR_SELECT_MODEL'
-export const CNFSCR_SELECT_ANIMATE = 'CNFSCR_SELECT_ANIMATE'
-
-export const ADD_MODEL = 'ADD_MODEL'
-export const ADD_ANIMATE = 'ADD_ANIMATE'
-
-export const ADD_RANGE = 'ADD_RANGE'
-export const RENAME_RANGE = 'RENAME_RANGE'
-export const REMOVE_RANGE = 'REMOVE_RANGE'
-
 export const ADD_WIDGET = 'widget/ADD'
 export const RENAME_WIDGET = 'widget/RENAME'
+export const SELECT_WIDGET = 'app/SELECT_WIDGET'
 
 export const UPDATE_WIDGET_CONFIG = 'widget/config/UPDATE'
 
@@ -19,17 +10,10 @@ export const ADD_WIDGET_ACTION = 'widget/config/action/ADD'
 export const REMOVE_WIDGET_ACTION = 'widget/config/action/REMOVE'
 export const UPDATE_WIDGET_ACTION = 'widget/config/action/UPDATE'
 
-export const SELECT_WIDGET = 'app/SELECT_WIDGET'
-
-export const REMOVE_BUTTON = 'REMOVE_BUTTON'
-
 export const CONFIG_ANIMATE_ANIM_UPDATE = 'CONFIG_ANIMATE_ANIM_UPDATE'
 
 export const CONFIG_ANIMATE_TEXT_UPDATE = 'CONFIG_ANIMATE_TEXT_UPDATE'
 export const CONFIG_ANIMATE_TEXT_REMOVE = 'CONFIG_ANIMATE_TEXT_REMOVE'
-
-export const CONFIG_RANGE_UPDATE = 'CONFIG_RANGE_UPDATE'
-export const CONFIG_RANGE_REMOVE = 'CONFIG_RANGE_REMOVE'
 
 export const EDITOR_STORAGE_STORE = 'EDITOR_STORAGE_STORE'
 export const EDITOR_STORAGE_CLEAR = 'EDITOR_STORAGE_CLEAR'
