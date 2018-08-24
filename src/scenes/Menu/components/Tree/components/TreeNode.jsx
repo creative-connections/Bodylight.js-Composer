@@ -58,7 +58,7 @@ class TreeNode extends Component {
 
   render () {
     let className = ''
-    if (this.props.selected !== undefined &&
+    if (this.props.selected !== undefined && this.props.selected !== null &&
       this.props.selected.id === this.props.id &&
       this.props.id !== undefined) {
       className = 'selected'
