@@ -6,13 +6,14 @@ import {
 import generateID from '@helpers/generateID'
 import WidgetType from '@helpers/enum/WidgetType'
 
-export const addModel = (name, js, modelDescription) => {
+export const addModel = (name, js, hash, modelDescription) => {
   return {
     type: ADD_WIDGET,
     payload: {
       id: generateID(),
       type: WidgetType.MODEL,
       js,
+      hash,
       name,
       modelDescription
     }

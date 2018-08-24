@@ -8,6 +8,7 @@ import DropZone from '@components/DropZone'
 import BusySignal from '@components/BusySignal'
 import unzipAndValidate from './unzipAndValidate'
 import parseModelDescription from './parseModelDescription'
+import generateHash from '@helpers/generateHash'
 
 import { addModel } from '@actions'
 
@@ -37,10 +38,12 @@ class AddModel extends Component {
       let js = files['js']
       let modelDescription = files['modelDescription']
       modelDescription = parseModelDescription(modelDescription)
-      this.props.addModel(name, js, modelDescription)
-      this.setState({
-        redirect: true,
-        pending: false
+      generateHash(source).then(hash => {
+        this.props.addModel(name, js, hash, modelDescription)
+        this.setState({
+          redirect: true,
+          pending: false
+        })
       })
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`

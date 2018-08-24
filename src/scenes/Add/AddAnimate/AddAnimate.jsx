@@ -11,6 +11,7 @@ import { addAnimate } from '@actions'
 
 import Runtime from '@runtime/templates/AnimateRuntime'
 import preprocess from './preprocess'
+import generateHash from '@helpers/generateHash'
 
 class AddAnimate extends Component {
   constructor (props) {
@@ -38,10 +39,12 @@ class AddAnimate extends Component {
         const source = Runtime.functionalizeSource(preprocessed)
 
         Runtime.getComponentNames(source, rootComponent).then(components => {
-          this.props.addAnimate(source, rootComponent, components)
-          this.setState({
-            pending: false
+          generateHash(source).then(hash => {
+            this.props.addAnimate(source, hash, rootComponent, components)
+            this.setState({
+              pending: false
             // redirect: true
+            })
           })
         }).catch(error => {
           if (error instanceof TypeError) {

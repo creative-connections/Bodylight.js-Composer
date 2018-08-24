@@ -5,7 +5,7 @@ import {
 import generateID from '@helpers/generateID'
 import WidgetType from '@helpers/enum/WidgetType'
 
-export const addAnimate = (source, animateName, components) => {
+export const addAnimate = (source, hash, animateName, components) => {
   const animateID = generateID()
   const anim = {}
   const text = {}
@@ -38,8 +38,11 @@ export const addAnimate = (source, animateName, components) => {
     type: ADD_WIDGET,
     payload: {
       id: animateID,
+      js: source,
+      hash: hash,
       type: WidgetType.ANIMATE,
       name: animateName,
+      originalName: animateName,
       anim,
       text
     }
