@@ -6,6 +6,7 @@ import WidgetType from '@helpers/enum/WidgetType'
 import { getSelectedWidget } from '@reducers'
 
 import ConfigModel from './ConfigModel'
+import ConfigAnimate from './ConfigAnimate'
 import ConfigAnimateAnim from './ConfigAnimateAnim'
 import ConfigAnimateText from './ConfigAnimateText'
 import ConfigRange from './ConfigRange'
@@ -18,6 +19,8 @@ class WidgetSettings extends Component {
       switch (selectedWidget.type) {
         case WidgetType.MODEL:
           return <ConfigModel model={selectedWidget} />
+        case WidgetType.ANIMATE:
+          return <ConfigAnimate animate={selectedWidget} />
         case WidgetType.ANIMATE_ANIM:
           return <ConfigAnimateAnim anim={selectedWidget} />
         case WidgetType.ANIMATE_TEXT:

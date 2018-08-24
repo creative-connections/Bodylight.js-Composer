@@ -1,5 +1,6 @@
 import {
-  ADD_WIDGET
+  ADD_WIDGET,
+  RENAME_WIDGET
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
@@ -48,3 +49,11 @@ export const addAnimate = (source, hash, animateName, components) => {
     }
   }
 }
+
+export const renameAnimate = (model, name) => ({
+  type: RENAME_WIDGET,
+  payload: {
+    widget: model,
+    name
+  }
+})

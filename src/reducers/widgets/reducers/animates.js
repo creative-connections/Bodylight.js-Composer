@@ -1,4 +1,5 @@
-import { ADD_WIDGET } from '@actions/types'
+import { ADD_WIDGET, RENAME_WIDGET } from '@actions/types'
+import { renameWidget } from '../commons/widget.js'
 
 import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
@@ -26,6 +27,8 @@ export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
       return addAnimate(state, action.payload, type)
+    case RENAME_WIDGET:
+      return renameWidget(state, action.payload, type)
   }
   return state
 }

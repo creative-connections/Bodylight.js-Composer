@@ -49,6 +49,8 @@ export const configGetAllButtons = state => configSelectors.configGetAllButtons(
 export const configGetButton = (state, id) => configSelectors.configGetButton(state.config, id)
 export const configGetAllRanges = state => configSelectors.configGetAllRanges(state.config)
 export const configGetRange = (state, id) => configSelectors.configGetRange(state.config, id)
+export const configGetAllAnimates = state => configSelectors.configGetAllAnimates(state.config)
+export const configGetAnimate = (state, id) => configSelectors.configGetAnimate(state.config, id)
 export const configGetAllAnimateTexts = state => configSelectors.configGetAllAnimateTexts(state.config)
 export const configGetAnimateText = (state, id) => configSelectors.configGetAnimateText(state.config, id)
 export const configGetAllAnimateAnims = state => configSelectors.configGetAllAnimateAnims(state.config)
