@@ -71,9 +71,9 @@ export const getAll = state => state
 export const get = (state, id) => state[id]
 
 const generateProviderID = (type, id, parent) => {
-  return `{"type":"${JSON.stringify(type)},"` +
-          `"id":"${JSON.stringify(id)},"` +
-          `"parent":"${JSON.stringify(parent)}"}`
+  return `{"type":${JSON.stringify(type)},` +
+          `"id":${JSON.stringify(id)},` +
+          `"parent":${JSON.stringify(parent)}}`
 }
 
 const getProvidersForDropdownMemoized = memoize(state => {
