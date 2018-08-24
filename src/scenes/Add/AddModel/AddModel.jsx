@@ -38,7 +38,7 @@ class AddModel extends Component {
       let js = files['js']
       let modelDescription = files['modelDescription']
       modelDescription = parseModelDescription(modelDescription)
-      generateHash(source).then(hash => {
+      generateHash(js).then(hash => {
         this.props.addModel(name, js, hash, modelDescription)
         this.setState({
           redirect: true,
