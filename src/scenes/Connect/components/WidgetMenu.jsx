@@ -36,6 +36,10 @@ class WidgetMenu extends Component {
           <Button>Add model</Button>
         </NavLink>
         <Divider hidden/>
+        <NavLink to='/add/animate'>
+          <Button>Add animate</Button>
+        </NavLink>
+        <Divider hidden/>
         <Button onClick={this.addRange}>Add range</Button>
         <Divider hidden/>
         <Button onClick={this.addButton}>Add button</Button>

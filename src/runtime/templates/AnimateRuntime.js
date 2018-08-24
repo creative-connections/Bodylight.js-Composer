@@ -9,7 +9,7 @@ export default class AnimateRuntime {
     this.name = name
 
     if (this.library[this.name] === undefined) {
-      console.error(this.name + ' is not a valid animate component')
+      throw new Error(`'${this.name}' is not a valid animate component`)
     }
 
     this.attachExportedComponents(this.library)
@@ -43,7 +43,7 @@ export default class AnimateRuntime {
     this.initialized = true
 
     return new Promise((resolve) => {
-      var tickCounter = 0
+      let tickCounter = 0
       const waitTicks = () => {
         if (++tickCounter === 2) {
           createjs.Ticker.removeEventListener('tick', waitTicks)
@@ -69,6 +69,23 @@ export default class AnimateRuntime {
     }
   }
 
+  attachCanvas (canvas) {
+    createjs.Ticker.removeEventListener('tick', this.stage)
+    this.stage.enableDOMEvents(false)
+    this.stage.canvas = canvas
+    this.canvas = canvas
+    this.stage.enableDOMEvents(true)
+    createjs.Ticker.addEventListener('tick', this.stage)
+  }
+
+  detachCanvas () {
+    createjs.Ticker.removeEventListener('tick', this.stage)
+    this.stage.enableDOMEvents(false)
+    this.stage.canvas = null
+    this.canvas = null
+    this.stage.enableDOMEvents(true)
+  }
+
   /*
    * Animate export to CreateJS lazy adds components to stage only when they are
    * actually needed. This way on stage startup, not every component is
@@ -88,10 +105,10 @@ export default class AnimateRuntime {
       'text': {}
     }
     library.addExportedComponent = component => {
-      var getNameSuffix = name => {
+      const getNameSuffix = name => {
         return name.substr(name.lastIndexOf('_') + 1, name.length)
       }
-      var suffix = getNameSuffix(component.name)
+      const suffix = getNameSuffix(component.name)
       if (typeof library.exportedComponents[suffix] !== 'undefined') {
         if (typeof library.exportedComponents[suffix][component.name] !== 'undefined') {
           console.warn('Duplicate stage name ' + component.name)
@@ -109,7 +126,7 @@ export default class AnimateRuntime {
     const pRatio = window.devicePixelRatio || 1
     const xRatio = width / w
     const yRatio = height / h
-    var sRatio = 1
+    let sRatio = 1
 
     const scaleType = 1
     if (scaleType === 1) {
@@ -136,5 +153,43 @@ export default class AnimateRuntime {
     this.stage.scaleX = pRatio * sRatio
     this.stage.scaleY = pRatio * sRatio
     this.stage.update()
+  }
+
+  /*
+   * Initializes a virutal Runtime and determines the component names.
+   * Returns Promise with {category: [comp1, comp2,...]} on resolve
+   */
+  static getComponentNames (source, name) {
+    return new Promise((resolve, reject) => {
+      // init new runtime to fill library with components
+      let runtime
+      try {
+        runtime = new AnimateRuntime(name, source)
+      } catch (error) {
+        reject(error)
+        return
+      }
+      const canvas = document.createElement('canvas')
+      runtime.init(canvas).then(() => {
+        const components = runtime.getComponents()
+        const out = {}
+
+        // transform to strings
+        const categories = Object.keys(components)
+        categories.forEach(category => {
+          out[category] = []
+          const nodes = Object.keys(components[category])
+          nodes.forEach(node => {
+            out[category].push(node)
+          })
+        })
+        runtime.destroy()
+        resolve(out)
+      })
+    })
+  }
+
+  static functionalizeSource (source) {
+    return Function(`"use strict"; return(${source})`)()
   }
 }

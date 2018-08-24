@@ -98,13 +98,13 @@ class AnimateLoader extends Component {
   }
 
   componentDidCatch (error, info) {
-    if (error instanceof AnimateError) {
+    if (error instanceof TypeError) {
+      toast.error(`Could not load submitted js file, error: '${error.message}'.`)
+      toast.info('.js file should be exported by Adobe Animate CC (2017, 2018)')
+    } else if (error instanceof Error) {
       const msg = `Error while initializing animate component: ${error.message}.`
       toast.error(msg)
       toast.info('Name of the js file must correspond to the name of the topmost component')
-    } else if (error instanceof TypeError) {
-      toast.error(`Could not load submitted js file, error: '${error.message}'.`)
-      toast.info('.js file should be exported by Adobe Animate CC (2017, 2018)')
     } else {
       toast.error(error.message)
     }

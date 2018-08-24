@@ -6,6 +6,7 @@ import Preview from '@scenes/Preview'
 import Connect from '@scenes/Connect'
 import Design from '@scenes/Design'
 import AddModel from '@scenes/Add/AddModel'
+import AddAnimate from '@scenes/Add/AddAnimate'
 
 const DisplayContainer = () => {
   return <Fragment>
@@ -14,6 +15,7 @@ const DisplayContainer = () => {
       <Route path="/design" component={Design} />
       <Route path="/preview" component={Preview} />
       <Route path="/add/model" component={AddModel} />
+      <Route path="/add/animate" component={AddAnimate} />
     </Container>
   </Fragment>
 }

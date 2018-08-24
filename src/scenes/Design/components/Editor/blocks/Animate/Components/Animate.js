@@ -1,6 +1,6 @@
 import configureStore from '@src/configureStore'
 import update from 'immutability-helper'
-import AnimateRuntime from '@helpers/Animate/Runtime'
+import AnimateRuntime from '@runtime/templates/AnimateRuntime'
 
 import { editorPlaceAnimate, editorRemoveAnimate } from '@actions'
 import { getAnimates } from '@reducers'

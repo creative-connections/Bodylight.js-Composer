@@ -34,11 +34,11 @@ export default function unzipAndValidate (file) {
         return reject(error)
       }
 
-      var js = zip.files[name + '.js'].async('string')
-      var xml = zip.files['modelDescription.xml'].async('string')
+      const js = zip.files[name + '.js'].async('string')
+      const xml = zip.files['modelDescription.xml'].async('string')
 
       Promise.all([js, xml]).then((vals) => {
-        var payload = {
+        const payload = {
           name: name,
           js: postProcessJs(vals[0], name),
           modelDescription: vals[1]

@@ -1,39 +1,29 @@
 import {
-  ADD_ANIMATE,
-  EDITOR_REMOVE_ANIMATE,
-  EDITOR_PLACE_ANIMATE,
-  EDITOR_STORAGE_CLEAR
+  ADD_WIDGET
 } from '@actions/types'
 
 import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
 import memoize from 'memoize-one'
 
+const addAnimate = (state, payload, type) => {
+  if (type !== payload.type) { return state }
+
+  const model = {
+    id: payload.id,
+    name: payload.name,
+    type: payload.type,
+    placed: true,
+    configured: true
+  }
+  console.log(payload)
+}
+
 export default function (state = {}, action) {
   switch (action.type) {
-    case ADD_ANIMATE:
-      state = update(state, {[action.payload.name]: {$set: action.payload}})
-      break
-
-    case EDITOR_PLACE_ANIMATE:
-      if (state[action.payload] !== undefined) {
-        state = update(state, {[action.payload]: {placed: {$set: true}}})
-      }
-      break
-
-    case EDITOR_REMOVE_ANIMATE:
-      if (state[action.payload] !== undefined) {
-        state = update(state, {[action.payload]: {$unset: ['placed']}})
-      }
-      break
-
-    case EDITOR_STORAGE_CLEAR:
-      Object.entries(state).forEach(([name, animate]) => {
-        state = update(state, {[name]: {$unset: ['placed']}})
-      })
-      break
+    case ADD_WIDGET:
+      return addAnimate(state, payload, type)
   }
-
   return state
 }
 
