@@ -6,7 +6,6 @@ const BusySignal = ({busy = true}) => {
     <Dimmer active={busy} page>
       <Header as='h2' icon inverted>
         <Loader size='massive'/>
-        <Header.Subheader>Dimmer sub-header</Header.Subheader>
       </Header>
     </Dimmer>
   </Transition>
