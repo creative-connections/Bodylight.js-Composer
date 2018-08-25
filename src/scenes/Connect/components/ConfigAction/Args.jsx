@@ -10,6 +10,7 @@ class Args extends Component {
   constructor (props) {
     super(props)
     this.addArgument = this.addArgument.bind(this)
+    this.removeLastArgument = this.removeLastArgument.bind(this)
     this.handleArgNameChange = this.handleArgNameChange.bind(this)
     this.handleArgTypeChange = this.handleArgTypeChange.bind(this)
     this.getArgumentsForDropdown = memoize(this.getArgumentsForDropdown)
@@ -19,6 +20,18 @@ class Args extends Component {
     return [
       {value: ArgumentType.MODEL, text: 'model'}
     ]
+  }
+
+  removeLastArgument (e, v) {
+    let args = update(this.props.args, {
+      [this.props.args.length - 1]: {$set: undefined},
+      length: {$set: this.props.args.length - 1}
+    })
+
+    this.props.onChange(e, {
+      name: this.props.name,
+      value: args
+    })
   }
 
   addArgument (e, v) {
@@ -86,6 +99,7 @@ class Args extends Component {
             onChange={this.handleArgTypeChange}
             value={arg.type}
           />
+          {i === args.length - 1 && <ButtonLink className={'compact'} onClick={this.removeLastArgument}>x</ButtonLink> }
         </div>
       )
     }
