@@ -82,11 +82,14 @@ class Args extends Component {
       const arg = args[i]
       out.push(
         <div key={i}>
-          {`${i}: `}
           <Input
             name={i}
             value={arg.name}
             onChange={this.handleArgNameChange}
+            style={{
+              width: '10em',
+              marginTop: '0.5em'
+            }}
           />
           <Dropdown simple item inline
             name={i}
