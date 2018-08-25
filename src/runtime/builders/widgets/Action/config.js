@@ -1,5 +1,5 @@
 import configureStore from '@src/configureStore'
-import { getActions } from '@reducers'
+import { configGetAllActions } from '@reducers'
 
 const functionalize = action => {
   let args = ''
@@ -15,7 +15,7 @@ const functionalize = action => {
 }
 
 export default () => {
-  const actions = getActions(configureStore().store.getState())
+  const actions = configGetAllActions(configureStore().store.getState())
   const config = {}
   Object.entries(actions).forEach(([id, action]) => {
     config[id] = functionalize(action)

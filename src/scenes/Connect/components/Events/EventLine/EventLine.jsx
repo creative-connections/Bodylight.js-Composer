@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getActions } from '@reducers'
+import { configGetAllActions } from '@reducers'
 
 import Events from './Events'
 import Actions from './Actions'
@@ -49,7 +49,7 @@ class EventLine extends Component {
 
 export default connect(
   state => ({
-    actions: getActions(state)
+    actions: configGetAllActions(state)
   }),
   dispatch => bindActionCreators({
   }, dispatch)

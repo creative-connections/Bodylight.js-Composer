@@ -5,6 +5,7 @@ import ranges, * as rangesSelectors from './reducers/ranges'
 import animates, * as animatesSelectors from './reducers/animates'
 import animateTexts, * as animateTextsSelectors from './reducers/animateTexts'
 import animateAnims, * as animateAnimsSelectors from './reducers/animateAnims'
+import actions, * as actionsSelectors from './reducers/actions'
 
 import memoize from 'memoize-one'
 
@@ -14,16 +15,9 @@ export default combineReducers({
   ranges,
   animates,
   animateTexts,
-  animateAnims
+  animateAnims,
+  actions
 })
-
-export const configGetAllAnimates = state => animatesSelectors.getAll(state.animates)
-export const configGetAnimate = (state, id) => animatesSelectors.get(state.animates, id)
-
-export const configGetAllAnimateTexts = state => animateTextsSelectors.getAll(state.animateTexts)
-export const configGetAnimateText = (state, id) => animateTextsSelectors.get(state.animateTexts, id)
-export const configGetAllAnimateAnims = state => animateAnimsSelectors.getAll(state.animateAnims)
-export const configGetAnimateAnim = (state, id) => animateAnimsSelectors.get(state.animateAnims, id)
 
 export const configGetAllModels = state => modelsSelectors.getAll(state.models)
 export const configGetModel = (state, id) => modelsSelectors.get(state.models, id)
@@ -33,6 +27,16 @@ export const configGetButton = (state, id) => buttonsSelectors.get(state.buttons
 
 export const configGetAllRanges = state => rangesSelectors.getAll(state.ranges)
 export const configGetRange = (state, id) => rangesSelectors.get(state.ranges, id)
+
+export const configGetAllAnimates = state => animatesSelectors.getAll(state.animates)
+export const configGetAnimate = (state, id) => animatesSelectors.get(state.animates, id)
+export const configGetAllAnimateTexts = state => animateTextsSelectors.getAll(state.animateTexts)
+export const configGetAnimateText = (state, id) => animateTextsSelectors.get(state.animateTexts, id)
+export const configGetAllAnimateAnims = state => animateAnimsSelectors.getAll(state.animateAnims)
+export const configGetAnimateAnim = (state, id) => animateAnimsSelectors.get(state.animateAnims, id)
+
+export const configGetAllActions = state => actionsSelectors.getAll(state.actions)
+export const configGetAction = (state, id) => actionsSelectors.get(state.actions, id)
 
 const getProvidersForDropdownMemoized = memoize(state => {
   const options = [ { text: 'none', value: null } ]

@@ -37,7 +37,7 @@ const getModelsForDropdownMemoized = memoize(
     Object.entries(state).forEach(([id, model]) => {
       options.push({
         key: id,
-        text: id,
+        text: model.name,
         value: id
       })
     })

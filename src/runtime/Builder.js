@@ -35,7 +35,7 @@ import buildButtonConfig from './builders/widgets/Button/config'
 import appendModels from './builders/widgets/models/models'
 import buildModelConfig from './builders/widgets/models/config'
 
-import buildActionConfig from './builders/actions/config'
+import buildActionConfig from './builders/widgets/Action/config'
 
 import appendAnimates from './builders/widgets/animates/animates'
 

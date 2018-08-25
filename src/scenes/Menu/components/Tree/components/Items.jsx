@@ -30,7 +30,7 @@ class Items extends Component {
       return null
     }
     return <ul className='menu-tree-items'>
-      <TreeNode name={this.props.name} collapsable={true}>
+      <TreeNode name={this.props.name} collapsable={true} collapsed={this.props.collapsed}>
         {this.renderItems()}
       </TreeNode>
     </ul>

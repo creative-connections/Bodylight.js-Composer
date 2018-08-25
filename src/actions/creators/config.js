@@ -1,11 +1,6 @@
 import {
   UPDATE_WIDGET_CONFIG,
 
-  CONFIG_ANIMATE_ANIM_UPDATE,
-  CONFIG_ANIMATE_TEXT_UPDATE,
-  CONFIG_ANIMATE_TEXT_REMOVE,
-  CONFIG_RANGE_UPDATE,
-  CONFIG_RANGE_REMOVE,
   ADD_WIDGET_ACTION,
   REMOVE_WIDGET_ACTION,
   UPDATE_WIDGET_ACTION
@@ -16,21 +11,6 @@ import uuid from 'uuid/v4'
 export const updateConfig = (widget, key, value) => ({
   type: UPDATE_WIDGET_CONFIG,
   payload: { widget, key, value }
-})
-
-export const configAnimateAnimUpdate = (anim, key, value) => ({
-  type: CONFIG_ANIMATE_ANIM_UPDATE,
-  payload: { anim, key, value }
-})
-
-export const configAnimateTextUpdate = (text, key, value) => ({
-  type: CONFIG_ANIMATE_TEXT_UPDATE,
-  payload: { text, key, value }
-})
-
-export const configAnimateTextRemove = (name, parent) => ({
-  type: CONFIG_ANIMATE_TEXT_REMOVE,
-  payload: { name, parent }
 })
 
 export const widgetActionAdd = (widget) => {

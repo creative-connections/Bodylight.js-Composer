@@ -11,24 +11,11 @@ import {
 
 import {
   addRange,
-  addButton
+  addButton,
+  addAction
 } from '@actions'
 
 class WidgetMenu extends Component {
-  constructor (props) {
-    super(props)
-    this.addRange = this.addRange.bind(this)
-    this.addButton = this.addButton.bind(this)
-  }
-
-  addRange () {
-    this.props.addRange()
-  }
-
-  addButton () {
-    this.props.addButton()
-  }
-
   render () {
     return (
       <Fragment>
@@ -40,9 +27,11 @@ class WidgetMenu extends Component {
           <Button>Add animate</Button>
         </NavLink>
         <Divider hidden/>
-        <Button onClick={this.addRange}>Add range</Button>
+        <Button onClick={this.props.addRange}>Add range</Button>
         <Divider hidden/>
-        <Button onClick={this.addButton}>Add button</Button>
+        <Button onClick={this.props.addButton}>Add button</Button>
+        <Divider hidden/>
+        <Button onClick={this.props.addAction}>Add action</Button>
       </Fragment>
     )
   }
@@ -54,6 +43,7 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     addRange,
-    addButton
+    addButton,
+    addAction
   }, dispatch)
 )(WidgetMenu)

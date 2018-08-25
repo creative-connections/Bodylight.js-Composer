@@ -5,8 +5,6 @@ import configurationScreen from './app/configurationScreen'
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
 
-import actions, * as actionSelectors from './actions/actions'
-
 import widgets, * as widgetSelectors from './widgets'
 import config, * as configSelectors from './config'
 
@@ -19,9 +17,7 @@ const reducers = combineReducers({
   editorStorage,
 
   widgets,
-  config,
-
-  actions
+  config
 })
 
 const stateScrubberReducer = (state, action) => {
@@ -35,8 +31,10 @@ export default stateScrubberReducer
 
 // export selectors with appropriate states
 export const getAnimates = state => widgetSelectors.getAnimates(state.widgets)
+export const getModels = state => widgetSelectors.getModels(state.widgets)
 export const getRanges = state => widgetSelectors.getRanges(state.widgets)
 export const getButtons = state => widgetSelectors.getButtons(state.widgets)
+export const getActions = state => widgetSelectors.getActions(state.actions)
 
 export const getAvailableRangeName = (state, root) => widgetSelectors.getAvailableRangeName(state.widgets, root)
 
@@ -55,6 +53,8 @@ export const configGetAllAnimateTexts = state => configSelectors.configGetAllAni
 export const configGetAnimateText = (state, id) => configSelectors.configGetAnimateText(state.config, id)
 export const configGetAllAnimateAnims = state => configSelectors.configGetAllAnimateAnims(state.config)
 export const configGetAnimateAnim = (state, id) => configSelectors.configGetAnimateAnim(state.config, id)
+export const configGetAllActions = state => configSelectors.configGetAllActions(state.config)
+export const configGetAction = (state, id) => configSelectors.configGetAction(state.config, id)
 
 export const getProvidersForDropdown = state => configSelectors.getProvidersForDropdown(state.config)
 
@@ -62,5 +62,4 @@ export const getEditorStorage = state => editorStorageSelectors.getEditorStorage
 
 export const getFunctionEditorConfig = state => functionEditorConfigSelectors.getFunctionEditorConfig(state.functionEditorConfig)
 
-export const getActions = state => actionSelectors.getActions(state.actions)
-export const getDefaultForAction = actionSelectors.getDefaultForAction
+export const getModelsForDropdown = state => widgetSelectors.getModelsForDropdown(state.widgets)

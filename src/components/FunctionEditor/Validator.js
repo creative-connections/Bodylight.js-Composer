@@ -64,6 +64,11 @@ class Validator {
       return result
     }
 
+    // skip run validation
+    if (type === false) {
+      return result
+    }
+
     try {
       run(result.parsed, type)
     } catch (e) {

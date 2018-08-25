@@ -8,7 +8,7 @@ class TreeNode extends Component {
     super(props)
 
     this.state = {
-      collapsed: false
+      collapsed: props.collapsed === undefined ? false : props.collapsed
     }
 
     this.onIconClick = this.onIconClick.bind(this)
@@ -30,6 +30,9 @@ class TreeNode extends Component {
     }
     if (this.props.type === WidgetType.MODEL) {
       return 'cog'
+    }
+    if (this.props.type === WidgetType.ACTION) {
+      return 'code'
     }
   }
 
