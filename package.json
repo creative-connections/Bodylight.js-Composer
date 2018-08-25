@@ -5,7 +5,7 @@
   "main": "dist/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development"
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development --history-api-fallback"
   },
   "repository": {
     "type": "git",
@@ -67,6 +67,7 @@
     "bootstrap": "^4.1.1",
     "brace": "^0.11.1",
     "escodegen": "^1.11.0",
+    "fast-memoize": "^2.5.1",
     "grapesjs": "^0.14.25",
     "grapesjs-blocks-basic": "^0.1.8",
     "grapesjs-blocks-flexbox": "^0.1.1",
@@ -87,6 +88,8 @@
     "react-modal": "^3.5.1",
     "react-redux": "^5.0.7",
     "react-resizable": "^1.7.5",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-spinners": "^0.3.2",
     "react-toastify": "^4.1.0",
     "reactstrap": "^6.2.0",
@@ -96,6 +99,7 @@
     "redux-promise": "^0.6.0",
     "semantic-ui-less": "github:Semantic-Org/Semantic-UI-LESS",
     "semantic-ui-react": "^0.81.3",
+    "slugid": "^2.0.0",
     "to-ast": "^1.0.0",
     "uuid": "^3.3.2",
     "webfontloader": "^1.6.28"

@@ -1,12 +1,12 @@
 import configureStore from '@src/configureStore'
 import update from 'immutability-helper'
-import AnimateRuntime from '@helpers/Animate/Runtime'
+import AnimateRuntime from '@runtime/templates/AnimateRuntime'
 
 import { editorPlaceAnimate, editorRemoveAnimate } from '@actions'
-import { getAnimates } from '@reducers'
+import { configGetAnimate } from '@reducers'
 
-import { ANIMATE, ANIMATE_NAME, stripPrefix } from '../types.js'
-import { handleChangeName } from '../../commons/Components'
+import { ANIMATE, ANIMATE_ID } from '../types.js'
+import { handleChangeID } from '../../commons/Components'
 
 const animateRuntimeStore = {}
 
@@ -23,9 +23,9 @@ export default (editor) => {
         tagName: 'canvas',
         classes: [],
         traits: [{
-          type: ANIMATE_NAME,
+          type: ANIMATE_ID,
           label: 'Animate',
-          name: 'name'
+          name: 'id'
         }],
         resizable: true
       })
@@ -39,7 +39,7 @@ export default (editor) => {
 
     view: defaultType.view.extend({
       events: {
-        changeName: 'handleChangeName',
+        changeID: 'handleChangeID',
         click: 'handleClick'
       },
 
@@ -48,13 +48,11 @@ export default (editor) => {
        * @return {animate configuration}
        */
       getAnimate () {
-        const name = stripPrefix(this.attr.name)
-        const animates = getAnimates(configureStore().store.getState())
-        if (typeof name === 'undefined' || name === null || name === '' ||
-            typeof animates[name] === 'undefined') {
+        const id = this.attr.id
+        if (typeof id === 'undefined' || id === null || id === '') {
           return null
         }
-        return update(animates[name], {name: {$set: name}})
+        return configGetAnimate(configureStore().store.getState(), id)
       },
 
       clearCanvas () {
@@ -70,11 +68,11 @@ export default (editor) => {
       },
 
       /**
-       * Callback on the event 'changeName'. Animate provider has changed, we
+       * Callback on the event 'changeID'. Animate provider has changed, we
        * need to redraw it in the editor.
        */
-      handleChangeName (event) {
-        handleChangeName(this, event, editorPlaceAnimate, editorRemoveAnimate)
+      handleChangeID (event) {
+        handleChangeID(this, event, editorPlaceAnimate, editorRemoveAnimate)
         this.attachRuntime()
       },
 
@@ -130,17 +128,20 @@ export default (editor) => {
           return this.drawPlaceholder()
         }
 
-        this.runtime = animateRuntimeStore[animate.name]
-
-        // check store for runtime presence
-        if (this.runtime === undefined) {
-          this.runtime = new AnimateRuntime(animate.source, animate.name)
+        const cachedRuntime = animateRuntimeStore[animate.name]
+        if (cachedRuntime === undefined || cachedRuntime.hash !== animate.hash) {
+          const js = AnimateRuntime.functionalizeSource(animate.js)
+          this.runtime = new AnimateRuntime(animate.originalName, js)
           this.runtime.init(this.el, false, false).then()
 
           // save for future use
-          animateRuntimeStore[animate.name] = this.runtime
+          animateRuntimeStore[animate.name] = {
+            runtime: this.runtime,
+            hash: animate.hash
+          }
         } else {
           // we already have a runtime up and running, just attach
+          this.runtime = cachedRuntime.runtime
           this.runtime.attachCanvas(this.el)
         }
 
@@ -222,8 +223,8 @@ export default (editor) => {
         this.deregisterUpdateHandler()
 
         // update redux state that we have removed our animate endpoint
-        const name = this.attr.name
-        configureStore().store.dispatch(editorRemoveAnimate(stripPrefix(name)))
+        const id = this.attr.id
+        configureStore().store.dispatch(editorRemoveAnimate(id))
       }
 
     })

@@ -4,7 +4,7 @@ import { Form } from 'semantic-ui-react'
 
 import ValueProviders from '@helpers/ValueProviders'
 
-class ValueProviderDropdown extends Component {
+class ProviderDropdown extends Component {
   constructor (props) {
     super(props)
 
@@ -35,4 +35,4 @@ class ValueProviderDropdown extends Component {
   }
 }
 
-export default ValueProviderDropdown
+export default ProviderDropdown

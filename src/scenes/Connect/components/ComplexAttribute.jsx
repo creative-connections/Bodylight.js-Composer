@@ -5,7 +5,7 @@ import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'
 import FunctionEditor from '@components/FunctionEditor'
 
-import ValueProviderDropdown from '@components/ValueProviderDropdown'
+import ProviderDropdown from './ProviderDropdown'
 
 const renderValueInput = (name, label, attribute, onChange) => {
   if (attribute.typeof === 'number') {
@@ -46,7 +46,7 @@ const renderComplexCheckbox = (name, attribute, onChange) => {
 
 const renderProvider = (name, attribute, onChange) => {
   return (
-    <ValueProviderDropdown
+    <ProviderDropdown
       name={`${name}.provider`}
       value={attribute.provider}
       onChange={onChange}

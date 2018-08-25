@@ -1,11 +1,4 @@
-import { SELECT_SCREEN, NEW_PROJECT, SELECT_WIDGET } from '@actions/types'
-
-export const selectScreen = (screen) => {
-  return {
-    type: SELECT_SCREEN,
-    payload: screen
-  }
-}
+import { NEW_PROJECT, SELECT_WIDGET } from '@actions/types'
 
 export const selectWidget = id => {
   return {

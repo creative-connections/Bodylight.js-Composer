@@ -6,10 +6,8 @@ import update from 'immutability-helper'
 
 import { Input, Header, Grid, Divider, Transition } from 'semantic-ui-react'
 
-import ValueProviders from '@helpers/ValueProviders'
-
-import { getConfigForRanges, getDefaultConfigForRanges, getAvailableRangeName } from '@reducers'
-import { configRangeRemove, configRangeUpdate, renameRange, removeRange } from '@actions/actions'
+import { configGetRange } from '@reducers'
+import { updateConfig, renameRange, removeRange } from '@actions/actions'
 
 import ButtonLink from '@components/ButtonLink'
 
@@ -20,7 +18,6 @@ class ConfigRange extends Component {
   constructor (props) {
     super(props)
 
-    this.getConfig = this.getConfig.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
 
     this.handleOnChange = this.handleOnChange.bind(this)
@@ -29,21 +26,10 @@ class ConfigRange extends Component {
     this.renameRange = this.renameRange.bind(this)
   }
 
-  /**
-   * Loads configuration for our props.name, if no such configuration exists
-   * returns default configuration for Range.
-   */
-  getConfig () {
-    if (this.props.config[this.props.range.name] === undefined) {
-      return this.props.defaultConfig
-    }
-    return this.props.config[this.props.range.name]
-  }
-
   handleAutoRename () {
-    let config = this.getConfig()
-    const provider = ValueProviders.value(config.target.provider)
-    const generatedName = this.props.getAvailableRangeName(`${provider.parent}.${provider.name}`)
+    let config = this.props.config
+    // const providert= ValueProviders.value(config.target.provider)
+    const generatedName = `${provider.parent}.${provider.name}`
     this.renameRange(null, {value: generatedName})
   }
 
@@ -60,16 +46,14 @@ class ConfigRange extends Component {
       value = checked
     }
 
-    this.props.configRangeUpdate(this.props.range, name, value)
+    this.props.updateConfig(this.props.range, name, value)
   }
 
   render () {
-    const config = this.getConfig()
-
+    const config = this.props.config
     return (
       <div>
         <Header as="h2">Range: {this.props.range.name}</Header>
-
         <Grid verticalAlign='middle' celled='internally'>
           <GridRow label='Name:'>
             <Input
@@ -77,12 +61,10 @@ class ConfigRange extends Component {
               value={this.props.range.name}
               onChange={this.renameRange}
             />
-
             <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
               <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
             </Transition>
           </GridRow>
-
           <GridRow label='Target:'>
             <ComplexAttribute
               forceComplex={true}
@@ -91,12 +73,9 @@ class ConfigRange extends Component {
               onChange={this.handleOnChange}
             />
           </GridRow>
-
         </Grid>
-
         <br></br>
         <Grid verticalAlign='middle' celled='internally'>
-
           <GridRow label='Maximum:'>
             <ComplexAttribute
               name='max'
@@ -104,7 +83,6 @@ class ConfigRange extends Component {
               onChange={this.handleOnChange}
             />
           </GridRow>
-
           <GridRow label='Minimum:'>
             <ComplexAttribute
               name='min'
@@ -112,7 +90,6 @@ class ConfigRange extends Component {
               onChange={this.handleOnChange}
             />
           </GridRow>
-
           <GridRow label='Enabled:'>
             <ComplexAttribute
               name='enabled'
@@ -121,7 +98,6 @@ class ConfigRange extends Component {
               onChange={this.handleOnChange}
             />
           </GridRow>
-
           <GridRow label='Reversed:'>
             <ComplexAttribute
               name='reversed'
@@ -130,7 +106,6 @@ class ConfigRange extends Component {
               onChange={this.handleOnChange}
             />
           </GridRow>
-
         </Grid>
       </div>
     )
@@ -138,14 +113,11 @@ class ConfigRange extends Component {
 }
 
 export default connect(
-  state => ({
-    config: getConfigForRanges(state),
-    defaultConfig: getDefaultConfigForRanges(),
-    getAvailableRangeName: root => getAvailableRangeName(state, root)
+  (state, props) => ({
+    config: configGetRange(state, props.range.id)
   }),
   dispatch => bindActionCreators({
-    configRangeRemove,
-    configRangeUpdate,
+    updateConfig,
     renameRange,
     removeRange
   }, dispatch)

@@ -1,11 +1,11 @@
-import { RANGE, RANGE_NAME, stripPrefix } from '../types.js'
+import { RANGE, RANGE_ID } from '../types.js'
 
 import configureStore from '@src/configureStore'
-import { getRanges } from '@reducers'
+import { configGetRange } from '@reducers'
 
 import update from 'immutability-helper'
 
-import { handleChangeName } from '../../commons/Components'
+import { handleChangeID } from '../../commons/Components'
 
 import { editorPlaceRange, editorRemoveRange } from '@actions/actions'
 
@@ -23,9 +23,9 @@ export default (editor) => {
         attributes: {type: 'range'},
         classes: [],
         traits: [{
-          type: RANGE_NAME,
+          type: RANGE_ID,
           label: 'Range',
-          name: 'name'
+          name: 'id'
         }],
         resizable: true
       })
@@ -38,7 +38,7 @@ export default (editor) => {
     }),
     view: defaultType.view.extend({
       events: {
-        changeName: 'handleChangeName',
+        changeID: 'handleChangeID',
         click: 'handleClick'
       },
 
@@ -47,26 +47,23 @@ export default (editor) => {
        * @return {range configuration}
        */
       getRange () {
-        const name = this.attr.name
-        const ranges = getRanges(configureStore().store.getState())
+        const id = this.attr.id
 
-        if (typeof name === 'undefined' || name === null || name === '' ||
-            typeof ranges[name] === 'undefined') {
+        if (typeof id === 'undefined' || id === null || id === '') {
           return null
         }
-
-        return update(ranges[name], {name: {$set: name}})
+        return configGetRange(configureStore().store.getState(), id)
       },
 
-      handleChangeName (event) {
-        handleChangeName(this, event, editorPlaceRange, editorRemoveRange)
+      handleChangeID (event) {
+        handleChangeID(this, event, editorPlaceRange, editorRemoveRange)
       },
 
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
 
-        const name = this.attr.name
-        configureStore().store.dispatch(editorRemoveRange(stripPrefix(name)))
+        const id = this.attr.id
+        configureStore().store.dispatch(editorRemoveRange(id))
       },
 
       handleClick () {

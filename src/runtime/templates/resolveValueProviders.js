@@ -1,18 +1,18 @@
 /* global widgets */
 /* global models */
-/* global ValueProviderType */
+/* global ProviderType */
 
 export default function resolveValueProviders () {
   const resolve = id => {
     const provider = JSON.parse(id)
-    if (provider.type === ValueProviderType.MODEL_PARAMETER ||
-        provider.type === ValueProviderType.MODEL_VARIABLE) {
+    if (provider.type === ProviderType.MODEL_PARAMETER ||
+        provider.type === ProviderType.MODEL_VARIABLE) {
       const target = models[provider.parent]
       if (target === null) {
         return null
       }
-      const name = provider.name
-      return { target, name }
+      const id = provider.id
+      return { target, id }
     }
   }
 

@@ -1,15 +1,15 @@
 import configureStore from '@src/configureStore'
-import { getConfigForButton } from '@reducers'
+import { configGetAllButtons } from '@reducers'
 import update from 'immutability-helper'
 
 import functionalize from '../functionalize'
 import processAction from '../processAction'
 
 export default () => {
-  const ranges = getConfigForButton(configureStore().store.getState())
+  const buttons = configGetAllButtons(configureStore().store.getState())
 
   const config = {}
-  Object.entries(ranges).forEach(([name, configuration]) => {
+  Object.entries(buttons).forEach(([name, configuration]) => {
     configuration.attributes.forEach(attribute => {
       configuration = functionalize(configuration, attribute)
     })

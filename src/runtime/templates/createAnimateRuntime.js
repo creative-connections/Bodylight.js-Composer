@@ -3,7 +3,7 @@ export default function createAnimateRuntime (name, source, target) {
     const runtime = new AnimateRuntime(name, source)
 
     runtime.init(target).then(() => {
-      resolve({[name]: runtime})
+      resolve(runtime)
     })
   })
 }

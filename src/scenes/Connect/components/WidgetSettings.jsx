@@ -2,19 +2,26 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import { getSelectedWidget } from '@reducers'
 
+import ConfigModel from './ConfigModel'
+import ConfigAnimate from './ConfigAnimate'
 import ConfigAnimateAnim from './ConfigAnimateAnim'
 import ConfigAnimateText from './ConfigAnimateText'
 import ConfigRange from './ConfigRange'
 import ConfigButton from './ConfigButton'
+import ConfigAction from './ConfigAction'
 
 class WidgetSettings extends Component {
   render () {
     const selectedWidget = this.props.selectedWidget
     if (selectedWidget !== null) {
       switch (selectedWidget.type) {
+        case WidgetType.MODEL:
+          return <ConfigModel model={selectedWidget} />
+        case WidgetType.ANIMATE:
+          return <ConfigAnimate animate={selectedWidget} />
         case WidgetType.ANIMATE_ANIM:
           return <ConfigAnimateAnim anim={selectedWidget} />
         case WidgetType.ANIMATE_TEXT:
@@ -23,6 +30,8 @@ class WidgetSettings extends Component {
           return <ConfigRange range={selectedWidget} />
         case WidgetType.BUTTON:
           return <ConfigButton button={selectedWidget} />
+        case WidgetType.ACTION:
+          return <ConfigAction action={selectedWidget} />
       }
     }
     return null

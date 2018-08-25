@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Input, Checkbox, Header, Grid, Divider, Transition } from 'semantic-ui-react'
-import { getConfigForButton, getDefaultConfigForButton, getAvailableButtonName } from '@reducers'
-import { configButtonRemove, configButtonUpdate, renameButton, removeButton } from '@actions'
+import { Input, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { configGetButton } from '@reducers'
+import { updateConfig, renameButton, removeButton } from '@actions'
 
 import ButtonLink from '@components/ButtonLink'
 import ButtonMode from '@helpers/enum/ButtonMode'
-import ValueProviders from '@helpers/ValueProviders'
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
 
@@ -23,17 +22,10 @@ class ConfigButton extends Component {
     this.rename = this.rename.bind(this)
   }
 
-  getConfig () {
-    if (this.props.config[this.props.button.name] === undefined) {
-      return this.props.defaultConfig
-    }
-    return this.props.config[this.props.button.name]
-  }
-
   handleAutoRename () {
-    let config = this.getConfig()
-    const provider = ValueProviders.value(config.target.provider)
-    const generatedName = this.props.getAvailableButtonName(`${provider.parent}.${provider.name}`)
+    let config = this.props.config
+    // const provider = ValueProviders.value(config.target.provider)
+    const generatedName = `${provider.parent}.${provider.name}`
     this.rename(null, {value: generatedName})
   }
 
@@ -45,7 +37,7 @@ class ConfigButton extends Component {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
-    this.props.configButtonUpdate(this.props.button, name, value)
+    this.props.updateConfig(this.props.button, name, value)
   }
 
   renderTarget (config) {
@@ -94,101 +86,96 @@ class ConfigButton extends Component {
   }
 
   render () {
-    const config = this.getConfig()
+    const config = this.props.config
 
-    return (
-      <div>
-        <Header as="h2">Button: {this.props.button.name}</Header>
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Name:'>
-            <Input
-              name='name'
-              value={this.props.button.name}
-              onChange={this.rename}
-            />
-            <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
-              <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
-            </Transition>
-          </GridRow>
-          <GridRow label='Label:'>
-            <ComplexAttribute
-              name='label'
-              attribute={config.label}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-        </Grid>
-        <br/>
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Mode:'>
-            <Checkbox
-              radio
-              label='Value applied on click'
-              name='mode'
-              value={ButtonMode.CLICK}
-              checked={config.mode === ButtonMode.CLICK}
-              onClick={this.handleOnChange}
-            />
-            <br/><br/>
-            <Checkbox
-              radio
-              label='Value applied while pressed'
-              name='mode'
-              value={ButtonMode.PRESS}
-              checked={config.mode === ButtonMode.PRESS}
-              onClick={this.handleOnChange}
-            />
-            <br/><br/>
-            <Checkbox
-              radio
-              label='Button triggers an event'
-              name='mode'
-              value={ButtonMode.TRIGGER}
-              checked={config.mode === ButtonMode.TRIGGER}
-              onClick={this.handleOnChange}
-            />
-          </GridRow>
-          { config.mode === ButtonMode.CLICK && this.renderClickMode(config)}
-          { config.mode === ButtonMode.PRESS && this.renderPressMode(config)}
-        </Grid>
-        <br/>
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Enabled:'>
-            <ComplexAttribute
-              name='enabled'
-              label='Button is enabled'
-              attribute={config.enabled}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
+    return <Fragment>
+      <Header as="h2">Button: {this.props.button.name}</Header>
+      <Grid verticalAlign='middle' celled='internally'>
+        <GridRow label='Name:'>
+          <Input
+            name='name'
+            value={this.props.button.name}
+            onChange={this.rename}
+          />
+          <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
+            <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
+          </Transition>
+        </GridRow>
+        <GridRow label='Label:'>
+          <ComplexAttribute
+            name='label'
+            attribute={config.label}
+            onChange={this.handleOnChange}
+          />
+        </GridRow>
+      </Grid>
+      <br/>
+      <Grid verticalAlign='middle' celled='internally'>
+        <GridRow label='Mode:'>
+          <Checkbox
+            radio
+            label='Value applied on click'
+            name='mode'
+            value={ButtonMode.CLICK}
+            checked={config.mode === ButtonMode.CLICK}
+            onClick={this.handleOnChange}
+          />
+          <br/><br/>
+          <Checkbox
+            radio
+            label='Value applied while pressed'
+            name='mode'
+            value={ButtonMode.PRESS}
+            checked={config.mode === ButtonMode.PRESS}
+            onClick={this.handleOnChange}
+          />
+          <br/><br/>
+          <Checkbox
+            radio
+            label='Button triggers an event'
+            name='mode'
+            value={ButtonMode.TRIGGER}
+            checked={config.mode === ButtonMode.TRIGGER}
+            onClick={this.handleOnChange}
+          />
+        </GridRow>
+        { config.mode === ButtonMode.CLICK && this.renderClickMode(config)}
+        { config.mode === ButtonMode.PRESS && this.renderPressMode(config)}
+      </Grid>
+      <br/>
+      <Grid verticalAlign='middle' celled='internally'>
+        <GridRow label='Enabled:'>
+          <ComplexAttribute
+            name='enabled'
+            label='Button is enabled'
+            attribute={config.enabled}
+            onChange={this.handleOnChange}
+          />
+        </GridRow>
 
-          <GridRow label='Visible:'>
-            <ComplexAttribute
-              name='visible'
-              label='Button is visible'
-              attribute={config.visible}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-        </Grid>
-        <Events
-          widget={this.props.button}
-          config={config}
-        />
-      </div>
-    )
+        <GridRow label='Visible:'>
+          <ComplexAttribute
+            name='visible'
+            label='Button is visible'
+            attribute={config.visible}
+            onChange={this.handleOnChange}
+          />
+        </GridRow>
+      </Grid>
+      <Events
+        widget={this.props.button}
+        config={config}
+      />
+    </Fragment>
   }
 }
 
 export default connect(
-  state => ({
-    config: getConfigForButton(state),
-    defaultConfig: getDefaultConfigForButton(),
-    getAvailableButtonName: root => getAvailableButtonName(state, root)
+  (state, props) => ({
+    config: configGetButton(state, props.button.id)
   }),
   dispatch => bindActionCreators({
-    configButtonRemove,
-    configButtonUpdate,
+    updateConfig,
     renameButton,
     removeButton
   }, dispatch)

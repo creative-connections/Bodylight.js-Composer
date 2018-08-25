@@ -44,15 +44,21 @@ export default class Button extends Widget {
   }
 
   handleOnClick () {
-    this.target.provider.setValue(this.target.reference, this.onClick.value)
+    if (this.target.provider !== null) {
+      this.target.provider.setValue(this.target.reference, this.onClick.value)
+    }
   }
 
   handleOnPress () {
-    this.target.provider.setValue(this.target.reference, this.onPress.value)
+    if (this.target.provider !== null) {
+      this.target.provider.setValue(this.target.reference, this.onPress.value)
+    }
   }
 
   handleOnRelease () {
-    this.target.provider.setValue(this.target.reference, this.onRelease.value)
+    if (this.target.provider !== null) {
+      this.target.provider.setValue(this.target.reference, this.onRelease.value)
+    }
   }
 
   generateSetters () {
@@ -96,12 +102,12 @@ export default class Button extends Widget {
     }
   }
 
-  setValueProvider (attribute, name, target) {
+  setValueProvider (attribute, id, target) {
     if (attribute === 'target') {
-      this.target.reference = target.registerValueSetter(name)
+      this.target.reference = target.registerValueSetter(id)
       this.target.provider = target
       return
     }
-    super.setValueProvider(attribute, name, target)
+    super.setValueProvider(attribute, id, target)
   }
 }

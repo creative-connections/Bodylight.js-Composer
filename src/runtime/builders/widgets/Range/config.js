@@ -1,10 +1,10 @@
 import configureStore from '@src/configureStore'
-import { getConfigForRanges } from '@reducers'
+import { configGetAllRanges } from '@reducers'
 
 import functionalize from '../functionalize'
 
 export default () => {
-  const ranges = getConfigForRanges(configureStore().store.getState())
+  const ranges = configGetAllRanges(configureStore().store.getState())
 
   const config = {}
   Object.entries(ranges).forEach(([name, configuration]) => {

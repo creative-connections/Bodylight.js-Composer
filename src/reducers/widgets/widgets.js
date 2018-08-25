@@ -1,89 +1,63 @@
 import { combineReducers } from 'redux'
-import WidgetType from '@helpers/WidgetType'
 
-import animates, * as animatesSelectors from './reducers/animates'
-import ranges, * as rangesSelectors from './reducers/ranges'
-import buttons, * as buttonsSelectors from './reducers/buttons'
 import app, * as appSelectors from './reducers/app'
+
+import buttons, * as buttonsSelectors from './reducers/buttons'
+import ranges, * as rangesSelectors from './reducers/ranges'
+import models, * as modelsSelectors from './reducers/models'
+import animates, * as animatesSelectors from './reducers/animates'
+import actions, * as actionsSelectors from './reducers/actions'
 
 import memoize from 'memoize-one'
 
 export default combineReducers({
-  animates,
-  ranges,
   buttons,
+  ranges,
+  models,
+  animates,
+  actions,
   app
 })
 
-export const getAnimates = state => animatesSelectors.getAnimates(state.animates)
-export const getRanges = state => rangesSelectors.getRanges(state.ranges)
-export const getButtons = state => buttonsSelectors.getButtons(state.buttons)
+export const getButtons = state => buttonsSelectors.getAll(state.buttons)
+export const getRanges = state => rangesSelectors.getAll(state.ranges)
+export const getModels = state => modelsSelectors.getAll(state.models)
+export const getAnimates = state => animatesSelectors.getAll(state.animates)
+export const getActions = state => actionsSelectors.getAll(state.actions)
 
 export const getAvailableRangeName = (state, root) => rangesSelectors.getAvailableRangeName(state.ranges, root)
-export const getAvailableButtonName = (state, root) => buttonsSelectors.getAvailableButtonName(state.buttons, root)
 
-export const getSelectedWidget = state => appSelectors.getSelectedWidget(state.app)
+const getWidgetMemoized = memoize((state, id) => {
+  let widget = null
+  if ((widget = buttonsSelectors.get(state.buttons, id)) !== null) { return widget }
+  if ((widget = rangesSelectors.get(state.ranges, id)) !== null) { return widget }
+  if ((widget = modelsSelectors.get(state.models, id)) !== null) { return widget }
+  if ((widget = animatesSelectors.get(state.animates, id)) !== null) { return widget }
+  if ((widget = actionsSelectors.get(state.actions, id)) !== null) { return widget }
+  return widget
+})
 
-export const generateWidgetId = (type, name, parent = null) => {
-  /*
-   * Since JSON.stringify does not guarantee any particular order, we have to
-   * create our own stringification. We only rely on it for string escapement.
-   */
-  let output = '{'
-  output += `"type":${JSON.stringify(type)}`
-  output += `,"name":${JSON.stringify(name)}`
-  // some widgets do not require a parent (e.g. ranges)
-  if (parent !== null) {
-    output += `,"parent":${JSON.stringify(parent)}`
-  }
-  output += `}`
-
-  return output
+export const getWidget = (state, id) => {
+  return getWidgetMemoized(state, id)
 }
 
-export const getWidgetsForDropdown = state => {
-  var options = []
-  Object.entries(state.buttons).forEach(([name, button]) => {
-    options.push({
-      text: `button: ${name}`,
-      value: generateWidgetId(WidgetType.BUTTON, name)
-    })
-  })
-
-  Object.entries(state.ranges).forEach(([name, range]) => {
-    options.push({
-      text: `range: ${name}`,
-      value: generateWidgetId(WidgetType.RANGE, name)
-    })
-  })
-
-  Object.entries(state.animates).forEach(([animateName, animate]) => {
-    animate.components.anim.forEach(componentName => {
-      options.push({
-        text: `${animateName}: ${componentName}`,
-        value: generateWidgetId(WidgetType.ANIMATE_ANIM, componentName, animateName)
-      })
-    })
-
-    animate.components.text.forEach(componentName => {
-      options.push({
-        text: `${animateName}: ${componentName}`,
-        value: generateWidgetId(WidgetType.ANIMATE_TEXT, componentName, animateName)
-      })
-    })
-  })
-
-  return options
+export const getSelectedWidget = state => {
+  const id = appSelectors.getSelectedWidgetID(state.app)
+  return getWidget(state, id)
 }
 
 const getWidgetsForTreeMemoized = memoize(state => {
   const widgets = {}
-  widgets.animates = animatesSelectors.getAnimatesForTree(state.animates, generateWidgetId)
-  widgets.buttons = buttonsSelectors.getButtonsForTree(state.buttons, generateWidgetId)
-  widgets.ranges = rangesSelectors.getRangesForTree(state.ranges, generateWidgetId)
+  widgets.buttons = buttonsSelectors.getAll(state.buttons)
+  widgets.ranges = rangesSelectors.getAll(state.ranges)
+  widgets.models = modelsSelectors.getAll(state.models)
+  widgets.animates = animatesSelectors.getAll(state.animates)
+  widgets.actions = actionsSelectors.getAll(state.actions)
   return widgets
 })
 
 export const getWidgetsForTree = state => {
   return getWidgetsForTreeMemoized(state)
 }
+
+export const getModelsForDropdown = state => modelsSelectors.getModelsForDropdown(state.models)

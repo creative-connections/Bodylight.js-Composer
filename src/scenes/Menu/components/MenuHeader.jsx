@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import { Menu, Dropdown } from 'semantic-ui-react'
-
 import { newProject } from '@actions/actions'
 
 class MenuHeader extends Component {
@@ -31,8 +29,10 @@ class MenuHeader extends Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ newProject }, dispatch)
-}
-
-export default connect(undefined, mapDispatchToProps)(MenuHeader)
+export default connect(
+  state => ({
+  }),
+  dispatch => bindActionCreators({
+    newProject
+  }, dispatch)
+)(MenuHeader)

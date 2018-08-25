@@ -24,20 +24,20 @@ import getReferenceFromName from './templates/model/getReferenceFromName'
 import play from './templates/model/play'
 import pause from './templates/model/pause'
 
-import WidgetType from '@helpers/WidgetType'
-import ValueProviderType from '@helpers/ValueProviderType'
+import WidgetType from '@helpers/enum/WidgetType'
+import ProviderType from '@helpers/enum/ProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
 import buildRangeConfig from './builders/widgets/Range/config'
 import buildButtonConfig from './builders/widgets/Button/config'
 
-import appendModels from './builders/models/models'
-import buildModelConfig from './builders/models/config'
+import appendModels from './builders/widgets/models/models'
+import buildModelConfig from './builders/widgets/models/config'
 
-import buildActionConfig from './builders/actions/config'
+import buildActionConfig from './builders/widgets/Action/config'
 
-import appendAnimates from './builders/animates/animates'
+import appendAnimates from './builders/widgets/animates/animates'
 
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
@@ -52,8 +52,8 @@ import Widget from './templates/widget/Widget'
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
 import AnimateText from './templates/widget/AnimateText'
 import Range from './templates/widget/Range'
-import Button from './templates/widget/Button'
 
+import Button from './templates/widget/Button'
 import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import initAnimateTexts from './templates/widget/AnimateText/init'
 import initRanges from './templates/widget/Range/init'
@@ -145,7 +145,7 @@ class Builder {
 
     // append enums for used types
     append(`const WidgetType = ${tpl(WidgetType)}`)
-    append(`const ValueProviderType = ${tpl(ValueProviderType)}`)
+    append(`const ProviderType = ${tpl(ProviderType)}`)
 
     // append class AnimateRuntime
     append(tpl(AnimateRuntime))

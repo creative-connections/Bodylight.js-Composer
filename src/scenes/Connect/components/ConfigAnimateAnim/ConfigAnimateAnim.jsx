@@ -9,8 +9,8 @@ import ControlledMode from './ControlledMode'
 
 import AnimateAnimMode from '@helpers/AnimateAnimMode'
 
-import { getConfigForAnimateAnim, getDefaultConfigForAnimateAnim } from '@reducers'
-import { configAnimateAnimUpdate, configAnimateAnimRemove } from '@actions'
+import { configGetAnimateAnim } from '@reducers'
+import { updateConfig } from '@actions'
 
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
@@ -22,23 +22,15 @@ class ConfigAnimateAnim extends Component {
     this.handleOnChange = this.handleOnChange.bind(this)
   }
 
-  getConfig () {
-    if (this.props.config[this.props.anim.parent] === undefined ||
-       this.props.config[this.props.anim.parent][this.props.anim.name] === undefined) {
-      return this.props.defaultConfig
-    }
-    return this.props.config[this.props.anim.parent][this.props.anim.name]
-  }
-
   handleOnChange (e, {name, value, checked}) {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
-    this.props.configAnimateAnimUpdate(this.props.anim, name, value)
+    this.props.updateConfig(this.props.anim, name, value)
   }
 
   render () {
-    const config = this.getConfig()
+    const config = this.props.config
 
     return (
       <div>
@@ -88,12 +80,10 @@ class ConfigAnimateAnim extends Component {
 }
 
 export default connect(
-  state => ({
-    config: getConfigForAnimateAnim(state),
-    defaultConfig: getDefaultConfigForAnimateAnim()
+  (state, props) => ({
+    config: configGetAnimateAnim(state, props.anim.id)
   }),
   dispatch => bindActionCreators({
-    configAnimateAnimRemove,
-    configAnimateAnimUpdate
+    updateConfig
   }, dispatch)
 )(ConfigAnimateAnim)

@@ -1,12 +1,12 @@
-import { BUTTON, BUTTON_NAME, stripPrefix } from '../types.js'
+import { BUTTON, BUTTON_ID } from '../types.js'
 
 import configureStore from '@src/configureStore'
 import update from 'immutability-helper'
 
-import { getButtons } from '@reducers'
+import { configGetButton } from '@reducers'
 import { editorPlaceButton, editorRemoveButton } from '@actions/actions'
 
-import { handleChangeName } from '../../commons/Components'
+import { handleChangeID } from '../../commons/Components'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -22,9 +22,9 @@ export default (editor) => {
         attributes: {},
         classes: [],
         traits: [{
-          type: BUTTON_NAME,
-          label: 'name',
-          name: 'name'
+          type: BUTTON_ID,
+          label: 'Button widget',
+          name: 'id'
         }],
         resizable: true
       })
@@ -37,13 +37,20 @@ export default (editor) => {
     }),
     view: defaultType.view.extend({
       events: {
-        changeName: 'handleChangeName',
+        changeID: 'handleChangeID',
         click: 'handleClick'
       },
 
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
-        this.el.innerHTML = `btn: ${this.el.name}`
+        let innerHTML = 'Button UNSET'
+
+        let button
+        if ((button = this.getButton()) !== null) {
+          innerHTML = `${button.name}`
+        }
+
+        this.el.innerHTML = innerHTML
         return this
       },
 
@@ -52,15 +59,11 @@ export default (editor) => {
        * @return {button configuration}
        */
       getButton () {
-        const name = this.attr.name
-        const buttons = getButtons(configureStore().store.getState())
-
-        if (typeof name === 'undefined' || name === null || name === '' ||
-            typeof buttons[name] === 'undefined') {
+        const id = this.attr.id
+        if (typeof id === 'undefined' || id === null || id === '') {
           return null
         }
-
-        return update(buttons[name], {name: {$set: name}})
+        return configGetButton(configureStore().store.getState(), id)
       },
 
       handleClick () {
@@ -70,15 +73,15 @@ export default (editor) => {
         }
       },
 
-      handleChangeName (event) {
-        handleChangeName(this, event, editorPlaceButton, editorRemoveButton)
+      handleChangeID (event) {
+        handleChangeID(this, event, editorPlaceButton, editorRemoveButton)
       },
 
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
 
-        const name = this.attr.name
-        configureStore().store.dispatch(editorRemoveButton(stripPrefix(name)))
+        const id = this.attr.id
+        configureStore().store.dispatch(editorRemoveButton(id))
       }
 
     })

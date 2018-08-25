@@ -1,15 +1,14 @@
 import React from 'react'
-import { Dimmer, Loader } from 'semantic-ui-react'
+import { Transition, Dimmer, Loader, Header } from 'semantic-ui-react'
 
-const BusySignal = ({isBusy = true}) => {
-  if (isBusy) {
-    return (
-      <Dimmer active inverted>
-        <Loader inverted>Loading</Loader>
-      </Dimmer>
-    )
-  }
-  return null
+const BusySignal = ({busy = true}) => {
+  return <Transition visible={busy} animation='fade' duration={300} unmountOnHide={true}>
+    <Dimmer active={busy} page>
+      <Header as='h2' icon inverted>
+        <Loader size='massive'/>
+      </Header>
+    </Dimmer>
+  </Transition>
 }
 
 export default BusySignal

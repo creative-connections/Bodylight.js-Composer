@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { Icon } from 'semantic-ui-react'
 
-import WidgetType from '@helpers/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 
 class TreeNode extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      collapsed: false
+      collapsed: props.collapsed === undefined ? false : props.collapsed
     }
 
     this.onIconClick = this.onIconClick.bind(this)
@@ -27,6 +27,12 @@ class TreeNode extends Component {
     }
     if (this.props.type === WidgetType.BUTTON) {
       return 'square'
+    }
+    if (this.props.type === WidgetType.MODEL) {
+      return 'cog'
+    }
+    if (this.props.type === WidgetType.ACTION) {
+      return 'code'
     }
   }
 
@@ -55,7 +61,7 @@ class TreeNode extends Component {
 
   render () {
     let className = ''
-    if (this.props.selected !== undefined &&
+    if (this.props.selected !== undefined && this.props.selected !== null &&
       this.props.selected.id === this.props.id &&
       this.props.id !== undefined) {
       className = 'selected'

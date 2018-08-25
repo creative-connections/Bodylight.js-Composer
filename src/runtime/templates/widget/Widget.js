@@ -36,22 +36,21 @@ export default class Widget {
     return this.valueProviders
   }
 
-  setValueProvider (attribute, name, target) {
-    target.registerValueListener(this, name, attribute)
-    target.registerInitialValueListener(this, name, attribute)
+  setValueProvider (attribute, id, target) {
+    target.registerValueListener(this, id, attribute)
+    target.registerInitialValueListener(this, id, attribute)
   }
 
   setValueProviders (providers) {
     Object.entries(providers).forEach(([attribute, config]) => {
-      this.setValueProvider(attribute, config.name, config.target)
+      this.setValueProvider(attribute, config.id, config.target)
     })
   }
 
   locateComponent () {
-    const componentName = `${this.typeIdentifier}-${this.name}`
-    const component = document.getElementsByName(componentName)[0]
-    if (component === undefined) {
-      throw new ReferenceError(`Widget (${this.name}) of type (${this.typeIdentifier}) with name="${componentName}" not found.`)
+    const component = document.getElementById(this.id)
+    if (component === null || component === undefined) {
+      throw new ReferenceError(`Widget (${this.name}) of type (${this.typeIdentifier}) was not found.`)
     }
     return component
   }
