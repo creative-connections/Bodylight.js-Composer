@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { NavLink } from 'react-router-dom'
 
-import { Dropdown, Divider, Button, Header, Grid, Transition, Segment, Icon } from 'semantic-ui-react'
+import { Grid, Icon } from 'semantic-ui-react'
 
 import {
   getAvailableRangeName
@@ -12,7 +12,8 @@ import {
 import {
   addRange,
   addButton,
-  addAction
+  addAction,
+  addToggle
 } from '@actions'
 
 class WidgetMenu extends Component {
@@ -94,6 +95,16 @@ class WidgetMenu extends Component {
             </NavLink>
           </Grid.Column>
         </Grid.Row>
+        <Grid.Row centered>
+          <Grid.Column width={8}>
+            <NavLink to='/' className='block' onClick={this.props.addToggle}>
+              <Icon name='toggle on'/>
+              Toggle
+            </NavLink>
+          </Grid.Column>
+          <Grid.Column width={8}>
+          </Grid.Column>
+        </Grid.Row>
 
         <Grid.Row centered className='group-title'>
           <Grid.Column width={16}>
@@ -123,6 +134,7 @@ export default connect(
   dispatch => bindActionCreators({
     addRange,
     addButton,
-    addAction
+    addAction,
+    addToggle
   }, dispatch)
 )(WidgetMenu)
