@@ -31,6 +31,7 @@ import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
 import buildRangeConfig from './builders/widgets/Range/config'
 import buildButtonConfig from './builders/widgets/Button/config'
+import buildToggleConfig from './builders/widgets/Toggle/config'
 
 import appendModels from './builders/widgets/models/models'
 import buildModelConfig from './builders/widgets/models/config'
@@ -54,10 +55,12 @@ import AnimateText from './templates/widget/AnimateText'
 import Range from './templates/widget/Range'
 
 import Button from './templates/widget/Button'
+import Toggle from './templates/widget/Toggle'
 import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import initAnimateTexts from './templates/widget/AnimateText/init'
 import initRanges from './templates/widget/Range/init'
 import initButtons from './templates/widget/Button/init'
+import initToggles from './templates/widget/Toggle/init'
 
 // API
 import getModel from './templates/api/getModel'
@@ -137,6 +140,7 @@ class Builder {
     append(`config.widgets.animateTexts = ${tpl(buildAnimateTextConfig())}`)
     append(`config.widgets.ranges = ${tpl(buildRangeConfig())}`)
     append(`config.widgets.buttons = ${tpl(buildButtonConfig())}`)
+    append(`config.widgets.toggles = ${tpl(buildToggleConfig())}`)
 
     // create model functions
     // TODO: refactor to config.models[model].functions with overrides
@@ -164,6 +168,9 @@ class Builder {
 
     append(tpl(Button))
     append(tpl(initButtons))
+
+    append(tpl(Toggle))
+    append(tpl(initToggles))
 
     append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))

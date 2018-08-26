@@ -5,6 +5,7 @@ export default function initWidgets () {
   promises.push(initAnimateTexts())
   promises.push(initRanges())
   promises.push(initButtons())
+  promises.push(initToggles())
 
   return promises
 }

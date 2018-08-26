@@ -1,10 +1,10 @@
-export default function initButtons () {
+export default function initToggles () {
   return new Promise(resolve => {
-    const buttons = config.widgets.buttons
-    Object.entries(buttons).forEach(([name, configuration]) => {
-      let button
+    const toggles = config.widgets.toggles
+    Object.entries(toggles).forEach(([name, configuration]) => {
+      let toggle
       try {
-        button = new Button(configuration)
+        toggle = new Toggle(configuration)
       } catch (e) {
         if (e instanceof ReferenceError) {
           console.warn(e.message)
@@ -13,7 +13,7 @@ export default function initButtons () {
           throw e
         }
       }
-      widgets.push(button)
+      widgets.push(toggle)
     })
     resolve()
   })
