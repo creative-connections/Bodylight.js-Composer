@@ -5,6 +5,7 @@ import ranges, * as rangesSelectors from './reducers/ranges'
 import animates, * as animatesSelectors from './reducers/animates'
 import animateTexts, * as animateTextsSelectors from './reducers/animateTexts'
 import animateAnims, * as animateAnimsSelectors from './reducers/animateAnims'
+import toggles, * as togglesSelectors from './reducers/toggles'
 import actions, * as actionsSelectors from './reducers/actions'
 
 import memoize from 'memoize-one'
@@ -16,6 +17,7 @@ export default combineReducers({
   animates,
   animateTexts,
   animateAnims,
+  toggles,
   actions
 })
 
@@ -34,6 +36,9 @@ export const configGetAllAnimateTexts = state => animateTextsSelectors.getAll(st
 export const configGetAnimateText = (state, id) => animateTextsSelectors.get(state.animateTexts, id)
 export const configGetAllAnimateAnims = state => animateAnimsSelectors.getAll(state.animateAnims)
 export const configGetAnimateAnim = (state, id) => animateAnimsSelectors.get(state.animateAnims, id)
+
+export const configGetAllToggles = state => togglesSelectors.getAll(state.toggles)
+export const configGetToggle = (state, id) => togglesSelectors.get(state.toggles, id)
 
 export const configGetAllActions = state => actionsSelectors.getAll(state.actions)
 export const configGetAction = (state, id) => actionsSelectors.get(state.actions, id)

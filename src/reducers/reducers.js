@@ -54,6 +54,8 @@ export const configGetAllAnimateAnims = state => configSelectors.configGetAllAni
 export const configGetAnimateAnim = (state, id) => configSelectors.configGetAnimateAnim(state.config, id)
 export const configGetAllActions = state => configSelectors.configGetAllActions(state.config)
 export const configGetAction = (state, id) => configSelectors.configGetAction(state.config, id)
+export const configGetAllToggles = state => configSelectors.configGetAllToggles(state.config)
+export const configGetToggle = (state, id) => configSelectors.configGetToggle(state.config, id)
 
 export const getProvidersForDropdown = state => configSelectors.getProvidersForDropdown(state.config)
 
