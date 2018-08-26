@@ -35,7 +35,7 @@ export const getModels = state => widgetSelectors.getModels(state.widgets)
 export const getRanges = state => widgetSelectors.getRanges(state.widgets)
 export const getButtons = state => widgetSelectors.getButtons(state.widgets)
 export const getActions = state => widgetSelectors.getActions(state.widgets)
-export const getToggles = state => widgetSelectors.getActions(state.widgets)
+export const getToggles = state => widgetSelectors.getToggles(state.widgets)
 
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
 export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(state.widgets)

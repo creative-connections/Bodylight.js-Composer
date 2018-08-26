@@ -10,6 +10,7 @@ export const getInputEl = (trait, getComponents) => {
     select.add(option)
     const currentValue = trait.getModelValue()
     const components = getComponents(configureStore().store.getState())
+    console.log(components)
 
     Object.entries(components).forEach(([id, component]) => {
       const option = document.createElement('option')
