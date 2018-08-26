@@ -7,6 +7,7 @@ import ranges, * as rangesSelectors from './reducers/ranges'
 import models, * as modelsSelectors from './reducers/models'
 import animates, * as animatesSelectors from './reducers/animates'
 import actions, * as actionsSelectors from './reducers/actions'
+import toggles, * as togglesSelectors from './reducers/toggles'
 
 import memoize from 'memoize-one'
 
@@ -16,6 +17,7 @@ export default combineReducers({
   models,
   animates,
   actions,
+  toggles,
   app
 })
 
@@ -24,7 +26,7 @@ export const getRanges = state => rangesSelectors.getAll(state.ranges)
 export const getModels = state => modelsSelectors.getAll(state.models)
 export const getAnimates = state => animatesSelectors.getAll(state.animates)
 export const getActions = state => actionsSelectors.getAll(state.actions)
-
+export const getToggles = state => togglesSelectors.getAll(state.toggles)
 
 const getWidgetMemoized = memoize((state, id) => {
   let widget = null
@@ -33,6 +35,7 @@ const getWidgetMemoized = memoize((state, id) => {
   if ((widget = modelsSelectors.get(state.models, id)) !== null) { return widget }
   if ((widget = animatesSelectors.get(state.animates, id)) !== null) { return widget }
   if ((widget = actionsSelectors.get(state.actions, id)) !== null) { return widget }
+  if ((widget = togglesSelectors.get(state.toggles, id)) !== null) { return widget }
   return widget
 })
 
@@ -52,6 +55,7 @@ const getWidgetsForTreeMemoized = memoize(state => {
   widgets.models = modelsSelectors.getAll(state.models)
   widgets.animates = animatesSelectors.getAll(state.animates)
   widgets.actions = actionsSelectors.getAll(state.actions)
+  widgets.toggles = togglesSelectors.getAll(state.toggles)
   return widgets
 })
 

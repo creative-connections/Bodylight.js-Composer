@@ -5,7 +5,8 @@ const WidgetType = {
   ANIMATE_TEXT: 'ANIMATE_TEXT',
   RANGE: 'RANGE',
   BUTTON: 'BUTTON',
-  ACTION: 'ACTION'
+  ACTION: 'ACTION',
+  TOGGLE: 'TOGGLE'
 }
 
 export default WidgetType
