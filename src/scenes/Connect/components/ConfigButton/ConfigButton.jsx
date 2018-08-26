@@ -24,7 +24,7 @@ class ConfigButton extends Component {
 
   handleAutoRename () {
     let config = this.props.config
-    // const provider = ValueProviders.value(config.target.provider)
+    const provider = ValueProviders.value(config.target.provider)
     const generatedName = `${provider.parent}.${provider.name}`
     this.rename(null, {value: generatedName})
   }

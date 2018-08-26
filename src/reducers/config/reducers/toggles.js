@@ -79,7 +79,7 @@ const defaultConfig = {
   }
 }
 
-const type = WidgetType.BUTTON
+const type = WidgetType.TOGGLE
 
 export default function (state = {}, action) {
   switch (action.type) {

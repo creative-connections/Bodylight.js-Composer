@@ -12,6 +12,7 @@ import ConfigAnimateAnim from './ConfigAnimateAnim'
 import ConfigAnimateText from './ConfigAnimateText'
 import ConfigRange from './ConfigRange'
 import ConfigButton from './ConfigButton'
+import ConfigToggle from './ConfigToggle'
 import ConfigAction from './ConfigAction'
 
 import WidgetMenu from '@components/WidgetMenu'
@@ -32,6 +33,8 @@ class WidgetSettings extends Component {
           return <ConfigRange range={selectedWidget} />
         case WidgetType.BUTTON:
           return <ConfigButton button={selectedWidget} />
+        case WidgetType.TOGGLE:
+          return <ConfigToggle toggle={selectedWidget} />
         case WidgetType.ACTION:
           return <ConfigAction action={selectedWidget} />
       }
