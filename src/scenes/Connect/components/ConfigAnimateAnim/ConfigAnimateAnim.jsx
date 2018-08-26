@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -32,50 +32,46 @@ class ConfigAnimateAnim extends Component {
   render () {
     const config = this.props.config
 
-    return (
-      <div>
-        <Header as="h2">Anim: {this.props.anim.name}</Header>
+    return <Fragment>
+      <Grid verticalAlign='middle' celled='internally'>
+        <GridRow label='Mode:'>
+          <Checkbox
+            radio
+            label='Controlled by value'
+            name='mode'
+            value={AnimateAnimMode.CONTROLLED}
+            checked={config.mode === AnimateAnimMode.CONTROLLED}
+            onClick={this.handleOnChange}
+          />
+          <br/>
+          <br/>
+          <Checkbox
+            radio
+            label='Always running'
+            name='mode'
+            value={AnimateAnimMode.CONTINUOUS}
+            checked={config.mode === AnimateAnimMode.CONTINUOUS}
+            onClick={this.handleOnChange}
+          />
 
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Mode:'>
-            <Checkbox
-              radio
-              label='Controlled by value'
-              name='mode'
-              value={AnimateAnimMode.CONTROLLED}
-              checked={config.mode === AnimateAnimMode.CONTROLLED}
-              onClick={this.handleOnChange}
-            />
-            <br/>
-            <br/>
-            <Checkbox
-              radio
-              label='Always running'
-              name='mode'
-              value={AnimateAnimMode.CONTINUOUS}
-              checked={config.mode === AnimateAnimMode.CONTINUOUS}
-              onClick={this.handleOnChange}
-            />
+        </GridRow>
+        <GridRow label='Value:'>
+          <ComplexAttribute
+            forceComplex={true}
+            name='value'
+            attribute={config.value}
+            onChange={this.handleOnChange}
+          />
+        </GridRow>
+      </Grid>
 
-          </GridRow>
-          <GridRow label='Value:'>
-            <ComplexAttribute
-              forceComplex={true}
-              name='value'
-              attribute={config.value}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-        </Grid>
-
-        {config.mode === AnimateAnimMode.CONTINUOUS && <ContinuousMode anim={this.props.anim}/>}
-        {config.mode === AnimateAnimMode.CONTROLLED && <ControlledMode
-          anim={this.props.anim}
-          onChange={this.handleOnChange}
-          config={config}
-        />}
-      </div>
-    )
+      {config.mode === AnimateAnimMode.CONTINUOUS && <ContinuousMode anim={this.props.anim}/>}
+      {config.mode === AnimateAnimMode.CONTROLLED && <ControlledMode
+        anim={this.props.anim}
+        onChange={this.handleOnChange}
+        config={config}
+      />}
+    </Fragment>
   }
 }
 

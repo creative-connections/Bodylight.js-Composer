@@ -64,7 +64,7 @@ const defaultConfig = {
   args: {
     length: 0
   },
-  function: null
+  function: ''
 }
 
 const type = WidgetType.ACTION

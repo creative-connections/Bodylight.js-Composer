@@ -53,7 +53,6 @@ class ConfigRange extends Component {
     const config = this.props.config
     return (
       <div>
-        <Header as="h2">Range: {this.props.range.name}</Header>
         <Grid verticalAlign='middle' celled='internally'>
           <GridRow label='Name:'>
             <Input

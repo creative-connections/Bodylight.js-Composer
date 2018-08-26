@@ -33,7 +33,6 @@ class ConfigAction extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <Header as="h2">Action: {this.props.action.name}</Header>
       <Grid verticalAlign='middle' celled='internally'>
         <GridRow label='Name:'>
           <Input

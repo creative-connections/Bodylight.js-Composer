@@ -32,7 +32,6 @@ class ConfigAnimate extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <Header as="h2">Animate: {config.name}</Header>
       <AnimateInfo config={config} animate={this.props.animate}/>
       <Divider hidden/>
       <Grid verticalAlign='middle' celled='internally'>

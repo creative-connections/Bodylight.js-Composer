@@ -7,15 +7,14 @@ import ScreenSelector from './components/ScreenSelector'
 import Tree from './components/Tree'
 
 const AppMenu = () => {
-  return (
+  return <Fragment>
     <Menu vertical fixed='left' id='main-menu'>
-      <Fragment>
-        <MenuHeader/>
-        <ScreenSelector/>
-        <Tree/>
-      </Fragment>
+      <Menu.Item header>Bodylight.js Composer</Menu.Item>
+      <MenuHeader/>
+      <ScreenSelector/>
+      <Tree/>
     </Menu>
-  )
+  </Fragment>
 }
 
 export default AppMenu

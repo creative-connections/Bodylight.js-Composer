@@ -18,7 +18,6 @@ class MenuHeader extends Component {
   render () {
     return (
       <Fragment>
-        <Menu.Item header>Bodylight.js Composer</Menu.Item>
         <Dropdown item text='File'>
           <Dropdown.Menu style={{ minWidth: 15 + 'em' }}>
             <Dropdown.Item onClick={this.handleNew}>New</Dropdown.Item>

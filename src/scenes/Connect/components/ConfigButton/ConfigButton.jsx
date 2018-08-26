@@ -89,7 +89,6 @@ class ConfigButton extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <Header as="h2">Button: {this.props.button.name}</Header>
       <Grid verticalAlign='middle' celled='internally'>
         <GridRow label='Name:'>
           <Input

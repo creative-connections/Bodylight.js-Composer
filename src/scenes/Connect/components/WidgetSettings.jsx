@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Grid, Menu } from 'semantic-ui-react'
 
 import WidgetType from '@helpers/enum/WidgetType'
 import { getSelectedWidget } from '@reducers'
@@ -13,9 +14,10 @@ import ConfigRange from './ConfigRange'
 import ConfigButton from './ConfigButton'
 import ConfigAction from './ConfigAction'
 
+import WidgetMenu from './WidgetMenu'
+
 class WidgetSettings extends Component {
-  render () {
-    const selectedWidget = this.props.selectedWidget
+  renderSelectedWidget (selectedWidget) {
     if (selectedWidget !== null) {
       switch (selectedWidget.type) {
         case WidgetType.MODEL:
@@ -35,6 +37,26 @@ class WidgetSettings extends Component {
       }
     }
     return null
+  }
+
+  render () {
+    const selectedWidget = this.props.selectedWidget
+
+    return <Fragment>
+      <div id='topBar' className='header'>
+        <span>{selectedWidget && selectedWidget.name}</span>
+      </div>
+      <Grid padded centered className='leftShadow topPadded'>
+        <Grid.Row centered style={{ paddingTop: 0, paddingBottom: 0 }}>
+          <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
+            {this.renderSelectedWidget(selectedWidget)}
+          </Grid.Column>
+          <Grid.Column id='widget-menu' style={{ width: '15%' }}>
+            <WidgetMenu/>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Fragment>
   }
 }
 

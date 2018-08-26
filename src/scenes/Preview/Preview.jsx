@@ -11,9 +11,9 @@ class Preview extends Component {
   }
 
   render () {
-    return (
+    return <div className='leftShadow'>
       <iframe srcDoc={this.src} className="preview"></iframe>
-    )
+    </div>
   }
 }
 

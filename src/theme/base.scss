@@ -86,7 +86,7 @@ iframe.preview {
 #dropzone {
   display: flex;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100%;
 
 
   .dropzone {
@@ -114,14 +114,109 @@ iframe.preview {
   }
 }
 
+#DisplayContainer {
+  height: 100vh;
+}
+
+div.leftShadow {
+  height: 100%;
+  border-left: 1px solid rgba(34, 36, 38, 0.15);
+  box-shadow: inset 1px 2px 2px 0 rgba(34,36,38, 0.1);
+}
+
+div#topBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  line-height: 1;
+  height: 40px;
+  padding: 0.95em 1.15384615em;
+  color: white;
+  background-color: #444444;
+  z-index: 20;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+div.topPadded {
+  padding-top: 40px !important;
+}
+
+#widget-menu {
+  background-color: #444444;
+  border-left: 1px solid rgba(34, 36, 38, 0.15);
+  box-shadow: -1px 1px 2px 0 rgba(34, 36, 38, 0.1);
+  overflow:auto;
+
+  * {
+    color: white
+  }
+
+  .block {
+    padding: 1em;
+    box-sizing: border-box;
+    min-height: 90px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: lighter;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease 0s;
+    transition-property: box-shadow, color;
+  }
+
+  .block:hover {
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.15);
+    color: #d278c9;
+  }
+
+  .row {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .column {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+
+
+  .ui.grid {
+    margin-top: 0;
+  }
+
+  .group-title {
+    background-color: rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+    padding: 9px 10px 9px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: left;
+    position: relative;
+    font-size: 11px;
+  }
+}
+
 div#main-menu {
   width: 250px;
   min-height: 100%;
   display: flex;
   flex-direction: column;
 
-  > #menu-tree {
+  border: 0 !important;
+  box-shadow: none !important;
 
+
+  > #menu-tree {
     //direction: rtl;
     margin: 0 0 0 0;
     padding: 0.2em 0 1em 0;
@@ -206,6 +301,12 @@ div#main-menu {
   a.active > div.item.link  {
     background: rgba(0, 0, 0, 0.05);
     box-shadow: none;
+  }
+
+  .header {
+    height: 40px;
+    color: white;
+    background-color: #444444;
   }
 
 }

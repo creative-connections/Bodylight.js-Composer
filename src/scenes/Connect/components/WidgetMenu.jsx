@@ -17,23 +17,82 @@ import {
 
 class WidgetMenu extends Component {
   render () {
-    return (
-      <Fragment>
-        <NavLink to='/add/model'>
-          <Button>Add model</Button>
-        </NavLink>
-        <Divider hidden/>
-        <NavLink to='/add/animate'>
-          <Button>Add animate</Button>
-        </NavLink>
-        <Divider hidden/>
-        <Button onClick={this.props.addRange}>Add range</Button>
-        <Divider hidden/>
-        <Button onClick={this.props.addButton}>Add button</Button>
-        <Divider hidden/>
-        <Button onClick={this.props.addAction}>Add action</Button>
-      </Fragment>
-    )
+    return <div id='connect-menu'>
+      <Grid centered>
+        <Grid.Row centered className='group-title'>
+          <Grid.Column width={16}>
+            Providers
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered>
+          <Grid.Column width={8}>
+            <NavLink to='/add/model' className='block'> Model </NavLink>
+          </Grid.Column>
+          <Grid.Column width={8}>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered className='group-title'>
+          <Grid.Column width={16}>
+            Visualisation
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          <Grid.Column width={8}>
+            <NavLink to='/add/animate' className='block'> Animate </NavLink>
+          </Grid.Column>
+          <Grid.Column width={8}>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered className='group-title'>
+          <Grid.Column width={16}>
+            Controls
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          <Grid.Column width={8}>
+            <div className='block' onClick={this.props.addRange}>
+              Range
+            </div>
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <div className='block' onClick={this.props.addButton}>
+              Button
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          <Grid.Column width={8}>
+            <div className='block' onClick={this.props.addRange}>
+              Range
+            </div>
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <div className='block' onClick={this.props.addButton}>
+              Button
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered className='group-title'>
+          <Grid.Column width={16}>
+            Meta
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          <Grid.Column width={8}>
+            <div className='block' onClick={this.props.addAction}>
+              Action
+            </div>
+          </Grid.Column>
+          <Grid.Column width={8}>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+
+    </div>
   }
 }
 

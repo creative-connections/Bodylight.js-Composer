@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
 import { Redirect } from 'react-router-dom'
+import { Grid, Menu } from 'semantic-ui-react'
 
 import DropZone from '@components/DropZone'
 import BusySignal from '@components/BusySignal'
@@ -70,15 +71,23 @@ class AddAnimate extends Component {
 
   render () {
     return <Fragment>
-      <BusySignal busy={this.state.pending} />
-      {this.state.redirect && <Redirect to="/"/>}
-      <DropZone display={true}
-        onDropAccepted={this.fileUploaded}
-        onDropRejected={this.fileRejected}
-        description='HTML5 Canvas .js from Animate CC'
-        accept='application/javascript, text/javascript'
-        imgSrc='/images/an.png'
-      />
+      <div id='topBar' className='header'>
+      </div>
+      <Grid padded centered className='leftShadow topPadded'>
+        <Grid.Row centered padded='horizontally'>
+          <Grid.Column width={16}>
+            <BusySignal busy={this.state.pending} />
+            {this.state.redirect && <Redirect to="/"/>}
+            <DropZone display={true}
+              onDropAccepted={this.fileUploaded}
+              onDropRejected={this.fileRejected}
+              description='HTML5 Canvas .js from Animate CC'
+              accept='application/javascript, text/javascript'
+              imgSrc='/images/an.png'
+            />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Fragment>
   }
 }

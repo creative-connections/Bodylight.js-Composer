@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
 import { Redirect } from 'react-router-dom'
+import { Grid } from 'semantic-ui-react'
 
 import DropZone from '@components/DropZone'
 import BusySignal from '@components/BusySignal'
@@ -56,15 +57,24 @@ class AddModel extends Component {
 
   render () {
     return <Fragment>
-      <BusySignal busy={this.state.pending} />
-      {this.state.redirect && <Redirect to="/"/>}
-      <DropZone display={true}
-        onDropAccepted={this.fileUploaded}
-        onDropRejected={this.fileRejected}
-        description='.zip file from the Bodylight.js compiler'
-        accept='application/zip, application/x-zip, application/x-zip-compressed, multipart/x-zip, application/zip-compressed'
-        imgSrc='/images/wafmi.png'
-      />
+
+      <div id='topBar' className='header'>
+      </div>
+      <Grid padded centered className='leftShadow topPadded'>
+        <Grid.Row centered padded='horizontally'>
+          <Grid.Column width={16}>
+            <BusySignal busy={this.state.pending} />
+            {this.state.redirect && <Redirect to="/"/>}
+            <DropZone display={true}
+              onDropAccepted={this.fileUploaded}
+              onDropRejected={this.fileRejected}
+              description='.zip file from the Bodylight.js compiler'
+              accept='application/zip, application/x-zip, application/x-zip-compressed, multipart/x-zip, application/zip-compressed'
+              imgSrc='/images/wafmi.png'
+            />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Fragment>
   }
 }

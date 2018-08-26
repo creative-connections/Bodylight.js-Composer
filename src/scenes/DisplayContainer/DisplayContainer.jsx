@@ -10,7 +10,7 @@ import AddAnimate from '@scenes/Add/AddAnimate'
 
 const DisplayContainer = () => {
   return <Fragment>
-    <Container>
+    <Container id='DisplayContainer'>
       <Route exact path="/" component={Connect}/>
       <Route path="/design" component={Design} />
       <Route path="/preview" component={Preview} />

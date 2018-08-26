@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -25,34 +25,30 @@ class ConfigAnimateText extends Component {
 
   render () {
     const config = this.props.config
-    return (
-      <div>
-        <Header as="h2">AnimateText: {this.props.text.name}</Header>
+    return <Fragment>
+      <Grid verticalAlign='middle' celled='internally'>
+        <GridRow label='Value:'>
+          <ComplexAttribute
+            name='value'
+            attribute={config.value}
+            onChange={this.handleOnChange}
+          />
+        </GridRow>
+      </Grid>
 
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Value:'>
-            <ComplexAttribute
-              name='value'
-              attribute={config.value}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-        </Grid>
+      <br></br>
 
-        <br></br>
-
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='visible:'>
-            <ComplexAttribute
-              label="Display the text"
-              name='visible'
-              attribute={config.visible}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-        </Grid>
-      </div>
-    )
+      <Grid verticalAlign='middle' celled='internally'>
+        <GridRow label='visible:'>
+          <ComplexAttribute
+            label="Display the text"
+            name='visible'
+            attribute={config.visible}
+            onChange={this.handleOnChange}
+          />
+        </GridRow>
+      </Grid>
+    </Fragment>
   }
 }
 
