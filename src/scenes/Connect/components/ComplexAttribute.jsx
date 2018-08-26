@@ -1,5 +1,5 @@
 import React from 'react'
-import { Transition, Checkbox, Input } from 'semantic-ui-react'
+import { Checkbox, Input, Fragment } from 'semantic-ui-react'
 
 import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'
@@ -55,22 +55,12 @@ const renderProvider = (name, attribute, onChange) => {
 }
 
 const renderFunction = (name, attribute, onChange) => {
-  return <Transition
-    transitionOnMount={true}
-    animation='slide right'
-    duration={200}
-    visible={true}>
-
-    <div>
-      <FunctionEditor
-        name={`${name}.function`}
-        value={attribute.function}
-        onChange={onChange}
-        typeof={attribute.typeof}
-      />
-
-    </div>
-  </Transition>
+  return <FunctionEditor
+    name={`${name}.function`}
+    value={attribute.function}
+    onChange={onChange}
+    typeof={attribute.typeof}
+  />
 }
 
 const addFunction = (name, attribute, onChange) => {
@@ -94,30 +84,21 @@ const renderAddFunction = (name, attribute, onChange) => {
 }
 
 const renderSimple = ({name, label, attribute, onChange, forceSimple = false}) => {
-  return <Transition animation='slide right'
-    transitionOnMount={true}
-    duration={200}
-    visible={true}>
-    <div>
-      {renderValueInput(name, label, attribute, onChange)}
-      {forceSimple === false && renderComplexCheckbox(name, attribute, onChange)}
-    </div>
-  </Transition>
+  return <div>
+    {renderValueInput(name, label, attribute, onChange)}
+    {forceSimple === false && renderComplexCheckbox(name, attribute, onChange)}
+  </div>
 }
 
 const renderComplex = ({name, attribute, onChange, forceComplex = false, disableFunction = false}) => {
-  return <Transition transitionOnMount={true} animation='slide right'
-    duration={200}
-    visible={true}>
+  return <div>
+    {renderProvider(name, attribute, onChange)}
+    {!disableFunction && renderAddFunction(name, attribute, onChange)}
+    {forceComplex === false && renderComplexCheckbox(name, attribute, onChange)}
     <div>
-      {renderProvider(name, attribute, onChange)}
-      {!disableFunction && renderAddFunction(name, attribute, onChange)}
-      {forceComplex === false && renderComplexCheckbox(name, attribute, onChange)}
-      <div>
-        {attribute.function !== null && renderFunction(name, attribute, onChange)}
-      </div>
+      {attribute.function !== null && renderFunction(name, attribute, onChange)}
     </div>
-  </Transition>
+  </div>
 }
 
 const ComplexAttribute = (props) => {
