@@ -28,7 +28,7 @@ const defaultConfig = {
     value: null,
     provider: null,
     function: null,
-    typeof: 'number'
+    typeof: false
   },
 
   events: [
@@ -44,6 +44,7 @@ const defaultConfig = {
   attributes: [
     'label',
     'enabled',
+    'visible',
     'onClick',
     'onPress',
     'onRelease'
