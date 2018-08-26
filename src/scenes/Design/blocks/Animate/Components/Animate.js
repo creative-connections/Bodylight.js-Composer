@@ -1,10 +1,8 @@
 import configureStore from '@src/configureStore'
-import update from 'immutability-helper'
 import AnimateRuntime from '@runtime/templates/AnimateRuntime'
-
-import { editorPlaceAnimate, editorRemoveAnimate } from '@actions'
+import WidgetType from '@helpers/enum/WidgetType'
 import { configGetAnimate } from '@reducers'
-
+import { editorWidgetRemove } from '@actions'
 import { ANIMATE, ANIMATE_ID } from '../types.js'
 import { handleChangeID } from '../../commons/Components'
 
@@ -72,7 +70,7 @@ export default (editor) => {
        * need to redraw it in the editor.
        */
       handleChangeID (event) {
-        handleChangeID(this, event, editorPlaceAnimate, editorRemoveAnimate)
+        handleChangeID(this, event, WidgetType.ANIMATE)
         this.attachRuntime()
       },
 
@@ -224,7 +222,9 @@ export default (editor) => {
 
         // update redux state that we have removed our animate endpoint
         const id = this.attr.id
-        configureStore().store.dispatch(editorRemoveAnimate(id))
+        if (id) {
+          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.ANIMATE))
+        }
       }
 
     })

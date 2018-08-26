@@ -1,12 +1,9 @@
 import { BUTTON, BUTTON_ID } from '../types.js'
-
-import configureStore from '@src/configureStore'
-import update from 'immutability-helper'
-
 import { configGetButton } from '@reducers'
-import { editorPlaceButton, editorRemoveButton } from '@actions/actions'
-
+import { editorWidgetRemove } from '@actions'
 import { handleChangeID } from '../../commons/Components'
+import configureStore from '@src/configureStore'
+import WidgetType from '@helpers/enum/WidgetType'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -74,14 +71,16 @@ export default (editor) => {
       },
 
       handleChangeID (event) {
-        handleChangeID(this, event, editorPlaceButton, editorRemoveButton)
+        handleChangeID(this, event, WidgetType.BUTTON)
       },
 
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
 
         const id = this.attr.id
-        configureStore().store.dispatch(editorRemoveButton(id))
+        if (id) {
+          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.BUTTON))
+        }
       }
 
     })

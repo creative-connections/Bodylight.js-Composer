@@ -1,13 +1,9 @@
 import { RANGE, RANGE_ID } from '../types.js'
-
-import configureStore from '@src/configureStore'
 import { configGetRange } from '@reducers'
-
-import update from 'immutability-helper'
-
 import { handleChangeID } from '../../commons/Components'
-
-import { editorPlaceRange, editorRemoveRange } from '@actions/actions'
+import { editorWidgetRemove } from '@actions/actions'
+import configureStore from '@src/configureStore'
+import WidgetType from '@helpers/enum/WidgetType'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -56,14 +52,16 @@ export default (editor) => {
       },
 
       handleChangeID (event) {
-        handleChangeID(this, event, editorPlaceRange, editorRemoveRange)
+        handleChangeID(this, event, WidgetType.RANGE)
       },
 
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
 
         const id = this.attr.id
-        configureStore().store.dispatch(editorRemoveRange(id))
+        if (id) {
+          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.RANGE))
+        }
       },
 
       handleClick () {
