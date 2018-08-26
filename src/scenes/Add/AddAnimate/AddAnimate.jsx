@@ -14,6 +14,8 @@ import Runtime from '@runtime/templates/AnimateRuntime'
 import preprocess from './preprocess'
 import generateHash from '@helpers/generateHash'
 
+import WidgetMenu from '@components/WidgetMenu'
+
 class AddAnimate extends Component {
   constructor (props) {
     super(props)
@@ -74,8 +76,8 @@ class AddAnimate extends Component {
       <div id='topBar' className='header'>
       </div>
       <Grid padded centered className='leftShadow topPadded'>
-        <Grid.Row centered padded='horizontally'>
-          <Grid.Column width={16}>
+        <Grid.Row centered padded='horizontally' className='notPadded'>
+          <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
             <BusySignal busy={this.state.pending} />
             {this.state.redirect && <Redirect to="/"/>}
             <DropZone display={true}
@@ -85,6 +87,9 @@ class AddAnimate extends Component {
               accept='application/javascript, text/javascript'
               imgSrc='/images/an.png'
             />
+          </Grid.Column>
+          <Grid.Column id='widget-menu' style={{ width: '15%' }}>
+            <WidgetMenu/>
           </Grid.Column>
         </Grid.Row>
       </Grid>

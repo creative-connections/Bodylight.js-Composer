@@ -150,8 +150,10 @@ div.topPadded {
   box-shadow: -1px 1px 2px 0 rgba(34, 36, 38, 0.1);
   overflow:auto;
 
+  line-height: normal;
+
   * {
-    color: white
+    color: #eee
   }
 
   .block {
@@ -163,6 +165,7 @@ div.topPadded {
     font-weight: lighter;
     text-align: center;
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -173,11 +176,30 @@ div.topPadded {
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
     transition: all 0.2s ease 0s;
     transition-property: box-shadow, color;
+
+    svg {
+      fill: currentColor;
+      width: 54px;
+      transition: all 0.2s ease 0s;
+    }
+
+    .icon {
+      font-size: 3.2em;
+      transition: all 0.2s ease 0s;
+    }
   }
 
   .block:hover {
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.15);
     color: #d278c9;
+
+    svg {
+      fill: #d278c9;
+    }
+
+    .icon {
+      color: #d278c9;
+    }
   }
 
   .row {
@@ -189,6 +211,8 @@ div.topPadded {
       padding-right: 5px;
     }
   }
+
+
 
 
   .ui.grid {
@@ -204,6 +228,11 @@ div.topPadded {
     position: relative;
     font-size: 11px;
   }
+}
+
+.grid .notPadded {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 div#main-menu {

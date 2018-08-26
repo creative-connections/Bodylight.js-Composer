@@ -14,7 +14,7 @@ import ConfigRange from './ConfigRange'
 import ConfigButton from './ConfigButton'
 import ConfigAction from './ConfigAction'
 
-import WidgetMenu from './WidgetMenu'
+import WidgetMenu from '@components/WidgetMenu'
 
 class WidgetSettings extends Component {
   renderSelectedWidget (selectedWidget) {

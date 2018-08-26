@@ -13,6 +13,8 @@ import generateHash from '@helpers/generateHash'
 
 import { addModel } from '@actions'
 
+import WidgetMenu from '@components/WidgetMenu'
+
 class AddModel extends Component {
   constructor (props) {
     super(props)
@@ -61,8 +63,8 @@ class AddModel extends Component {
       <div id='topBar' className='header'>
       </div>
       <Grid padded centered className='leftShadow topPadded'>
-        <Grid.Row centered padded='horizontally'>
-          <Grid.Column width={16}>
+        <Grid.Row centered padded='horizontally' className='notPadded'>
+          <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
             <BusySignal busy={this.state.pending} />
             {this.state.redirect && <Redirect to="/"/>}
             <DropZone display={true}
@@ -72,6 +74,9 @@ class AddModel extends Component {
               accept='application/zip, application/x-zip, application/x-zip-compressed, multipart/x-zip, application/zip-compressed'
               imgSrc='/images/wafmi.png'
             />
+          </Grid.Column>
+          <Grid.Column id='widget-menu' style={{ width: '15%' }}>
+            <WidgetMenu/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
