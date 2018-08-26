@@ -1,5 +1,5 @@
 import React from 'react'
-import { Transition, Dimmer, Loader, Header } from 'semantic-ui-react'
+import { Dimmer, Loader } from 'semantic-ui-react'
 
 const BusySignal = ({ busy = true, description = null }) => {
   return <Dimmer active={busy} page>
