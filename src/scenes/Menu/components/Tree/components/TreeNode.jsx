@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Icon } from 'semantic-ui-react'
 
 import WidgetType from '@helpers/enum/WidgetType'
@@ -7,8 +7,13 @@ class TreeNode extends Component {
   constructor (props) {
     super(props)
 
+    let collapsed = null
+    if (props.collapsable === true) {
+      collapsed = props.collapsed === undefined ? false : props.collapsed
+    }
+
     this.state = {
-      collapsed: props.collapsed === undefined ? false : props.collapsed
+      collapsed
     }
 
     this.onIconClick = this.onIconClick.bind(this)
@@ -42,50 +47,26 @@ class TreeNode extends Component {
     })
   }
 
-  renderItem () {
-    if (this.state.collapsed) {
-      return <Fragment>
-        <Icon size='small' name="plus square outline" onClick={this.onIconClick}/>
-        <Icon name={this.getIcon()}/>
-        {this.props.name}
-      </Fragment>
-    }
-
-    return <Fragment>
-      <Icon size='small' name="minus square outline" onClick={this.onIconClick}/>
-      <Icon name={this.getIcon()}/>
-      {this.props.name}
-      <ul>{this.props.children}</ul>
-    </Fragment>
-  }
-
   render () {
     let className = ''
-    if (this.props.selected !== undefined && this.props.selected !== null &&
-      this.props.selected.id === this.props.id &&
-      this.props.id !== undefined) {
+    if (this.props.selected && this.props.id && this.props.selected.id === this.props.id) {
       className = 'selected'
     }
 
-    if (this.props.collapsable) {
-      return (
-        <Fragment>
-          <li
-            className={className}
-            onClick={this.props.onClick}
-            data-id={this.props.id}
-          >
-            {this.renderItem()}
-          </li>
-        </Fragment>
-      )
-    }
-    return (
-      <li className={className} onClick={this.props.onClick} data-id={this.props.id}>
-        <Icon name={this.getIcon()}/>
-        {this.props.name}
-      </li>
-    )
+    return <li className={className} onClick={this.props.onClick} data-id={this.props.id}>
+      { this.state.collapsed === true &&
+        <Icon size='small' name="plus square outline" onClick={this.onIconClick}/>
+      }
+      { this.state.collapsed === false &&
+        <Icon size='small' name="minus square outline" onClick={this.onIconClick}/>
+      }
+      <Icon name={this.getIcon()}/>
+      {this.props.name}
+
+      { this.state.collapsed === false &&
+        <ul>{this.props.children}</ul>
+      }
+    </li>
   }
 }
 
