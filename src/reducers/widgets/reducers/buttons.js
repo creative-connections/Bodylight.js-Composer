@@ -1,20 +1,33 @@
 import {
   ADD_WIDGET,
-  RENAME_WIDGET
+  RENAME_WIDGET,
+  EDITOR_WIDGET_PLACE,
+  EDITOR_WIDGET_REMOVE
 } from '@actions/types'
 
+import {
+  addWidget,
+  getWidget,
+  renameWidget,
+  setWidgetPlaced
+} from '../commons/widget.js'
+
 import WidgetType from '@helpers/enum/WidgetType'
-import { addWidget, getWidget, renameWidget } from '../commons/widget.js'
 import memoize from 'memoize-one'
 
 const type = WidgetType.BUTTON
 
 export default function (state = {}, action) {
-  if (action.type === ADD_WIDGET) {
-    return addWidget(state, action.payload, type)
-  }
-  if (action.type === RENAME_WIDGET) {
-    return renameWidget(state, action.payload, type)
+  switch (action.type) {
+    case ADD_WIDGET:
+      return addWidget(state, action.payload, type)
+    case RENAME_WIDGET:
+      return renameWidget(state, action.payload, type)
+
+    case EDITOR_WIDGET_PLACE:
+      return setWidgetPlaced(state, action.payload, type, true)
+    case EDITOR_WIDGET_REMOVE:
+      return setWidgetPlaced(state, action.payload, type, false)
   }
   return state
 }

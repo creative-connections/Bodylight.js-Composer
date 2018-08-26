@@ -1,5 +1,4 @@
 import update from 'immutability-helper'
-import WidgetType from '@helpers/enum/WidgetType'
 
 export const addWidget = (state, payload, type) => {
   if (type !== payload.type) { return state }
@@ -8,8 +7,7 @@ export const addWidget = (state, payload, type) => {
     id: payload.id,
     name: 'unnamed',
     type: payload.type,
-    placed: false,
-    configured: true
+    placed: false
   }
 
   return update(state, { [payload.id]: {$set: widget} })
@@ -30,4 +28,12 @@ export const getWidget = (state, id) => {
     return null
   }
   return state[id]
+}
+
+export const setWidgetPlaced = (state, payload, type, placed) => {
+  if (type !== payload.widget.type) { return state }
+  if (state[payload.widget.id].placed === placed) { return state }
+  return update(state, {
+    [payload.widget.id]: { placed: {$set: placed} }
+  })
 }

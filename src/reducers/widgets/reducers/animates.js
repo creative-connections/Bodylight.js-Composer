@@ -1,11 +1,22 @@
-import { ADD_WIDGET, RENAME_WIDGET } from '@actions/types'
-import { renameWidget } from '../commons/widget.js'
+import {
+  ADD_WIDGET,
+  RENAME_WIDGET,
+  EDITOR_WIDGET_PLACE,
+  EDITOR_WIDGET_REMOVE
+} from '@actions/types'
+
+import {
+  renameWidget,
+  setWidgetPlaced
+} from '../commons/widget.js'
 
 import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
 import memoize from 'memoize-one'
 
-const addAnimate = (state, payload, type) => {
+const type = WidgetType.ANIMATE
+
+const addAnimate = (state, payload) => {
   if (type !== payload.type) { return state }
 
   const animate = {
@@ -13,7 +24,6 @@ const addAnimate = (state, payload, type) => {
     name: payload.name,
     type: payload.type,
     placed: false,
-    configured: true,
     anims: payload.anim,
     texts: payload.text
   }
@@ -21,14 +31,17 @@ const addAnimate = (state, payload, type) => {
   return update(state, { [animate.id]: {$set: animate} })
 }
 
-const type = WidgetType.ANIMATE
-
 export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
       return addAnimate(state, action.payload, type)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
+
+    case EDITOR_WIDGET_PLACE:
+      return setWidgetPlaced(state, action.payload, type, true)
+    case EDITOR_WIDGET_REMOVE:
+      return setWidgetPlaced(state, action.payload, type, false)
   }
   return state
 }

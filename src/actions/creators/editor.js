@@ -16,10 +16,10 @@ export const editorStorageClear = () => ({
 
 export const editorWidgetPlace = (id, type) => ({
   type: EDITOR_WIDGET_PLACE,
-  payload: {id, type}
+  payload: {widget: {id, type}}
 })
 
 export const editorWidgetRemove = (id, type) => ({
   type: EDITOR_WIDGET_REMOVE,
-  payload: {id, type}
+  payload: {widget: {id, type}}
 })

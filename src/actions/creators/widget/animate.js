@@ -17,9 +17,7 @@ export const addAnimate = (source, hash, animateName, components) => {
       id,
       name,
       parent: animateID,
-      type: WidgetType.ANIMATE_ANIM,
-      placed: false,
-      configured: false
+      type: WidgetType.ANIMATE_ANIM
     }
   })
 
@@ -29,9 +27,7 @@ export const addAnimate = (source, hash, animateName, components) => {
       id,
       name,
       parent: animateID,
-      type: WidgetType.ANIMATE_TEXT,
-      placed: false,
-      configured: false
+      type: WidgetType.ANIMATE_TEXT
     }
   })
 
