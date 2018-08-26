@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import TreeNode from './TreeNode'
 
 class Items extends Component {
@@ -9,6 +9,7 @@ class Items extends Component {
         id={item.id}
         name={item.name}
         type={item.type}
+        placed={item.placed}
         onClick={this.props.onClick}
         selected={this.props.selected}
       />

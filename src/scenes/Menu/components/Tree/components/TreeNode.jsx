@@ -66,6 +66,10 @@ class TreeNode extends Component {
       { this.state.collapsed === false &&
         <ul>{this.props.children}</ul>
       }
+
+      { this.props.placed === true &&
+        <span title='Widget is placed in the editor, and will be exported' className='placed'>●</span>
+      }
     </li>
   }
 }

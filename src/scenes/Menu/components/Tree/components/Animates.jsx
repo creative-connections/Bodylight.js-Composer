@@ -11,6 +11,7 @@ class Animates extends Component {
           id={anim.id}
           name={anim.name}
           type={anim.type}
+          placed={anim.placed}
           onClick={this.props.onClick}
           selected={this.props.selected}
         />)
@@ -23,6 +24,7 @@ class Animates extends Component {
           id={text.id}
           name={text.name}
           type={text.type}
+          placed={text.placed}
           onClick={this.props.onClick}
           selected={this.props.selected}
         />)
