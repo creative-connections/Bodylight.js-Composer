@@ -6,10 +6,6 @@ import { NavLink } from 'react-router-dom'
 import { Grid, Icon } from 'semantic-ui-react'
 
 import {
-  getAvailableRangeName
-} from '@reducers'
-
-import {
   addRange,
   addButton,
   addAction,
@@ -128,9 +124,7 @@ class WidgetMenu extends Component {
 }
 
 export default connect(
-  state => ({
-    'getAvailableRangeName': () => getAvailableRangeName(state)
-  }),
+  state => ({ }),
   dispatch => bindActionCreators({
     addRange,
     addButton,

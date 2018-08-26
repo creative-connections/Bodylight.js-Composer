@@ -36,8 +36,6 @@ export const getRanges = state => widgetSelectors.getRanges(state.widgets)
 export const getButtons = state => widgetSelectors.getButtons(state.widgets)
 export const getActions = state => widgetSelectors.getActions(state.actions)
 
-export const getAvailableRangeName = (state, root) => widgetSelectors.getAvailableRangeName(state.widgets, root)
-
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
 export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(state.widgets)
 

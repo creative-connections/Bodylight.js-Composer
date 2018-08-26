@@ -25,7 +25,6 @@ export const getModels = state => modelsSelectors.getAll(state.models)
 export const getAnimates = state => animatesSelectors.getAll(state.animates)
 export const getActions = state => actionsSelectors.getAll(state.actions)
 
-export const getAvailableRangeName = (state, root) => rangesSelectors.getAvailableRangeName(state.ranges, root)
 
 const getWidgetMemoized = memoize((state, id) => {
   let widget = null
