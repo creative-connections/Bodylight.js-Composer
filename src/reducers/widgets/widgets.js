@@ -63,4 +63,9 @@ export const getWidgetsForTree = state => {
   return getWidgetsForTreeMemoized(state)
 }
 
-export const getModelsForDropdown = state => modelsSelectors.getModelsForDropdown(state.models)
+export const getModelsForDropdown = state => modelsSelectors.getForDropdown(state.models)
+export const getAnimateAnimsForDropdown = state => animatesSelectors.getAnimsForDropdown(state.animates)
+export const getAnimateTextsForDropdown = state => animatesSelectors.getTextsForDropdown(state.animates)
+export const getButtonsForDropdown = state => buttonsSelectors.getForDropdown(state.buttons)
+export const getRangesForDropdown = state => rangesSelectors.getForDropdown(state.ranges)
+export const getTogglesForDropdown = state => togglesSelectors.getForDropdown(state.toggles)

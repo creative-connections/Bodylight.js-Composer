@@ -7,6 +7,7 @@ import {
 
 import {
   addWidget,
+  getWidgetsForDropdown,
   getWidget,
   renameWidget,
   setWidgetPlaced
@@ -34,3 +35,4 @@ export default function (state = {}, action) {
 
 export const get = memoize(getWidget)
 export const getAll = state => state
+export const getForDropdown = memoize(getWidgetsForDropdown)

@@ -9,7 +9,7 @@ export default function initAnimateAnimsControlled () {
         configuration.animate = animate
 
         try {
-          widgets.push(new AnimateAnimControlled(configuration))
+          widgets[configuration.id] = new AnimateAnimControlled(configuration)
         } catch (e) {
           if (e instanceof ReferenceError) {
             console.warn(e.message)

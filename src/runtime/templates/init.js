@@ -14,8 +14,8 @@ function init () {
       initWidgets()
     ]).then(() => {
       resolveValueProviders()
-      Object.entries(models).forEach(([name, model]) => model.init())
-      Object.entries(widgets).forEach(([name, widget]) => widget.updateComponent())
+      Object.entries(models).forEach(([id, model]) => model.init())
+      Object.entries(widgets).forEach(([id, widget]) => widget.updateComponent())
     })
   }
   )

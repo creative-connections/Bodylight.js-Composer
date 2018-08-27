@@ -16,7 +16,7 @@ export default function resolveValueProviders () {
     }
   }
 
-  widgets.forEach(widget => {
+  Object.entries(widgets).forEach(([id, widget]) => {
     const providers = widget.getValueProviders()
     const resolved = []
     Object.entries(providers).forEach(([attribute, id]) => {

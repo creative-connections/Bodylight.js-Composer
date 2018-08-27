@@ -7,6 +7,7 @@ import {
 
 import {
   getWidget,
+  getWidgetsForDropdown,
   renameWidget,
   setWidgetPlaced
 } from '../commons/widget.js'
@@ -41,20 +42,4 @@ export default function (state = {}, action) {
 
 export const getAll = state => state
 export const get = memoize(getWidget)
-
-const getModelsForDropdownMemoized = memoize(
-  state => {
-    const options = []
-    Object.entries(state).forEach(([id, model]) => {
-      options.push({
-        key: id,
-        text: model.name,
-        value: id
-      })
-    })
-    return options
-  }
-)
-export const getModelsForDropdown = state => {
-  return getModelsForDropdownMemoized(state)
-}
+export const getForDropdown = memoize(getWidgetsForDropdown)

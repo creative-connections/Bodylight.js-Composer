@@ -13,7 +13,7 @@ export default function initToggles () {
           throw e
         }
       }
-      widgets.push(toggle)
+      widgets[toggle.id] = toggle
     })
     resolve()
   })

@@ -7,7 +7,7 @@ export default function initAnimateTexts () {
       Object.entries(widgetlist).forEach(([name, configuration]) => {
         configuration.animate = animate
         try {
-          widgets.push(new AnimateText(configuration))
+          widgets[configuration.id] = new AnimateText(configuration)
         } catch (e) {
           if (e instanceof ReferenceError) {
             console.warn(e.message)

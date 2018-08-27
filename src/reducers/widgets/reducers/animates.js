@@ -57,3 +57,33 @@ const getMemoized = memoize((state, id) => {
   return null
 })
 export const get = getMemoized
+
+const getAnimsForDropdownMemoized = memoize(state => {
+  const options = []
+  for (const [animateID, animate] of Object.entries(state)) {
+    for (const [animID, anim] of Object.entries(animate.anims)) {
+      options.push({
+        key: animID,
+        text: `${animate.name}: ${anim.name}`,
+        value: animID
+      })
+    }
+  }
+  return options
+})
+export const getAnimsForDropdown = getAnimsForDropdownMemoized
+
+const getTextsForDropdownMemoized = memoize(state => {
+  const options = []
+  for (const [animateID, animate] of Object.entries(state)) {
+    for (const [textID, text] of Object.entries(animate.texts)) {
+      options.push({
+        key: textID,
+        text: `${animate.name}: ${text.name}`,
+        value: textID
+      })
+    }
+  }
+  return options
+})
+export const getTextsForDropdown = getTextsForDropdownMemoized

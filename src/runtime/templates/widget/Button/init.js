@@ -13,7 +13,7 @@ export default function initButtons () {
           throw e
         }
       }
-      widgets.push(button)
+      widgets[button.id] = button
     })
     resolve()
   })

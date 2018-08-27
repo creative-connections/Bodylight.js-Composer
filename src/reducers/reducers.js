@@ -64,3 +64,8 @@ export const getEditorStorage = state => editorStorageSelectors.getEditorStorage
 export const getFunctionEditorConfig = state => functionEditorConfigSelectors.getFunctionEditorConfig(state.functionEditorConfig)
 
 export const getModelsForDropdown = state => widgetSelectors.getModelsForDropdown(state.widgets)
+export const getAnimateAnimsForDropdown = state => widgetSelectors.getAnimateAnimsForDropdown(state.widgets)
+export const getAnimateTextsForDropdown = state => widgetSelectors.getAnimateTextsForDropdown(state.widgets)
+export const getButtonsForDropdown = state => widgetSelectors.getButtonsForDropdown(state.widgets)
+export const getRangesForDropdown = state => widgetSelectors.getRangesForDropdown(state.widgets)
+export const getTogglesForDropdown = state => widgetSelectors.getTogglesForDropdown(state.widgets)

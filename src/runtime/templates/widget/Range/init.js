@@ -14,7 +14,7 @@ export default function initRanges () {
           throw e
         }
       }
-      widgets.push(range)
+      widgets[range.id] = range
     })
     resolve()
   })

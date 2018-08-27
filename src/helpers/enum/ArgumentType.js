@@ -1,13 +1,10 @@
 const ArgumentType = {
-  MODEL: 'model'
+  MODEL: 'Model',
+  ANIMATE_ANIM: 'Animate Anim',
+  ANIMATE_TEXT: 'Animate Text',
+  BUTTON: 'Button',
+  RANGE: 'Range',
+  TOGGLE: 'Toggle'
 }
 
 export default ArgumentType
-
-export const argumentTypeToTypeof = type => {
-  switch (type) {
-    case ArgumentType.MODEL: {
-      return 'string'
-    }
-  }
-}

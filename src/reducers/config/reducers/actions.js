@@ -27,7 +27,7 @@ const defaultState = {
         value: null
       }
     },
-    function: `getModel(model).pause()`
+    function: `model.pause()`
   },
   'V39ogkQlQ3SZIcPVkttVHg': {
     id: 'V39ogkQlQ3SZIcPVkttVHg',
@@ -42,7 +42,7 @@ const defaultState = {
         value: null
       }
     },
-    function: `getModel(model).play()`
+    function: `model.play()`
   },
   'TTyO1JbbRmmPTid4aWp9XQ': {
     id: 'TTyO1JbbRmmPTid4aWp9XQ',

@@ -18,7 +18,12 @@ class Args extends Component {
 
   getArgumentsForDropdown () {
     return [
-      {value: ArgumentType.MODEL, text: 'model'}
+      {value: ArgumentType.MODEL, text: 'Model'},
+      {value: ArgumentType.ANIMATE_ANIM, text: 'Animate Anim'},
+      {value: ArgumentType.ANIMATE_TEXT, text: 'Animate Text'},
+      {value: ArgumentType.BUTTON, text: 'Button'},
+      {value: ArgumentType.RANGE, text: 'Range'},
+      {value: ArgumentType.TOGGLE, text: 'Toggle'}
     ]
   }
 

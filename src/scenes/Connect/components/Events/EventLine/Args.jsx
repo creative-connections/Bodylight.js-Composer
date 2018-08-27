@@ -3,7 +3,15 @@ import { Dropdown, Input, Checkbox, Header, Grid, Divider, Transition } from 'se
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { getModelsForDropdown } from '@reducers'
+import {
+  getModelsForDropdown,
+  getAnimateAnimsForDropdown,
+  getAnimateTextsForDropdown,
+  getButtonsForDropdown,
+  getRangesForDropdown,
+  getTogglesForDropdown
+
+} from '@reducers'
 import ArgumentType from '@helpers/enum/ArgumentType'
 
 import update from 'immutability-helper'
@@ -35,10 +43,26 @@ class Args extends Component {
 
   renderArgument (id, argument) {
     let options = null
-    let type = null
-    if (argument.type === ArgumentType.MODEL) {
-      options = this.props.models
-      type = argument.type
+    let type = argument.type
+    switch (argument.type) {
+      case ArgumentType.MODEL:
+        options = this.props.models
+        break
+      case ArgumentType.ANIMATE_ANIM:
+        options = this.props.animateAnims
+        break
+      case ArgumentType.ANIMATE_TEXT:
+        options = this.props.animateTexts
+        break
+      case ArgumentType.BUTTON:
+        options = this.props.buttons
+        break
+      case ArgumentType.RANGE:
+        options = this.props.ranges
+        break
+      case ArgumentType.TOGGLE:
+        options = this.props.toggles
+        break
     }
 
     return <Fragment key={id}>
@@ -80,7 +104,12 @@ class Args extends Component {
 
 export default connect(
   state => ({
-    models: getModelsForDropdown(state)
+    models: getModelsForDropdown(state),
+    animateAnims: getAnimateAnimsForDropdown(state),
+    animateTexts: getAnimateTextsForDropdown(state),
+    buttons: getButtonsForDropdown(state),
+    ranges: getRangesForDropdown(state),
+    toggles: getTogglesForDropdown(state)
   }),
   dispatch => bindActionCreators({
   }, dispatch)

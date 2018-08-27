@@ -63,7 +63,7 @@ import initButtons from './templates/widget/Button/init'
 import initToggles from './templates/widget/Toggle/init'
 
 // API
-import getModel from './templates/api/getModel'
+import appendAPI from './templates/api'
 
 class Builder {
   constructor () {
@@ -183,7 +183,7 @@ class Builder {
     append(tpl(init))
 
     // API
-    append(tpl(getModel))
+    appendAPI(append, tpl)
 
     // initialize everything
     append('init()')
