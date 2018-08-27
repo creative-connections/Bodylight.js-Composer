@@ -22,6 +22,11 @@ const defaultState = {
     id: 'TTyO1JbbRmmPTid4aWp9XQ',
     name: 'updateThisWidget',
     type: WidgetType.ACTION
+  },
+  'H4mja3wsSKWv1xVcK3Hgxg': {
+    id: 'H4mja3wsSKWv1xVcK3Hgxg',
+    name: 'resetModel',
+    type: WidgetType.ACTION
   }
 }
 

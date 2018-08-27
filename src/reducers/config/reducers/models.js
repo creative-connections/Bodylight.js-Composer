@@ -20,6 +20,10 @@ const defaultConfig = {
   interval: 20.0,
   stepSize: 0.05,
 
+  batch: 10,
+  startTime: 0.0,
+  stopTime: 60.0,
+
   id: null,
   name: null,
   originalName: null,

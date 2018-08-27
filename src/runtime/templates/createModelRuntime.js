@@ -16,16 +16,12 @@ export default function createModelRuntime (Model, config, functions) {
       )
 
       model.init = functions.init.bind(model)
+      model.instantiate = functions.instantiate.bind(model)
+      model.setup = functions.setup.bind(model)
+      model.reset = functions.reset.bind(model)
 
       model.gettersAndSetters = functions.gettersAndSetters.bind(model)
       model.gettersAndSetters()
-
-      // global defines
-      model.WidgetType = WidgetType
-      model.ProviderType = ProviderType
-
-      model.modelTick = functions.modelTick.bind(model)
-      model.stageTick = functions.stageTick.bind(model)
 
       model.updateOutputValues = functions.updateOutputValues.bind(model)
 
@@ -38,14 +34,24 @@ export default function createModelRuntime (Model, config, functions) {
       model.registerInitialValueListener = functions.registerInitialValueListener.bind(model)
 
       model.registerValueSetter = functions.registerValueSetter.bind(model)
-      model.setValue = functions.setValue.bind(model)
       model.updateValueListeners = functions.updateValueListeners.bind(model)
       model.updateInitialValueListeners = functions.updateInitialValueListeners.bind(model)
 
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
 
-      model.play = functions.play.bind(model)
-      model.pause = functions.pause.bind(model)
+      if (model.config.mode === 'continuous') {
+        model.play = functions.continuous.play.bind(model)
+        model.pause = functions.continuous.pause.bind(model)
+        model.setValue = functions.continuous.setValue.bind(model)
+        model.modelTick = functions.continuous.modelTick.bind(model)
+        model.stageTick = functions.continuous.stageTick.bind(model)
+      }
+
+      if (model.config.mode === 'oneshot') {
+        model.play = functions.oneshot.play.bind(model)
+        model.pause = functions.oneshot.pause.bind(model)
+        model.setValue = functions.oneshot.setValue.bind(model)
+      }
 
       console.log(`Model ${model.config.name} ready.`)
       resolve(model)

@@ -53,6 +53,22 @@ const defaultState = {
       length: 0
     },
     function: `window.setTimeout(this.updateComponent(), 50)`
+  },
+  'H4mja3wsSKWv1xVcK3Hgxg': {
+    id: 'H4mja3wsSKWv1xVcK3Hgxg',
+    name: 'resetModel',
+    label: 'Reset model',
+    description: 'Resets model to initial state',
+    args: {
+      length: 1,
+      0: {
+        name: 'model',
+        type: ArgumentType.MODEL,
+        value: null
+      }
+    },
+    function: 'model.reset()'
+
   }
 }
 

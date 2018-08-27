@@ -11,18 +11,26 @@ import cwrapFunctions from './templates/model/cwrapFunctions'
 import consoleLogger from './templates/model/consoleLogger'
 import gettersAndSetters from './templates/model/gettersAndSetters'
 import modelInit from './templates/model/init'
-import modelTick from './templates/model/modelTick'
-import stageTick from './templates/model/stageTick'
+import modelTick from './templates/model/continuous/modelTick'
+import stageTick from './templates/model/continuous/stageTick'
 import updateOutputValues from './templates/model/updateOutputValues'
 import registerValueListener from './templates/model/registerValueListener'
 import registerInitialValueListener from './templates/model/registerInitialValueListener'
 import registerValueSetter from './templates/model/registerValueSetter'
 import updateValueListeners from './templates/model/updateValueListeners'
 import updateInitialValueListeners from './templates/model/updateInitialValueListeners'
-import setValue from './templates/model/setValue'
 import getReferenceFromName from './templates/model/getReferenceFromName'
-import play from './templates/model/play'
-import pause from './templates/model/pause'
+
+import instantiate from './templates/model/instantiate'
+import setup from './templates/model/setup'
+import reset from './templates/model/reset'
+
+import continuousPlay from './templates/model/continuous/play'
+import continuousPause from './templates/model/continuous/pause'
+import continuousSetValue from './templates/model/continuous/setValue'
+import oneshotPlay from './templates/model/oneshot/play'
+import oneshotPause from './templates/model/oneshot/pause'
+import oneshotSetValue from './templates/model/oneshot/setValue'
 
 import WidgetType from '@helpers/enum/WidgetType'
 import ProviderType from '@helpers/enum/ProviderType'
@@ -88,8 +96,9 @@ class Builder {
     this.append('functions.consoleLogger = ' + this.tpl(consoleLogger))
     this.append('functions.gettersAndSetters = ' + this.tpl(gettersAndSetters))
     this.append('functions.init = ' + this.tpl(modelInit))
-    this.append('functions.modelTick = ' + this.tpl(modelTick))
-    this.append('functions.stageTick = ' + this.tpl(stageTick))
+    this.append('functions.instantiate = ' + this.tpl(instantiate))
+    this.append('functions.setup = ' + this.tpl(setup))
+    this.append('functions.reset = ' + this.tpl(reset))
     this.append('functions.updateOutputValues = ' + this.tpl(updateOutputValues))
     this.append('functions.registerValueListener = ' + this.tpl(registerValueListener))
     this.append('functions.registerInitialValueListener = ' + this.tpl(registerInitialValueListener))
@@ -97,9 +106,18 @@ class Builder {
     this.append('functions.updateInitialValueListeners = ' + this.tpl(updateInitialValueListeners))
     this.append('functions.registerValueSetter = ' + this.tpl(registerValueSetter))
     this.append('functions.getReferenceFromName = ' + this.tpl(getReferenceFromName))
-    this.append('functions.setValue = ' + this.tpl(setValue))
-    this.append('functions.play = ' + this.tpl(play))
-    this.append('functions.pause = ' + this.tpl(pause))
+
+    this.append('functions.continuous = {}')
+    this.append('functions.continuous.play = ' + this.tpl(continuousPlay))
+    this.append('functions.continuous.pause = ' + this.tpl(continuousPause))
+    this.append('functions.continuous.setValue = ' + this.tpl(continuousSetValue))
+    this.append('functions.continuous.modelTick = ' + this.tpl(modelTick))
+    this.append('functions.continuous.stageTick = ' + this.tpl(stageTick))
+
+    this.append('functions.oneshot = {}')
+    this.append('functions.oneshot.play = ' + this.tpl(oneshotPlay))
+    this.append('functions.oneshot.pause = ' + this.tpl(oneshotPause))
+    this.append('functions.oneshot.setValue = ' + this.tpl(oneshotSetValue))
   }
 
   build () {

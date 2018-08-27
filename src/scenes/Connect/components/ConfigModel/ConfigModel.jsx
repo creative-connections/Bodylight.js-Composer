@@ -36,18 +36,26 @@ class ConfigModel extends Component {
 
   renderContinuous (config) {
     return <Fragment>
-      <GridRow label='Interval [ms]'>
-        <InputFloat
-          name='interval'
-          value={config.interval}
-          onChange={this.handleOnChange}>
-          <input />
-        </InputFloat>
-      </GridRow>
       <GridRow label='Step length [time]'>
         <InputFloat
           name='stepSize'
           value={config.stepSize}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow>
+      <GridRow label='Start time'>
+        <InputFloat
+          name='startTime'
+          value={config.startTime}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow>
+      <GridRow label='Interval [ms]'>
+        <InputFloat
+          name='interval'
+          value={config.interval}
           onChange={this.handleOnChange}>
           <input />
         </InputFloat>
@@ -59,9 +67,40 @@ class ConfigModel extends Component {
   }
 
   renderOneshot (config) {
-    return <GridRow>
-      <p>Not implemented yet</p>
-    </GridRow>
+    return <Fragment>
+      <GridRow label='Step length [time]'>
+        <InputFloat
+          name='stepSize'
+          value={config.stepSize}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow>
+      <GridRow label='Start time'>
+        <InputFloat
+          name='startTime'
+          value={config.startTime}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow>
+      <GridRow label='Stop time'>
+        <InputFloat
+          name='stopTime'
+          value={config.stopTime}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow>
+      <GridRow label='Batch update count'>
+        <InputFloat
+          name='batch'
+          value={config.batch}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow>
+    </Fragment>
   }
 
   renderTicked (config) {

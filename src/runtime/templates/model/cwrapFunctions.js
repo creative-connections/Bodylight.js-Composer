@@ -38,6 +38,11 @@ export default function cwrapFunctions () {
       'number'
     ]
   )
+  this.fmi2Reset = this.cwrap(
+    this.config.identifier + '_fmi2Reset', 'number', [
+      'number'
+    ]
+  )
   this.fmi2EnterInitializationMode = this.cwrap(
     this.config.identifier + '_fmi2EnterInitializationMode', 'number', [
       'number'
