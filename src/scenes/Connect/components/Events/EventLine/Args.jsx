@@ -92,7 +92,7 @@ class Args extends Component {
       // retrieve original argument defition
       let argument = action.args[pos]
       // replace with our updated argument only if we have previously set
-      if (this.props.args[pos] !== undefined) {
+      if (this.props.args[pos] !== undefined && this.props.args[pos] !== null) {
         argument = this.props.args[pos]
       }
       components.push(this.renderArgument(pos, argument))
