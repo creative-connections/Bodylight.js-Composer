@@ -42,7 +42,6 @@ class ConfigToggle extends Component {
 
   render () {
     const config = this.props.config
-    console.log(config)
 
     return <Fragment>
       <Grid verticalAlign='middle' celled='internally'>
