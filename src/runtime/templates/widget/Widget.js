@@ -80,6 +80,7 @@ export default class Widget {
   }
 
   addEventListener (type, callback) {
+    console.log('ADD EVENT LISTENER', type, callback)
     if (!(type in this.listeners)) {
       this.listeners[type] = []
     }

@@ -13,6 +13,7 @@ import ButtonLink from '@components/ButtonLink'
 
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
+import Events from '../Events'
 
 class ConfigRange extends Component {
   constructor (props) {
@@ -28,7 +29,7 @@ class ConfigRange extends Component {
 
   handleAutoRename () {
     let config = this.props.config
-    // const providert= ValueProviders.value(config.target.provider)
+    const provider = ValueProviders.value(config.target.provider)
     const generatedName = `${provider.parent}.${provider.name}`
     this.renameRange(null, {value: generatedName})
   }
@@ -106,6 +107,10 @@ class ConfigRange extends Component {
             />
           </GridRow>
         </Grid>
+        <Events
+          widget={this.props.range}
+          config={config}
+        />
       </div>
     )
   }

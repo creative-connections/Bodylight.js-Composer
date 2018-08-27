@@ -39,7 +39,6 @@ export const getWidgetsForDropdown = (state) => {
       value: id
     })
   })
-  console.log('getWidgetsForDropdown')
   return options
 }
 
