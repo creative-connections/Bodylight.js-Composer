@@ -8,8 +8,14 @@ export default () => {
 
   const config = {}
   Object.entries(models).forEach(([id, configuration]) => {
+    let batch = parseFloat(configuration.batch)
+    if (batch < 2) {
+      batch = 1
+    }
     configuration = update(configuration, {
       stepSize: {$set: parseFloat(configuration.stepSize)},
+      startTime: {$set: parseFloat(configuration.startTime)},
+      stopTime: {$set: parseFloat(configuration.stopTime)},
       js: {$set: undefined}
     })
 

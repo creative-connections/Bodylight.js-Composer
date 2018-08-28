@@ -92,14 +92,6 @@ class ConfigModel extends Component {
           <input />
         </InputFloat>
       </GridRow>
-      <GridRow label='Batch update count'>
-        <InputFloat
-          name='batch'
-          value={config.batch}
-          onChange={this.handleOnChange}>
-          <input />
-        </InputFloat>
-      </GridRow>
     </Fragment>
   }
 

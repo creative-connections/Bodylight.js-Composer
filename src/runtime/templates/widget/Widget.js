@@ -70,6 +70,10 @@ export default class Widget {
     this.setters[attribute](value)
   }
 
+  setValues (attribute, values, time) {
+    this.setValue(attribute, values[values.length - 1])
+  }
+
   loadEventListeners () {
     if (this.actions === undefined || this.actions === null) {
       return

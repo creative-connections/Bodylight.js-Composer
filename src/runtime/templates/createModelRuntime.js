@@ -34,7 +34,6 @@ export default function createModelRuntime (Model, config, functions) {
       model.registerInitialValueListener = functions.registerInitialValueListener.bind(model)
 
       model.registerValueSetter = functions.registerValueSetter.bind(model)
-      model.updateValueListeners = functions.updateValueListeners.bind(model)
       model.updateInitialValueListeners = functions.updateInitialValueListeners.bind(model)
 
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
@@ -45,12 +44,14 @@ export default function createModelRuntime (Model, config, functions) {
         model.setValue = functions.continuous.setValue.bind(model)
         model.modelTick = functions.continuous.modelTick.bind(model)
         model.stageTick = functions.continuous.stageTick.bind(model)
+        model.updateValueListeners = functions.continuous.updateValueListeners.bind(model)
       }
 
       if (model.config.mode === 'oneshot') {
         model.play = functions.oneshot.play.bind(model)
         model.pause = functions.oneshot.pause.bind(model)
         model.setValue = functions.oneshot.setValue.bind(model)
+        model.updateValueListeners = functions.oneshot.updateValueListeners.bind(model)
       }
 
       console.log(`Model ${model.config.name} ready.`)
