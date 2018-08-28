@@ -5,7 +5,7 @@ export default class Widget {
 
     this.component = this.locateComponent()
 
-    console.log(`Widget (${this.typeIdentifier}) instance ${name}`)
+    console.log(`Widget (${this.typeIdentifier}) instance ${this.name}`)
 
     this.valueProviders = []
 
