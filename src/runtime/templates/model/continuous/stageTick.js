@@ -1,4 +1,7 @@
 export default function stageTick () {
-  this.updateOutputValues()
-  this.updateValueListeners()
+  if (this.updated === true) {
+    this.updateOutputValues()
+    this.updateValueListeners()
+    this.updated = false
+  }
 }

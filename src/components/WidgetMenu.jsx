@@ -9,7 +9,8 @@ import {
   addRange,
   addButton,
   addAction,
-  addToggle
+  addToggle,
+  addChart
 } from '@actions'
 
 class WidgetMenu extends Component {
@@ -57,6 +58,9 @@ class WidgetMenu extends Component {
             </NavLink>
           </Grid.Column>
           <Grid.Column width={8}>
+            <NavLink to='/' className='block' onClick={this.props.addChart}>
+              Chart
+            </NavLink>
           </Grid.Column>
         </Grid.Row>
 
@@ -133,6 +137,7 @@ export default connect(
     addRange,
     addButton,
     addAction,
-    addToggle
+    addToggle,
+    addChart
   }, dispatch)
 )(WidgetMenu)

@@ -14,6 +14,7 @@ import ConfigRange from './ConfigRange'
 import ConfigButton from './ConfigButton'
 import ConfigToggle from './ConfigToggle'
 import ConfigAction from './ConfigAction'
+import ConfigChart from './ConfigChart'
 
 import WidgetMenu from '@components/WidgetMenu'
 
@@ -35,6 +36,8 @@ class WidgetSettings extends Component {
           return <ConfigButton button={selectedWidget} />
         case WidgetType.TOGGLE:
           return <ConfigToggle toggle={selectedWidget} />
+        case WidgetType.CHART:
+          return <ConfigChart chart={selectedWidget} />
         case WidgetType.ACTION:
           return <ConfigAction action={selectedWidget} />
       }

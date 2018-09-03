@@ -26,6 +26,11 @@ function getRangeByID (id) {
   return null
 }
 
+function getChartByID (id) {
+  if (widgets[id]) { return widgets[id] }
+  return null
+}
+
 function getToggleByID (id) {
   if (widgets[id]) { return widgets[id] }
   return null
@@ -48,4 +53,5 @@ export default function api (append, tpl) {
   append(tpl(getButtonByID))
   append(tpl(getRangeByID))
   append(tpl(getToggleByID))
+  append(tpl(getChartByID))
 }

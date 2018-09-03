@@ -1,6 +1,6 @@
 import configureStore from '@src/configureStore'
 
-export const getInputEl = (trait, getComponents) => {
+export const getInputEl = (trait, getComponents, filter = true) => {
   if (!trait.inputEl) {
     let select = document.createElement('select')
 
@@ -22,7 +22,7 @@ export const getInputEl = (trait, getComponents) => {
         option.selected = true
       }
       // don't show already placed components in the list, unless it's us
-      if (component.placed === false || id === currentValue) {
+      if (component.placed === false || id === currentValue || filter === false) {
         select.add(option)
       }
     })

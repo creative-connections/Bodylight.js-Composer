@@ -42,6 +42,9 @@ class TreeNode extends Component {
     if (this.props.type === WidgetType.TOGGLE) {
       return 'toggle on'
     }
+    if (this.props.type === WidgetType.CHART) {
+      return 'picture'
+    }
   }
 
   onIconClick () {

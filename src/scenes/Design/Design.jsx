@@ -12,6 +12,7 @@ import animateBlock from './blocks/Animate'
 import buttonBlock from './blocks/Button'
 import rangeBlock from './blocks/Range'
 import toggleBlock from './blocks/Toggle'
+import chartBlock from './blocks/Chart'
 
 import configureStore from '@src/configureStore'
 import { editorStorageClear } from '@actions/actions'
@@ -66,6 +67,7 @@ class Design extends Component {
     rangeBlock(editor)
     buttonBlock(editor)
     toggleBlock(editor)
+    chartBlock(editor)
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
