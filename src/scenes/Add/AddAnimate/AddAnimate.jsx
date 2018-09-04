@@ -79,13 +79,13 @@ class AddAnimate extends Component {
         <Grid.Row centered padded='horizontally' className='notPadded'>
           <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
             <BusySignal busy={this.state.pending} />
-            {this.state.redirect && <Redirect to="/"/>}
+            {this.state.redirect && <Redirect to={`${process.env.PATH}/`}/>}
             <DropZone display={true}
               onDropAccepted={this.fileUploaded}
               onDropRejected={this.fileRejected}
               description='HTML5 Canvas .js from Animate CC'
               accept='application/javascript, text/javascript'
-              imgSrc='/images/an.png'
+              imgSrc={`${process.env.PATH}/images/an.png`}
             />
           </Grid.Column>
           <Grid.Column id='widget-menu' style={{ width: '15%' }}>

@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = (env, argv) => {
   return {
@@ -67,22 +68,27 @@ module.exports = (env, argv) => {
       }
     },
     output: {
-      path: __dirname + '/dist',
-      filename: 'bundle.js'
+      path: __dirname + '/build/',
+      filename: 'bundle.[hash].js'
     },
-    devServer: {
-      contentBase: './dist',
-      overlay: {
-        warnings: true,
-        errors: true
-      }
+    optimization: {
+      minimize: false
     },
     plugins: [
       new HtmlWebpackPlugin({
         title: 'Composer - Bodylight.js',
         template: './src/template.hbs'
       }),
-      new Dotenv()
+      new Dotenv({
+        path: './.env.prod',
+        safe: true,
+        systemvars: false,
+        silent: false
+      }),
+      new CleanWebpackPlugin(['build/*.js']),
+      new CopyWebpackPlugin([
+        { from: 'dist/images', to: 'images' }
+      ])
     ]
   }
 }

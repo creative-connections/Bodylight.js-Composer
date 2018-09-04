@@ -11,11 +11,11 @@ import AddAnimate from '@scenes/Add/AddAnimate'
 const DisplayContainer = () => {
   return <Fragment>
     <Container id='DisplayContainer'>
-      <Route exact path="/" component={Connect}/>
-      <Route path="/design" component={Design} />
-      <Route path="/preview" component={Preview} />
-      <Route path="/add/model" component={AddModel} />
-      <Route path="/add/animate" component={AddAnimate} />
+      <Route exact path={`${process.env.PATH}/`} component={Connect}/>
+      <Route path={`${process.env.PATH}/design`} component={Design} />
+      <Route path={`${process.env.PATH}/preview`} component={Preview} />
+      <Route path={`${process.env.PATH}/add/model`} component={AddModel} />
+      <Route path={`${process.env.PATH}/add/animate`} component={AddAnimate} />
     </Container>
   </Fragment>
 }

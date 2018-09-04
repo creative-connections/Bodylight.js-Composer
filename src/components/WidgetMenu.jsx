@@ -25,7 +25,7 @@ class WidgetMenu extends Component {
 
         <Grid.Row centered>
           <Grid.Column width={8}>
-            <NavLink to='/add/model' className='block'>
+            <NavLink to={`${process.env.PATH}/add/model`} className='block'>
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <g strokeWidth=".08095">
                   <path d="m22.569 19.653h-19.539v-1.4229l0.8435 0.7309 0.88308-0.7309h7.4759l0.8218 0.73 0.88624-0.73h6.92l0.83216 0.72903 0.87652-0.72903z"/>
@@ -49,7 +49,7 @@ class WidgetMenu extends Component {
         </Grid.Row>
         <Grid.Row centered>
           <Grid.Column width={8}>
-            <NavLink to='/add/animate' className='block'>
+            <NavLink to={`${process.env.PATH}/add/animate`} className='block'>
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="m0 0.3v23.4h24v-23.4zm1 1h22v21.4h-22z" clipRule="evenodd" fillRule="evenodd" strokeWidth=".1"/>
                 <path d="m6.7 13.54-0.8 2.99c-0.02 0.08-0.05 0.09-0.15 0.09h-1.47c-0.1 0-0.12-0.03-0.1-0.15l2.85-9.96c0.05-0.18 0.08-0.29 0.1-0.79 0-0.07 0.03-0.1 0.08-0.1h2.1c0.07 0 0.1 0.02 0.12 0.1l3.19 10.77c0.02 0.08 0 0.13-0.08 0.13h-1.65c-0.08 0-0.13-0.01-0.15-0.07l-0.83-3.01zm2.79-1.65c-0.28-1.11-0.94-3.52-1.19-4.7h-0.02c-0.21 1.17-0.74 3.14-1.16 4.7zm4.07-1.75c0-0.1 0-0.45-0.05-1.03 0-0.07 0.02-0.08 0.09-0.12 0.84-0.31 1.94-0.66 3.08-0.66 1.41 0 2.95 0.55 2.95 2.96v5.2c0 0.1-0.03 0.13-0.12 0.13h-1.5c-0.1 0-0.13-0.05-0.13-0.13v-5.06c0-0.96-0.34-1.49-1.33-1.49-0.43 0-0.84 0.08-1.13 0.18v6.39c0 0.07-0.03 0.12-0.1 0.12h-1.63c-0.08 0-0.12-0.03-0.12-0.12v-6.37z" clipRule="evenodd" fillRule="evenodd" strokeWidth=".1"/>
@@ -58,7 +58,7 @@ class WidgetMenu extends Component {
             </NavLink>
           </Grid.Column>
           <Grid.Column width={8}>
-            <NavLink to='/' className='block' onClick={this.props.addChart}>
+            <NavLink to={`${process.env.PATH}/`} className='block' onClick={this.props.addChart}>
               Chart
             </NavLink>
           </Grid.Column>
@@ -71,7 +71,7 @@ class WidgetMenu extends Component {
         </Grid.Row>
         <Grid.Row centered>
           <Grid.Column width={8}>
-            <NavLink to='/' className='block' onClick={this.props.addRange}>
+            <NavLink to={`${process.env.PATH}/`} className='block' onClick={this.props.addRange}>
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(0,-290.65)">
                   <path d="m-2.061e-4 299.39v2.0587h0.62853v-0.56519h7.1023l-1.9181 1.5969v2.293c0 0.38867 0.31304 0.70188 0.70187 0.70188h2.4325c0.38884 0 0.70187-0.31296 0.70187-0.70188v-2.293l-1.9181-1.597h15.77v0.5652h0.49954v-2.0587h-0.49954v0.61206h-22.872v-0.61206z"/>
@@ -81,7 +81,7 @@ class WidgetMenu extends Component {
             </NavLink>
           </Grid.Column>
           <Grid.Column width={8}>
-            <NavLink to='/' className='block' onClick={this.props.addButton}>
+            <NavLink to={`${process.env.PATH}/`} className='block' onClick={this.props.addButton}>
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(0,-290.65)">
                   <rect x=".7204" y="298.89" width="22.559" height="7.5197" ry="1.7236" fill="none" stroke="#FFF" strokeLinejoin="bevel" strokeWidth=".71612"/>
@@ -97,7 +97,7 @@ class WidgetMenu extends Component {
         </Grid.Row>
         <Grid.Row centered>
           <Grid.Column width={8}>
-            <NavLink to='/' className='block' onClick={this.props.addToggle}>
+            <NavLink to={`${process.env.PATH}/`} className='block' onClick={this.props.addToggle}>
               <svg className="gjs-block-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <g transform="matrix(.022189 0 0 .022189 -19.31 -4.5857)">
                   <path d="m925.14 747.47c0-34.759 6.7843-67.927 20.437-99.587 13.652-31.66 31.828-58.881 54.694-81.747 22.866-22.866 50.087-41.041 81.747-54.694 31.66-13.652 64.828-20.437 99.588-20.437h458.8c34.759 0 67.927 6.7843 99.588 20.437 31.66 13.652 58.881 31.828 81.747 54.694 22.866 22.866 41.041 50.087 54.694 81.747 13.652 31.66 20.521 64.828 20.521 99.587 0 34.759-6.7844 67.927-20.437 99.587-13.652 31.66-31.828 58.881-54.694 81.747-22.866 22.866-50.087 41.041-81.747 54.694-31.66 13.652-64.828 20.437-99.587 20.437h-458.8c-34.759 0-67.927-6.7843-99.587-20.437-31.66-13.652-58.881-31.828-81.747-54.694-22.866-22.866-41.041-50.087-54.694-81.747s-20.521-64.828-20.521-99.587zm715.35 205.21c27.807 0 54.275-5.4442 79.569-16.249 25.211-10.805 47.072-25.462 65.498-43.889 18.427-18.427 33.084-40.287 43.889-65.498s16.249-51.762 16.249-79.569c0-27.807-5.4442-54.275-16.249-79.569-10.805-25.211-25.462-47.072-43.889-65.498-18.427-18.427-40.287-33.084-65.498-43.889-25.211-10.805-51.762-16.249-79.569-16.249-27.808 0-54.275 5.4442-79.57 16.249-25.211 10.805-47.072 25.462-65.498 43.889-18.427 18.427-33.084 40.287-43.889 65.498s-16.249 51.762-16.249 79.569c0 27.807 5.4442 54.275 16.249 79.569 10.805 25.211 25.462 47.072 43.889 65.498 18.427 18.427 40.287 33.084 65.498 43.889 25.211 10.805 51.762 16.249 79.57 16.249z" strokeWidth=".83757"/>
@@ -117,7 +117,7 @@ class WidgetMenu extends Component {
         </Grid.Row>
         <Grid.Row centered>
           <Grid.Column width={8}>
-            <NavLink to='/' className='block' onClick={this.props.addAction}>
+            <NavLink to={`${process.env.PATH}/`} className='block' onClick={this.props.addAction}>
               <Icon name='code' />
               Action
             </NavLink>

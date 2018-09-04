@@ -34,11 +34,15 @@ class App extends Component {
 
 const {store, persistor} = configureStore()
 
+console.log(process.env)
+console.log(process.env.NODE_ENV)
+console.log(process.env.PATH)
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <Router>
-        <Route path='/' component={App} />
+        <Route path={`${process.env.PATH}/`} component={App} />
       </Router>
     </PersistGate>
   </Provider>,

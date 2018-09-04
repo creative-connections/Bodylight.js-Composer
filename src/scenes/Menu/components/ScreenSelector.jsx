@@ -15,13 +15,13 @@ class ScreenSelector extends Component {
 
   render () {
     return <Fragment>
-      <NavLink to='/' exact activeClassName="active" onClick={this.handleClick}>
+      <NavLink to={`${process.env.PATH}/`} exact activeClassName="active" onClick={this.handleClick}>
         <Menu.Item className='link'>Connect</Menu.Item>
       </NavLink>
-      <NavLink to='/design' activeClassName="active" onClick={this.handleClick}>
+      <NavLink to={`${process.env.PATH}/design`} activeClassName="active" onClick={this.handleClick}>
         <Menu.Item className='link'>Design</Menu.Item>
       </NavLink>
-      <NavLink to='/preview' activeClassName="active" onClick={this.handleClick}>
+      <NavLink to={`${process.env.PATH}/preview`} activeClassName="active" onClick={this.handleClick}>
         <Menu.Item className='link'>Preview</Menu.Item>
       </NavLink>
     </Fragment>
