@@ -9,8 +9,8 @@ import {
   getAnimateTextsForDropdown,
   getButtonsForDropdown,
   getRangesForDropdown,
-  getTogglesForDropdown
-
+  getTogglesForDropdown,
+  getChartsForDropdown
 } from '@reducers'
 import ArgumentType from '@helpers/enum/ArgumentType'
 
@@ -63,6 +63,9 @@ class Args extends Component {
       case ArgumentType.TOGGLE:
         options = this.props.toggles
         break
+      case ArgumentType.CHART:
+        options = this.props.charts
+        break
     }
 
     return <Fragment key={id}>
@@ -109,7 +112,8 @@ export default connect(
     animateTexts: getAnimateTextsForDropdown(state),
     buttons: getButtonsForDropdown(state),
     ranges: getRangesForDropdown(state),
-    toggles: getTogglesForDropdown(state)
+    toggles: getTogglesForDropdown(state),
+    charts: getChartsForDropdown(state)
   }),
   dispatch => bindActionCreators({
   }, dispatch)

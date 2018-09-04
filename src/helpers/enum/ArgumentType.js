@@ -4,7 +4,8 @@ const ArgumentType = {
   ANIMATE_TEXT: 'Animate Text',
   BUTTON: 'Button',
   RANGE: 'Range',
-  TOGGLE: 'Toggle'
+  TOGGLE: 'Toggle',
+  CHART: 'Chart'
 }
 
 export default ArgumentType

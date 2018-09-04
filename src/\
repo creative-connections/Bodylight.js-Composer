@@ -1,0 +1,112 @@
+class Widget { }
+
+export default class PlotlyChart extends Widget {
+  constructor (configuration) {
+    super(configuration, 'chart')
+
+    this.sets = Object.keys(this.datasets)
+    Object.entries(this.datasets).forEach(([id, dataset]) => {
+      this.addValueProvider(id, dataset.provider)
+    })
+  }
+
+  generateSetters () {
+    this.setters = {
+      enabled: () => {
+        if (this.enabled.function === null) {
+          this.disabled = !this.enabled.value
+          return
+        }
+        this.disabled = !this.enabled.function(this.enabled.value)
+      }
+    }
+  }
+
+  initPlotly () {
+    if (this.plotly === null || this.plotly === undefined) {
+      const d3 = Plotly.d3
+
+      var div = d3.select(this.component)
+        .append('div')
+        .style({
+          width: '100%',
+          height: '100%'
+        })
+
+      this.plotly = div.node()
+      var trace1 = {
+        x: [],
+        y: [],
+        type: 'scatter'
+      }
+
+      var data = [trace1]
+      var ln = 2
+
+      const layout = {
+        xaxis: {
+          autorange: true
+        },
+        margin: {
+          l: 30,
+          r: 20,
+          b: 20,
+          t: 20,
+          pad: 4
+        },
+        shapes: [
+          {
+            type: 'line',
+            xref: 'paper',
+            yref: 'y',
+            x0: 0,
+            y0: ln,
+            x1: 1,
+            y1: ln,
+            line: {
+              color: 'rgb(50, 171, 96)',
+              width: 3
+            }
+          }, {
+            type: 'line',
+            xref: 'x',
+            yref: 'paper',
+            x0: ln + 20,
+            y0: 0,
+            x1: ln + 20,
+            y1: 1,
+            line: {
+              color: 'rgb(50, 171, 96)',
+              width: 3
+            }
+          }
+
+        ]
+      }
+      const config = {
+        'displayModeBar': false
+      }
+
+      Plotly.newPlot(this.plotly, data, layout, config)
+      Plotly.Plots.resize(this.plotly)
+    }
+  }
+
+  updateComponent () {
+    super.updateComponent()
+    this.initPlotly()
+    Plotly.Plots.resize(this.plotly)
+  }
+
+  setValue (attribute, value, time) {
+    if (this.sets.includes(attribute)) {
+      Plotly.extendTraces(this.plotly, {
+        y: [[time]],
+        x: [[value]]
+      }, [0], 200, 100)
+      return
+    }
+
+    super.setValue(attribute, value, time)
+  }
+}

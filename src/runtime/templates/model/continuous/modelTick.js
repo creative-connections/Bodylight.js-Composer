@@ -5,4 +5,6 @@ export default function modelTick () {
 
   // TODO: proper decimal arithmetic, external library perhaps
   this.currentStep = parseFloat(parseFloat(this.currentStep + this.config.stepSize).toPrecision(8))
+
+  this.updated = true
 }

@@ -41,6 +41,7 @@ import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
 import buildRangeConfig from './builders/widgets/Range/config'
 import buildButtonConfig from './builders/widgets/Button/config'
 import buildToggleConfig from './builders/widgets/Toggle/config'
+import buildChartConfig from './builders/widgets/Chart/config'
 
 import appendModels from './builders/widgets/models/models'
 import buildModelConfig from './builders/widgets/models/config'
@@ -62,6 +63,9 @@ import Widget from './templates/widget/Widget'
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
 import AnimateText from './templates/widget/AnimateText'
 import Range from './templates/widget/Range'
+
+import PlotlyChart from './templates/widget/Chart/PlotlyChart'
+import initCharts from './templates/widget/Chart/init'
 
 import Button from './templates/widget/Button'
 import Toggle from './templates/widget/Toggle'
@@ -134,6 +138,7 @@ class Builder {
 
     // CreateJS for AnimateRuntime
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
+    append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
     append('<script>')
 
     // wrap our context in a init function so that we don't namespace collide
@@ -161,6 +166,7 @@ class Builder {
     append(`config.widgets.ranges = ${tpl(buildRangeConfig())}`)
     append(`config.widgets.buttons = ${tpl(buildButtonConfig())}`)
     append(`config.widgets.toggles = ${tpl(buildToggleConfig())}`)
+    append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
 
     // create model functions
     // TODO: refactor to config.models[model].functions with overrides
@@ -191,6 +197,9 @@ class Builder {
 
     append(tpl(Toggle))
     append(tpl(initToggles))
+
+    append(tpl(PlotlyChart))
+    append(tpl(initCharts))
 
     append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))

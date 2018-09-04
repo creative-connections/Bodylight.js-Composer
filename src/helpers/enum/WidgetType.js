@@ -6,7 +6,8 @@ const WidgetType = {
   RANGE: 'RANGE',
   BUTTON: 'BUTTON',
   ACTION: 'ACTION',
-  TOGGLE: 'TOGGLE'
+  TOGGLE: 'TOGGLE',
+  CHART: 'CHART'
 }
 
 export default WidgetType

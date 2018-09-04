@@ -133,23 +133,24 @@ class FunctionEditor extends Component {
       )
     }
 
-    let preview = this.props.value.replace(/\s+/g, ' ')
-    const cutoff = 80
-    if (preview.length > cutoff) {
-      preview = `${preview.substring(0, cutoff)}...`
+    let preview = ''
+    if (this.props.value !== undefined && this.props.value !== null) {
+      preview = this.props.value.replace(/\s+/g, ' ')
+      const cutoff = 60
+      if (preview.length > cutoff) {
+        preview = `${preview.substring(0, cutoff)}...`
+      }
     }
 
     return (
       <div style={this.props.style}>
         <Button icon labelPosition='left' onClick={this.handleDisplayEditor}
           style={{
-            marginTop: '1em',
-            marginBottom: '1em'
           }}
         >
           <Icon name='pencil'/>{preview}
         </Button>
-        <ButtonLink onClick={this.handleRemoveFunction}>{'remove'}</ButtonLink>
+        {this.props.disableRemove !== true && <ButtonLink onClick={this.handleRemoveFunction}>{'remove'}</ButtonLink>}
       </div>
     )
   }

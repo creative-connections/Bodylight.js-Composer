@@ -28,6 +28,9 @@ export default (action) => {
         case ArgumentType.TOGGLE:
           args += `getToggleByID('${action.args[i].value}')`
           break
+        case ArgumentType.CHART:
+          args += `getChartByID('${action.args[i].value}')`
+          break
       }
     }
 
