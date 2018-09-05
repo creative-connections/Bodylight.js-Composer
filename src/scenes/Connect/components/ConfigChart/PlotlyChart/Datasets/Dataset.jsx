@@ -7,6 +7,7 @@ import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
 import update from 'immutability-helper'
 import InputFloat from '@components/InputFloat'
+import FunctionEditor from '@components/FunctionEditor'
 
 class Dataset extends Component {
   constructor (props) {
@@ -76,6 +77,16 @@ class Dataset extends Component {
             name={`${name}.maxSamples`}
             attribute={config.maxSamples}
             onChange={this.props.onChange}
+          />
+        </GridRow>
+
+        <GridRow label='Advanced:'>
+          <FunctionEditor
+            name={`${name}.other`}
+            value={config.other}
+            onChange={this.props.onChange}
+            typeof='object'
+            disableRemove={true}
           />
         </GridRow>
 
