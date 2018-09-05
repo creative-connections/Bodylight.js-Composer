@@ -73,7 +73,7 @@ export const updateWidget = (state, { widget, key, value }, type) => {
     state = updateKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], value)
     if (keys[2] === 'complex' && value === false) {
       state = updateKeyKeyKeyValue(state, widget.id, keys[0], keys[1], 'provider', null)
-      state = updateKeyKeyKeyValue(state, widget.id, keys[0], keys[2], 'function', null)
+      state = updateKeyKeyKeyValue(state, widget.id, keys[0], keys[1], 'function', null)
     }
     return state
   }
@@ -82,7 +82,7 @@ export const updateWidget = (state, { widget, key, value }, type) => {
     state = updateKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], keys[3], value)
     if (keys[3] === 'complex' && value === false) {
       state = updateKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], 'provider', null)
-      state = updateKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[2], keys[2], 'function', null)
+      state = updateKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], 'function', null)
     }
     return state
   }
