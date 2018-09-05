@@ -41,12 +41,13 @@ export default class PlotlyChart extends Widget {
 
       this.plotly = div.node()
 
-      const data = []
       this.indexes = []
       this.buffer = {}
+      const data = []
       let index = 0
       Object.entries(this.datasets).forEach(([id, dataset]) => {
         this.indexes[id] = index
+        // create buffer for XY plots
         this.buffer[id] = {x: null, y: null}
         data[index] = {
           x: [],
@@ -56,6 +57,10 @@ export default class PlotlyChart extends Widget {
           name: dataset.name,
           line: dataset.line
         }
+        // rest of the configuration options
+        Object.entries(dataset.other).forEach(([key, value]) => {
+          data[index][key] = value
+        })
         index++
       })
 
@@ -129,8 +134,10 @@ export default class PlotlyChart extends Widget {
 
       Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
     } else {
+      // for a XY plot, we need to save the current value until we have both axis
       this.buffer[id][axis] = [[value]]
 
+      // if we have both of them then we flush
       if (this.buffer[id][altAxis] !== null) {
         Plotly.extendTraces(this.plotly, this.buffer[id], [index], this.datasets[id].maxSamples.value)
         this.buffer[id].x = null

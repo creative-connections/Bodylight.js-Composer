@@ -26,6 +26,11 @@ export default () => {
       datasets = update(datasets, {
         [id]: {$set: functionalize(datasets[id], 'maxSamples')}
       })
+      // unpack other
+      const other = new Function(`return ${datasets[id].other}`)()()
+      datasets = update(datasets, {
+        [id]: { other: { $set: other } }
+      })
     })
 
     configuration = update(configuration, {
