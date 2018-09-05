@@ -23,6 +23,9 @@ export default () => {
       datasets = update(datasets, {
         [id]: {$set: functionalize(datasets[id], 'y')}
       })
+      datasets = update(datasets, {
+        [id]: {$set: functionalize(datasets[id], 'maxSamples')}
+      })
     })
 
     configuration = update(configuration, {

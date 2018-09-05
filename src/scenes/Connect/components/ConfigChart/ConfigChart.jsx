@@ -68,13 +68,6 @@ class ConfigChart extends Component {
           {config.library}
         </GridRow>
 
-        <GridRow label='Maximum samples:'>
-          <ComplexAttribute
-            name='maxSamples'
-            attribute={config.maxSamples}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
       </Grid>
 
       <PlotlyChart

@@ -6,6 +6,7 @@ import GridRow from '../../../GridRow'
 import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
 import update from 'immutability-helper'
+import InputFloat from '@components/InputFloat'
 
 class Dataset extends Component {
   constructor (props) {
@@ -58,6 +59,22 @@ class Dataset extends Component {
             label='x is controlled by time'
             name={`${name}.x.time`}
             checked={config.x.time}
+            onChange={this.props.onChange}
+          />
+        </GridRow>
+
+        <GridRow label='Mode:'>
+          <Input
+            name={`${name}.mode`}
+            value={config.mode}
+            onChange={this.props.onChange}
+          />
+        </GridRow>
+
+        <GridRow label='Maximum samples:'>
+          <ComplexAttribute
+            name={`${name}.maxSamples`}
+            attribute={config.maxSamples}
             onChange={this.props.onChange}
           />
         </GridRow>

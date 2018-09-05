@@ -67,7 +67,7 @@ export default class Widget {
 
   setValue (attribute, value, time) {
     this[attribute].value = value
-    this.setters[attribute](value)
+    this.setters[attribute]()
   }
 
   setValues (attribute, values, time) {

@@ -5,8 +5,9 @@ export default class PlotlyChart extends Widget {
     super(configuration, 'chart')
 
     Object.entries(this.datasets).forEach(([id, dataset]) => {
-      this.addValueProvider(JSON.stringify({id, axis: 'x'}), dataset.x.provider)
-      this.addValueProvider(JSON.stringify({id, axis: 'y'}), dataset.y.provider)
+      this.addValueProvider(JSON.stringify({dataset: id, axis: 'x'}), dataset.x.provider)
+      this.addValueProvider(JSON.stringify({dataset: id, axis: 'y'}), dataset.y.provider)
+      this.addValueProvider(JSON.stringify({dataset: id, type: 'maxSamples'}), dataset.maxSamples.provider)
     })
   }
 
@@ -17,9 +18,11 @@ export default class PlotlyChart extends Widget {
           this.enabled.value = this.enabled.function(this.enabled.value)
         }
       },
-      maxSamples: () => {
-        if (this.maxSamples.function !== null) {
-          this.maxSamples.value = this.maxSamples.function(this.maxSamples.value)
+      maxSamples: (dataset) => {
+        if (dataset) {
+          if (this.datasets[dataset].maxSamples.function !== null) {
+            this.datasets[dataset].maxSamples.value = this.datasets[dataset].maxSamples.function(this.datasets[dataset].maxSamples.value)
+          }
         }
       }
     }
@@ -124,12 +127,12 @@ export default class PlotlyChart extends Widget {
       }
       extend[axis] = [[value]]
 
-      Plotly.extendTraces(this.plotly, extend, [index], this.maxSamples.value)
+      Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
     } else {
       this.buffer[id][axis] = [[value]]
 
       if (this.buffer[id][altAxis] !== null) {
-        Plotly.extendTraces(this.plotly, this.buffer[id], [index], this.maxSamples.value)
+        Plotly.extendTraces(this.plotly, this.buffer[id], [index], this.datasets[id].maxSamples.value)
         this.buffer[id].x = null
         this.buffer[id].y = null
       }
@@ -137,14 +140,21 @@ export default class PlotlyChart extends Widget {
   }
 
   setValue (attribute, value, time) {
+    // when we have an JSON encoded attribute specifier
     if (attribute.startsWith('{')) {
       const attr = JSON.parse(attribute)
-      if (this.datasets[attr.id][attr.axis].function !== null) {
-        const transformed = this.datasets[attr.id][attr.axis].function(value)
-        this.extendTrace(attr.id, attr.axis, transformed, time)
-      } else {
-        this.extendTrace(attr.id, attr.axis, value, time)
+      if (attr.axis) {
+        if (this.datasets[attr.dataset][attr.axis].function !== null) {
+          const transformed = this.datasets[attr.dataset][attr.axis].function(value)
+          this.extendTrace(attr.dataset, attr.axis, transformed, time)
+        } else {
+          this.extendTrace(attr.dataset, attr.axis, value, time)
+        }
+        return
       }
+
+      this.datasets[attr.dataset][attr.type].value = value
+      this.setters[attr.type](attr.dataset)
       return
     }
 

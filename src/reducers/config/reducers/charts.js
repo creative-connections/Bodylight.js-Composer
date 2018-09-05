@@ -133,17 +133,9 @@ const defaultConfig = {
   },
 
   attributes: [
-    'enabled',
-    'maxSamples'
+    'enabled'
   ],
 
-  maxSamples: {
-    typeof: 'number',
-    value: 100,
-    complex: false,
-    provider: null,
-    function: null
-  },
   enabled: {
     typeof: 'boolean',
     value: true,

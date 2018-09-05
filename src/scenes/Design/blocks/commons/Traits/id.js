@@ -22,7 +22,7 @@ export const getInputEl = (trait, getComponents, filter = true) => {
         option.selected = true
       }
       // don't show already placed components in the list, unless it's us
-      if (component.placed === false || id === currentValue || filter === false) {
+      if (true || component.placed === false || id === currentValue || filter === false) {
         select.add(option)
       }
     })

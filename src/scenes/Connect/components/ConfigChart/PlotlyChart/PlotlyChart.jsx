@@ -50,6 +50,7 @@ class PlotlyChart extends Component {
         widget={this.props.chart}
         config={config}
       />
+
     </Fragment>
   }
 }

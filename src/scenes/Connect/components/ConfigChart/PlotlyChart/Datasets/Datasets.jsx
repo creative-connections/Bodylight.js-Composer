@@ -45,6 +45,13 @@ class Datasets extends Component {
         time: false,
         provider: null,
         'function': null
+      },
+      maxSamples: {
+        typeof: 'number',
+        value: 100,
+        complex: false,
+        provider: null,
+        function: null
       }
     }
 
