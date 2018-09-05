@@ -23,11 +23,16 @@ export default () => {
     duration: true
   })
 
-  store = store || createStore(
-    persistReducer(persistConfig, reducers),
-    compose(
+  let middleware = compose()
+  if (process.env.NODE_ENV === 'development') {
+    middleware = compose(
       applyMiddleware(logger)
     )
+  }
+
+  store = store || createStore(
+    persistReducer(persistConfig, reducers),
+    middleware
   )
   persistor = persistor || persistStore(store)
 
