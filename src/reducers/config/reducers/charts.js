@@ -36,6 +36,10 @@ const defaultConfig = {
 
   },
 
+  shapes: {
+
+  },
+
   xaxis: {
     visible: true,
     color: '#444',

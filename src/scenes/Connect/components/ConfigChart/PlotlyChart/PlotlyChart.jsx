@@ -9,7 +9,7 @@ import ComplexAttribute from '../../ComplexAttribute'
 import Events from '../../Events'
 
 import Datasets from './Datasets'
-
+import Shapes from './Shapes'
 import Axis from './Axis'
 
 class PlotlyChart extends Component {
@@ -44,6 +44,11 @@ class PlotlyChart extends Component {
       <Header as="h2">Y axis</Header>
       <Axis name='yaxis'
         config={config.yaxis}
+        onChange={this.props.onChange}/>
+
+      <Header as="h2">Shapes</Header>
+      <Shapes name='shapes'
+        config={config.shapes}
         onChange={this.props.onChange}/>
 
       <Events

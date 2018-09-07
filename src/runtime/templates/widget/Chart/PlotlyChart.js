@@ -9,6 +9,32 @@ export default class PlotlyChart extends Widget {
       this.addValueProvider(JSON.stringify({dataset: id, axis: 'y'}), dataset.y.provider)
       this.addValueProvider(JSON.stringify({dataset: id, type: 'maxSamples'}), dataset.maxSamples.provider)
     })
+
+    this.shapeComplexNames = [ 'x0', 'x1', 'y0', 'y1', 'visible', 'opacity', 'color', 'width', 'dash' ]
+
+    // fill additional missing setters for shapes
+    this.shapeComplexNames.forEach(name => {
+      this.setters[`shape-${name}`] = (shape) => {
+        if (!shape) {
+          return
+        }
+        if (this.shapes[shape][name].function !== null) {
+          this.shapes[shape][name].value = this.shapes[shape][name].function(this.shapes[shape][name].value)
+        }
+
+        const shapeIdentifier = `shapes[${this.shapeIndexes[shape]}].${name}`
+        const layout = {
+          [shapeIdentifier]: this.shapes[shape][name].value
+        }
+        Plotly.relayout(this.plotly, layout)
+      }
+    })
+
+    Object.entries(this.shapes).forEach(([id, shape]) => {
+      this.shapeComplexNames.forEach(name => {
+        this.addValueProvider(JSON.stringify({shape: id, setter: `shape-${name}`, name}), shape[name].provider)
+      })
+    })
   }
 
   generateSetters () {
@@ -64,6 +90,33 @@ export default class PlotlyChart extends Widget {
         index++
       })
 
+      this.shapeIndexes = []
+      const shapes = []
+      index = 1
+      Object.entries(this.shapes).forEach(([id, shape]) => {
+        this.shapeIndexes[id] = index
+
+        shapes[index] = {
+          type: shape.type,
+          name: shape.name,
+          xref: shape.xref,
+          yref: shape.yref,
+          layer: shape.layer,
+          x0: shape.x0.value,
+          x1: shape.x1.value,
+          y0: shape.y0.value,
+          y1: shape.y1.value,
+          visible: shape.visible.value,
+          opacity: shape.opacity.value,
+          line: {
+            color: shape.color.value,
+            width: shape.width.value,
+            dash: shape.dash.value
+          }
+        }
+        index++
+      })
+
       const layout = {
         xaxis: this.xaxis,
         yaxis: this.yaxis,
@@ -73,36 +126,8 @@ export default class PlotlyChart extends Widget {
           b: 20,
           t: 20,
           pad: 4
-        }
-        /*
-        shapes: [
-          {
-            type: 'line',
-            xref: 'paper',
-            yref: 'paper',
-            x0: 0,
-            y0: ln,
-            x1: 1,
-            y1: ln,
-            line: {
-              color: 'rgb(50, 171, 96)',
-              width: 3
-            }
-          }, {
-            type: 'line',
-            xref: 'paper',
-            yref: 'paper',
-            x0: ln + 20,
-            y0: 0,
-            x1: ln + 20,
-            y1: 1,
-            line: {
-              color: 'rgb(50, 171, 96)',
-              width: 3
-            }
-          }
-        ]
-          */
+        },
+        shapes: shapes
       }
       const config = {
         'displayModeBar': false
@@ -110,6 +135,7 @@ export default class PlotlyChart extends Widget {
 
       Plotly.newPlot(this.plotly, data, layout, config)
       Plotly.Plots.resize(this.plotly)
+      this.initialized = true
     }
   }
 
@@ -159,10 +185,16 @@ export default class PlotlyChart extends Widget {
         }
         return
       }
-
-      this.datasets[attr.dataset][attr.type].value = value
-      this.setters[attr.type](attr.dataset)
-      return
+      if (attr.dataset) {
+        this.datasets[attr.dataset][attr.type].value = value
+        this.setters[attr.type](attr.dataset)
+        return
+      }
+      if (attr.shape) {
+        this.shapes[attr.shape][attr.name].value = value
+        this.setters[attr.setter](attr.shape)
+        return
+      }
     }
 
     super.setValue(attribute, value, time)

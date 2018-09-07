@@ -14,7 +14,7 @@ export default () => {
       configuration = functionalize(configuration, attribute)
     })
 
-    // fucntionalize datasets
+    // functionalize datasets
     let datasets = configuration.datasets
     Object.entries(datasets).forEach(([id, dataset]) => {
       datasets = update(datasets, {
@@ -33,8 +33,30 @@ export default () => {
       })
     })
 
+    const shapesHelper = (shapes, id, name) => {
+      return update(shapes, {
+        [id]: {$set: functionalize(shapes[id], name)}
+      })
+    }
+
+    // functionalize shapes
+    let shapes = configuration.shapes
+    Object.entries(shapes).forEach(([id, shape]) => {
+      shapes = shapesHelper(shapes, id, 'x0')
+      shapes = shapesHelper(shapes, id, 'x1')
+      shapes = shapesHelper(shapes, id, 'y0')
+      shapes = shapesHelper(shapes, id, 'y1')
+      shapes = shapesHelper(shapes, id, 'visible')
+      shapes = shapesHelper(shapes, id, 'opacity')
+      shapes = shapesHelper(shapes, id, 'layer')
+      shapes = shapesHelper(shapes, id, 'color')
+      shapes = shapesHelper(shapes, id, 'width')
+      shapes = shapesHelper(shapes, id, 'dash')
+    })
+
     configuration = update(configuration, {
-      datasets: {$set: datasets}
+      datasets: {$set: datasets},
+      shapes: {$set: shapes}
     })
 
     Object.entries(configuration.actions).forEach(([key, action]) => {
