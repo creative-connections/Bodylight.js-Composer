@@ -37,6 +37,17 @@ export default class PlotlyChart extends Widget {
     })
   }
 
+  setValueProvider (attribute, id, target) {
+    console.log(attribute)
+    const attr = this.parseAttribute(attribute)
+
+    if (attr && attr.dataset) {
+      target.registerValueListener(this, id, attribute)
+    } else {
+      super.setValueProvider(attribute, id, target)
+    }
+  }
+
   generateSetters () {
     this.setters = {
       enabled: () => {
@@ -69,6 +80,7 @@ export default class PlotlyChart extends Widget {
 
       this.indexes = []
       this.buffer = {}
+      this.oneshotBuffer = {}
       const data = []
       let index = 0
       Object.entries(this.datasets).forEach(([id, dataset]) => {
@@ -172,24 +184,75 @@ export default class PlotlyChart extends Widget {
     }
   }
 
-  setValue (attribute, value, time) {
-    // when we have an JSON encoded attribute specifier
+  extendTraces (id, axis, values, time) {
+    if (this.enabled.value === false) {
+      return
+    }
+    const index = this.indexes[id]
+    const altAxis = axis === 'x' ? 'y' : 'x'
+
+    if (this.datasets[id][altAxis].time) {
+      const extend = {
+        y: [time],
+        x: [time]
+      }
+      extend[axis] = [values]
+      this.plotly.data[index].x = []
+      this.plotly.data[index].y = []
+      Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
+    }
+  }
+
+  setValues (attribute, values, time) {
+    const lastValue = values[values.length - 1]
+
     if (attribute.startsWith('{')) {
       const attr = JSON.parse(attribute)
       if (attr.axis) {
         if (this.datasets[attr.dataset][attr.axis].function !== null) {
-          const transformed = this.datasets[attr.dataset][attr.axis].function(value)
-          this.extendTrace(attr.dataset, attr.axis, transformed, time)
+          let transformed = []
+          values.forEach(value => {
+            transformed.push(this.datasets[attr.dataset][attr.axis].function(value))
+          })
+          this.extendsTraces(attr.dataset, attr.axis, transformed, time)
         } else {
-          this.extendTrace(attr.dataset, attr.axis, value, time)
+          this.extendTraces(attr.dataset, attr.axis, values, time)
         }
         return
       }
+      // attribute is a dataset configuration option
+      if (attr.dataset) {
+        this.datasets[attr.dataset][attr.type].value = lastValue
+        this.setters[attr.type](attr.dataset)
+        return
+      }
+      // attribute is shape
+      if (attr.shape) {
+        this.shapes[attr.shape][attr.name].value = lastValue
+        this.setters[attr.setter](attr.shape)
+      }
+    }
+  }
+
+  setValue (attribute, value, time) {
+    // when we have an JSON encoded attribute specifier
+    if (attribute.startsWith('{')) {
+      const attr = JSON.parse(attribute)
+      // attribute is time series
+      if (attr.axis) {
+        if (this.datasets[attr.dataset][attr.axis].function !== null) {
+          value = this.datasets[attr.dataset][attr.axis].function(value)
+        }
+        this.extendTrace(attr.dataset, attr.axis, value, time)
+        return
+      }
+      // attribute is a dataset configuration option
       if (attr.dataset) {
         this.datasets[attr.dataset][attr.type].value = value
         this.setters[attr.type](attr.dataset)
         return
       }
+      // attribute is shape
       if (attr.shape) {
         this.shapes[attr.shape][attr.name].value = value
         this.setters[attr.setter](attr.shape)
@@ -198,5 +261,12 @@ export default class PlotlyChart extends Widget {
     }
 
     super.setValue(attribute, value, time)
+  }
+
+  parseAttribute (attribute) {
+    if (attribute.startsWith('{')) {
+      return JSON.parse(attribute)
+    }
+    return null
   }
 }
