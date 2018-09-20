@@ -2,6 +2,8 @@ export default function play () {
   const values = []
   const time = []
 
+  this.flushSetQueues()
+
   for (let i = 0; i < this.outputValuesLength; i++) {
     values[i] = []
   }
