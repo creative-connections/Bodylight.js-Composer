@@ -17,8 +17,7 @@ function init () {
       Object.entries(models).forEach(([id, model]) => model.init())
       Object.entries(widgets).forEach(([id, widget]) => widget.updateComponent())
     })
-  }
-  )
+  })
 }
 
 export default init

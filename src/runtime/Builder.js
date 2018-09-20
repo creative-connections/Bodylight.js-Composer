@@ -73,6 +73,7 @@ import Button from './templates/widget/Button'
 import Toggle from './templates/widget/Toggle'
 import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import initAnimateTexts from './templates/widget/AnimateText/init'
+import initAnimatePlays from './templates/widget/AnimatePlay/init'
 import initRanges from './templates/widget/Range/init'
 import initButtons from './templates/widget/Button/init'
 import initToggles from './templates/widget/Toggle/init'
@@ -192,6 +193,8 @@ class Builder {
 
     append(tpl(AnimateText))
     append(tpl(initAnimateTexts))
+
+    append(tpl(initAnimatePlays))
 
     append(tpl(Range))
     append(tpl(initRanges))

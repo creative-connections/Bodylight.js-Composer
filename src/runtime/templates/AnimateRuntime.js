@@ -103,6 +103,7 @@ export default class AnimateRuntime {
   attachExportedComponents (library) {
     library.exportedComponents = {
       'anim': {},
+      'play': [],
       'text': {}
     }
     library.addExportedComponent = component => {
@@ -111,10 +112,16 @@ export default class AnimateRuntime {
       }
       const suffix = getNameSuffix(component.name)
       if (typeof library.exportedComponents[suffix] !== 'undefined') {
-        if (typeof library.exportedComponents[suffix][component.name] !== 'undefined') {
-          console.warn('Duplicate stage name ' + component.name)
+        if (suffix !== 'play') {
+          if (typeof library.exportedComponents[suffix][component.name] !== 'undefined') {
+            console.warn('Duplicate stage name ' + component.name)
+          }
+          library.exportedComponents[suffix][component.name] = (component)
+        } else {
+          // TODO FIXME
+          // temporary special case handling for "playable" components
+          library.exportedComponents['play'].push(component)
         }
-        library.exportedComponents[suffix][component.name] = (component)
       }
     }
   }
