@@ -6,6 +6,7 @@ export default class AnimateRuntime {
     const compositionIds = Object.keys(this.contents.compositions)
     this.composition = this.contents.compositions[compositionIds[0]]
     this.library = this.composition.getLibrary()
+    createjs.MotionGuidePlugin.install()
     this.name = name
 
     if (this.library[this.name] === undefined) {
