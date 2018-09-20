@@ -56,7 +56,7 @@ export default class Toggle extends Widget {
 
   setValueProvider (attribute, id, target) {
     if (attribute === 'target') {
-      this.target.reference = target.registerValueSetter(id)
+      this.target.reference = target.registerValueSetter(this, id, attribute)
       this.target.provider = target
       return
     }
