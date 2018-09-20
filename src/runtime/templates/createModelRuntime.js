@@ -38,6 +38,7 @@ export default function createModelRuntime (Model, config, functions) {
       model.registerValueSetter = functions.registerValueSetter.bind(model)
       model.updateInitialValueListeners = functions.updateInitialValueListeners.bind(model)
       model.setInitialValues = functions.setInitialValues.bind(model)
+      model.setInitialValueByName = functions.setInitialValueByName.bind(model)
 
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
 
