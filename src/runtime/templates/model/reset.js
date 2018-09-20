@@ -1,6 +1,8 @@
-export default function reset () {
+export default function reset (play = true) {
   this.pause()
   this.fmi2Reset(this.inst)
   this.setup()
-  this.play()
+  if (play) {
+    this.play()
+  }
 }
