@@ -4,6 +4,6 @@ export default function registerValueSetter (name) {
   if (reference === null) {
     return null
   }
-  console.log(`${this.config.identifier}: registered value setter for ${name}`)
+  console.log(`${this.config.identifier}: registered value setter for ${name} (${reference})`)
   return reference
 }
