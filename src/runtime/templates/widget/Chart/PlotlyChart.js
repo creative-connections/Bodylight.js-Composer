@@ -87,6 +87,7 @@ export default class PlotlyChart extends Widget {
         this.indexes[id] = index
         // create buffer for XY plots
         this.buffer[id] = {x: null, y: null}
+        this.oneshotBuffer[id] = {x: null, y: null}
         data[index] = {
           x: [],
           y: [],
@@ -200,6 +201,18 @@ export default class PlotlyChart extends Widget {
       this.plotly.data[index].x = []
       this.plotly.data[index].y = []
       Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
+    } else {
+      // for a XY plot, we need to save the current value until we have both axis
+      this.oneshotBuffer[id][axis] = [values]
+
+      // if we have both of them then we flush
+      if (this.oneshotBuffer[id][altAxis] !== null) {
+        this.plotly.data[index].x = []
+        this.plotly.data[index].y = []
+        Plotly.extendTraces(this.plotly, this.oneshotBuffer[id], [index], this.datasets[id].maxSamples.value)
+        this.buffer[id].x = null
+        this.buffer[id].y = null
+      }
     }
   }
 
