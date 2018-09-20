@@ -29,6 +29,7 @@ export default function createModelRuntime (Model, config, functions) {
       model.outputValuesLength = 0
       model.valueListeners = []
       model.initialValueListeners = []
+      model.initialValues = {}
       model.valueSetters = []
 
       model.registerValueListener = functions.registerValueListener.bind(model)

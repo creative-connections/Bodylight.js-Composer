@@ -8,6 +8,7 @@ export default function setup () {
   // TODO: check if setting the values and then getting them suffers the same
   // model stability penalty in the initializationMode.
   this.setInitialValues()
+  this.flushSetQueues()
   this.updateInitialValueListeners()
 
   this.fmi2ExitInitializationMode(this.inst)
