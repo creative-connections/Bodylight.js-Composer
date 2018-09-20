@@ -19,6 +19,7 @@ import registerInitialValueListener from './templates/model/registerInitialValue
 import registerValueSetter from './templates/model/registerValueSetter'
 import updateInitialValueListeners from './templates/model/updateInitialValueListeners'
 import getReferenceFromName from './templates/model/getReferenceFromName'
+import setInitialValues from './templates/model/setInitialValues'
 
 import instantiate from './templates/model/instantiate'
 import setup from './templates/model/setup'
@@ -110,6 +111,7 @@ class Builder {
     this.append('functions.updateInitialValueListeners = ' + this.tpl(updateInitialValueListeners))
     this.append('functions.registerValueSetter = ' + this.tpl(registerValueSetter))
     this.append('functions.getReferenceFromName = ' + this.tpl(getReferenceFromName))
+    this.append('functions.setInitialValues = ' + this.tpl(setInitialValues))
 
     this.append('functions.continuous = {}')
     this.append('functions.continuous.play = ' + this.tpl(continuousPlay))

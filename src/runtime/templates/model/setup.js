@@ -5,6 +5,9 @@ export default function setup () {
 
   this.fmi2EnterInitializationMode(this.inst)
 
+  // TODO: check if setting the values and then getting them suffers the same
+  // model stability penalty in the initializationMode.
+  this.setInitialValues()
   this.updateInitialValueListeners()
 
   this.fmi2ExitInitializationMode(this.inst)
