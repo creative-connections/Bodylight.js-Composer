@@ -13,5 +13,7 @@ export default function setup () {
 
   this.fmi2ExitInitializationMode(this.inst)
 
+  this.updateOutputValues()
+
   this.modelTickInterval = null
 }
