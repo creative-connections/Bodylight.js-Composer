@@ -7,3 +7,5 @@ export default function (state = 'unnamed_project', action) {
   }
   return state
 }
+
+export const getProjectName = state => state
