@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import configurationScreen from './app/configurationScreen'
+import name from './app/name'
 
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
@@ -11,6 +12,7 @@ import config, * as configSelectors from './config'
 import { NEW_PROJECT } from '@actions/types'
 
 const reducers = combineReducers({
+  name,
   configurationScreen,
   functionEditorConfig,
 
