@@ -27,6 +27,29 @@ class Export extends Component {
     this.state = {
       pending
     }
+
+    this.handleExport = this.handleExport.bind(this)
+    this.minifiedExport = this.minifiedExport.bind(this)
+  }
+
+  minifiedExport () {
+    const builder = new Builder()
+    try {
+      const html = new Blob([builder.build(true)], { type: 'text/html;charset=utf-8' })
+      const filename = `${this.props.name}.html`
+      saveAs(html, filename)
+      toast.success(`Project exported as ${filename}`)
+      this.setState({ pending: false })
+    } catch (err) {
+      toast.error(`Could not optimize project: ${err}, trying quick export`)
+      this.quickExport()
+      this.setState({ pending: false })
+    }
+  }
+
+  handleExport () {
+    this.setState({ pending: true })
+    window.setTimeout(this.minifiedExport, 100)
   }
 
   renameProject (e, {value}) {
@@ -38,14 +61,17 @@ class Export extends Component {
     const html = new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
     const filename = `${this.props.name}.html`
     saveAs(html, filename)
-    toast.success(`Project exported as ${filename} without optimizations. Do not use in production`)
+    toast.success(`Project exported as ${filename} without optimizations. Do not use in production.`)
   }
 
   render () {
     return <Fragment>
       <div id='topBar' className='header'> </div>
 
-      <BusySignal busy={this.state.pending} />
+      <BusySignal
+        busy={this.state.pending}
+        description="Exporting minified code, this will take a while..."
+      />
 
       <Grid padded centered className='leftShadow topPadded'>
         <Grid.Row centered style={{ paddingTop: 0, paddingBottom: 0 }}>
@@ -55,7 +81,7 @@ class Export extends Component {
               value={this.props.name}
               onChange={this.renameProject}
             />
-            <Button onClick={this.handleSave}>Export</Button>
+            <Button onClick={this.handleExport}>Export</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -78,6 +78,8 @@ import initRanges from './templates/widget/Range/init'
 import initButtons from './templates/widget/Button/init'
 import initToggles from './templates/widget/Toggle/init'
 
+import Terser from 'terser'
+
 // API
 import appendAPI from './templates/api'
 
@@ -131,6 +133,14 @@ class Builder {
     append('functions.oneshot.updateValueListeners = ' + tpl(oneshotUpdateValueListeners))
   }
 
+  minify (js) {
+    const result = Terser.minify(js)
+    if (result.error) {
+      throw result.error
+    }
+    return result.code
+  }
+
   build (minify = false) {
     const append = this.append.bind(this)
     this.clearSrc()
@@ -142,10 +152,13 @@ class Builder {
     // CreateJS for AnimateRuntime
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
     append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
+
+    let js = this.buildJS()
+    if (minify) {
+      js = this.minify(js)
+    }
+
     append('<script>')
-
-    const js = this.buildJS()
-
     append(js)
     append('</script>')
 
