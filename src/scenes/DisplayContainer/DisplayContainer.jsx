@@ -7,6 +7,8 @@ import Connect from '@scenes/Connect'
 import Design from '@scenes/Design'
 import AddModel from '@scenes/Add/AddModel'
 import AddAnimate from '@scenes/Add/AddAnimate'
+import Save from '@scenes/Project/Save'
+import Open from '@scenes/Project/Open'
 
 const DisplayContainer = () => {
   return <Fragment>
@@ -16,6 +18,8 @@ const DisplayContainer = () => {
       <Route path={`${process.env.PATH}/preview`} component={Preview} />
       <Route path={`${process.env.PATH}/add/model`} component={AddModel} />
       <Route path={`${process.env.PATH}/add/animate`} component={AddAnimate} />
+      <Route path={`${process.env.PATH}/save`} component={Save} />
+      <Route path={`${process.env.PATH}/open`} component={Open} />
     </Container>
   </Fragment>
 }
