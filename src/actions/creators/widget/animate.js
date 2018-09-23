@@ -6,42 +6,62 @@ import {
 import generateID from '@helpers/generateID'
 import WidgetType from '@helpers/enum/WidgetType'
 
-export const addAnimate = (source, hash, animateName, components) => {
-  const animateID = generateID()
-  const anim = {}
-  const text = {}
-
+const getAnims = components => {
+  const anims = {}
   components.anim.forEach(name => {
     const id = generateID()
-    anim[id] = {
+    anims[id] = {
       id,
       name,
       parent: animateID,
       type: WidgetType.ANIMATE_ANIM
     }
   })
+  return anims
+}
 
+const getTexts = components => {
+  const texts = {}
   components.text.forEach(name => {
     const id = generateID()
-    text[id] = {
+    texts[id] = {
       id,
       name,
       parent: animateID,
       type: WidgetType.ANIMATE_TEXT
     }
   })
+  return texts
+}
 
+export const addAnimate = (source, hash, animateName, components) => {
   return {
     type: ADD_WIDGET,
     payload: {
-      id: animateID,
+      id: generateID(),
       js: source,
       hash: hash,
       type: WidgetType.ANIMATE,
       name: animateName,
       originalName: animateName,
-      anim,
-      text
+      anim: getAnims(components),
+      text: getTexts(components)
+    }
+  }
+}
+
+export const updateAnimate = (id, source, hash, animateName, components) => {
+  return {
+    type: ADD_WIDGET,
+    payload: {
+      id,
+      js: source,
+      hash: hash,
+      type: WidgetType.ANIMATE,
+      name: animateName,
+      originalName: animateName,
+      anim: getAnims(components),
+      text: getTexts(components)
     }
   }
 }
