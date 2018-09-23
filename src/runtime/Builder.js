@@ -84,7 +84,8 @@ import Terser from 'terser'
 import appendAPI from './templates/api'
 
 class Builder {
-  constructor () {
+  constructor (minify = false) {
+    this.buildMinified = minify
     this.clearSrc()
   }
 
@@ -136,12 +137,14 @@ class Builder {
   minify (js) {
     const result = Terser.minify(js)
     if (result.error) {
+      console.error(`Minify failed for: ${js}`)
+      console.error(result.error)
       throw result.error
     }
     return result.code
   }
 
-  build (minify = false) {
+  build () {
     const append = this.append.bind(this)
     this.clearSrc()
 
@@ -154,7 +157,7 @@ class Builder {
     append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
 
     let js = this.buildJS()
-    if (minify) {
+    if (this.buildMinified) {
       js = this.minify(js)
     }
 

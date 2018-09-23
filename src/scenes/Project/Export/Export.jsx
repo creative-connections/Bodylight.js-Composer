@@ -33,9 +33,9 @@ class Export extends Component {
   }
 
   minifiedExport () {
-    const builder = new Builder()
+    const builder = new Builder(true)
     try {
-      const html = new Blob([builder.build(true)], { type: 'text/html;charset=utf-8' })
+      const html = new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
       const filename = `${this.props.name}.html`
       saveAs(html, filename)
       toast.success(`Project exported as ${filename}`)
