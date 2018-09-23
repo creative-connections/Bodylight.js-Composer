@@ -1,4 +1,5 @@
 export const NEW_PROJECT = 'NEW_PROJECT'
+export const RENAME_PROJECT = 'project/RENAME'
 
 export const ADD_WIDGET = 'widget/ADD'
 export const RENAME_WIDGET = 'widget/RENAME'
