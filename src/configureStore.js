@@ -14,7 +14,6 @@ let persistor
 let callbacks = []
 
 const createMiddleware = () => {
-  console.log('createMiddleware')
   let middleware = compose()
 
   if (process.env.NODE_ENV === 'development') {
@@ -28,7 +27,6 @@ const createMiddleware = () => {
 }
 
 const createNewStore = (initialState = undefined) => {
-  console.log('createStore')
   const persistConfig = { key: 'root', storage: localForage }
   store = createStore(
     persistReducer(persistConfig, reducers),
