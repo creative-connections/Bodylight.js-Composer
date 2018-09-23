@@ -99,42 +99,40 @@ class Builder {
     return escodegen.generate(ast)
   }
 
-  appendFunctions () {
-    this.append('functions.cwrapFunctions = ' + this.tpl(cwrapFunctions))
-    this.append('functions.consoleLogger = ' + this.tpl(consoleLogger))
-    this.append('functions.gettersAndSetters = ' + this.tpl(gettersAndSetters))
-    this.append('functions.init = ' + this.tpl(modelInit))
-    this.append('functions.instantiate = ' + this.tpl(instantiate))
-    this.append('functions.setup = ' + this.tpl(setup))
-    this.append('functions.reset = ' + this.tpl(reset))
-    this.append('functions.updateOutputValues = ' + this.tpl(updateOutputValues))
-    this.append('functions.registerValueListener = ' + this.tpl(registerValueListener))
-    this.append('functions.registerInitialValueListener = ' + this.tpl(registerInitialValueListener))
-    this.append('functions.updateInitialValueListeners = ' + this.tpl(updateInitialValueListeners))
-    this.append('functions.registerValueSetter = ' + this.tpl(registerValueSetter))
-    this.append('functions.getReferenceFromName = ' + this.tpl(getReferenceFromName))
-    this.append('functions.setInitialValues = ' + this.tpl(setInitialValues))
-    this.append('functions.setInitialValueByName = ' + this.tpl(setInitialValueByName))
+  appendFunctions (append, tpl) {
+    append('functions.cwrapFunctions = ' + tpl(cwrapFunctions))
+    append('functions.consoleLogger = ' + tpl(consoleLogger))
+    append('functions.gettersAndSetters = ' + tpl(gettersAndSetters))
+    append('functions.init = ' + tpl(modelInit))
+    append('functions.instantiate = ' + tpl(instantiate))
+    append('functions.setup = ' + tpl(setup))
+    append('functions.reset = ' + tpl(reset))
+    append('functions.updateOutputValues = ' + tpl(updateOutputValues))
+    append('functions.registerValueListener = ' + tpl(registerValueListener))
+    append('functions.registerInitialValueListener = ' + tpl(registerInitialValueListener))
+    append('functions.updateInitialValueListeners = ' + tpl(updateInitialValueListeners))
+    append('functions.registerValueSetter = ' + tpl(registerValueSetter))
+    append('functions.getReferenceFromName = ' + tpl(getReferenceFromName))
+    append('functions.setInitialValues = ' + tpl(setInitialValues))
+    append('functions.setInitialValueByName = ' + tpl(setInitialValueByName))
 
-    this.append('functions.continuous = {}')
-    this.append('functions.continuous.play = ' + this.tpl(continuousPlay))
-    this.append('functions.continuous.pause = ' + this.tpl(continuousPause))
-    this.append('functions.continuous.setValue = ' + this.tpl(continuousSetValue))
-    this.append('functions.continuous.modelTick = ' + this.tpl(modelTick))
-    this.append('functions.continuous.stageTick = ' + this.tpl(stageTick))
-    this.append('functions.continuous.updateValueListeners = ' + this.tpl(continuousUpdateValueListeners))
+    append('functions.continuous = {}')
+    append('functions.continuous.play = ' + tpl(continuousPlay))
+    append('functions.continuous.pause = ' + tpl(continuousPause))
+    append('functions.continuous.setValue = ' + tpl(continuousSetValue))
+    append('functions.continuous.modelTick = ' + tpl(modelTick))
+    append('functions.continuous.stageTick = ' + tpl(stageTick))
+    append('functions.continuous.updateValueListeners = ' + tpl(continuousUpdateValueListeners))
 
-    this.append('functions.oneshot = {}')
-    this.append('functions.oneshot.play = ' + this.tpl(oneshotPlay))
-    this.append('functions.oneshot.pause = ' + this.tpl(oneshotPause))
-    this.append('functions.oneshot.setValue = ' + this.tpl(oneshotSetValue))
-    this.append('functions.oneshot.updateValueListeners = ' + this.tpl(oneshotUpdateValueListeners))
+    append('functions.oneshot = {}')
+    append('functions.oneshot.play = ' + tpl(oneshotPlay))
+    append('functions.oneshot.pause = ' + tpl(oneshotPause))
+    append('functions.oneshot.setValue = ' + tpl(oneshotSetValue))
+    append('functions.oneshot.updateValueListeners = ' + tpl(oneshotUpdateValueListeners))
   }
 
-  build () {
+  build (minify = false) {
     const append = this.append.bind(this)
-    const tpl = this.tpl.bind(this)
-
     this.clearSrc()
 
     // append editor created html and css
@@ -145,6 +143,22 @@ class Builder {
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
     append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
     append('<script>')
+
+    const js = this.buildJS()
+
+    append(js)
+    append('</script>')
+
+    return this.src
+  }
+
+  buildJS () {
+    let js = ''
+
+    const append = code => {
+      js = js + '\n' + code
+    }
+    const tpl = this.tpl.bind(this)
 
     // wrap our context in a init function so that we don't namespace collide
     append('const bodylightJS = () => {')
@@ -176,7 +190,7 @@ class Builder {
     // create model functions
     // TODO: refactor to config.models[model].functions with overrides
     append('const functions = {}')
-    this.appendFunctions()
+    this.appendFunctions(append, tpl)
 
     // append enums for used types
     append(`const WidgetType = ${tpl(WidgetType)}`)
@@ -227,9 +241,8 @@ class Builder {
     append('}')
 
     append(`document.addEventListener('DOMContentLoaded', bodylightJS())`)
-    append('</script>')
 
-    return this.src
+    return js
   }
 }
 
