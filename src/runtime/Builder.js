@@ -135,7 +135,20 @@ class Builder {
   }
 
   minify (js) {
-    const result = Terser.minify(js)
+    const options = {
+
+      compress: {
+        ecma: 8,
+        passes: 2
+      },
+      warnings: false,
+      ecma: 8
+    }
+    const result = Terser.minify(js, options)
+    if (result.warnings) {
+      console.warn(`Minify warning for: ${js}`)
+      console.warn(result.warnings)
+    }
     if (result.error) {
       console.error(`Minify failed for: ${js}`)
       console.error(result.error)
