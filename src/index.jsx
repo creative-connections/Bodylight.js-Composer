@@ -19,13 +19,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import generateID from '@helpers/generateID'
 
 class App extends Component {
-  constructor (props) {
-    super(props)
-    console.log('toplevel construct')
-  }
-
   render () {
-    console.log('toplevel render')
     return (
       <Fragment>
         <ToastContainer position="top-right" closeOnClick draggable pauseOnHover pauseOnVisibilityChange />
