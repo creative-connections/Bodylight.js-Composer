@@ -3,10 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Dropdown } from 'semantic-ui-react'
 import { newProject } from '@actions/actions'
-import { saveAs } from 'file-saver'
 import { withRouter } from 'react-router-dom'
-
-import Builder from '@runtime'
 
 class ItemRedirect extends Component {
   constructor (props) {
@@ -40,12 +37,6 @@ class MenuHeader extends Component {
     this.props.history.push(`${process.env.PATH}/${to}`)
   }
 
-  handleQuickExport () {
-    const builder = new Builder()
-    const html = new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
-    saveAs(html, 'export.html')
-  }
-
   render () {
     return (
       <Fragment>
@@ -63,7 +54,8 @@ class MenuHeader extends Component {
 
             <Dropdown.Divider />
 
-            <Dropdown.Item onClick={this.handleQuickExport}>Quick export</Dropdown.Item>
+            <ItemRedirect to="export" onClick={this.redirect}>Export</ItemRedirect>
+            <ItemRedirect to="export/quick" onClick={this.redirect}>Quick export</ItemRedirect>
           </Dropdown.Menu>
         </Dropdown>
       </Fragment>
