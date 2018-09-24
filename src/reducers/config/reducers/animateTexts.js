@@ -1,5 +1,6 @@
 import {
-  UPDATE_WIDGET_CONFIG
+  UPDATE_WIDGET_CONFIG,
+  UPDATE_WIDGET
 } from '@actions/types'
 
 import WidgetType from '@helpers/enum/WidgetType'
@@ -51,8 +52,32 @@ const updateAnimateText = (state, payload) => {
   return state
 }
 
+const removeMissingAnimateTexts = (state, payload) => {
+  if (WidgetType.ANIMATE !== payload.type) { return state }
+
+  Object.entries(state).forEach(([id, current]) => {
+    if (current.parent !== payload.id) {
+      return
+    }
+
+    let found = false
+    Object.entries(payload.text).forEach(([, text]) => {
+      if (text.name === current.name) {
+        found = true
+      }
+    })
+    if (!found) {
+      state = update(state, {$unset: [id]})
+    }
+  })
+
+  return state
+}
+
 export default function (state = {}, action) {
   switch (action.type) {
+    case UPDATE_WIDGET:
+      return removeMissingAnimateTexts(state, action.payload)
     case UPDATE_WIDGET_CONFIG:
       return updateAnimateText(state, action.payload)
   }
