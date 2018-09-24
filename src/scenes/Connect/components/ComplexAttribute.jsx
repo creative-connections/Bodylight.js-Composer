@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, Input, Fragment } from 'semantic-ui-react'
+import { Checkbox, Input } from 'semantic-ui-react'
 
 import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'

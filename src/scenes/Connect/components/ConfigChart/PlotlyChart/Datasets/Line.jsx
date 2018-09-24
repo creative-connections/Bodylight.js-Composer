@@ -1,10 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import { Dropdown, Grid, Input, Header, Divider, Checkbox } from 'semantic-ui-react'
+import { Dropdown, Checkbox } from 'semantic-ui-react'
 
-import ComplexAttribute from '../../../ComplexAttribute'
 import GridRow from '../../../GridRow'
-import ButtonLink from '@components/ButtonLink'
-import generateID from '@helpers/generateID'
 import update from 'immutability-helper'
 import InputFloat from '@components/InputFloat'
 
