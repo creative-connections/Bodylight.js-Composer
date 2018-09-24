@@ -339,3 +339,16 @@ div#main-menu {
   }
 
 }
+
+.colorpicker {
+  display:inline-block;
+}
+
+.colorpicker .color-box {
+  vertical-align: bottom;
+  display: inline-block;
+  margin-right: 4px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid gray;
+}
