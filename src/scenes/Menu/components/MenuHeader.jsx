@@ -31,6 +31,7 @@ class MenuHeader extends Component {
 
   handleNew () {
     this.props.newProject()
+    this.redirect('')
   }
 
   redirect (to) {
