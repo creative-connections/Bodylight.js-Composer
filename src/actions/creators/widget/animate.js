@@ -53,7 +53,7 @@ export const addAnimate = (source, hash, animateName, components) => {
 
 export const updateAnimate = (id, source, hash, animateName, components) => {
   return {
-    type: ADD_WIDGET,
+    type: UPDATE_WIDGET,
     payload: {
       id,
       js: source,
