@@ -53,14 +53,14 @@ class Datasets extends Component {
         value: 0,
         time: true,
         provider: null,
-        'function': 'value => value'
+        'function': null
       },
       y: {
         typeof: 'number',
         value: 0,
         time: false,
         provider: null,
-        'function': 'value => value'
+        'function': null
       },
       maxSamples: {
         typeof: 'number',
