@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
 import { Grid, Form, Checkbox, Divider, Button } from 'semantic-ui-react'
 
-import { addModel } from '@actions'
+import { addModel, updateModel } from '@actions'
 import { configGetAllModels } from '@reducers'
+import generateID from '@helpers/generateID'
 
 class Updater extends Component {
   constructor (props) {
@@ -14,9 +15,11 @@ class Updater extends Component {
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
 
-    // check if we already have an animate with the same rootComponent
     const models = []
     Object.entries(this.props.models).forEach(([key, model]) => {
+      if (model.originalName === this.props.upload.name) {
+        models.push(model)
+      }
     })
 
     this.state = { models, selected: null }
@@ -29,24 +32,50 @@ class Updater extends Component {
 
   handleAdd () {
     const upload = this.props.upload
-    console.log(upload)
     this.props.addModel(upload.name, upload.js, upload.hash, upload.modelDescription)
     toast.success(`Model '${upload.root}' added`)
     this.props.onUpdate(true)
   }
 
   handleUpdate () {
-
+    const upload = this.props.upload
+    this.props.updateModel(
+      this.state.selected,
+      upload.name, upload.js, upload.hash, upload.modelDescription
+    )
+    toast.success(`Selected model updated with '${upload.name}'`)
+    this.props.onUpdate(true)
   }
 
-  handleSelect () {
+  handleSelect (e, {value}) {
+    this.setState({
+      selected: value
+    })
+  }
 
+  renderModels () {
+    const out = []
+    this.state.models.forEach(model => {
+      out.push(
+        <Form.Field key={generateID()}>
+          <Checkbox radio
+            label={model.name}
+            name="model"
+            value={model.id}
+            checked={this.state.selected === model.id}
+            onChange={this.handleSelect}
+          />
+        </Form.Field>
+      )
+    })
+    return out
   }
 
   renderModelSelect () {
     if (!this.state.models) {
       return null
     }
+    return <Form>{ this.renderModels() }</Form>
   }
 
   render () {
@@ -72,6 +101,7 @@ export default connect(
     models: configGetAllModels(state)
   }),
   dispatch => bindActionCreators({
-    addModel
+    addModel,
+    updateModel
   }, dispatch)
 )(Updater)
