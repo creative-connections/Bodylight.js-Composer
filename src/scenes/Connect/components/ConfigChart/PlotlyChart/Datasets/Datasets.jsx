@@ -18,6 +18,22 @@ class Datasets extends Component {
 
   handleDatasetAdd () {
     let datasets = this.props.config
+    const pos = Object.entries(datasets).length + 1
+
+    let color = '#5DA5DA'
+
+    switch (pos) {
+      case 0: color = '#5DA5DA'; break
+      case 1: color = '#FAA43A'; break
+      case 2: color = '#60BD68'; break
+      case 3: color = '#F17CB0'; break
+      case 4: color = '#B276B2'; break
+      case 5: color = '#DECF3F'; break
+      case 6: color = '#F15854'; break
+      case 7: color = '#B2912F'; break
+      default: break
+    }
+
     const id = generateID()
     const defaultConfig = {
       id,
@@ -25,7 +41,7 @@ class Datasets extends Component {
       mode: 'lines',
       other: '() => ({})',
       line: {
-        color: null,
+        color: color,
         width: 2,
         shape: 'linear',
         smoothing: 1,

@@ -9,6 +9,8 @@ import update from 'immutability-helper'
 import InputFloat from '@components/InputFloat'
 import FunctionEditor from '@components/FunctionEditor'
 
+import Line from './Line'
+
 class Dataset extends Component {
   constructor (props) {
     super(props)
@@ -89,6 +91,14 @@ class Dataset extends Component {
             disableRemove={true}
           />
         </GridRow>
+
+        <Divider hidden/>
+
+        <Line
+          name={`${name}.line`}
+          config={config.line}
+          onChange={this.props.onChange}
+        />
 
         <Divider hidden/>
 
