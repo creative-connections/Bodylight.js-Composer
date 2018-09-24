@@ -1,6 +1,7 @@
 import {
   ADD_WIDGET,
-  RENAME_WIDGET
+  RENAME_WIDGET,
+  UPDATE_WIDGET
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
