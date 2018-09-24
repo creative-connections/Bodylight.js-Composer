@@ -227,7 +227,7 @@ export default class PlotlyChart extends Widget {
           values.forEach(value => {
             transformed.push(this.datasets[attr.dataset][attr.axis].function(value))
           })
-          this.extendsTraces(attr.dataset, attr.axis, transformed, time)
+          this.extendTraces(attr.dataset, attr.axis, transformed, time)
         } else {
           this.extendTraces(attr.dataset, attr.axis, values, time)
         }
