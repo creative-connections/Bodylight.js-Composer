@@ -1,6 +1,7 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
+  UPDATE_WIDGET,
   EDITOR_WIDGET_PLACE,
   EDITOR_WIDGET_REMOVE
 } from '@actions/types'
@@ -31,12 +32,82 @@ const addAnimate = (state, payload) => {
   return update(state, { [animate.id]: {$set: animate} })
 }
 
+const updateAnimate = (state, payload) => {
+  if (type !== payload.type) { return state }
+
+  const animate = state[payload.id]
+
+  // add missing anims
+  Object.entries(payload.anim).forEach(([id, anim]) => {
+    let found = false
+    Object.entries(animate.anims).forEach(([id, current]) => {
+      if (current.name === anim.name) {
+        found = true
+      }
+    })
+    if (!found) {
+      state = update(state, {
+        [payload.id]: { anims: { [anim.id]: {$set: anim} } }
+      })
+    }
+  })
+
+  // add missing texts
+  Object.entries(payload.text).forEach(([id, text]) => {
+    let found = false
+    Object.entries(animate.texts).forEach(([id, current]) => {
+      if (current.name === text.name) {
+        found = true
+      }
+    })
+    if (!found) {
+      state = update(state, {
+        [payload.id]: { texts: { [text.id]: {$set: text} } }
+      })
+    }
+  })
+
+  // remove missing anims
+  Object.entries(animate.anims).forEach(([id, current]) => {
+    let found = false
+    Object.entries(payload.anim).forEach(([id, anim]) => {
+      if (current.name === anim.name) {
+        found = true
+      }
+    })
+    if (!found) {
+      state = update(state, {
+        [payload.id]: { anims: { $unset: [current.id] } }
+      })
+    }
+  })
+
+  // remove missing texts
+  Object.entries(animate.texts).forEach(([id, current]) => {
+    let found = false
+    Object.entries(payload.text).forEach(([id, text]) => {
+      if (current.name === text.name) {
+        found = true
+      }
+    })
+    if (!found) {
+      state = update(state, {
+        [payload.id]: { texts: { $unset: [current.id] } }
+      })
+    }
+  })
+
+  return state
+}
+
 export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
       return addAnimate(state, action.payload, type)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
+    case UPDATE_WIDGET:
+      return updateAnimate(state, action.payload, type)
 
     case EDITOR_WIDGET_PLACE:
       return setWidgetPlaced(state, action.payload, type, true)
