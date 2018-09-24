@@ -14,6 +14,19 @@ import Line from './Line'
 class Dataset extends Component {
   constructor (props) {
     super(props)
+
+    const mode = [
+      {key: 'lines', text: 'Lines', value: 'lines'},
+      {key: 'markers', text: 'Markers', value: 'markers'},
+      {key: 'lines+markers', text: 'Lines + Markers', value: 'lines+markers'},
+      {key: 'none', text: 'None', value: 'none'}
+    ]
+
+    this.state = {
+      options: {
+        mode
+      }
+    }
   }
 
   render () {
@@ -67,10 +80,11 @@ class Dataset extends Component {
         </GridRow>
 
         <GridRow label='Mode:'>
-          <Input
+          <Dropdown
             name={`${name}.mode`}
             value={config.mode}
             onChange={this.props.onChange}
+            options={this.state.options.mode}
           />
         </GridRow>
 
