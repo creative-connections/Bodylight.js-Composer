@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Grid } from 'semantic-ui-react'
 
 import WidgetMenu from '@components/WidgetMenu'
@@ -23,7 +22,6 @@ class AddAnimate extends Component {
   }
 
   handleUpdate (success = false) {
-    console.log('handle update', success)
     if (success) {
       this.props.history.push(`${process.env.PATH}/`)
     } else {
