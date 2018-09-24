@@ -6,28 +6,28 @@ import {
 import generateID from '@helpers/generateID'
 import WidgetType from '@helpers/enum/WidgetType'
 
-const getAnims = components => {
+const getAnims = (components, parent) => {
   const anims = {}
   components.anim.forEach(name => {
     const id = generateID()
     anims[id] = {
       id,
       name,
-      parent: animateID,
+      parent,
       type: WidgetType.ANIMATE_ANIM
     }
   })
   return anims
 }
 
-const getTexts = components => {
+const getTexts = (components, parent) => {
   const texts = {}
   components.text.forEach(name => {
     const id = generateID()
     texts[id] = {
       id,
       name,
-      parent: animateID,
+      parent,
       type: WidgetType.ANIMATE_TEXT
     }
   })
@@ -35,17 +35,18 @@ const getTexts = components => {
 }
 
 export const addAnimate = (source, hash, animateName, components) => {
+  const id = generateID()
   return {
     type: ADD_WIDGET,
     payload: {
-      id: generateID(),
+      id,
       js: source,
       hash: hash,
       type: WidgetType.ANIMATE,
       name: animateName,
       originalName: animateName,
-      anim: getAnims(components),
-      text: getTexts(components)
+      anim: getAnims(components, id),
+      text: getTexts(components, id)
     }
   }
 }
@@ -60,8 +61,8 @@ export const updateAnimate = (id, source, hash, animateName, components) => {
       type: WidgetType.ANIMATE,
       name: animateName,
       originalName: animateName,
-      anim: getAnims(components),
-      text: getTexts(components)
+      anim: getAnims(components, id),
+      text: getTexts(components, id)
     }
   }
 }

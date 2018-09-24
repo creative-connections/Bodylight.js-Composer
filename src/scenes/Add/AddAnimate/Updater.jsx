@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { Redirect } from 'react-router-dom'
 import { Grid, Form, Checkbox, Divider, Button } from 'semantic-ui-react'
 
-import { addAnimate } from '@actions'
+import { addAnimate, updateAnimate } from '@actions'
 import { configGetAllAnimates } from '@reducers'
 import generateID from '@helpers/generateID'
 
@@ -13,6 +13,7 @@ class AddAnimate extends Component {
   constructor (props) {
     super(props)
     this.handleAdd = this.handleAdd.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
 
     // check if we already have an animate with the same rootComponent
@@ -23,17 +24,28 @@ class AddAnimate extends Component {
       }
     })
 
+    this.state = { animates, selected: null }
+
     // if not, add
     if (animates.length === 0) {
       return this.handleAdd()
     }
-
-    this.state = { animates }
   }
 
   handleAdd () {
     const upload = this.props.upload
     this.props.addAnimate(upload.js, upload.hash, upload.root, upload.components)
+    toast.success(`Animate '${upload.root}' added`)
+    this.props.onUpdate(true)
+  }
+
+  handleUpdate () {
+    const upload = this.props.upload
+    this.props.updateAnimate(
+      this.state.selected,
+      upload.js, upload.hash, upload.root, upload.components
+    )
+    toast.success(`Selected animate updated with '${upload.root}'`)
     this.props.onUpdate(true)
   }
 
@@ -74,7 +86,8 @@ class AddAnimate extends Component {
         <h2>Update selected</h2>
         { this.renderAnimateSelect() }
         <br/>
-        {this.state.selected && <Button>Update selected Animate</Button>}
+        {this.state.selected &&
+          <Button onClick={this.handleUpdate}>Update selected Animate</Button>}
 
         <Divider/>
 
@@ -89,5 +102,8 @@ export default connect(
   state => ({
     animates: configGetAllAnimates(state)
   }),
-  dispatch => bindActionCreators({ addAnimate }, dispatch)
+  dispatch => bindActionCreators({
+    addAnimate,
+    updateAnimate
+  }, dispatch)
 )(AddAnimate)
