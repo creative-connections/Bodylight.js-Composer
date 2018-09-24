@@ -34,6 +34,8 @@ class Dataset extends Component {
     const name = this.props.name
     return <Fragment>
 
+      <Divider/>
+      <h2>Dataset {config.name}</h2>
       <Grid verticalAlign='middle' celled='internally'>
         <GridRow label='Name:'>
           <Input
@@ -43,7 +45,7 @@ class Dataset extends Component {
           />
         </GridRow>
 
-        <GridRow label='y:'>
+        <GridRow label='y axis:'>
           { config.y.time === false &&
             <ComplexAttribute
               name={`${name}.y`}
@@ -61,7 +63,7 @@ class Dataset extends Component {
           />
         </GridRow>
 
-        <GridRow label='x:'>
+        <GridRow label='x axis:'>
           { config.x.time === false &&
             <ComplexAttribute
               name={`${name}.x`}
@@ -78,7 +80,22 @@ class Dataset extends Component {
             onChange={this.props.onChange}
           />
         </GridRow>
+        <GridRow label='Maximum samples:'>
+          <ComplexAttribute
+            name={`${name}.maxSamples`}
+            attribute={config.maxSamples}
+            onChange={this.props.onChange}
+          />
+        </GridRow>
+        <Divider hidden/>
+        <GridRow label='' compact={true}>
+          <ButtonLink name={config.id} onClick={this.props.onRemove}>remove dataset</ButtonLink>
+        </GridRow>
+      </Grid>
 
+      <h3>Appearance</h3>
+
+      <Grid verticalAlign='middle' celled='internally'>
         <GridRow label='Mode:'>
           <Dropdown
             name={`${name}.mode`}
@@ -87,16 +104,14 @@ class Dataset extends Component {
             options={this.state.options.mode}
           />
         </GridRow>
-
-        <GridRow label='Maximum samples:'>
-          <ComplexAttribute
-            name={`${name}.maxSamples`}
-            attribute={config.maxSamples}
-            onChange={this.props.onChange}
-          />
-        </GridRow>
-
-        <GridRow label='Advanced:'>
+        <Divider hidden/>
+        <Line
+          name={`${name}.line`}
+          config={config.line}
+          onChange={this.props.onChange}
+        />
+        <Divider hidden/>
+        <GridRow label='Custom:'>
           <FunctionEditor
             name={`${name}.other`}
             value={config.other}
@@ -104,20 +119,6 @@ class Dataset extends Component {
             typeof='object'
             disableRemove={true}
           />
-        </GridRow>
-
-        <Divider hidden/>
-
-        <Line
-          name={`${name}.line`}
-          config={config.line}
-          onChange={this.props.onChange}
-        />
-
-        <Divider hidden/>
-
-        <GridRow label='' compact={true}>
-          <ButtonLink name={config.id} onClick={this.props.onRemove}>remove dataset</ButtonLink>
         </GridRow>
       </Grid>
     </Fragment>
