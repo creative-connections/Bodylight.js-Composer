@@ -1,6 +1,7 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
+  UPDATE_WIDGET,
   UPDATE_WIDGET_CONFIG
 } from '@actions/types'
 
@@ -58,6 +59,27 @@ const addModel = (state, payload, type, defaultConfig) => {
   return update(state, { [payload.id]: {$set: defaultConfig} })
 }
 
+const updateModel = (state, payload, type) => {
+  if (type !== payload.type) { return state }
+
+  state = update(state, {
+    [payload.id]: {
+      js: {$set: payload.js},
+      hash: {$set: payload.hash},
+      guid: {$set: payload.modelDescription.guid},
+      identifier: {$set: payload.modelDescription.modelIdentifier},
+      modelName: {$set: payload.modelDescription.modelName},
+      variables: {$set: payload.modelDescription.variables},
+      parameters: {$set: payload.modelDescription.parameters},
+      description: {$set: payload.modelDescription.description},
+      generationDateAndTime: {$set: payload.modelDescription.generationDateAndTime},
+      generationTool: {$set: payload.modelDescription.generationTool}
+    }
+  })
+
+  return state
+}
+
 const type = WidgetType.MODEL
 
 export default function (state = {}, action) {
@@ -66,6 +88,8 @@ export default function (state = {}, action) {
       return addModel(state, action.payload, type, defaultConfig)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
+    case UPDATE_WIDGET:
+      return updateModel(state, action.payload, type)
     case UPDATE_WIDGET_CONFIG:
       return updateWidget(state, action.payload, type)
   }
