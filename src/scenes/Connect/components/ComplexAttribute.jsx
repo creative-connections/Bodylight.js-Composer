@@ -4,6 +4,7 @@ import { Checkbox, Input, Fragment } from 'semantic-ui-react'
 import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'
 import FunctionEditor from '@components/FunctionEditor'
+import ColorPicker from '@components/ColorPicker'
 
 import ProviderDropdown from './ProviderDropdown'
 
@@ -25,6 +26,13 @@ const renderValueInput = (name, label, attribute, onChange) => {
     />
   } else if (attribute.typeof === 'string') {
     return <Input
+      className='inline-block'
+      name={`${name}.value`}
+      value={attribute.value}
+      onChange={onChange}
+    />
+  } else if (attribute.typeof === 'color') {
+    return <ColorPicker
       className='inline-block'
       name={`${name}.value`}
       value={attribute.value}
