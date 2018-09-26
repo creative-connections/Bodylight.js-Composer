@@ -35,6 +35,8 @@ export default class PlotlyChart extends Widget {
         this.addValueProvider(JSON.stringify({shape: id, setter: `shape-${name}`, name}), shape[name].provider)
       })
     })
+
+    this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
   }
 
   setValueProvider (attribute, id, target) {
@@ -80,6 +82,7 @@ export default class PlotlyChart extends Widget {
       this.indexes = []
       this.buffer = {}
       this.oneshotBuffer = {}
+      this.oneshotBufferUpdateTracesTimeout = false
       const data = []
       let index = 0
       Object.entries(this.datasets).forEach(([id, dataset]) => {
@@ -184,35 +187,44 @@ export default class PlotlyChart extends Widget {
     }
   }
 
-  extendTraces (id, axis, values, time) {
+  updateTrace (id, axis, values, time) {
     if (this.enabled.value === false) {
       return
     }
-    const index = this.indexes[id]
     const altAxis = axis === 'x' ? 'y' : 'x'
 
     if (this.datasets[id][altAxis].time) {
-      const extend = {
-        y: [time],
-        x: [time]
-      }
-      extend[axis] = [values]
-      this.plotly.data[index].x = []
-      this.plotly.data[index].y = []
-      Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
+      const update = { y: time, x: time }
+      update[axis] = values
+      this.oneshotBuffer[id] = update
     } else {
-      // for a XY plot, we need to save the current value until we have both axis
-      this.oneshotBuffer[id][axis] = [values]
-
-      // if we have both of them then we flush
-      if (this.oneshotBuffer[id][altAxis] !== null) {
-        this.plotly.data[index].x = []
-        this.plotly.data[index].y = []
-        Plotly.extendTraces(this.plotly, this.oneshotBuffer[id], [index], this.datasets[id].maxSamples.value)
-        this.buffer[id].x = null
-        this.buffer[id].y = null
-      }
+      this.oneshotBuffer[id][axis] = values
+      console.log(this.oneshotBuffer[id])
     }
+    if (this.oneshotBufferUpdateTracesTimeout === false) {
+      this.oneshotBufferUpdateTracesTimeout = window.setTimeout(this.oneshotBufferUpdateTraces, 50)
+    }
+  }
+
+  oneshotBufferUpdateTraces () {
+    const buf = this.oneshotBuffer
+    const tracesToUpdate = []
+    const update = {x: [], y: []}
+
+    Object.entries(buf).forEach(([id, data]) => {
+      const index = this.indexes[id]
+      if (data.x === null || data.y === null) {
+        return
+      }
+      tracesToUpdate.push(index)
+      update.x.push(data.x)
+      update.y.push(data.y)
+      this.oneshotBuffer[id].x = null
+      this.oneshotBuffer[id].y = null
+    })
+
+    Plotly.restyle(this.plotly, update, tracesToUpdate)
+    this.oneshotBufferUpdateTracesTimeout = false
   }
 
   setValues (attribute, values, time) {
@@ -226,9 +238,9 @@ export default class PlotlyChart extends Widget {
           values.forEach(value => {
             transformed.push(this.datasets[attr.dataset][attr.axis].function(value))
           })
-          this.extendTraces(attr.dataset, attr.axis, transformed, time)
+          this.updateTrace(attr.dataset, attr.axis, transformed, time)
         } else {
-          this.extendTraces(attr.dataset, attr.axis, values, time)
+          this.updateTrace(attr.dataset, attr.axis, values, time)
         }
         return
       }
