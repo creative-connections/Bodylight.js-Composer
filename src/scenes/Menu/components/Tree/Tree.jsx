@@ -10,6 +10,8 @@ import Items from './components/Items'
 
 import TreeNode from './components/TreeNode'
 
+import { withRouter } from 'react-router-dom'
+
 import { getWidgetsForTree, getSelectedWidget } from '@reducers'
 import { selectWidget } from '@actions'
 
@@ -48,7 +50,11 @@ class Tree extends Component {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
     const id = e.currentTarget.dataset.id
-    this.props.selectWidget(id)
+    if (id === this.props.selected.id) {
+      this.props.history.push(`${process.env.PATH}/`)
+    } else {
+      this.props.selectWidget(id)
+    }
   }
 
   render () {
@@ -113,4 +119,4 @@ export default connect(
   dispatch => bindActionCreators({
     selectWidget
   }, dispatch)
-)(Tree)
+)(withRouter(Tree))
