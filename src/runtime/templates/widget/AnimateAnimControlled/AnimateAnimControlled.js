@@ -3,6 +3,9 @@ class Widget {}
 export default class AnimateAnimControlled extends Widget {
   constructor (configuration) {
     super(configuration, 'AnimateAnimControlled')
+
+    // duration: 100 -> 0 - 99
+    this.framecount = this.component.timeline.duration - 1
   }
 
   generateSetters () {
@@ -31,11 +34,11 @@ export default class AnimateAnimControlled extends Widget {
 
         value = Math.floor(
           (value - this.min.value) /
-          (this.max.value - this.min.value) * 99
+          (this.max.value - this.min.value) * this.framecount
         )
 
         if (this.reversed.value === true) {
-          value = 99 - value
+          value = this.framecount - value
         }
 
         this.component.gotoAndStop(value)
