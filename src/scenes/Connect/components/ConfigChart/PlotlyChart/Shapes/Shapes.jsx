@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { Dropdown, Grid, Header, Divider } from 'semantic-ui-react'
+import { Grid, Divider } from 'semantic-ui-react'
 
-import ComplexAttribute from '../../../ComplexAttribute'
 import GridRow from '../../../GridRow'
 import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
@@ -30,14 +29,14 @@ class Shapes extends Component {
         value: true,
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       },
       opacity: {
         typeof: 'number',
         value: 1,
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       },
       xref: 'paper',
       yref: 'paper',
@@ -46,49 +45,49 @@ class Shapes extends Component {
         value: 0,
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       },
       x1: {
         typeof: 'number',
         value: 1,
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       },
       y0: {
         typeof: 'number',
         value: 0,
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       },
       y1: {
         typeof: 'number',
         value: 1,
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       },
       color: {
         typeof: 'color',
         value: '#FF0000',
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       },
       width: {
         typeof: 'number',
         value: 1.5,
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       },
       dash: {
         typeof: 'string',
         value: 'solid',
         complex: false,
         provider: null,
-        'function': null
+        'function': 'value => value'
       }
 
     }
