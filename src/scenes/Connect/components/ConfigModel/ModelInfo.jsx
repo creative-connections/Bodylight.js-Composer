@@ -1,7 +1,7 @@
 import React from 'react'
-import SimpleList from '@components/SimpleList'
-import { Segment, Grid } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import GridRow from '../GridRow'
+import SimpleListSegment from '@components/SimpleListSegment'
 
 const transformElementsToArray = (elements) => {
   const data = []
@@ -9,14 +9,6 @@ const transformElementsToArray = (elements) => {
     data.push(elements[el].name)
   })
   return data
-}
-
-const segmentStyle = {
-  overflow: 'auto',
-  maxHeight: '10em',
-  maxWidth: '40em',
-  paddingTop: '0.2em',
-  paddingBottom: '0.2em'
 }
 
 const ModelInfo = ({config}) => {
@@ -28,20 +20,10 @@ const ModelInfo = ({config}) => {
       {`${config.generationTool} (${config.generationDateAndTime})`}
     </GridRow>
     <GridRow label='Parameters:'>
-      <Segment style={segmentStyle}>
-        <SimpleList
-          rootname="parameters"
-          data={transformElementsToArray(config.parameters)}
-        />
-      </Segment>
+      <SimpleListSegment data={transformElementsToArray(config.parameters)} />
     </GridRow>
     <GridRow label='Variables:'>
-      <Segment style={segmentStyle}>
-        <SimpleList
-          rootname="variables"
-          data={transformElementsToArray(config.variables)}
-        />
-      </Segment>
+      <SimpleListSegment data={transformElementsToArray(config.variables)} />
     </GridRow>
   </Grid>
 }

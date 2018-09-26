@@ -1,6 +1,6 @@
 import React from 'react'
-import SimpleList from '@components/SimpleList'
-import { Segment, Grid } from 'semantic-ui-react'
+import SimpleListSegment from '@components/SimpleListSegment'
+import { Grid } from 'semantic-ui-react'
 import GridRow from '../GridRow'
 
 const transformElementsToArray = (elements) => {
@@ -11,29 +11,13 @@ const transformElementsToArray = (elements) => {
   return data
 }
 
-const segmentStyle = {
-  overflow: 'auto',
-  maxHeight: '10em',
-  maxWidth: '40em',
-  paddingTop: '0.2em',
-  paddingBottom: '0.2em'
-}
-
 const AnimateInfo = ({config, animate}) => {
   return <Grid verticalAlign='middle' celled='internally'>
     <GridRow label='anims:'>
-      <Segment style={segmentStyle}>
-        <SimpleList
-          data={transformElementsToArray(animate.anims)}
-        />
-      </Segment>
+      <SimpleListSegment data={transformElementsToArray(animate.anims)}/>
     </GridRow>
     <GridRow label='texts:'>
-      <Segment style={segmentStyle}>
-        <SimpleList
-          data={transformElementsToArray(animate.texts)}
-        />
-      </Segment>
+      <SimpleListSegment data={transformElementsToArray(animate.texts)}/>
     </GridRow>
   </Grid>
 }
