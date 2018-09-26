@@ -2,9 +2,10 @@
 /* global resolveValueProviders */
 /* global initWidgets */
 /* global models */
+/* global animateFps */
 
 function init () {
-  createjs.Ticker.interval = 16.5
+  createjs.Ticker.framerate = animateFps
 
   Promise.all([
     Promise.all(initValueProviders()),

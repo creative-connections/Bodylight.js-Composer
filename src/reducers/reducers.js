@@ -9,12 +9,15 @@ import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
 import widgets, * as widgetSelectors from './widgets'
 import config, * as configSelectors from './config'
 
+import application, * as applicationSelectors from './application'
+
 import { NEW_PROJECT } from '@actions/types'
 
 const reducers = combineReducers({
   name,
   configurationScreen,
   functionEditorConfig,
+  application,
 
   editorStorage,
 
@@ -77,3 +80,6 @@ export const getButtonsForDropdown = state => widgetSelectors.getButtonsForDropd
 export const getRangesForDropdown = state => widgetSelectors.getRangesForDropdown(state.widgets)
 export const getTogglesForDropdown = state => widgetSelectors.getTogglesForDropdown(state.widgets)
 export const getChartsForDropdown = state => widgetSelectors.getChartsForDropdown(state.widgets)
+
+// application configuration
+export const getAnimateFps = state => applicationSelectors.getAnimateFps(state.application)

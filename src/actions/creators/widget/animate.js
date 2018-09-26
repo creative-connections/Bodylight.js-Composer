@@ -1,7 +1,8 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
-  UPDATE_WIDGET
+  UPDATE_WIDGET,
+  ANIMATE_SET_FPS
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
@@ -74,4 +75,9 @@ export const renameAnimate = (model, name) => ({
     widget: model,
     name
   }
+})
+
+export const animateSetFps = (fps) => ({
+  type: ANIMATE_SET_FPS,
+  payload: fps
 })

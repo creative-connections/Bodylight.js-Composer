@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
 
-import { updateConfig, renameAnimate } from '@actions'
-import { configGetAnimate } from '@reducers'
+import { updateConfig, renameAnimate, animateSetFps } from '@actions'
+import { configGetAnimate, getAnimateFps } from '@reducers'
 import InputFloat from '@components/InputFloat'
 import GridRow from '../GridRow'
 
@@ -15,6 +15,7 @@ class ConfigAnimate extends Component {
     super(props)
     this.handleOnChange = this.handleOnChange.bind(this)
     this.renameAnimate = this.renameAnimate.bind(this)
+    this.handleOnChangeFps = this.handleOnChangeFps.bind(this)
   }
 
   handleOnChange (e, {name, value, checked}) {
@@ -26,6 +27,10 @@ class ConfigAnimate extends Component {
 
   renameAnimate (e, {value}) {
     this.props.renameAnimate(this.props.animate, value)
+  }
+
+  handleOnChangeFps (e, {value}) {
+    this.props.animateSetFps(value)
   }
 
   render () {
@@ -44,15 +49,29 @@ class ConfigAnimate extends Component {
           />
         </GridRow>
       </Grid>
+
+      <h2>Animate options</h2>
+      <p>These options are identical for every Animate in the project</p>
+      <Grid verticalAlign='middle' celled='internally'>
+        <GridRow label='FPS:'>
+          <InputFloat
+            name='fps'
+            value={this.props.fps}
+            onChange={this.handleOnChangeFps}
+          />
+        </GridRow>
+      </Grid>
     </Fragment>
   }
 }
 
 export default connect(
   (state, props) => ({
-    config: configGetAnimate(state, props.animate.id)
+    config: configGetAnimate(state, props.animate.id),
+    fps: getAnimateFps(state)
   }),
   dispatch => bindActionCreators({
+    animateSetFps,
     updateConfig,
     renameAnimate
   }, dispatch)

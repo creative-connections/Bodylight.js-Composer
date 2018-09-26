@@ -78,6 +78,8 @@ import initRanges from './templates/widget/Range/init'
 import initButtons from './templates/widget/Button/init'
 import initToggles from './templates/widget/Toggle/init'
 
+import animateFps from './builders/application/animateFps'
+
 import Terser from 'terser'
 
 // API
@@ -224,6 +226,8 @@ class Builder {
     // append enums for used types
     append(`const WidgetType = ${tpl(WidgetType)}`)
     append(`const ProviderType = ${tpl(ProviderType)}`)
+
+    append(`const animateFps = ${animateFps()}`)
 
     // append class AnimateRuntime
     append(tpl(AnimateRuntime))

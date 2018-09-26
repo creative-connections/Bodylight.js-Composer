@@ -19,3 +19,5 @@ export const EDITOR_WIDGET_PLACE = 'editor/widget/PLACE'
 export const EDITOR_WIDGET_REMOVE = 'editor/widget/REMOVE'
 
 export const FUNCTION_EDITOR_CONFIG_CHANGE = 'FUNCTION_EDITOR_CONFIG_CHANGE'
+
+export const ANIMATE_SET_FPS = 'app/Animate/SET_FPS'
