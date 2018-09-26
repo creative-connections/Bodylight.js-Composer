@@ -38,7 +38,6 @@ export default class PlotlyChart extends Widget {
   }
 
   setValueProvider (attribute, id, target) {
-    console.log(attribute)
     const attr = this.parseAttribute(attribute)
 
     if (attr && attr.dataset) {
