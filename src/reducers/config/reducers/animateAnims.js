@@ -65,7 +65,7 @@ const defaultConfig = {
   },
   maxspeed: {
     typeof: 'number',
-    value: 1,
+    value: 10,
     complex: false,
     provider: null,
     function: null

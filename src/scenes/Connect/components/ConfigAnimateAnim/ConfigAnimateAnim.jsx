@@ -65,12 +65,18 @@ class ConfigAnimateAnim extends Component {
         </GridRow>
       </Grid>
 
-      {config.mode === AnimateAnimMode.CONTINUOUS && <ContinuousMode anim={this.props.anim}/>}
-      {config.mode === AnimateAnimMode.CONTROLLED && <ControlledMode
-        anim={this.props.anim}
-        onChange={this.handleOnChange}
-        config={config}
-      />}
+      {config.mode === AnimateAnimMode.CONTINUOUS &&
+        <ContinuousMode
+          anim={this.props.anim}
+          onChange={this.handleOnChange}
+          config={config}
+        />}
+      {config.mode === AnimateAnimMode.CONTROLLED &&
+        <ControlledMode
+          anim={this.props.anim}
+          onChange={this.handleOnChange}
+          config={config}
+        />}
     </Fragment>
   }
 }
