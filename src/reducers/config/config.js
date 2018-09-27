@@ -48,7 +48,7 @@ export const configGetAllCharts = state => chartsSelectors.getAll(state.charts)
 export const configGetChart = (state, id) => chartsSelectors.get(state.charts, id)
 
 export const configGetAllLabels = state => labelsSelectors.getAll(state.labels)
-export const configGetLabels = (state, id) => labelsSelectors.get(state.labels, id)
+export const configGetLabel = (state, id) => labelsSelectors.get(state.labels, id)
 
 export const configGetAllActions = state => actionsSelectors.getAll(state.actions)
 export const configGetAction = (state, id) => actionsSelectors.get(state.actions, id)
