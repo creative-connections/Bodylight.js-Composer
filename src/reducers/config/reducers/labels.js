@@ -21,7 +21,7 @@ import {
 } from '../commons/widget'
 
 const defaultConfig = {
-  name: 'unnamed_label',
+  name: 'unnamed',
 
   label: {
     typeof: 'string',
@@ -39,6 +39,14 @@ const defaultConfig = {
   ],
 
   enabled: {
+    typeof: 'boolean',
+    value: true,
+    complex: false,
+    provider: null,
+    function: null
+  },
+
+  visible: {
     typeof: 'boolean',
     value: true,
     complex: false,
