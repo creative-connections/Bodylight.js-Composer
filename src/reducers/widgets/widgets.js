@@ -9,7 +9,7 @@ import animates, * as animatesSelectors from './reducers/animates'
 import actions, * as actionsSelectors from './reducers/actions'
 import toggles, * as togglesSelectors from './reducers/toggles'
 import charts, * as chartsSelectors from './reducers/charts'
-import labels, * as labelsSelectors from './reducers/ranges'
+import labels, * as labelsSelectors from './reducers/labels'
 
 import memoize from 'memoize-one'
 
