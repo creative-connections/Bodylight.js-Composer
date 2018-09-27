@@ -57,7 +57,6 @@ class ConfigAnimateAnim extends Component {
         </GridRow>
         <GridRow label='Value:'>
           <ComplexAttribute
-            forceComplex={true}
             name='value'
             attribute={config.value}
             onChange={this.handleOnChange}

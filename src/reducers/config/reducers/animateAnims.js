@@ -23,7 +23,7 @@ const defaultConfig = {
   ],
   value: {
     value: 0,
-    complex: false,
+    complex: true,
     provider: null,
     function: null,
     typeof: 'number'
