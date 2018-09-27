@@ -35,7 +35,9 @@ const defaultConfig = {
   actions: { },
 
   attributes: [
-    'enabled'
+    'enabled',
+    'visible',
+    'label'
   ],
 
   enabled: {
