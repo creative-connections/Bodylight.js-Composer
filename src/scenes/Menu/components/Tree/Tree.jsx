@@ -94,6 +94,13 @@ class Tree extends Component {
           filter={this.state.filter}
           collapsed={false}
           onClick={this.onClick}/>
+        <Items
+          name='Label'
+          items={this.props.widgets.labels}
+          selected={this.props.selected}
+          filter={this.state.filter}
+          collapsed={false}
+          onClick={this.onClick}/>
         <Animates
           animates={this.props.widgets.animates}
           selected={this.props.selected}

@@ -44,6 +44,7 @@ import buildRangeConfig from './builders/widgets/Range/config'
 import buildButtonConfig from './builders/widgets/Button/config'
 import buildToggleConfig from './builders/widgets/Toggle/config'
 import buildChartConfig from './builders/widgets/Chart/config'
+import buildLabelConfig from './builders/widgets/Label/config'
 
 import appendModels from './builders/widgets/models/models'
 import buildModelConfig from './builders/widgets/models/config'
@@ -65,6 +66,7 @@ import Widget from './templates/widget/Widget'
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
 import AnimateText from './templates/widget/AnimateText'
 import Range from './templates/widget/Range'
+import Label from './templates/widget/Label'
 
 import PlotlyChart from './templates/widget/Chart/PlotlyChart'
 import initCharts from './templates/widget/Chart/init'
@@ -77,6 +79,7 @@ import initAnimatePlays from './templates/widget/AnimatePlay/init'
 import initRanges from './templates/widget/Range/init'
 import initButtons from './templates/widget/Button/init'
 import initToggles from './templates/widget/Toggle/init'
+import initLabels from './templates/widget/Label/init'
 
 import animateFps from './builders/application/animateFps'
 
@@ -217,6 +220,7 @@ class Builder {
     append(`config.widgets.buttons = ${tpl(buildButtonConfig())}`)
     append(`config.widgets.toggles = ${tpl(buildToggleConfig())}`)
     append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
+    append(`config.widgets.labels = ${tpl(buildLabelConfig())}`)
 
     // create model functions
     // TODO: refactor to config.models[model].functions with overrides
@@ -245,6 +249,9 @@ class Builder {
 
     append(tpl(Range))
     append(tpl(initRanges))
+
+    append(tpl(Label))
+    append(tpl(initLabels))
 
     append(tpl(Button))
     append(tpl(initButtons))

@@ -44,6 +44,7 @@ export const getButtons = state => widgetSelectors.getButtons(state.widgets)
 export const getActions = state => widgetSelectors.getActions(state.widgets)
 export const getToggles = state => widgetSelectors.getToggles(state.widgets)
 export const getCharts = state => widgetSelectors.getCharts(state.widgets)
+export const getLabels = state => widgetSelectors.getLabels(state.widgets)
 
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
 export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(state.widgets)
@@ -66,6 +67,8 @@ export const configGetAllToggles = state => configSelectors.configGetAllToggles(
 export const configGetToggle = (state, id) => configSelectors.configGetToggle(state.config, id)
 export const configGetAllCharts = state => configSelectors.configGetAllCharts(state.config)
 export const configGetChart = (state, id) => configSelectors.configGetChart(state.config, id)
+export const configGetAllLabels = state => configSelectors.configGetAllLabels(state.config)
+export const configGetLabel = (state, id) => configSelectors.configGetLabel(state.config, id)
 
 export const getProvidersForDropdown = state => configSelectors.getProvidersForDropdown(state.config)
 
@@ -80,6 +83,7 @@ export const getButtonsForDropdown = state => widgetSelectors.getButtonsForDropd
 export const getRangesForDropdown = state => widgetSelectors.getRangesForDropdown(state.widgets)
 export const getTogglesForDropdown = state => widgetSelectors.getTogglesForDropdown(state.widgets)
 export const getChartsForDropdown = state => widgetSelectors.getChartsForDropdown(state.widgets)
+export const getLabelsForDropdown = state => widgetSelectors.getLabelsForDropdown(state.widgets)
 
 // application configuration
 export const getAnimateFps = state => applicationSelectors.getAnimateFps(state.application)

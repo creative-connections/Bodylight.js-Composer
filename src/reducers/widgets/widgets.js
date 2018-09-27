@@ -9,6 +9,7 @@ import animates, * as animatesSelectors from './reducers/animates'
 import actions, * as actionsSelectors from './reducers/actions'
 import toggles, * as togglesSelectors from './reducers/toggles'
 import charts, * as chartsSelectors from './reducers/charts'
+import labels, * as labelsSelectors from './reducers/labels'
 
 import memoize from 'memoize-one'
 
@@ -20,6 +21,7 @@ export default combineReducers({
   actions,
   toggles,
   charts,
+  labels,
   app
 })
 
@@ -30,6 +32,7 @@ export const getAnimates = state => animatesSelectors.getAll(state.animates)
 export const getActions = state => actionsSelectors.getAll(state.actions)
 export const getToggles = state => togglesSelectors.getAll(state.toggles)
 export const getCharts = state => chartsSelectors.getAll(state.charts)
+export const getLabels = state => labelsSelectors.getAll(state.labels)
 
 const getWidgetMemoized = memoize((state, id) => {
   let widget = null
@@ -40,6 +43,7 @@ const getWidgetMemoized = memoize((state, id) => {
   if ((widget = actionsSelectors.get(state.actions, id)) !== null) { return widget }
   if ((widget = togglesSelectors.get(state.toggles, id)) !== null) { return widget }
   if ((widget = chartsSelectors.get(state.charts, id)) !== null) { return widget }
+  if ((widget = labelsSelectors.get(state.labels, id)) !== null) { return widget }
   return widget
 })
 
@@ -61,6 +65,7 @@ const getWidgetsForTreeMemoized = memoize(state => {
   widgets.actions = actionsSelectors.getAll(state.actions)
   widgets.toggles = togglesSelectors.getAll(state.toggles)
   widgets.charts = chartsSelectors.getAll(state.charts)
+  widgets.labels = labelsSelectors.getAll(state.labels)
   return widgets
 })
 
@@ -75,3 +80,4 @@ export const getButtonsForDropdown = state => buttonsSelectors.getForDropdown(st
 export const getRangesForDropdown = state => rangesSelectors.getForDropdown(state.ranges)
 export const getTogglesForDropdown = state => togglesSelectors.getForDropdown(state.toggles)
 export const getChartsForDropdown = state => chartsSelectors.getForDropdown(state.charts)
+export const getLabelsForDropdown = state => labelsSelectors.getForDropdown(state.labels)
