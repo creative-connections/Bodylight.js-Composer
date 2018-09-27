@@ -7,6 +7,7 @@ import animateTexts, * as animateTextsSelectors from './reducers/animateTexts'
 import animateAnims, * as animateAnimsSelectors from './reducers/animateAnims'
 import toggles, * as togglesSelectors from './reducers/toggles'
 import charts, * as chartsSelectors from './reducers/charts'
+import labels, * as labelsSelectors from './reducers/labels'
 import actions, * as actionsSelectors from './reducers/actions'
 
 import memoize from 'memoize-one'
@@ -20,6 +21,7 @@ export default combineReducers({
   animateAnims,
   toggles,
   charts,
+  labels,
   actions
 })
 
@@ -44,6 +46,9 @@ export const configGetToggle = (state, id) => togglesSelectors.get(state.toggles
 
 export const configGetAllCharts = state => chartsSelectors.getAll(state.charts)
 export const configGetChart = (state, id) => chartsSelectors.get(state.charts, id)
+
+export const configGetAllLabels = state => labelsSelectors.getAll(state.labels)
+export const configGetLabels = (state, id) => labelsSelectors.get(state.labels, id)
 
 export const configGetAllActions = state => actionsSelectors.getAll(state.actions)
 export const configGetAction = (state, id) => actionsSelectors.get(state.actions, id)
