@@ -64,6 +64,7 @@ import resolveValueProviders from './templates/resolveValueProviders'
 import Widget from './templates/widget/Widget'
 
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
+import AnimateAnimContinuous from './templates/widget/AnimateAnimContinuous'
 import AnimateText from './templates/widget/AnimateText'
 import Range from './templates/widget/Range'
 import Label from './templates/widget/Label'
@@ -74,6 +75,7 @@ import initCharts from './templates/widget/Chart/init'
 import Button from './templates/widget/Button'
 import Toggle from './templates/widget/Toggle'
 import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
+import initAnimateAnimsContinuous from './templates/widget/AnimateAnimContinuous/init'
 import initAnimateTexts from './templates/widget/AnimateText/init'
 import initAnimatePlays from './templates/widget/AnimatePlay/init'
 import initRanges from './templates/widget/Range/init'
@@ -241,6 +243,9 @@ class Builder {
 
     append(tpl(AnimateAnimControlled))
     append(tpl(initAnimateAnimsControlled))
+
+    append(tpl(AnimateAnimContinuous))
+    append(tpl(initAnimateAnimsContinuous))
 
     append(tpl(AnimateText))
     append(tpl(initAnimateTexts))

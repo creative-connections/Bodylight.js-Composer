@@ -11,7 +11,8 @@ export default () => {
   Object.entries(anims).forEach(([id, configuration]) => {
     if (config[configuration.parent] === undefined) {
       config[configuration.parent] = {
-        controlled: {}
+        controlled: {},
+        continuous: {}
       }
     }
 
@@ -21,6 +22,9 @@ export default () => {
 
     if (configuration.mode === AnimateAnimMode.CONTROLLED) {
       config[configuration.parent].controlled[id] = configuration
+    }
+    if (configuration.mode === AnimateAnimMode.CONTINUOUS) {
+      config[configuration.parent].continuous[id] = configuration
     }
   })
 
