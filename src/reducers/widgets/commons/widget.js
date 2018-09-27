@@ -44,6 +44,7 @@ export const getWidgetsForDropdown = (state) => {
 
 export const setWidgetPlaced = (state, payload, type, placed) => {
   if (type !== payload.widget.type) { return state }
+  if (state[payload.widget.id] === undefined) { return state }
   if (state[payload.widget.id].placed === placed) { return state }
   return update(state, {
     [payload.widget.id]: { placed: {$set: placed} }
