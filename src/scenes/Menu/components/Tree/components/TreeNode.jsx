@@ -43,7 +43,10 @@ class TreeNode extends Component {
       return 'toggle on'
     }
     if (this.props.type === WidgetType.CHART) {
-      return 'picture'
+      return 'chart line'
+    }
+    if (this.props.type === WidgetType.LABEL) {
+      return 'pencil alternate'
     }
   }
 
