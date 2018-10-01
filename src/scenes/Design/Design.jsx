@@ -64,7 +64,22 @@ class Design extends Component {
       }
     })
 
+    const openConnect = 'open-connect'
+    editor.Panels.addButton('views', {
+      id: openConnect,
+      command: openConnect,
+      className: 'fa fa-cubes'
+    })
+
+    console.log(editor.Panels)
+
     animateBlock(editor)
+    editor.Panels.addPanel([{
+      id: 'connect',
+      visible: true,
+      buttons: []
+    }]
+    )
     rangeBlock(editor)
     buttonBlock(editor)
     toggleBlock(editor)
