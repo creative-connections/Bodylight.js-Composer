@@ -1,14 +1,11 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
-  UPDATE_WIDGET,
-  EDITOR_WIDGET_PLACE,
-  EDITOR_WIDGET_REMOVE
+  UPDATE_WIDGET
 } from '@actions/types'
 
 import {
-  renameWidget,
-  setWidgetPlaced
+  renameWidget
 } from '../commons/widget.js'
 
 import WidgetType from '@helpers/enum/WidgetType'
@@ -24,7 +21,6 @@ const addAnimate = (state, payload) => {
     id: payload.id,
     name: payload.name,
     type: payload.type,
-    placed: false,
     anims: payload.anim,
     texts: payload.text
   }
@@ -108,11 +104,6 @@ export default function (state = {}, action) {
       return renameWidget(state, action.payload, type)
     case UPDATE_WIDGET:
       return updateAnimate(state, action.payload, type)
-
-    case EDITOR_WIDGET_PLACE:
-      return setWidgetPlaced(state, action.payload, type, true)
-    case EDITOR_WIDGET_REMOVE:
-      return setWidgetPlaced(state, action.payload, type, false)
   }
   return state
 }

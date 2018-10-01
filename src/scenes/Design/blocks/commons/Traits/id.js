@@ -21,10 +21,7 @@ export const getInputEl = (trait, getComponents, filter = true) => {
       if (id === currentValue) {
         option.selected = true
       }
-      // don't show already placed components in the list, unless it's us
-      if (true || component.placed === false || id === currentValue || filter === false) {
-        select.add(option)
-      }
+      select.add(option)
     })
     trait.inputEl = select
   }
