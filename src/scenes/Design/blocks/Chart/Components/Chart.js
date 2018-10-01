@@ -57,6 +57,8 @@ export default (editor) => {
           this.model.set('style', style)
         }
 
+        this.initPlotly = this.initPlotly.bind(this)
+
         if (chart) {
           this.initPlotly()
         } else {
@@ -132,26 +134,20 @@ export default (editor) => {
       initPlotly () {
         const chart = this.getChart()
         if (this.chartId === chart.id) {
-          // return
+          return
         }
         this.chartId = chart.id
+        this.plotly = Plotly.d3.select(this.el).node()
 
-        const d3 = Plotly.d3
-        const div = d3.select(this.el).append('div').style(
-          { width: '100%', height: '100%' }
-        )
-
-        this.plotly = div.node()
-        const data = []
-        const shapes = []
+        const data = [{ x: [], y: [], mode: 'lines', type: 'scatter' }]
         const layout = {
           xaxis: chart.xaxis,
           yaxis: chart.yaxis,
-          margin: { l: 50, r: 20, b: 20, t: 20, pad: 4 },
-          shapes: shapes
+          margin: { l: 50, r: 20, b: 20, t: 20, pad: 4 }
         }
         const config = {
-          'displayModeBar': false
+          displayModeBar: false,
+          staticPlot: true
         }
 
         Plotly.newPlot(this.plotly, data, layout, config)
@@ -166,9 +162,7 @@ export default (editor) => {
 
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
-
         this.deregisterUpdateHandler()
-
         const id = this.attr.id
         if (id) {
           configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.CHART))
