@@ -45,9 +45,15 @@ class Design extends Component {
 
       plugins: [
         'gjs-redux-storage',
-        'gjs-blocks-basic',
-        'gjs-blocks-flexbox'
-      ]
+        'gjs-blocks-flexbox',
+        'gjs-blocks-basic'
+      ],
+
+      pluginsOpts: {
+        'gjs-blocks-basic': {
+          blocks: ['text', 'link', 'image', 'video', 'map']
+        }
+      }
     })
 
     const cmdCanvasClear = 'canvas-clear'

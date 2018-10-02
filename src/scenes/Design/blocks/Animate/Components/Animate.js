@@ -25,7 +25,16 @@ export default (editor) => {
           label: 'Animate',
           name: 'id'
         }],
-        resizable: true
+        resizable: {
+          tl: 0, // Top left
+          tc: 0, // Top center
+          tr: 0, // Top right
+          cl: 0, // Center left
+          cr: 1, // Center right
+          bl: 0, // Bottom left
+          bc: 0, // Bottom center
+          br: 0 // Bottom right
+        }
       })
     }, {
       isComponent: (el) => {
@@ -80,7 +89,7 @@ export default (editor) => {
         const width = this.el.clientWidth
         const height = this.el.clientHeight
         this.el.width = width
-        this.el.height = height
+        this.el.height = 100 // TEMP
 
         // ANIMATE logo
         if (!this.strokeBorder) {
@@ -142,21 +151,12 @@ export default (editor) => {
           this.runtime = cachedRuntime.runtime
           this.runtime.attachCanvas(this.el)
         }
-
-        window.setTimeout(this.resizeRuntime, 10)
       },
 
       detachRuntime () {
         if (this.runtime !== undefined) {
           this.runtime.detachCanvas()
           delete this.runtime
-        }
-      },
-
-      resizeRuntime () {
-        if (this.runtime !== undefined) {
-          const el = this.el
-          this.runtime.resize(el.clientWidth, el.clientHeight)
         }
       },
 
@@ -171,8 +171,6 @@ export default (editor) => {
           if (this.runtime === undefined) {
             return this.drawPlaceholder()
           }
-
-          this.resizeRuntime()
         }
       },
 
@@ -181,7 +179,7 @@ export default (editor) => {
        */
       registerUpdateHandler () {
         /*
-         * Registering resize listeners, this is kinda inefficient
+         * Registering update listeners, this is kinda inefficient
          * TODO: see changes in https://github.com/artf/grapesjs/issues/1355 for
          * a better solution to catching events
          */
@@ -209,7 +207,6 @@ export default (editor) => {
       onRender () {
         // bind used callbacks
         this.handleUpdate = this.handleUpdate.bind(this)
-        this.resizeRuntime = this.resizeRuntime.bind(this)
 
         this.attachRuntime()
         this.registerUpdateHandler()

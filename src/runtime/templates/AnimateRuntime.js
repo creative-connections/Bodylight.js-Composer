@@ -28,8 +28,6 @@ export default class AnimateRuntime {
     this.components = this.library.exportedComponents
     delete this.library.exportedComponents
 
-    this.resize(this.canvas.clientWidth, this.canvas.clientHeight)
-
     this.stage.setAutoPlay(autoplay)
     this.stage.update()
     this.stage.addChild(root)
@@ -39,7 +37,8 @@ export default class AnimateRuntime {
     // WebFont.load({ google: { families: gfontFamilies } })
 
     // register stage to receive tick updates
-    createjs.Ticker.addEventListener('tick', this.stage)
+    this.resize = this.resize.bind(this)
+    this.startListeners()
 
     this.initialized = true
 
@@ -48,7 +47,6 @@ export default class AnimateRuntime {
       const waitTicks = () => {
         if (++tickCounter === 2) {
           createjs.Ticker.removeEventListener('tick', waitTicks)
-          // this.resize(this.canvas.width, this.canvas.height)
           resolve()
         }
       }
@@ -65,26 +63,36 @@ export default class AnimateRuntime {
 
   destroy () {
     if (this.initialized) {
-      createjs.Ticker.removeEventListener('tick', this.stage)
+      this.stopListeners()
       this.stage.clear()
     }
   }
 
   attachCanvas (canvas) {
-    createjs.Ticker.removeEventListener('tick', this.stage)
+    this.stopListeners()
     this.stage.enableDOMEvents(false)
     this.stage.canvas = canvas
     this.canvas = canvas
     this.stage.enableDOMEvents(true)
-    createjs.Ticker.addEventListener('tick', this.stage)
+    this.startListeners()
   }
 
   detachCanvas () {
-    createjs.Ticker.removeEventListener('tick', this.stage)
+    this.stopListeners()
     this.stage.enableDOMEvents(false)
     this.stage.canvas = null
     this.canvas = null
     this.stage.enableDOMEvents(true)
+  }
+
+  startListeners () {
+    createjs.Ticker.addEventListener('tick', this.stage)
+    createjs.Ticker.addEventListener('tick', this.resize)
+  }
+
+  stopListeners () {
+    createjs.Ticker.removeEventListener('tick', this.stage)
+    createjs.Ticker.removeEventListener('tick', this.resize)
   }
 
   /*
@@ -126,37 +134,41 @@ export default class AnimateRuntime {
     }
   }
 
-  resize (width, height) {
-    // console.log(`Resizing canvas ${this.name}: ${width}x${height}`)
+  resize () {
+    // noop if render size didn't change
+    if (this.prevClientWidth === this.canvas.clientWidth &&
+      this.prevClientHeight === this.canvas.clientHeight) {
+      return
+    }
+    this.prevClientWidth = this.canvas.clientWidth
+    this.prevClientHeight = this.canvas.clientHeight
+
     const w = this.library.properties.width
     const h = this.library.properties.height
 
-    const pRatio = window.devicePixelRatio || 1
-    const xRatio = width / w
-    const yRatio = height / h
-    let sRatio = 1
+    const aspect = w / h
 
-    const scaleType = 1
+    const width = this.canvas.clientWidth
+    const height = this.canvas.clientHeight
+
+    const pRatio = window.devicePixelRatio || 1
+    let xRatio = width / w
+    let yRatio = height / h
+    let sRatio = xRatio
+
+    /*
+    const scaleType = 2
     if (scaleType === 1) {
       sRatio = Math.min(xRatio, yRatio)
     } else if (scaleType === 2) {
       sRatio = Math.max(xRatio, yRatio)
     }
-
-    /*
-    // Original scaling respecting pRatio
-    this.canvas.width = w * pRatio * sRatio
-    this.canvas.height = h * pRatio * sRatio
-
-    // Flooring removes blurry artefacts
-    this.canvas.width = Math.floor(w * sRatio)
-    this.canvas.height = Math.floor(h * sRatio)
     */
 
-    // Let the canvas stretch horizontally to the right
-    // and vertically to the left
-    this.canvas.width = Math.floor(width)
-    this.canvas.height = Math.floor(height)
+    // Flooring removes blurry artefacts
+    this.canvas.width = Math.floor(width * pRatio)
+    // Height is calculated from width and aspect ratio
+    this.canvas.height = Math.floor((width * pRatio) * aspect)
 
     this.stage.scaleX = pRatio * sRatio
     this.stage.scaleY = pRatio * sRatio
