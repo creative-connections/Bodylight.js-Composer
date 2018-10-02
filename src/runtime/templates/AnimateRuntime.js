@@ -143,20 +143,10 @@ export default class AnimateRuntime {
       sRatio = Math.max(xRatio, yRatio)
     }
 
-    /*
-    // Original scaling respecting pRatio
-    this.canvas.width = w * pRatio * sRatio
-    this.canvas.height = h * pRatio * sRatio
-
+    // Let the canvas stretch horizontally to the right and vertically to the left
     // Flooring removes blurry artefacts
-    this.canvas.width = Math.floor(w * sRatio)
-    this.canvas.height = Math.floor(h * sRatio)
-    */
-
-    // Let the canvas stretch horizontally to the right
-    // and vertically to the left
-    this.canvas.width = Math.floor(width)
-    this.canvas.height = Math.floor(height)
+    this.canvas.width = Math.floor(width * pRatio)
+    this.canvas.height = Math.floor(height * pRatio)
 
     this.stage.scaleX = pRatio * sRatio
     this.stage.scaleY = pRatio * sRatio
