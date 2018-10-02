@@ -7,7 +7,6 @@ import { ResizableBox } from 'react-resizable'
 class AnimatePlayer extends Component {
   constructor (props) {
     super(props)
-    this.handleResize = this.handleResize.bind(this)
     this.canvas = React.createRef()
     this.runtime = null
     this.createRuntime(this.props.source, this.props.name)
@@ -59,12 +58,6 @@ class AnimatePlayer extends Component {
     this.initRuntime()
   }
 
-  handleResize (evt, data) {
-    if (this.isRuntime()) {
-      this.runtime.resize(data.size.width, data.size.height)
-    }
-  }
-
   render () {
     if (!this.isRuntime()) {
       return null
@@ -72,7 +65,7 @@ class AnimatePlayer extends Component {
     const width = this.props.width
     const height = this.props.height
 
-    return <ResizableBox width={width} height={height} onResize={this.handleResize}>
+    return <ResizableBox width={width} height={height}>
       <canvas ref={this.canvas} width={width} height={height} />
     </ResizableBox>
   }
