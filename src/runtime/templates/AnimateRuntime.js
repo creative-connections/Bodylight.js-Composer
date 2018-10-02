@@ -146,7 +146,7 @@ export default class AnimateRuntime {
     const w = this.library.properties.width
     const h = this.library.properties.height
 
-    const aspect = w / h
+    const aspect = h / w
 
     const width = this.canvas.clientWidth
     const height = this.canvas.clientHeight
