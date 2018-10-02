@@ -1,13 +1,9 @@
-import React, { Fragment } from 'react'
-
-import { Grid, Menu } from 'semantic-ui-react'
+import React from 'react'
 
 import WidgetSettings from './components/WidgetSettings'
 
-const Connect = () => {
-  return <Fragment>
-    <WidgetSettings />
-  </Fragment>
+const Connect = (props) => {
+  return <WidgetSettings {...props}/>
 }
 
 export default Connect

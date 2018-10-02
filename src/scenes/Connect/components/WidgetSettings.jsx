@@ -51,6 +51,18 @@ class WidgetSettings extends Component {
   render () {
     const selectedWidget = this.props.selectedWidget
 
+    if (this.props.sidebar) {
+      return <Fragment>
+        <Grid padded centered className='topPadded'>
+          <Grid.Row centered style={{ paddingTop: 0, paddingBottom: 0 }}>
+            <Grid.Column style={{ marginTop: '2em', width: '100%' }}>
+              {this.renderSelectedWidget(selectedWidget)}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Fragment>
+    }
+
     return <Fragment>
       <div id='topBar' className='header'>
         <span>{selectedWidget && selectedWidget.name}</span>
