@@ -15,6 +15,8 @@ import toggleBlock from './blocks/Toggle'
 import chartBlock from './blocks/Chart'
 import labelBlock from './blocks/Label'
 
+import connectPanel from './panels/connect'
+
 import configureStore from '@src/configureStore'
 import { editorStorageClear } from '@actions/actions'
 
@@ -70,22 +72,9 @@ class Design extends Component {
       }
     })
 
-    const openConnect = 'open-connect'
-    editor.Panels.addButton('views', {
-      id: openConnect,
-      command: openConnect,
-      className: 'fa fa-cubes'
-    })
-
-    console.log(editor.Panels)
+    connectPanel(editor)
 
     animateBlock(editor)
-    editor.Panels.addPanel([{
-      id: 'connect',
-      visible: true,
-      buttons: []
-    }]
-    )
     rangeBlock(editor)
     buttonBlock(editor)
     toggleBlock(editor)
