@@ -107,30 +107,32 @@ class ConfigButton extends Component {
         />
       </GridRow>
       <GridRow label='Mode:'>
-        <Checkbox
-          radio
-          label='Value applied on click'
-          name='mode'
-          value={ButtonMode.CLICK}
-          checked={config.mode === ButtonMode.CLICK}
-          onClick={this.handleOnChange}
-        />
-        <Checkbox
-          radio
-          label='Value applied while pressed'
-          name='mode'
-          value={ButtonMode.PRESS}
-          checked={config.mode === ButtonMode.PRESS}
-          onClick={this.handleOnChange}
-        />
-        <Checkbox
-          radio
-          label='Button triggers an event'
-          name='mode'
-          value={ButtonMode.TRIGGER}
-          checked={config.mode === ButtonMode.TRIGGER}
-          onClick={this.handleOnChange}
-        />
+        <div>
+          <Checkbox
+            radio
+            label='Value applied on click'
+            name='mode'
+            value={ButtonMode.CLICK}
+            checked={config.mode === ButtonMode.CLICK}
+            onClick={this.handleOnChange}
+          />
+          <Checkbox
+            radio
+            label='Value applied while pressed'
+            name='mode'
+            value={ButtonMode.PRESS}
+            checked={config.mode === ButtonMode.PRESS}
+            onClick={this.handleOnChange}
+          />
+          <Checkbox
+            radio
+            label='Button triggers an event'
+            name='mode'
+            value={ButtonMode.TRIGGER}
+            checked={config.mode === ButtonMode.TRIGGER}
+            onClick={this.handleOnChange}
+          />
+        </div>
       </GridRow>
       { config.mode === ButtonMode.CLICK && this.renderClickMode(config)}
       { config.mode === ButtonMode.PRESS && this.renderPressMode(config)}
