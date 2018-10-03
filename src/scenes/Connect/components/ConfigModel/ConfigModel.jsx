@@ -106,17 +106,15 @@ class ConfigModel extends Component {
 
     return <Fragment>
       <ModelInfo config={config}/>
-      <Divider hidden/>
-      <Grid verticalAlign='middle' celled='internally'>
-
-        <GridRow label='Name:'>
-          <Input
-            name='name'
-            value={this.props.model.name}
-            onChange={this.renameModel}
-          />
-        </GridRow>
-        <GridRow label='Mode:'>
+      <GridRow label='Name:'>
+        <Input
+          name='name'
+          value={this.props.model.name}
+          onChange={this.renameModel}
+        />
+      </GridRow>
+      <GridRow label='Mode:'>
+        <div>
           <Checkbox
             radio
             label='Always running'
@@ -125,7 +123,6 @@ class ConfigModel extends Component {
             checked={config.mode === ModelMode.CONTINUOUS}
             onClick={this.handleOnChange}
           />
-          <br/><br/>
           <Checkbox
             radio
             label='External tick'
@@ -134,7 +131,6 @@ class ConfigModel extends Component {
             checked={config.mode === ModelMode.TICKED}
             onClick={this.handleOnChange}
           />
-          <br/><br/>
           <Checkbox
             radio
             label='One shot'
@@ -143,11 +139,11 @@ class ConfigModel extends Component {
             checked={config.mode === ModelMode.ONESHOT}
             onClick={this.handleOnChange}
           />
-        </GridRow>
-        { config.mode === ModelMode.CONTINUOUS && this.renderContinuous(config)}
-        { config.mode === ModelMode.ONESHOT && this.renderOneshot(config)}
-        { config.mode === ModelMode.TICKED && this.renderTicked(config)}
-      </Grid>
+        </div>
+      </GridRow>
+      { config.mode === ModelMode.CONTINUOUS && this.renderContinuous(config)}
+      { config.mode === ModelMode.ONESHOT && this.renderOneshot(config)}
+      { config.mode === ModelMode.TICKED && this.renderTicked(config)}
     </Fragment>
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Grid } from 'semantic-ui-react'
 import GridRow from '../GridRow'
 import SimpleListSegment from '@components/SimpleListSegment'
@@ -12,7 +12,7 @@ const transformElementsToArray = (elements) => {
 }
 
 const ModelInfo = ({config}) => {
-  return <Grid verticalAlign='middle' celled='internally'>
+  return <Fragment>
     <GridRow label='Model name:'>
       {`${config.modelName} (${config.identifier})`}
     </GridRow>
@@ -25,7 +25,7 @@ const ModelInfo = ({config}) => {
     <GridRow label='Variables:'>
       <SimpleListSegment data={transformElementsToArray(config.variables)} />
     </GridRow>
-  </Grid>
+  </Fragment>
 }
 
 export default ModelInfo
