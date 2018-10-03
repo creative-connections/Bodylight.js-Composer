@@ -40,11 +40,8 @@ module.exports = {
 
       this.target = editor.getModel()
       this.listenTo(this.target, 'component:toggled', this.toggle)
-
-      this.$div.hide()
     }
-
-    this.toggle()
+    this.$div.show()
   },
 
   render ({store, persistor}) {
@@ -69,7 +66,7 @@ module.exports = {
       return
     }
 
-    this.$div.toggle()
+    this.$div.show()
   },
 
   stop () {
