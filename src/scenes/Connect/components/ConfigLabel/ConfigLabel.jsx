@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -48,64 +48,56 @@ class ConfigRange extends Component {
       toggles.push({key: id, text: `toggle: ${toggle.name}`, value: id})
     })
 
-    return (
-      <div>
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Name:'>
-            <Input
-              name='name'
-              value={this.props.label.name}
-              onChange={this.renameLabel}
-            />
-          </GridRow>
-          <GridRow label='Label:'>
-            <ComplexAttribute
-              name='label'
-              attribute={config.label}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-
-        </Grid>
-        <br></br>
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Enabled:'>
-            <ComplexAttribute
-              name='enabled'
-              label='Label can change'
-              attribute={config.enabled}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-
-          <GridRow label='Visible:'>
-            <ComplexAttribute
-              name='visible'
-              label='Label is visible'
-              attribute={config.visible}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-
-          <GridRow label='For:'>
-            <Dropdown
-              name='for'
-              value={config.for}
-              onChange={this.handleOnChange}
-              options={toggles}
-              placeholder='select target'
-            />
-
-            <ButtonLink className={'compact'} onClick={this.clearFor}>x</ButtonLink>
-          </GridRow>
-        </Grid>
-        <br></br>
-        <Events
-          widget={this.props.label}
-          config={config}
+    return <Fragment>
+      <GridRow label='Name:'>
+        <Input
+          name='name'
+          value={this.props.label.name}
+          onChange={this.renameLabel}
         />
-      </div>
-    )
+      </GridRow>
+      <GridRow label='Label:'>
+        <ComplexAttribute
+          name='label'
+          attribute={config.label}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+
+      <GridRow label='Enabled:'>
+        <ComplexAttribute
+          name='enabled'
+          label='Label can change'
+          attribute={config.enabled}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+
+      <GridRow label='Visible:'>
+        <ComplexAttribute
+          name='visible'
+          label='Label is visible'
+          attribute={config.visible}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+
+      <GridRow label='For:'>
+        <Dropdown
+          name='for'
+          value={config.for}
+          onChange={this.handleOnChange}
+          options={toggles}
+          placeholder='select target'
+        />
+
+        <ButtonLink className={'compact'} onClick={this.clearFor}>x</ButtonLink>
+      </GridRow>
+      <Events
+        widget={this.props.label}
+        config={config}
+      />
+    </Fragment>
   }
 }
 
