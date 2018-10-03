@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -66,14 +66,12 @@ class Events extends Component {
   }
 
   render () {
-    return <div>
-      <Divider hidden/>
-      <Header as="h2">Events</Header>
-      <Grid verticalAlign='middle' celled='internally'>
+    return <Fragment>
+      <GridRow label='Events:'>
         {this.renderEvents()}
         {this.renderAddEvent()}
-      </Grid>
-    </div>
+      </GridRow>
+    </Fragment>
   }
 }
 

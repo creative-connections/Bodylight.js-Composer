@@ -417,6 +417,20 @@ div#main-menu {
         padding: 0;
       }
 
+      .event-line {
+        .divider {
+          margin: 0;
+          padding: 0;
+          line-height: 0;
+        }
+      }
+
+      div.row {
+        margin: 0;
+        margin-bottom: 2px;
+        padding: 0;
+      }
+
     }
 
 

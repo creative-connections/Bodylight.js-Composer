@@ -81,6 +81,7 @@ class Args extends Component {
         onChange={this.onChange}
       />
       {''}
+      <Divider hidden/>
     </Fragment>
   }
 

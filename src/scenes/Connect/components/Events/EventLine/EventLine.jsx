@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { configGetAllActions } from '@reducers'
+
+import { Divider } from 'semantic-ui-react'
 
 import Events from './Events'
 import Actions from './Actions'
@@ -22,13 +24,14 @@ class EventLine extends Component {
   }
 
   render () {
-    return <div style={{display: 'inline'}}>
+    return <div className='event-line'>
       <label>{'On '}</label>
       <Events
         events={this.props.config.events}
         event={this.props.event}
         onChange={this.onChange}
       />
+      <Divider hidden/>
 
       <label>{'trigger action'}</label>
       <Actions
@@ -36,6 +39,7 @@ class EventLine extends Component {
         action={this.props.action}
         onChange={this.onChange}
       />
+      <Divider hidden/>
 
       <Args
         actions={this.props.actions}
