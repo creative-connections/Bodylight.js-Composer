@@ -89,78 +89,68 @@ class ConfigButton extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Name:'>
-          <Input
-            name='name'
-            value={this.props.button.name}
-            onChange={this.rename}
-          />
-          <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
-            <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
-          </Transition>
-        </GridRow>
-        <GridRow label='Label:'>
-          <ComplexAttribute
-            name='label'
-            attribute={config.label}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-      </Grid>
-      <br/>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Mode:'>
-          <Checkbox
-            radio
-            label='Value applied on click'
-            name='mode'
-            value={ButtonMode.CLICK}
-            checked={config.mode === ButtonMode.CLICK}
-            onClick={this.handleOnChange}
-          />
-          <br/><br/>
-          <Checkbox
-            radio
-            label='Value applied while pressed'
-            name='mode'
-            value={ButtonMode.PRESS}
-            checked={config.mode === ButtonMode.PRESS}
-            onClick={this.handleOnChange}
-          />
-          <br/><br/>
-          <Checkbox
-            radio
-            label='Button triggers an event'
-            name='mode'
-            value={ButtonMode.TRIGGER}
-            checked={config.mode === ButtonMode.TRIGGER}
-            onClick={this.handleOnChange}
-          />
-        </GridRow>
-        { config.mode === ButtonMode.CLICK && this.renderClickMode(config)}
-        { config.mode === ButtonMode.PRESS && this.renderPressMode(config)}
-      </Grid>
-      <br/>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Enabled:'>
-          <ComplexAttribute
-            name='enabled'
-            label='Button is enabled'
-            attribute={config.enabled}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
+      <GridRow label='Name:'>
+        <Input
+          name='name'
+          value={this.props.button.name}
+          onChange={this.rename}
+        />
+        <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
+          <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
+        </Transition>
+      </GridRow>
+      <GridRow label='Label:'>
+        <ComplexAttribute
+          name='label'
+          attribute={config.label}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Mode:'>
+        <Checkbox
+          radio
+          label='Value applied on click'
+          name='mode'
+          value={ButtonMode.CLICK}
+          checked={config.mode === ButtonMode.CLICK}
+          onClick={this.handleOnChange}
+        />
+        <Checkbox
+          radio
+          label='Value applied while pressed'
+          name='mode'
+          value={ButtonMode.PRESS}
+          checked={config.mode === ButtonMode.PRESS}
+          onClick={this.handleOnChange}
+        />
+        <Checkbox
+          radio
+          label='Button triggers an event'
+          name='mode'
+          value={ButtonMode.TRIGGER}
+          checked={config.mode === ButtonMode.TRIGGER}
+          onClick={this.handleOnChange}
+        />
+      </GridRow>
+      { config.mode === ButtonMode.CLICK && this.renderClickMode(config)}
+      { config.mode === ButtonMode.PRESS && this.renderPressMode(config)}
+      <GridRow label='Enabled:'>
+        <ComplexAttribute
+          name='enabled'
+          label='Button is enabled'
+          attribute={config.enabled}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
 
-        <GridRow label='Visible:'>
-          <ComplexAttribute
-            name='visible'
-            label='Button is visible'
-            attribute={config.visible}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-      </Grid>
+      <GridRow label='Visible:'>
+        <ComplexAttribute
+          name='visible'
+          label='Button is visible'
+          attribute={config.visible}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
       <Events
         widget={this.props.button}
         config={config}
