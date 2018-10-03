@@ -61,34 +61,32 @@ class Axis extends Component {
     const config = this.getConfigString()
 
     return <Fragment>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Title:'>
-          <Input
-            name='title'
-            value={this.props.config.title}
-            text={this.props.config.title}
-            onChange={this.handleChange}
-          />
-        </GridRow>
-        <GridRow label='Type:'>
-          <Dropdown
-            name='type'
-            value={this.props.config.type}
-            text={this.props.config.type}
-            options={this.state.options.type}
-            onChange={this.handleChange}
-          />
-        </GridRow>
-        <GridRow label='Advanced:'>
-          <FunctionEditor
-            name={this.props.name}
-            value={config}
-            onChange={this.handleEditorChange}
-            typeof='object'
-            disableRemove={true}
-          />
-        </GridRow>
-      </Grid>
+      <GridRow label='Title:'>
+        <Input
+          name='title'
+          value={this.props.config.title}
+          text={this.props.config.title}
+          onChange={this.handleChange}
+        />
+      </GridRow>
+      <GridRow label='Type:'>
+        <Dropdown
+          name='type'
+          value={this.props.config.type}
+          text={this.props.config.type}
+          options={this.state.options.type}
+          onChange={this.handleChange}
+        />
+      </GridRow>
+      <GridRow label='Advanced:'>
+        <FunctionEditor
+          name={this.props.name}
+          value={config}
+          onChange={this.handleEditorChange}
+          typeof='object'
+          disableRemove={true}
+        />
+      </GridRow>
     </Fragment>
   }
 }

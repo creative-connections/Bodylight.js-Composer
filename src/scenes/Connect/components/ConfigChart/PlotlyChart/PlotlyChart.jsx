@@ -6,6 +6,7 @@ import ButtonLink from '@components/ButtonLink'
 
 import GridRow from '../../GridRow'
 import ComplexAttribute from '../../ComplexAttribute'
+import Collapsable from '../../Collapsable'
 import Events from '../../Events'
 
 import Datasets from './Datasets'
@@ -16,40 +17,41 @@ class PlotlyChart extends Component {
   render () {
     const config = this.props.config
     return <Fragment>
-      <br></br>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Enabled:'>
-          <ComplexAttribute
-            name='enabled'
-            label='Chart responds to input change'
-            attribute={config.enabled}
-            onChange={this.props.onChange}
-          />
-        </GridRow>
-      </Grid>
+      <GridRow label='Enabled:'>
+        <ComplexAttribute
+          name='enabled'
+          label='Chart responds to input change'
+          attribute={config.enabled}
+          onChange={this.props.onChange}
+        />
+      </GridRow>
 
-      <Divider hidden/>
-      <Header as="h2">Datasets</Header>
-      <Datasets name='datasets'
-        config={config.datasets}
-        onChange={this.props.onChange}
-      />
+      <Collapsable title='Datasets' className='primary' collapsed={true}>
+        <Datasets name='datasets'
+          config={config.datasets}
+          onChange={this.props.onChange}
+        />
+      </Collapsable>
 
-      <Divider hidden/>
-      <Header as="h2">X axis</Header>
-      <Axis name='xaxis'
-        config={config.xaxis}
-        onChange={this.props.onChange}/>
+      <Collapsable title='Axes' className='primary' collapsed={true}>
+        <Collapsable title='X Axis' className='secondary' collapsed={false}>
+          <Axis name='xaxis'
+            config={config.xaxis}
+            onChange={this.props.onChange}/>
 
-      <Header as="h2">Y axis</Header>
-      <Axis name='yaxis'
-        config={config.yaxis}
-        onChange={this.props.onChange}/>
+        </Collapsable>
+        <Collapsable title='Y Axis' className='secondary' collapsed={false}>
+          <Axis name='yaxis'
+            config={config.yaxis}
+            onChange={this.props.onChange}/>
+        </Collapsable>
+      </Collapsable>
 
-      <Header as="h2">Shapes</Header>
-      <Shapes name='shapes'
-        config={config.shapes}
-        onChange={this.props.onChange}/>
+      <Collapsable title='Shapes' className='primary' collapsed={true}>
+        <Shapes name='shapes'
+          config={config.shapes}
+          onChange={this.props.onChange}/>
+      </Collapsable>
 
       <Events
         widget={this.props.chart}

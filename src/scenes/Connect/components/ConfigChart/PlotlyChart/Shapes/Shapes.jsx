@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
 
 import GridRow from '../../../GridRow'
+import Collapsable from '../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
 import update from 'immutability-helper'
@@ -109,12 +110,14 @@ class Shapes extends Component {
     Object.entries(this.props.config).forEach(([id, shape]) => {
       if (shape.type === 'line') {
         out.push(
-          <Line key={id}
-            name={`${this.props.name}.${id}`}
-            config={shape}
-            onChange={this.props.onChange}
-            onRemove={this.handleRemove}
-          />
+          <Collapsable title='line' className='secondary' collapsed={true}>
+            <Line key={id}
+              name={`${this.props.name}.${id}`}
+              config={shape}
+              onChange={this.props.onChange}
+              onRemove={this.handleRemove}
+            />
+          </Collapsable>
         )
       }
     })
@@ -124,12 +127,9 @@ class Shapes extends Component {
   render () {
     return <Fragment>
       {this.renderShapes()}
-      <Divider hidden/>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='' compact={true}>
-          <ButtonLink onClick={this.handleAddLine}>Add line</ButtonLink>
-        </GridRow>
-      </Grid>
+      <GridRow label='' compact={true}>
+        <ButtonLink onClick={this.handleAddLine}>Add line</ButtonLink>
+      </GridRow>
     </Fragment>
   }
 }

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
 
 import GridRow from '../../../GridRow'
+import Collapsable from '../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
 import update from 'immutability-helper'
@@ -86,12 +87,14 @@ class Datasets extends Component {
     const out = []
     Object.entries(this.props.config).forEach(([id, dataset]) => {
       out.push(
-        <Dataset key={id}
-          name={`${this.props.name}.${id}`}
-          config={dataset}
-          onChange={this.props.onChange}
-          onRemove={this.handleDatasetRemove}
-        />
+        <Collapsable title={dataset.name} className='secondary' collapsed={true} >
+          <Dataset key={id}
+            name={`${this.props.name}.${id}`}
+            config={dataset}
+            onChange={this.props.onChange}
+            onRemove={this.handleDatasetRemove}
+          />
+        </Collapsable>
       )
     })
     return out
@@ -100,12 +103,9 @@ class Datasets extends Component {
   render () {
     return <Fragment>
       {this.renderDatasets()}
-      <Divider hidden/>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='' compact={true}>
-          <ButtonLink onClick={this.handleDatasetAdd}>Add dataset</ButtonLink>
-        </GridRow>
-      </Grid>
+      <GridRow label='' compact={true}>
+        <ButtonLink onClick={this.handleDatasetAdd}>Add dataset</ButtonLink>
+      </GridRow>
     </Fragment>
   }
 }
