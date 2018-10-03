@@ -136,7 +136,7 @@ class FunctionEditor extends Component {
     let preview = ''
     if (this.props.value !== undefined && this.props.value !== null) {
       preview = this.props.value.replace(/\s+/g, ' ')
-      const cutoff = 60
+      const cutoff = 30
       if (preview.length > cutoff) {
         preview = `${preview.substring(0, cutoff)}...`
       }
