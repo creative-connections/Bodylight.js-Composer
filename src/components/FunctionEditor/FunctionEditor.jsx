@@ -99,7 +99,7 @@ class FunctionEditor extends Component {
   render () {
     if (this.state.displayEditor === true) {
       return (
-        <div style={this.props.style}>
+        <div style={{width: '100%', ...this.props.style}}>
           <Transition transitionOnMount={true} animation='fade' duration={200} visible={true}>
             <Segment style={{
               padding: '0',

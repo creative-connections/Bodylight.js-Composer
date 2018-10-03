@@ -53,13 +53,9 @@ class WidgetSettings extends Component {
 
     if (this.props.sidebar) {
       return <Fragment>
-        <Grid padded centered className='topPadded'>
-          <Grid.Row centered style={{ paddingTop: 0, paddingBottom: 0 }}>
-            <Grid.Column style={{ marginTop: '2em', width: '100%' }}>
-              {this.renderSelectedWidget(selectedWidget)}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <div className="connect-sidebar">
+          {this.renderSelectedWidget(selectedWidget)}
+        </div>
       </Fragment>
     }
 

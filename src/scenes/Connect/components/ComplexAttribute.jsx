@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Checkbox, Input } from 'semantic-ui-react'
 
 import InputFloat from '@components/InputFloat'
@@ -15,10 +15,10 @@ const renderValueInput = (name, label, attribute, onChange) => {
       name={`${name}.value`}
       value={attribute.value}
       onChange={onChange}
+      inverted
     />
   } else if (attribute.typeof === 'boolean') {
     return <Checkbox
-      style={{padding: '0.8em 0em 0.8em 0em'}}
       label={label}
       name={`${name}.value`}
       checked={attribute.value}
@@ -30,6 +30,7 @@ const renderValueInput = (name, label, attribute, onChange) => {
       name={`${name}.value`}
       value={attribute.value}
       onChange={onChange}
+      inverted
     />
   } else if (attribute.typeof === 'color') {
     return <ColorPicker
@@ -43,13 +44,14 @@ const renderValueInput = (name, label, attribute, onChange) => {
 }
 
 const renderComplexCheckbox = (name, attribute, onChange) => {
-  return <Checkbox
-    style={{padding: '0.8em 0em 0.8em 1.75em'}}
-    label='complex'
-    name={`${name}.complex`}
-    checked={attribute.complex}
-    onChange={onChange}
-  />
+  return <div className='complex-checkbox'>
+    <Checkbox
+      label='provided'
+      name={`${name}.complex`}
+      checked={attribute.complex}
+      onChange={onChange}
+    />
+  </div>
 }
 
 const renderProvider = (name, attribute, onChange) => {
@@ -92,21 +94,19 @@ const renderAddFunction = (name, attribute, onChange) => {
 }
 
 const renderSimple = ({name, label, attribute, onChange, forceSimple = false}) => {
-  return <div>
+  return <Fragment>
     {renderValueInput(name, label, attribute, onChange)}
     {forceSimple === false && renderComplexCheckbox(name, attribute, onChange)}
-  </div>
+  </Fragment>
 }
 
 const renderComplex = ({name, attribute, onChange, forceComplex = false, disableFunction = false}) => {
-  return <div>
+  return <Fragment>
     {renderProvider(name, attribute, onChange)}
     {!disableFunction && renderAddFunction(name, attribute, onChange)}
+    {attribute.function !== null && renderFunction(name, attribute, onChange)}
     {forceComplex === false && renderComplexCheckbox(name, attribute, onChange)}
-    <div>
-      {attribute.function !== null && renderFunction(name, attribute, onChange)}
-    </div>
-  </div>
+  </Fragment>
 }
 
 const ComplexAttribute = (props) => {
@@ -117,10 +117,10 @@ const ComplexAttribute = (props) => {
     return renderSimple(props)
   }
   return (
-    <div>
+    <Fragment>
       {props.attribute.complex && renderComplex(props)}
       {props.attribute.complex === false && renderSimple(props)}
-    </div>
+    </Fragment>
   )
 }
 
