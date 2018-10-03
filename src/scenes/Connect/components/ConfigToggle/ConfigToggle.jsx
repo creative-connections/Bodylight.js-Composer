@@ -44,67 +44,55 @@ class ConfigToggle extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Name:'>
-          <Input
-            name='name'
-            value={this.props.toggle.name}
-            onChange={this.rename}
-          />
-          <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
-            <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
-          </Transition>
-        </GridRow>
-      </Grid>
-
-      <br/>
-
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Target:' key={`target`}>
-          <ComplexAttribute
-            forceComplex={true}
-            disableFunction={true}
-            name='target'
-            attribute={config.target}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-        <GridRow label='On toggle ON:' key={`onToggleOn`}>
-          <ComplexAttribute
-            name='onToggleOn'
-            attribute={config.onToggleOn}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-        <GridRow label='On toggle OFF:' key={`onToggleOff`}>
-          <ComplexAttribute
-            name='onToggleOff'
-            attribute={config.onToggleOff}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-      </Grid>
-
-      <br/>
-
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Enabled:'>
-          <ComplexAttribute
-            name='enabled'
-            label='Toggle is enabled'
-            attribute={config.enabled}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-        <GridRow label='Visible:'>
-          <ComplexAttribute
-            name='visible'
-            label='Toggle is visible'
-            attribute={config.visible}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-      </Grid>
+      <GridRow label='Name:'>
+        <Input
+          name='name'
+          value={this.props.toggle.name}
+          onChange={this.rename}
+        />
+        <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
+          <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
+        </Transition>
+      </GridRow>
+      <GridRow label='Target:' key={`target`}>
+        <ComplexAttribute
+          forceComplex={true}
+          disableFunction={true}
+          name='target'
+          attribute={config.target}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='On toggle ON:' key={`onToggleOn`}>
+        <ComplexAttribute
+          name='onToggleOn'
+          attribute={config.onToggleOn}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='On toggle OFF:' key={`onToggleOff`}>
+        <ComplexAttribute
+          name='onToggleOff'
+          attribute={config.onToggleOff}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Enabled:'>
+        <ComplexAttribute
+          name='enabled'
+          label='Toggle is enabled'
+          attribute={config.enabled}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Visible:'>
+        <ComplexAttribute
+          name='visible'
+          label='Toggle is visible'
+          attribute={config.visible}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
       <Events
         widget={this.props.toggle}
         config={config}
