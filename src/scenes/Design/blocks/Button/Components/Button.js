@@ -1,7 +1,8 @@
 import { BUTTON, BUTTON_ID } from '../types.js'
 import { configGetButton } from '@reducers'
-import { editorWidgetRemove } from '@actions'
-import { handleChangeID } from '../../commons/Components'
+import { addButton, removeButton } from '@actions'
+import generateID from '@helpers/generateID'
+import { handleChangeID, init, handleComponentRemove } from '../../commons/Components'
 import configureStore from '@src/configureStore'
 import WidgetType from '@helpers/enum/WidgetType'
 
@@ -38,6 +39,31 @@ export default (editor) => {
         click: 'handleClick'
       },
 
+      init () {
+        init.bind(this)(editor)
+      },
+
+      handleComponentRemove (model) {
+        handleComponentRemove.bind(this)(model)
+      },
+
+      handleOnDrop () {
+        const store = configureStore().store
+        const id = generateID()
+
+        let unsubscribe = store.subscribe(() => {
+          const config = configGetButton(store.getState(), id)
+          // look for WIDGET_ADD to finish adding our id
+          if (config) {
+            unsubscribe() // don't listen anymore
+            this.attr.id = id
+            this.render()
+          }
+        })
+
+        store.dispatch(addButton(id))
+      },
+
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
         let innerHTML = 'Button UNSET'
@@ -64,9 +90,8 @@ export default (editor) => {
       },
 
       handleClick () {
-        // We want to open component settings when BUTTON_ID is unset
-        if (this.getButton() === null) {
-          editor.Panels.getButton('views', 'open-tm').set('active', true)
+        if (this.getButton() !== null) {
+          editor.Panels.getButton('views', 'open-connect').set('active', true)
         }
       },
 
@@ -77,9 +102,8 @@ export default (editor) => {
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
 
-        const id = this.attr.id
-        if (id) {
-          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.BUTTON))
+        if (this.attr.id) {
+          configureStore().store.dispatch(removeButton(this.attr.id))
         }
       }
 

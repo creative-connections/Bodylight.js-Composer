@@ -12,6 +12,11 @@ export const addWidget = (state, payload, type) => {
   return update(state, { [payload.id]: {$set: widget} })
 }
 
+export const removeWidget = (state, payload, type) => {
+  if (type !== payload.type) { return state }
+  return update(state, { $unset: [payload.id] })
+}
+
 export const renameWidget = (state, payload, type) => {
   if (type !== payload.widget.type) { return state }
 

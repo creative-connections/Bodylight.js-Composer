@@ -26,7 +26,8 @@ export default editor => {
       type: BUTTON,
       style: {
       },
-      removable: true
+      removable: true,
+      activeOnRender: 1
     }
   })
 }
