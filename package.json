@@ -74,7 +74,7 @@
     "escodegen": "^1.11.0",
     "fast-memoize": "^2.5.1",
     "file-saver": "^1.3.8",
-    "grapesjs": "^0.14.29",
+    "grapesjs": "git+https://github.com/david-polak/grapesjs.git#fix-remove-on-drop",
     "grapesjs-blocks-basic": "^0.1.8",
     "grapesjs-blocks-flexbox": "https://github.com/david-polak/grapesjs-blocks-flexbox",
     "grapesjs-preset-webpage": "^0.1.10",

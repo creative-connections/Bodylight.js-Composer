@@ -66,13 +66,12 @@ export default (editor) => {
 
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
-        let innerHTML = 'Button UNSET'
 
-        let button
-        if ((button = this.getButton()) !== null) {
+        let innerHTML = 'loading...'
+        let button = this.getButton()
+        if (button) {
           innerHTML = `${button.name}`
         }
-
         this.el.innerHTML = innerHTML
         return this
       },
@@ -99,14 +98,15 @@ export default (editor) => {
         handleChangeID(this, event, WidgetType.BUTTON)
       },
 
-      remove () {
-        defaultType.view.prototype.remove.apply(this, arguments)
-
+      destroy () {
         if (this.attr.id) {
           configureStore().store.dispatch(removeButton(this.attr.id))
         }
-      }
+      },
 
+      remove () {
+        defaultType.view.prototype.remove.apply(this, arguments)
+      }
     })
   })
 }
