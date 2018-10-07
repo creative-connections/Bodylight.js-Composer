@@ -16,6 +16,7 @@ import chartBlock from './blocks/Chart'
 import labelBlock from './blocks/Label'
 
 import modelBlock from './blocks/Model'
+import actionBlock from './blocks/Action'
 
 import connectPanel from './panels/connect'
 
@@ -83,6 +84,7 @@ class Design extends Component {
     chartBlock(editor)
     labelBlock(editor)
     modelBlock(editor)
+    actionBlock(editor)
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
