@@ -75,7 +75,7 @@ export default (editor) => {
       },
 
       handleChangeID (event) {
-        handleChangeID(this, event, WidgetType.RANGE)
+        handleChangeID(this, event, WidgetType.LABEL)
       },
 
       destroy () {

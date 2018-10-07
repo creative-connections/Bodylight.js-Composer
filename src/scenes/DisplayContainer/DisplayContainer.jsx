@@ -17,7 +17,7 @@ const DisplayContainer = () => {
       <Route exact path={`${process.env.PATH}/`} component={Connect}/>
       <Route path={`${process.env.PATH}/design`} component={Design} />
       <Route path={`${process.env.PATH}/preview`} component={Preview} />
-      <Route path={`${process.env.PATH}/add/model/:id`} component={AddModel} />
+      <Route path={`${process.env.PATH}/add/model`} component={AddModel} />
       <Route path={`${process.env.PATH}/add/animate/:id`} component={AddAnimate} />
       <Route path={`${process.env.PATH}/save`} component={Save} />
       <Route path={`${process.env.PATH}/open`} component={Open} />

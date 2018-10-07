@@ -15,6 +15,8 @@ import toggleBlock from './blocks/Toggle'
 import chartBlock from './blocks/Chart'
 import labelBlock from './blocks/Label'
 
+import modelBlock from './blocks/Model'
+
 import connectPanel from './panels/connect'
 
 import configureStore from '@src/configureStore'
@@ -80,6 +82,7 @@ class Design extends Component {
     toggleBlock(editor)
     chartBlock(editor)
     labelBlock(editor)
+    modelBlock(editor)
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
