@@ -23,7 +23,7 @@ class AddAnimate extends Component {
 
   handleUpdate (success = false) {
     if (success) {
-      this.props.history.push(`${process.env.PATH}/design`)
+      this.props.history.push(`${process.env.PATH}/`)
     } else {
       this.setState(this.defaultState)
     }
