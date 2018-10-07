@@ -1,7 +1,15 @@
 import { CHART, CHART_ID } from '../types.js'
 import { configGetChart } from '@reducers'
-import { editorWidgetRemove } from '@actions'
-import { handleChangeID } from '../../commons/Components'
+import { addChart, removeChart } from '@actions'
+import {
+  handleChangeID,
+  init,
+  handleOnDrop,
+  handleComponentRemove,
+  getWidget,
+  destroy,
+  handleClick
+} from '../../commons/Components'
 import configureStore from '@src/configureStore'
 import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
@@ -39,10 +47,22 @@ export default (editor) => {
         click: 'handleClick'
       },
 
+      init () {
+        init.bind(this)(editor)
+      },
+
+      handleComponentRemove (model) {
+        handleComponentRemove.bind(this)(model)
+      },
+
+      handleOnDrop () {
+        handleOnDrop.bind(this)(configGetChart, addChart)
+      },
+
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
 
-        let chart = this.getChart()
+        let chart = this.getWidget()
 
         let style = this.model.get('style')
 
@@ -112,27 +132,16 @@ export default (editor) => {
         this.handlersRegistered = false
       },
 
-      /**
-       * Loads chart configuration from Redux state.
-       * @return {chart configuration}
-       */
-      getChart () {
-        const id = this.attr.id
-        if (typeof id === 'undefined' || id === null || id === '') {
-          return null
-        }
-        return configGetChart(configureStore().store.getState(), id)
+      getWidget () {
+        return getWidget.bind(this)(configGetChart)
       },
 
       handleClick () {
-        // We want to open component settings when CHART_ID is unset
-        if (this.getChart() === null) {
-          editor.Panels.getButton('views', 'open-tm').set('active', true)
-        }
+        handleClick(this.getWidget(), editor)
       },
 
       initPlotly () {
-        const chart = this.getChart()
+        const chart = this.getWidget()
         if (this.chartId === chart.id) {
           return
         }
@@ -160,13 +169,13 @@ export default (editor) => {
         handleChangeID(this, event, WidgetType.CHART)
       },
 
+      destroy () {
+        destroy.bind(this)(removeChart)
+      },
+
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
         this.deregisterUpdateHandler()
-        const id = this.attr.id
-        if (id) {
-          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.CHART))
-        }
       }
 
     })
