@@ -1,6 +1,8 @@
 import React, {Component, Fragment} from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Router, Route } from 'react-router-dom'
+import history from '@helpers/BrowserHistory'
+
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ToastContainer } from 'react-toastify'
@@ -38,7 +40,7 @@ function render ({store, persistor}) {
   ReactDOM.render(
     <Provider store={store} key={generateID()}>
       <PersistGate loading={null} persistor={persistor}>
-        <Router>
+        <Router history={history}>
           <Route path={`${process.env.PATH}/`} component={App} />
         </Router>
       </PersistGate>

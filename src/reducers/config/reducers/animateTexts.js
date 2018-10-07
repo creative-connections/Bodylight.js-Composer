@@ -1,4 +1,5 @@
 import {
+  REMOVE_WIDGET,
   UPDATE_WIDGET_CONFIG,
   UPDATE_WIDGET
 } from '@actions/types'
@@ -6,7 +7,7 @@ import {
 import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
 
-import { updateWidget } from '../commons/widget'
+import { updateWidget, removeWidget } from '../commons/widget'
 
 const defaultConfig = {
   name: null,
@@ -78,6 +79,8 @@ export default function (state = {}, action) {
   switch (action.type) {
     case UPDATE_WIDGET:
       return removeMissingAnimateTexts(state, action.payload)
+    case REMOVE_WIDGET:
+      return removeWidget(state, action.payload, WidgetType.ANIMATE)
     case UPDATE_WIDGET_CONFIG:
       return updateAnimateText(state, action.payload)
   }

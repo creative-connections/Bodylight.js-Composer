@@ -1,11 +1,13 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
+  REMOVE_WIDGET,
   UPDATE_WIDGET
 } from '@actions/types'
 
 import {
-  renameWidget
+  renameWidget,
+  removeWidget
 } from '../commons/widget.js'
 
 import WidgetType from '@helpers/enum/WidgetType'
@@ -102,6 +104,8 @@ export default function (state = {}, action) {
       return addAnimate(state, action.payload, type)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
+    case REMOVE_WIDGET:
+      return removeWidget(state, action.payload, type)
     case UPDATE_WIDGET:
       return updateAnimate(state, action.payload, type)
   }

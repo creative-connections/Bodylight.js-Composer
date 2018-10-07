@@ -1,6 +1,7 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
+  REMOVE_WIDGET,
   UPDATE_WIDGET,
   ANIMATE_SET_FPS
 } from '@actions/types'
@@ -36,8 +37,8 @@ const getTexts = (components, parent) => {
   return texts
 }
 
-export const addAnimate = (source, hash, animateName, components) => {
-  const id = generateID()
+export const addAnimate = (source, hash, animateName, components, id) => {
+  id = id || generateID()
   return {
     type: ADD_WIDGET,
     payload: {
@@ -74,6 +75,14 @@ export const renameAnimate = (model, name) => ({
   payload: {
     widget: model,
     name
+  }
+})
+
+export const removeAnimate = (id) => ({
+  type: REMOVE_WIDGET,
+  payload: {
+    id,
+    type: WidgetType.ANIMATE
   }
 })
 

@@ -23,7 +23,6 @@ export function init (editor) {
 }
 
 export function handleOnDrop (configGetWidget, addWidget) {
-  console.log('handleOnDrop')
   const store = configureStore().store
   const id = generateID()
 
