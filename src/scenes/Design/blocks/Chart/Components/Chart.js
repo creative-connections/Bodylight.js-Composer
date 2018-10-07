@@ -146,6 +146,7 @@ export default (editor) => {
           return
         }
         this.chartId = chart.id
+        this.el.style.overflow = 'hidden'
         this.plotly = Plotly.d3.select(this.el).node()
 
         const data = [{ x: [], y: [], mode: 'lines', type: 'scatter' }]
