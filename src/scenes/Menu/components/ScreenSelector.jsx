@@ -15,7 +15,7 @@ class ScreenSelector extends Component {
 
   render () {
     return <Fragment>
-      <NavLink to={`${process.env.PATH}/`} activeClassName="active" onClick={this.handleClick}>
+      <NavLink to={`${process.env.PATH}/`} exact activeClassName="active" onClick={this.handleClick}>
         <Menu.Item className='link'>Design</Menu.Item>
       </NavLink>
       <NavLink to={`${process.env.PATH}/preview`} activeClassName="active" onClick={this.handleClick}>
