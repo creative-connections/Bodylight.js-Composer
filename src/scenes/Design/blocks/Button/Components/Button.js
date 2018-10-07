@@ -1,9 +1,15 @@
 import { BUTTON, BUTTON_ID } from '../types.js'
 import { configGetButton } from '@reducers'
 import { addButton, removeButton } from '@actions'
-import generateID from '@helpers/generateID'
-import { handleChangeID, init, handleComponentRemove } from '../../commons/Components'
-import configureStore from '@src/configureStore'
+import {
+  handleChangeID,
+  init,
+  handleOnDrop,
+  handleComponentRemove,
+  getWidget,
+  destroy,
+  handleClick
+} from '../../commons/Components'
 import WidgetType from '@helpers/enum/WidgetType'
 
 export default (editor) => {
@@ -48,27 +54,14 @@ export default (editor) => {
       },
 
       handleOnDrop () {
-        const store = configureStore().store
-        const id = generateID()
-
-        let unsubscribe = store.subscribe(() => {
-          const config = configGetButton(store.getState(), id)
-          // look for WIDGET_ADD to finish adding our id
-          if (config) {
-            unsubscribe() // don't listen anymore
-            this.attr.id = id
-            this.render()
-          }
-        })
-
-        store.dispatch(addButton(id))
+        handleOnDrop.bind(this)(configGetButton, addButton)
       },
 
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
 
         let innerHTML = 'loading...'
-        let button = this.getButton()
+        let button = this.getWidget()
         if (button) {
           innerHTML = `${button.name}`
         }
@@ -76,22 +69,12 @@ export default (editor) => {
         return this
       },
 
-      /**
-       * Loads button configuration from Redux state.
-       * @return {button configuration}
-       */
-      getButton () {
-        const id = this.attr.id
-        if (typeof id === 'undefined' || id === null || id === '') {
-          return null
-        }
-        return configGetButton(configureStore().store.getState(), id)
+      handleClick () {
+        handleClick(this.getWidget(), editor)
       },
 
-      handleClick () {
-        if (this.getButton() !== null) {
-          editor.Panels.getButton('views', 'open-connect').set('active', true)
-        }
+      getWidget () {
+        return getWidget.bind(this)(configGetButton)
       },
 
       handleChangeID (event) {
@@ -99,13 +82,7 @@ export default (editor) => {
       },
 
       destroy () {
-        if (this.attr.id) {
-          configureStore().store.dispatch(removeButton(this.attr.id))
-        }
-      },
-
-      remove () {
-        defaultType.view.prototype.remove.apply(this, arguments)
+        destroy.bind(this)(removeButton)
       }
     })
   })

@@ -1,10 +1,12 @@
 import {
   ADD_WIDGET,
-  RENAME_WIDGET
+  RENAME_WIDGET,
+  REMOVE_WIDGET
 } from '@actions/types'
 
 import {
   addWidget,
+  removeWidget,
   getWidget,
   getWidgetsForDropdown,
   renameWidget
@@ -21,6 +23,8 @@ export default function (state = {}, action) {
       return addWidget(state, action.payload, type)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
+    case REMOVE_WIDGET:
+      return removeWidget(state, action.payload, type)
   }
   return state
 }

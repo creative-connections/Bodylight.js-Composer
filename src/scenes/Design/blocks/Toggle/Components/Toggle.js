@@ -1,8 +1,15 @@
 import { TOGGLE, TOGGLE_ID } from '../types.js'
 import { configGetToggle } from '@reducers'
-import { editorWidgetRemove } from '@actions'
-import { handleChangeID } from '../../commons/Components'
-import configureStore from '@src/configureStore'
+import { addToggle, removeToggle } from '@actions'
+import {
+  handleChangeID,
+  init,
+  handleOnDrop,
+  handleComponentRemove,
+  getWidget,
+  destroy,
+  handleClick
+} from '../../commons/Components'
 import WidgetType from '@helpers/enum/WidgetType'
 
 export default (editor) => {
@@ -38,38 +45,33 @@ export default (editor) => {
         click: 'handleClick'
       },
 
-      /**
-       * Loads toggle configuration from Redux state.
-       * @return {toggle configuration}
-       */
-      getToggle () {
-        const id = this.attr.id
-        if (typeof id === 'undefined' || id === null || id === '') {
-          return null
-        }
-        return configGetToggle(configureStore().store.getState(), id)
+      handleClick () {
+        handleClick(this.getWidget(), editor)
       },
 
-      handleClick () {
-        // We want to open component settings when TOGGLE_ID is unset
-        if (this.getToggle() === null) {
-          editor.Panels.getButton('views', 'open-tm').set('active', true)
-        }
+      init () {
+        init.bind(this)(editor)
+      },
+
+      handleComponentRemove (model) {
+        handleComponentRemove.bind(this)(model)
+      },
+
+      handleOnDrop () {
+        handleOnDrop.bind(this)(configGetToggle, addToggle)
+      },
+
+      getWidget () {
+        return getWidget.bind(this)(configGetToggle)
       },
 
       handleChangeID (event) {
         handleChangeID(this, event, WidgetType.TOGGLE)
       },
 
-      remove () {
-        defaultType.view.prototype.remove.apply(this, arguments)
-
-        const id = this.attr.id
-        if (id) {
-          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.TOGGLE))
-        }
+      destroy () {
+        destroy.bind(this)(removeToggle)
       }
-
     })
   })
 }
