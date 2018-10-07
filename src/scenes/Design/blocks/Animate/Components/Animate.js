@@ -7,7 +7,6 @@ import { ANIMATE, ANIMATE_ID } from '../types.js'
 import {
   handleChangeID,
   init,
-  handleOnDrop,
   getWidget,
   destroy,
   handleClick

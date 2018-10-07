@@ -1,5 +1,6 @@
 import configureStore from '@src/configureStore'
 import generateID from '@helpers/generateID'
+import { selectWidget } from '@actions'
 
 export const handleChangeID = (component, {detail}, type) => {
   /*
@@ -55,6 +56,7 @@ export function destroy (removeWidget) {
 
 export function handleClick (widget, editor) {
   if (widget !== null) {
+    configureStore().store.dispatch(selectWidget(widget.id))
     editor.Panels.getButton('views', 'open-connect').set('active', true)
   }
 }
