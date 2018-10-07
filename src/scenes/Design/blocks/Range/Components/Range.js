@@ -1,8 +1,15 @@
 import { RANGE, RANGE_ID } from '../types.js'
 import { configGetRange } from '@reducers'
-import { handleChangeID } from '../../commons/Components'
-import { editorWidgetRemove } from '@actions/actions'
-import configureStore from '@src/configureStore'
+import { addRange, removeRange } from '@actions'
+import {
+  handleChangeID,
+  init,
+  handleOnDrop,
+  handleComponentRemove,
+  getWidget,
+  destroy,
+  handleClick
+} from '../../commons/Components'
 import WidgetType from '@helpers/enum/WidgetType'
 
 export default (editor) => {
@@ -38,37 +45,32 @@ export default (editor) => {
         click: 'handleClick'
       },
 
-      /**
-       * Loads range configuration from Redux state.
-       * @return {range configuration}
-       */
-      getRange () {
-        const id = this.attr.id
+      init () {
+        init.bind(this)(editor)
+      },
 
-        if (typeof id === 'undefined' || id === null || id === '') {
-          return null
-        }
-        return configGetRange(configureStore().store.getState(), id)
+      handleComponentRemove (model) {
+        handleComponentRemove.bind(this)(model)
+      },
+
+      handleOnDrop () {
+        handleOnDrop.bind(this)(configGetRange, addRange)
+      },
+
+      getWidget () {
+        return getWidget.bind(this)(configGetRange)
       },
 
       handleChangeID (event) {
         handleChangeID(this, event, WidgetType.RANGE)
       },
 
-      remove () {
-        defaultType.view.prototype.remove.apply(this, arguments)
-
-        const id = this.attr.id
-        if (id) {
-          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.RANGE))
-        }
+      destroy () {
+        destroy.bind(this)(removeRange)
       },
 
       handleClick () {
-        // We want to open component settings when RANGE_ID is unset
-        if (this.getRange() === null) {
-          editor.Panels.getButton('views', 'open-tm').set('active', true)
-        }
+        handleClick(this.getWidget(), editor)
       }
     })
   })
