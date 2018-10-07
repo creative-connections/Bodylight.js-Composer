@@ -30,6 +30,7 @@ class Export extends Component {
 
     this.handleExport = this.handleExport.bind(this)
     this.minifiedExport = this.minifiedExport.bind(this)
+    this.renameProject = this.renameProject.bind(this)
   }
 
   minifiedExport () {
