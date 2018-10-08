@@ -69,7 +69,7 @@ class Uploader extends Component {
           onDropAccepted={this.fileUploaded}
           onDropRejected={this.fileRejected}
           description='HTML5 Canvas .js from Animate CC'
-          accept='application/javascript, text/javascript'
+          accept='application/javascript, text/javascript, application/x-javascript'
           imgSrc={`${process.env.PATH}/images/an.png`}
         />
       </Grid.Column>
