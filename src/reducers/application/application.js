@@ -1,13 +1,19 @@
 import { ANIMATE_SET_FPS } from '@actions/types'
 import update from 'immutability-helper'
+import generateID from '@helpers/generateID'
 
-const defaultState = {
-  animate: {
-    fps: 24
+const generateState = () => {
+  return {
+    animate: {fps: 24},
+    key: generateID()
   }
 }
 
-export default function (state = defaultState, action) {
+export default function (state, action) {
+  if (!state) {
+    state = generateState()
+  }
+
   switch (action.type) {
     case ANIMATE_SET_FPS:
       state = update(state, {
@@ -18,3 +24,6 @@ export default function (state = defaultState, action) {
 }
 
 export const getAnimateFps = state => state.animate.fps
+export const getApplicationKey = state => {
+  return state.key
+}

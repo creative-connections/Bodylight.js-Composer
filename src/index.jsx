@@ -25,11 +25,9 @@ class App extends Component {
     return (
       <Fragment>
         <ToastContainer position="top-right" closeOnClick draggable pauseOnHover pauseOnVisibilityChange />
-
         <Menu/>
-
         <Container style={{ marginLeft: 250 + 'px' }} >
-          <DisplayContainer />
+          <DisplayContainer location={this.props.location}/>
         </Container>
       </Fragment>
     )
