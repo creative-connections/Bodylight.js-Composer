@@ -79,10 +79,11 @@ export default (editor) => {
 
         this.initPlotly = this.initPlotly.bind(this)
 
-        if (chart) {
+        // TEMP FIXME: add a proper placeholder
+        if (false && chart) {
           this.initPlotly()
         } else {
-          this.el.innerHTML = 'Select chart'
+          this.el.innerHTML = 'Chart Placeholder'
         }
 
         this.handleUpdate = this.handleUpdate.bind(this)

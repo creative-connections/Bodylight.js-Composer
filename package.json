@@ -93,7 +93,7 @@
     "react-color": "^2.14.1",
     "react-dom": "^16.5.2",
     "react-dropzone": "^4.3.0",
-    "react-modal": "^3.5.1",
+    "react-modal": "^3.6.1",
     "react-redux": "^5.0.7",
     "react-resizable": "^1.7.5",
     "react-router": "^4.3.1",

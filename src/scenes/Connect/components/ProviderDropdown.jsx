@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Dropdown } from 'semantic-ui-react'
+import Dropdown from '@components/Dropdown'
 import { getProvidersForDropdown } from '@reducers'
 
 class ProviderDropdown extends Component {

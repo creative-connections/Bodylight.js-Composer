@@ -523,3 +523,15 @@ div#main-menu {
   }
 
 }
+
+.ReactModal__Overlay {
+  z-index: 10000;
+
+  .option {
+    cursor: pointer;
+  }
+  .option:hover {
+    color: blue;
+  }
+
+}
