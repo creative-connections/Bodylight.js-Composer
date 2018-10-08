@@ -66,6 +66,7 @@ class ConfigRange extends Component {
       <GridRow label='Target:'>
         <ComplexAttribute
           forceComplex={true}
+          disableFunction={true}
           name='target'
           attribute={config.target}
           onChange={this.handleOnChange}
