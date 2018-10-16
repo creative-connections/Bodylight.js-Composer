@@ -51,6 +51,14 @@ class WidgetSettings extends Component {
   render () {
     const selectedWidget = this.props.selectedWidget
 
+    if (this.props.sidebar) {
+      return <Fragment>
+        <div className="connect-sidebar">
+          {this.renderSelectedWidget(selectedWidget)}
+        </div>
+      </Fragment>
+    }
+
     return <Fragment>
       <div id='topBar' className='header'>
         <span>{selectedWidget && selectedWidget.name}</span>

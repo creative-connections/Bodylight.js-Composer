@@ -1,13 +1,14 @@
 import {
   UPDATE_WIDGET_CONFIG,
-  UPDATE_WIDGET
+  UPDATE_WIDGET,
+  REMOVE_WIDGET
 } from '@actions/types'
 
 import AnimateAnimMode from '@helpers/AnimateAnimMode'
 import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
 
-import { updateWidget } from '../commons/widget'
+import { updateWidget, removeWidget } from '../commons/widget'
 
 const defaultConfig = {
   mode: AnimateAnimMode.CONTROLLED,
@@ -121,6 +122,8 @@ export default function (state = {}, action) {
       return removeMissingAnimateAnims(state, action.payload)
     case UPDATE_WIDGET_CONFIG:
       return updateAnimateAnim(state, action.payload)
+    case REMOVE_WIDGET:
+      return removeWidget(state, action.payload, WidgetType.ANIMATE)
   }
   return state
 }

@@ -273,11 +273,6 @@ div#main-menu {
         }
       }
 
-      span.placed{
-        text-indent: 0;
-        float: right;
-        color: #509eff;
-      }
     }
 
     i {
@@ -356,4 +351,187 @@ div#main-menu {
   width: 12px;
   height: 12px;
   border: 1px solid gray;
+}
+
+.connect-sidebar {
+  color: #ddd;
+  font-size: 10px;
+  text-align: left;
+
+  div.row {
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    label.row-label {
+      display: block;
+    }
+
+    div.row-content {
+      background-color: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      padding: 5px 5px;
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      div.input {
+        width: 50%;
+        padding-right: 2px;
+      }
+
+      .complex-checkbox {
+        display: inline-block;
+        margin: auto;
+        padding-left: 2px;
+        text-align: right;
+        * {
+          font-size: 10px;
+        }
+      }
+
+      .provider-dropdown {
+        width: 100%;
+        margin-bottom: 2px;
+      }
+
+      button, label {
+        font-size: 10px;
+        margin-bottom: 2px;
+      }
+
+      .radio {
+        margin: auto;
+        display: block;
+      }
+
+
+      .ui.segment {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0);
+        box-shadow: 0;
+        border-radius: 0em;
+        border: 0;
+        color: #ddd;
+        margin: 0;
+        padding: 0;
+      }
+
+      .event-line {
+        .divider {
+          margin: 0;
+          padding: 0;
+          line-height: 0;
+        }
+      }
+
+      div.row {
+        margin: 0;
+        margin-bottom: 2px;
+        padding: 0;
+      }
+
+    }
+
+
+    .ui.input > input {
+      background-color: rgba(0, 0, 0, 0.2);
+      border: none;
+      box-shadow: none;
+      border-radius: 2px;
+      box-sizing: border-box;
+      padding: 5px;
+      position: relative;
+      color: #ddd;
+    }
+
+    .ui.checkbox .box:before, .ui.checkbox label:before {
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+    .ui.checkbox input:checked ~ .box:before, .ui.checkbox input:checked ~ label:before {
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    .ui.radio.checkbox input:focus:checked ~ .box:before, .ui.radio.checkbox input:focus:checked ~ label:before,
+    .ui.radio.checkbox input:checked ~ .box:before, .ui.radio.checkbox input:checked ~ label:before,
+    .ui.radio.checkbox input:focus ~ .box:before, .ui.radio.checkbox input:focus ~ label:before {
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      color: #ddd;
+    }
+
+    .ui.checkbox input:checked ~ .box:after, .ui.checkbox input:checked ~ label:after,
+    .ui.radio.checkbox .box:after, .ui.radio.checkbox label:after {
+      color: #ddd;
+      background-color: inherit;
+    }
+
+    .ui.radio.checkbox input:checked ~ .box:after, .ui.radio.checkbox input:checked ~ label:after,
+    .ui.radio.checkbox input:checked ~ .box:after, .ui.radio.checkbox input:checked ~ label:after {
+      background-color: #ddd;
+    }
+  }
+
+  .collapsable {
+    font-weight: lighter;
+    background-color: rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+
+    i {
+      padding-right: 5px;
+      font-size: 11px;
+    }
+
+  }
+
+  .collapsable.primary {
+    padding: 9px 10px 9px 20px;
+  }
+
+  .collapsable.secondary {
+    padding: 0px 10px 0px 30px;
+  }
+
+  .ui.checkbox label,
+  .ui.checkbox input:focus ~ label {
+    color: #ddd;
+  }
+
+  .ui.button.basic.link {
+    color: #ddd !important;
+  }
+
+  .ui.button.basic.link:hover,
+  .ui.button.basic.link:focus,
+  .ui.button.basic.link:active {
+    color: #3b97e3 !important;
+  }
+
+  .ui.checkbox .box, .ui.checkbox label {
+    padding-left: 2.3em;
+  }
+
+  .ui.checkbox label:hover, .ui.checkbox + label:hover {
+    color: #3b97e3;
+  }
+
+}
+
+.ReactModal__Overlay {
+  z-index: 10000;
+
+  .option {
+    cursor: pointer;
+  }
+  .option:hover {
+    color: blue;
+  }
+
 }

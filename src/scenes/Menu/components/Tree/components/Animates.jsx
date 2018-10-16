@@ -40,7 +40,6 @@ class Animates extends Component {
         type={animate.type}
         onClick={this.props.onClick}
         selected={this.props.selected}
-        placed={animate.placed}
         collapsable={true} >
         {this.renderItems(animate.anims, animate.texts)}
       </TreeNode>

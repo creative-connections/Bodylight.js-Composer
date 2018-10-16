@@ -14,8 +14,7 @@ const Events = ({events, event, onChange}) => {
   return <Dropdown simple item inline
     style={{
       margin: '0.0em 0.4em 0.0em 0.2em',
-      padding: '0.1em 0.0em 0.1em 0.6em',
-      backgroundColor: '#E8E8E8'
+      padding: '0.1em 0.0em 0.1em 0.6em'
     }}
     name='event'
     value={event}

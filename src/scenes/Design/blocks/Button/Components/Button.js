@@ -1,8 +1,15 @@
 import { BUTTON, BUTTON_ID } from '../types.js'
 import { configGetButton } from '@reducers'
-import { editorWidgetRemove } from '@actions'
-import { handleChangeID } from '../../commons/Components'
-import configureStore from '@src/configureStore'
+import { addButton, removeButton } from '@actions'
+import {
+  handleChangeID,
+  init,
+  handleOnDrop,
+  handleComponentRemove,
+  getWidget,
+  destroy,
+  handleClick
+} from '../../commons/Components'
 import WidgetType from '@helpers/enum/WidgetType'
 
 export default (editor) => {
@@ -38,51 +45,45 @@ export default (editor) => {
         click: 'handleClick'
       },
 
+      init () {
+        init.bind(this)(editor)
+      },
+
+      handleComponentRemove (model) {
+        handleComponentRemove.bind(this)(model)
+      },
+
+      handleOnDrop () {
+        handleOnDrop.bind(this)(configGetButton, addButton)
+      },
+
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
-        let innerHTML = 'Button UNSET'
 
-        let button
-        if ((button = this.getButton()) !== null) {
+        let innerHTML = 'loading...'
+        let button = this.getWidget()
+        if (button) {
           innerHTML = `${button.name}`
         }
-
         this.el.innerHTML = innerHTML
         return this
       },
 
-      /**
-       * Loads button configuration from Redux state.
-       * @return {button configuration}
-       */
-      getButton () {
-        const id = this.attr.id
-        if (typeof id === 'undefined' || id === null || id === '') {
-          return null
-        }
-        return configGetButton(configureStore().store.getState(), id)
+      handleClick () {
+        handleClick(this.getWidget(), editor)
       },
 
-      handleClick () {
-        // We want to open component settings when BUTTON_ID is unset
-        if (this.getButton() === null) {
-          editor.Panels.getButton('views', 'open-tm').set('active', true)
-        }
+      getWidget () {
+        return getWidget.bind(this)(configGetButton)
       },
 
       handleChangeID (event) {
         handleChangeID(this, event, WidgetType.BUTTON)
       },
 
-      remove () {
-        defaultType.view.prototype.remove.apply(this, arguments)
-
-        const id = this.attr.id
-        if (id) {
-          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.BUTTON))
-        }
+      destroy () {
+        destroy.bind(this)(removeButton)
       }
-
     })
   })
 }

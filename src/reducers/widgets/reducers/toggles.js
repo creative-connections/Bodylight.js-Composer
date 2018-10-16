@@ -1,16 +1,15 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
-  EDITOR_WIDGET_PLACE,
-  EDITOR_WIDGET_REMOVE
+  REMOVE_WIDGET
 } from '@actions/types'
 
 import {
   addWidget,
+  removeWidget,
   getWidget,
   getWidgetsForDropdown,
-  renameWidget,
-  setWidgetPlaced
+  renameWidget
 } from '../commons/widget.js'
 
 import WidgetType from '@helpers/enum/WidgetType'
@@ -24,11 +23,8 @@ export default function (state = {}, action) {
       return addWidget(state, action.payload, type)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
-
-    case EDITOR_WIDGET_PLACE:
-      return setWidgetPlaced(state, action.payload, type, true)
-    case EDITOR_WIDGET_REMOVE:
-      return setWidgetPlaced(state, action.payload, type, false)
+    case REMOVE_WIDGET:
+      return removeWidget(state, action.payload, type)
   }
   return state
 }

@@ -4,10 +4,7 @@ import { Segment } from 'semantic-ui-react'
 
 const style = {
   overflow: 'auto',
-  maxHeight: '10em',
-  maxWidth: '40em',
-  paddingTop: '0.2em',
-  paddingBottom: '0.2em'
+  maxHeight: '10em'
 }
 
 const SimpleListSegment = ({data}) => {

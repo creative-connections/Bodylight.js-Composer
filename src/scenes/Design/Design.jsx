@@ -15,6 +15,11 @@ import toggleBlock from './blocks/Toggle'
 import chartBlock from './blocks/Chart'
 import labelBlock from './blocks/Label'
 
+import modelBlock from './blocks/Model'
+import actionBlock from './blocks/Action'
+
+import connectPanel from './panels/connect'
+
 import configureStore from '@src/configureStore'
 import { editorStorageClear } from '@actions/actions'
 
@@ -70,12 +75,16 @@ class Design extends Component {
       }
     })
 
+    connectPanel(editor)
+
     animateBlock(editor)
     rangeBlock(editor)
     buttonBlock(editor)
     toggleBlock(editor)
     chartBlock(editor)
     labelBlock(editor)
+    modelBlock(editor)
+    actionBlock(editor)
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Dropdown } from 'semantic-ui-react'
+import Dropdown from '@components/Dropdown'
 import { getProvidersForDropdown } from '@reducers'
 
 class ProviderDropdown extends Component {
@@ -28,9 +28,9 @@ class ProviderDropdown extends Component {
   }
 
   render () {
-    return <Dropdown search button labeled floating className='icon'
+    return <Dropdown search button labeled floating
+      className='icon provider-dropdown'
       icon='code branch'
-      style={{minWidth: '20em'}}
       text={this.getText()}
       options={this.props.options}
       name={this.props.name}

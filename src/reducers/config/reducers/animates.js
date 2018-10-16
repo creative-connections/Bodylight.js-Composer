@@ -1,11 +1,13 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
+  REMOVE_WIDGET,
   UPDATE_WIDGET,
   UPDATE_WIDGET_CONFIG
 } from '@actions/types'
 
 import {
+  removeWidget,
   updateWidget,
   renameWidget
 } from '../commons/widget'
@@ -52,6 +54,8 @@ export default function (state = {}, action) {
       return addAnimate(state, action.payload, type, defaultConfig)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
+    case REMOVE_WIDGET:
+      return removeWidget(state, action.payload, type)
     case UPDATE_WIDGET:
       return updateAnimate(state, action.payload, type)
     case UPDATE_WIDGET_CONFIG:

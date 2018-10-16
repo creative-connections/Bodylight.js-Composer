@@ -23,7 +23,8 @@ export default editor => {
       type: CHART,
       style: {
       },
-      removable: true
+      removable: true,
+      activeOnRender: 1
     }
   })
 }

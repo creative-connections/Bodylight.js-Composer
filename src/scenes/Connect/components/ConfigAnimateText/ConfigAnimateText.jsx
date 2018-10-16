@@ -26,28 +26,21 @@ class ConfigAnimateText extends Component {
   render () {
     const config = this.props.config
     return <Fragment>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Value:'>
-          <ComplexAttribute
-            name='value'
-            attribute={config.value}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-      </Grid>
-
-      <br></br>
-
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='visible:'>
-          <ComplexAttribute
-            label="Display the text"
-            name='visible'
-            attribute={config.visible}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-      </Grid>
+      <GridRow label='Value:'>
+        <ComplexAttribute
+          name='value'
+          attribute={config.value}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='visible:'>
+        <ComplexAttribute
+          label="Display the text"
+          name='visible'
+          attribute={config.visible}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
     </Fragment>
   }
 }

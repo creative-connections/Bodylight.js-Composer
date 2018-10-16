@@ -22,7 +22,8 @@ export default editor => {
       type: TOGGLE,
       style: {
       },
-      removable: true
+      removable: true,
+      activeOnRender: 1
     }
   })
 }

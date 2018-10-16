@@ -33,37 +33,24 @@ class ConfigAnimateAnim extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Mode:'>
-          <Checkbox
-            radio
-            label='Controlled by value'
-            name='mode'
-            value={AnimateAnimMode.CONTROLLED}
-            checked={config.mode === AnimateAnimMode.CONTROLLED}
-            onClick={this.handleOnChange}
-          />
-          <br/>
-          <br/>
-          <Checkbox
-            radio
-            label='Always running'
-            name='mode'
-            value={AnimateAnimMode.CONTINUOUS}
-            checked={config.mode === AnimateAnimMode.CONTINUOUS}
-            onClick={this.handleOnChange}
-          />
-
-        </GridRow>
-        <GridRow label='Value:'>
-          <ComplexAttribute
-            name='value'
-            attribute={config.value}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-      </Grid>
-
+      <GridRow label='Mode:'>
+        <Checkbox
+          radio
+          label='Controlled by value'
+          name='mode'
+          value={AnimateAnimMode.CONTROLLED}
+          checked={config.mode === AnimateAnimMode.CONTROLLED}
+          onClick={this.handleOnChange}
+        />
+        <Checkbox
+          radio
+          label='Always running'
+          name='mode'
+          value={AnimateAnimMode.CONTINUOUS}
+          checked={config.mode === AnimateAnimMode.CONTINUOUS}
+          onClick={this.handleOnChange}
+        />
+      </GridRow>
       {config.mode === AnimateAnimMode.CONTINUOUS &&
         <ContinuousMode
           anim={this.props.anim}

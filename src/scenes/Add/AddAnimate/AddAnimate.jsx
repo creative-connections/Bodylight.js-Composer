@@ -40,15 +40,10 @@ class AddAnimate extends Component {
   render () {
     return <Fragment>
       <div id='topBar' className='header'/>
-
       <Grid padded centered className='leftShadow topPadded'>
         <Grid.Row centered padded='horizontally' className='notPadded'>
           {this.state.uploader && <Uploader onUpload={this.handleUpload} />}
-          {this.state.updater && <Updater onUpdate={this.handleUpdate} upload={this.state.uploaded}/>}
-
-          <Grid.Column id='widget-menu' style={{ width: '15%' }}>
-            <WidgetMenu/>
-          </Grid.Column>
+          {this.state.updater && <Updater id={this.props.match.params.id} onUpdate={this.handleUpdate} upload={this.state.uploaded}/>}
         </Grid.Row>
       </Grid>
     </Fragment>

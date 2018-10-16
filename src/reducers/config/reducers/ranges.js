@@ -1,6 +1,7 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
+  REMOVE_WIDGET,
   UPDATE_WIDGET_CONFIG,
   ADD_WIDGET_ACTION,
   REMOVE_WIDGET_ACTION,
@@ -17,6 +18,7 @@ import {
 import {
   addWidget,
   renameWidget,
+  removeWidget,
   updateWidget
 } from '../commons/widget'
 
@@ -87,6 +89,8 @@ export default function (state = {}, action) {
       return addWidget(state, action.payload, type, defaultConfig)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
+    case REMOVE_WIDGET:
+      return removeWidget(state, action.payload, type)
     case UPDATE_WIDGET_CONFIG:
       return updateWidget(state, action.payload, type)
     case ADD_WIDGET_ACTION:

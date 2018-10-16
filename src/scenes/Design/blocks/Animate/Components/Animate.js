@@ -2,9 +2,17 @@ import configureStore from '@src/configureStore'
 import AnimateRuntime from '@runtime/templates/AnimateRuntime'
 import WidgetType from '@helpers/enum/WidgetType'
 import { configGetAnimate } from '@reducers'
-import { editorWidgetRemove } from '@actions'
+import { removeAnimate } from '@actions'
 import { ANIMATE, ANIMATE_ID } from '../types.js'
-import { handleChangeID } from '../../commons/Components'
+import {
+  handleChangeID,
+  init,
+  getWidget,
+  destroy,
+  handleClick
+} from '../../commons/Components'
+import history from '@helpers/BrowserHistory'
+import generateID from '@helpers/generateID'
 
 const animateRuntimeStore = {}
 
@@ -50,16 +58,8 @@ export default (editor) => {
         click: 'handleClick'
       },
 
-      /**
-       * Loads animate configuration from Redux state.
-       * @return {animate configuration}
-       */
-      getAnimate () {
-        const id = this.attr.id
-        if (typeof id === 'undefined' || id === null || id === '') {
-          return null
-        }
-        return configGetAnimate(configureStore().store.getState(), id)
+      getWidget () {
+        return getWidget.bind(this)(configGetAnimate)
       },
 
       clearCanvas () {
@@ -68,10 +68,7 @@ export default (editor) => {
       },
 
       handleClick () {
-        // We want to open component settings when animate is unset
-        if (this.getAnimate() === null) {
-          editor.Panels.getButton('views', 'open-tm').set('active', true)
-        }
+        handleClick(this.getWidget(), editor)
       },
 
       /**
@@ -124,14 +121,24 @@ export default (editor) => {
         ctx.fill(this.strokeText)
       },
 
+      init () {
+        init.bind(this)(editor)
+      },
+
+      handleOnDrop () {
+        const id = generateID()
+        this.attr.id = id
+        history.push(`${process.env.PATH}/add/animate/${id}`)
+      },
+
       /**
        * Attaches runtime to the canvas, else draws a placeholder
        */
       attachRuntime () {
         this.clearCanvas()
 
-        const animate = this.getAnimate()
-        if (animate === null) {
+        const animate = this.getWidget()
+        if (!animate) {
           return this.drawPlaceholder()
         }
 
@@ -212,16 +219,14 @@ export default (editor) => {
         this.registerUpdateHandler()
       },
 
+      destroy () {
+        destroy.bind(this)(removeAnimate)
+      },
+
       remove () {
         defaultType.view.prototype.remove.apply(this, arguments)
         this.detachRuntime()
         this.deregisterUpdateHandler()
-
-        // update redux state that we have removed our animate endpoint
-        const id = this.attr.id
-        if (id) {
-          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.ANIMATE))
-        }
       }
 
     })

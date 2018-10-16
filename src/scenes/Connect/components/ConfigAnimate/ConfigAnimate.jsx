@@ -38,29 +38,22 @@ class ConfigAnimate extends Component {
 
     return <Fragment>
       <AnimateInfo config={config} animate={this.props.animate}/>
-      <Divider hidden/>
-      <Grid verticalAlign='middle' celled='internally'>
+      <GridRow label='Name:'>
+        <Input
+          name='name'
+          value={this.props.animate.name}
+          onChange={this.renameAnimate}
+        />
+      </GridRow>
 
-        <GridRow label='Name:'>
-          <Input
-            name='name'
-            value={this.props.animate.name}
-            onChange={this.renameAnimate}
-          />
-        </GridRow>
-      </Grid>
-
-      <h2>Animate options</h2>
-      <p>These options are identical for every Animate in the project</p>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='FPS:'>
-          <InputFloat
-            name='fps'
-            value={this.props.fps}
-            onChange={this.handleOnChangeFps}
-          />
-        </GridRow>
-      </Grid>
+      <GridRow label='FPS:'>
+        <p>This option is common to every Animate</p>
+        <InputFloat
+          name='fps'
+          value={this.props.fps}
+          onChange={this.handleOnChangeFps}
+        />
+      </GridRow>
     </Fragment>
   }
 }

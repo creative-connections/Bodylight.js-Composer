@@ -22,7 +22,8 @@ export default editor => {
       type: LABEL,
       style: {
       },
-      removable: true
+      removable: true,
+      activeOnRender: 1
     }
   })
 }

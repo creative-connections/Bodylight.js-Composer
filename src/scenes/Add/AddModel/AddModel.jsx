@@ -45,10 +45,6 @@ class AddModel extends Component {
         <Grid.Row centered padded='horizontally' className='notPadded'>
           {this.state.uploader && <Uploader onUpload={this.handleUpload} />}
           {this.state.updater && <Updater onUpdate={this.handleUpdate} upload={this.state.uploaded}/>}
-
-          <Grid.Column id='widget-menu' style={{ width: '15%' }}>
-            <WidgetMenu/>
-          </Grid.Column>
         </Grid.Row>
       </Grid>
     </Fragment>

@@ -33,45 +33,43 @@ class ConfigAction extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Name:'>
-          <Input
-            name='name'
-            value={config.name}
-            onChange={this.rename}
-          />
-        </GridRow>
-        <GridRow label='Label:'>
-          <Input
-            name='label'
-            value={config.label}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-        <GridRow label='Description:'>
-          <Input
-            name='description'
-            value={config.description}
-            onChange={this.handleOnChange}
-            style={{width: '40em'}}
-          />
-        </GridRow>
-        <GridRow label='Arguments:'>
-          <Args
-            name='args'
-            args={config.args}
-            onChange={this.handleOnChange}
-          />
-        </GridRow>
-        <GridRow label='Function:'>
-          <FunctionEditor
-            name={'function'}
-            value={config.function}
-            onChange={this.handleOnChange}
-            typeof={false}
-          />
-        </GridRow>
-      </Grid>
+      <GridRow label='Name:'>
+        <Input
+          name='name'
+          value={config.name}
+          onChange={this.rename}
+        />
+      </GridRow>
+      <GridRow label='Label:'>
+        <Input
+          name='label'
+          value={config.label}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Description:'>
+        <Input
+          name='description'
+          value={config.description}
+          onChange={this.handleOnChange}
+          style={{width: '40em'}}
+        />
+      </GridRow>
+      <GridRow label='Arguments:'>
+        <Args
+          name='args'
+          args={config.args}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Function:'>
+        <FunctionEditor
+          name={'function'}
+          value={config.function}
+          onChange={this.handleOnChange}
+          typeof={false}
+        />
+      </GridRow>
     </Fragment>
   }
 }

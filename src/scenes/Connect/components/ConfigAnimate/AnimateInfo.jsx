@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import SimpleListSegment from '@components/SimpleListSegment'
 import { Grid } from 'semantic-ui-react'
 import GridRow from '../GridRow'
@@ -12,14 +12,14 @@ const transformElementsToArray = (elements) => {
 }
 
 const AnimateInfo = ({config, animate}) => {
-  return <Grid verticalAlign='middle' celled='internally'>
+  return <Fragment>
     <GridRow label='anims:'>
       <SimpleListSegment data={transformElementsToArray(animate.anims)}/>
     </GridRow>
     <GridRow label='texts:'>
       <SimpleListSegment data={transformElementsToArray(animate.texts)}/>
     </GridRow>
-  </Grid>
+  </Fragment>
 }
 
 export default AnimateInfo

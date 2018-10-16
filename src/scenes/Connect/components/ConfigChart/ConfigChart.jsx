@@ -2,19 +2,11 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import update from 'immutability-helper'
-
-import { Input, Header, Grid, Divider, Transition } from 'semantic-ui-react'
-
+import { Input } from 'semantic-ui-react'
 import { configGetChart } from '@reducers'
 import { updateConfig, renameChart, removeChart } from '@actions/actions'
 
-import ButtonLink from '@components/ButtonLink'
-
 import GridRow from '../GridRow'
-import ComplexAttribute from '../ComplexAttribute'
-import Events from '../Events'
-
 import PlotlyChart from './PlotlyChart'
 
 class ConfigChart extends Component {
@@ -22,10 +14,8 @@ class ConfigChart extends Component {
     super(props)
 
     this.handleRemove = this.handleRemove.bind(this)
-
     this.handleOnChange = this.handleOnChange.bind(this)
     this.handleAutoRename = this.handleAutoRename.bind(this)
-
     this.renameChart = this.renameChart.bind(this)
   }
 
@@ -55,20 +45,16 @@ class ConfigChart extends Component {
   render () {
     const config = this.props.config
     return <Fragment>
-
-      <Grid verticalAlign='middle' celled='internally'>
-        <GridRow label='Name:'>
-          <Input
-            name='name'
-            value={this.props.chart.name}
-            onChange={this.renameChart}
-          />
-        </GridRow>
-        <GridRow label='library:'>
-          {config.library}
-        </GridRow>
-
-      </Grid>
+      <GridRow label='Name:'>
+        <Input
+          name='name'
+          value={this.props.chart.name}
+          onChange={this.renameChart}
+        />
+      </GridRow>
+      <GridRow label='library:'>
+        {config.library}
+      </GridRow>
 
       <PlotlyChart
         config={config}

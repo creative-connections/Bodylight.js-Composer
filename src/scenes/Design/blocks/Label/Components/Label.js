@@ -1,8 +1,15 @@
 import { LABEL, LABEL_ID } from '../types.js'
 import { configGetLabel } from '@reducers'
-import { editorWidgetRemove } from '@actions'
-import { handleChangeID } from '../../commons/Components'
-import configureStore from '@src/configureStore'
+import { addLabel, removeLabel } from '@actions'
+import {
+  handleChangeID,
+  init,
+  handleOnDrop,
+  handleComponentRemove,
+  getWidget,
+  destroy,
+  handleClick
+} from '../../commons/Components'
 import WidgetType from '@helpers/enum/WidgetType'
 
 export default (editor) => {
@@ -40,10 +47,10 @@ export default (editor) => {
 
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
-        let innerHTML = 'Label UNSET'
+        let innerHTML = 'Loading...'
 
         let label
-        if ((label = this.getLabel()) !== null) {
+        if ((label = this.getWidget()) !== null) {
           innerHTML = `${label.name}`
         }
 
@@ -51,38 +58,33 @@ export default (editor) => {
         return this
       },
 
-      /**
-       * Loads label configuration from Redux state.
-       * @return {label configuration}
-       */
-      getLabel () {
-        const id = this.attr.id
-        if (typeof id === 'undefined' || id === null || id === '') {
-          return null
-        }
-        return configGetLabel(configureStore().store.getState(), id)
+      init () {
+        init.bind(this)(editor)
       },
 
-      handleClick () {
-        // We want to open component settings when LABEL_ID is unset
-        if (this.getLabel() === null) {
-          editor.Panels.getButton('views', 'open-tm').set('active', true)
-        }
+      handleComponentRemove (model) {
+        handleComponentRemove.bind(this)(model)
+      },
+
+      handleOnDrop () {
+        handleOnDrop.bind(this)(configGetLabel, addLabel)
+      },
+
+      getWidget () {
+        return getWidget.bind(this)(configGetLabel)
       },
 
       handleChangeID (event) {
         handleChangeID(this, event, WidgetType.LABEL)
       },
 
-      remove () {
-        defaultType.view.prototype.remove.apply(this, arguments)
+      destroy () {
+        destroy.bind(this)(removeLabel)
+      },
 
-        const id = this.attr.id
-        if (id) {
-          configureStore().store.dispatch(editorWidgetRemove(id, WidgetType.LABEL))
-        }
+      handleClick () {
+        handleClick(this.getWidget(), editor)
       }
-
     })
   })
 }

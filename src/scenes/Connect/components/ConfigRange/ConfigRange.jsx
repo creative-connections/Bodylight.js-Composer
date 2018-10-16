@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -52,67 +52,61 @@ class ConfigRange extends Component {
 
   render () {
     const config = this.props.config
-    return (
-      <div>
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Name:'>
-            <Input
-              name='name'
-              value={this.props.range.name}
-              onChange={this.renameRange}
-            />
-            <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
-              <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
-            </Transition>
-          </GridRow>
-          <GridRow label='Target:'>
-            <ComplexAttribute
-              forceComplex={true}
-              name='target'
-              attribute={config.target}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-        </Grid>
-        <br></br>
-        <Grid verticalAlign='middle' celled='internally'>
-          <GridRow label='Maximum:'>
-            <ComplexAttribute
-              name='max'
-              attribute={config.max}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-          <GridRow label='Minimum:'>
-            <ComplexAttribute
-              name='min'
-              attribute={config.min}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-          <GridRow label='Enabled:'>
-            <ComplexAttribute
-              name='enabled'
-              label='Range responds to user input'
-              attribute={config.enabled}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-          <GridRow label='Reversed:'>
-            <ComplexAttribute
-              name='reversed'
-              label='Range output is reversed'
-              attribute={config.reversed}
-              onChange={this.handleOnChange}
-            />
-          </GridRow>
-        </Grid>
-        <Events
-          widget={this.props.range}
-          config={config}
+    return <Fragment>
+      <GridRow label='Name:'>
+        <Input
+          name='name'
+          value={this.props.range.name}
+          onChange={this.renameRange}
         />
-      </div>
-    )
+        <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
+          <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
+        </Transition>
+      </GridRow>
+      <GridRow label='Target:'>
+        <ComplexAttribute
+          forceComplex={true}
+          disableFunction={true}
+          name='target'
+          attribute={config.target}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Maximum:'>
+        <ComplexAttribute
+          name='max'
+          attribute={config.max}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Minimum:'>
+        <ComplexAttribute
+          name='min'
+          attribute={config.min}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Enabled:'>
+        <ComplexAttribute
+          name='enabled'
+          label='Range responds to user input'
+          attribute={config.enabled}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <GridRow label='Reversed:'>
+        <ComplexAttribute
+          name='reversed'
+          label='Range output is reversed'
+          attribute={config.reversed}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
+      <Events
+        widget={this.props.range}
+        config={config}
+      />
+    </Fragment>
   }
 }
 

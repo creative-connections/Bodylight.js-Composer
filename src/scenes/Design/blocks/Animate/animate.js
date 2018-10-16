@@ -22,7 +22,8 @@ export default (editor) => {
       style: {
         width: '100%'
       },
-      removable: true
+      removable: true,
+      activeOnRender: 1
     }
   })
 }
