@@ -85,6 +85,11 @@ import initLabels from './templates/widget/Label/init'
 
 import animateFps from './builders/application/animateFps'
 
+import getPerformanceCss from './templates/widget/Performance/css'
+import getPerformanceHtml from './templates/widget/Performance/html'
+import PerformanceOn from './templates/widget/Performance/PerformanceOn'
+import PerformanceOff from './templates/widget/Performance/PerformanceOff'
+
 import Terser from 'terser'
 
 // API
@@ -169,13 +174,20 @@ class Builder {
     return result.code
   }
 
+  getCss () {
+    return `
+      ${getEditorCss()}
+      ${getPerformanceCss(this.exportPerformanceBlock)}
+    `
+  }
+
   build () {
     const append = this.append.bind(this)
     this.clearSrc()
 
     // append editor created html and css
     append(getEditorHtml())
-    append(`<style>${getEditorCss()}</style>`)
+    append(`<style>${this.getCss()}</style>`)
 
     // CreateJS for AnimateRuntime
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
@@ -189,6 +201,8 @@ class Builder {
     append('<script>')
     append(js)
     append('</script>')
+
+    append(getPerformanceHtml(this.exportPerformanceBlock))
 
     return this.src
   }
@@ -213,6 +227,13 @@ class Builder {
     // create animate runtime definitions in animates
     append('const animates = {}')
     appendAnimates(append, tpl)
+
+    if (this.exportPerformanceBlock) {
+      append(tpl(PerformanceOn))
+    } else {
+      append(tpl(PerformanceOff))
+    }
+    append(`const perf = new Performance()`)
 
     // create config object
     append('const config = {}')

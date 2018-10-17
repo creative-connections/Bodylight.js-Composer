@@ -5,6 +5,8 @@ export default function init () {
   this.outputValuesBuffer = this.heapArray(new Float64Array(this.outputValuesLength))
   this.outputValues = Array(this.outputValuesLength).fill(0)
 
+  this.perf.register(this.config.id, this.config.name, this.config.type)
+
   this.instantiate()
   this.setup()
   this.play()

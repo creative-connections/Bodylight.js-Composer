@@ -161,6 +161,7 @@ export default class PlotlyChart extends Widget {
   }
 
   extendTrace (id, axis, value, time) {
+    this.perf.start(this.id, 'extendTrace')
     if (this.enabled.value === false) {
       return
     }
@@ -185,9 +186,11 @@ export default class PlotlyChart extends Widget {
         this.buffer[id].y = null
       }
     }
+    this.perf.stop(this.id, 'extendTrace')
   }
 
   updateTrace (id, axis, values, time) {
+    this.perf.start(this.id, 'updateTrace')
     if (this.enabled.value === false) {
       return
     }
@@ -225,6 +228,7 @@ export default class PlotlyChart extends Widget {
 
     Plotly.restyle(this.plotly, update, tracesToUpdate)
     this.oneshotBufferUpdateTracesTimeout = false
+    this.perf.stop(this.id, 'updateTrace')
   }
 
   setValues (attribute, values, time) {

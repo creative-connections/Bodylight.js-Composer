@@ -43,6 +43,9 @@ export default function createModelRuntime (Model, config, functions) {
 
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
 
+      model.perf = perf
+      model.config.type = WidgetType.MODEL
+
       if (model.config.mode === 'continuous') {
         model.play = functions.continuous.play.bind(model)
         model.pause = functions.continuous.pause.bind(model)

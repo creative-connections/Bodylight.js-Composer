@@ -1,4 +1,5 @@
 export default function play () {
+  this.perf.start(this.config.id, 'play')
   const values = []
   const time = []
 
@@ -24,4 +25,5 @@ export default function play () {
 
   this.batch = { values, time }
   this.updateValueListeners()
+  this.perf.stop(this.config.id, 'play')
 }
