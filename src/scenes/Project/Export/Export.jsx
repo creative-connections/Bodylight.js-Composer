@@ -35,7 +35,7 @@ class Export extends Component {
   }
 
   minifiedExport () {
-    const builder = new Builder(true)
+    const builder = new Builder(true, this.props.export.performance)
     try {
       const html = new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
       const filename = `${this.props.name}.html`
@@ -64,7 +64,7 @@ class Export extends Component {
   }
 
   quickExport () {
-    const builder = new Builder()
+    const builder = new Builder(false, true)
     const html = new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
     const filename = `${this.props.name}.html`
     saveAs(html, filename)

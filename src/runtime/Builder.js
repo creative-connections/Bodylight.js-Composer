@@ -91,9 +91,14 @@ import Terser from 'terser'
 import appendAPI from './templates/api'
 
 class Builder {
-  constructor (minify = false) {
+  constructor (
+    minify = false,
+    exportPerformanceBlock = false
+  ) {
     this.buildMinified = minify
+    this.exportPerformanceBlock = exportPerformanceBlock
     this.clearSrc()
+    console.log(`Building (minified: ${minify}, exportPerformanceBlock: ${exportPerformanceBlock})`)
   }
 
   clearSrc () {
