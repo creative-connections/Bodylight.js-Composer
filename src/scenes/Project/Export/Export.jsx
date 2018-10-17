@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Grid, Input, Button } from 'semantic-ui-react'
-import { getProjectName } from '@reducers'
-import { renameProject } from '@actions'
+import { Grid, Input, Button, Checkbox } from 'semantic-ui-react'
+import { getProjectName, getExportOptions } from '@reducers'
+import { renameProject, updateExportOption } from '@actions'
 import { toast } from 'react-toastify'
 
 import update from 'immutability-helper'
@@ -31,6 +31,7 @@ class Export extends Component {
     this.handleExport = this.handleExport.bind(this)
     this.minifiedExport = this.minifiedExport.bind(this)
     this.renameProject = this.renameProject.bind(this)
+    this.handleUpdateExportOption = this.handleUpdateExportOption.bind(this)
   }
 
   minifiedExport () {
@@ -57,6 +58,11 @@ class Export extends Component {
     this.props.renameProject(value)
   }
 
+  handleUpdateExportOption (e, {name, value, checked}) {
+    value = value || checked
+    this.props.updateExportOption(name, value)
+  }
+
   quickExport () {
     const builder = new Builder()
     const html = new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
@@ -77,6 +83,14 @@ class Export extends Component {
       <Grid padded centered className='leftShadow topPadded'>
         <Grid.Row centered style={{ paddingTop: 0, paddingBottom: 0 }}>
           <Grid.Column style={{ marginTop: '2em', width: '100%' }}>
+            <Checkbox
+              label='Export performance block in the final application'
+              name='performance'
+              checked={this.props.export.performance}
+              onClick={this.handleUpdateExportOption}
+            />
+          </Grid.Column>
+          <Grid.Column style={{ marginTop: '2em', width: '100%' }}>
             <Input
               name="name"
               value={this.props.name}
@@ -92,9 +106,11 @@ class Export extends Component {
 
 export default connect(
   state => ({
-    name: getProjectName(state)
+    name: getProjectName(state),
+    export: getExportOptions(state)
   }),
   dispatch => bindActionCreators({
-    renameProject
+    renameProject,
+    updateExportOption
   }, dispatch)
 )(Export)
