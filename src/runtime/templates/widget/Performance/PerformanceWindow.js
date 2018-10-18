@@ -47,10 +47,13 @@ export default class PerformanceWindow {
 
     const table = document.createElement('table')
 
+    // Table of perf.measured
     Object.entries(perf.measured).forEach(([id, node]) => {
       if (Object.entries(node.measures).length === 0) {
         return
       }
+
+      // Widget name
       const row = document.createElement('tr')
       const tdName = document.createElement('td')
       tdName.className = 'pwtd-name'
@@ -58,19 +61,23 @@ export default class PerformanceWindow {
       row.appendChild(tdName)
       table.appendChild(row)
 
-      Object.entries(node.measures).forEach(([name, ms]) => {
-        let duration = Math.round(ms)
+      // Row per action
+      Object.entries(node.measures).forEach(([id, measurement]) => {
+        let duration = Math.round(measurement.duration)
         let unit = 'ms'
         if (duration < 2) {
-          duration = Math.round(ms * 1000)
+          duration = Math.round(measurement.duration * 1000)
           unit = 'us'
         }
 
+        // Measured action name
         const row = document.createElement('tr')
         const tdName = document.createElement('td')
         tdName.className = 'pwtd-action'
-        tdName.appendChild(document.createTextNode(name))
+        tdName.appendChild(document.createTextNode(measurement.action))
         row.appendChild(tdName)
+
+        // Measured action duration
         const tdMs = document.createElement('td')
         tdMs.className = 'pwtd-duration'
         tdMs.appendChild(document.createTextNode(`${duration} ${unit}`))

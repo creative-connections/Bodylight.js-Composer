@@ -7,7 +7,7 @@ export default function css (output = true) {
     #performance {
       display: none;
       min-width: 15em;
-      min-height: 10em;
+      min-height: 5em;
       position: absolute;
       top:0em;
       left:2em;

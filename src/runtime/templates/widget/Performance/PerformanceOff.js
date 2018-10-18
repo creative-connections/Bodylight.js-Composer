@@ -2,10 +2,10 @@ export default class Performance {
   register (id, name, type) {
     // nop
   }
-  start (id, action) {
+  start (id, action, specifier) {
     // nop
   }
-  stop (id, action) {
+  stop (id, action, specifier) {
     // nop
   }
 }

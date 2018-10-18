@@ -10,31 +10,36 @@ export default class Performance {
     }
   }
 
-  start (id, action) {
-    performance.mark(`${id}-${action}-start`)
+  start (id, action, specifier = '') {
+    performance.mark(`${id}-${action}-${specifier}-start`)
   }
 
-  stop (id, action) {
-    const name = `${id}-${action}`
-    const start = `${id}-${action}-start`
-    const stop = `${id}-${action}-stop`
+  stop (id, action, specifier = '') {
+    const name = `${id}-${action}-${specifier}`
+    const start = `${id}-${action}-${specifier}-start`
+    const stop = `${id}-${action}-${specifier}stop`
+    const actionName = `${action}-${specifier}`
     performance.mark(stop)
 
     performance.measure(name, start, stop)
     let measure = performance.getEntriesByName(name)[0]
 
-    if (this.measured[id].measures[action]) {
-      this.measured[id].measures[action] = (this.measured[id].measures[action] + measure.duration) / 2
+    if (this.measured[id].measures[actionName]) {
+      this.measured[id].measures[actionName].duration = (
+        this.measured[id].measures[actionName].duration + measure.duration) / 2
     } else {
-      this.measured[id].measures[action] = measure.duration
+      this.measured[id].measures[actionName] = {
+        action,
+        duration: measure.duration
+      }
     }
 
     performance.clearMeasures(name)
 
     if (false) {
-      let ms = this.measured[id].measures[action]
+      let ms = this.measured[id].measures[actionName]
       let fps = 1 / (ms / 1000)
-      console.log(id, action, ms, 'ms', fps, 'fps')
+      console.log(id, actionName, ms, 'ms', fps, 'fps')
     }
   }
 }
