@@ -190,7 +190,6 @@ export default class PlotlyChart extends Widget {
   }
 
   updateTrace (id, axis, values, time) {
-    this.perf.start(this.id, 'updateTrace')
     if (this.enabled.value === false) {
       return
     }
@@ -210,6 +209,7 @@ export default class PlotlyChart extends Widget {
   }
 
   oneshotBufferUpdateTraces () {
+    this.perf.start(this.id, 'updateTrace')
     const buf = this.oneshotBuffer
     const tracesToUpdate = []
     const update = {x: [], y: []}
