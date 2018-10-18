@@ -89,6 +89,7 @@ import getPerformanceCss from './templates/widget/Performance/css'
 import getPerformanceHtml from './templates/widget/Performance/html'
 import PerformanceOn from './templates/widget/Performance/PerformanceOn'
 import PerformanceOff from './templates/widget/Performance/PerformanceOff'
+import PerformanceWindow from './templates/widget/Performance/PerformanceWindow'
 
 import Terser from 'terser'
 
@@ -230,6 +231,8 @@ class Builder {
 
     if (this.exportPerformanceBlock) {
       append(tpl(PerformanceOn))
+      append(tpl(PerformanceWindow))
+      append(`const performanceWindow = new PerformanceWindow()`)
     } else {
       append(tpl(PerformanceOff))
     }
