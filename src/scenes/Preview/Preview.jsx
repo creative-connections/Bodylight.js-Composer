@@ -12,7 +12,7 @@ class Preview extends Component {
   componentDidMount () {
     window.setTimeout(() => {
       new Promise(resolve => {
-        const builder = new Builder()
+        const builder = new Builder(false, true)
         this.src = builder.build()
         resolve()
       }).then(() => {

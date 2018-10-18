@@ -22,3 +22,5 @@ export const EDITOR_WIDGET_REMOVE = 'editor/widget/REMOVE'
 export const FUNCTION_EDITOR_CONFIG_CHANGE = 'FUNCTION_EDITOR_CONFIG_CHANGE'
 
 export const ANIMATE_SET_FPS = 'app/Animate/SET_FPS'
+
+export const UPDATE_EXPORT_OPTION = 'app/exportoption/UPDATE'

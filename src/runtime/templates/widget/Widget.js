@@ -6,6 +6,8 @@ export default class Widget {
     this.component = this.locateComponent()
 
     console.log(`Widget (${this.typeIdentifier}) instance ${this.name}`)
+    this.perf = perf
+    this.perf.register(this.id, this.name, typeIdentifier)
 
     this.valueProviders = []
 

@@ -1,4 +1,4 @@
-import { NEW_PROJECT, SELECT_WIDGET, RENAME_PROJECT } from '@actions/types'
+import { NEW_PROJECT, SELECT_WIDGET, RENAME_PROJECT, UPDATE_EXPORT_OPTION } from '@actions/types'
 
 export const selectWidget = id => {
   return {
@@ -18,5 +18,12 @@ export const renameProject = (name) => {
   return {
     type: RENAME_PROJECT,
     payload: name
+  }
+}
+
+export const updateExportOption = (name, value) => {
+  return {
+    type: UPDATE_EXPORT_OPTION,
+    payload: { name, value }
   }
 }

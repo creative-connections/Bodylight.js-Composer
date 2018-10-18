@@ -88,3 +88,4 @@ export const getLabelsForDropdown = state => widgetSelectors.getLabelsForDropdow
 // application configuration
 export const getAnimateFps = state => applicationSelectors.getAnimateFps(state.application)
 export const getApplicationKey = state => applicationSelectors.getApplicationKey(state.application)
+export const getExportOptions = state => applicationSelectors.getExportOptions(state.application)

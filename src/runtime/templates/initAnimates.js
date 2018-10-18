@@ -10,7 +10,7 @@ export default function initAnimates () {
     }
 
     const promise = new Promise(resolve => {
-      createAnimateRuntime(root, source, element).then(runtime => {
+      createAnimateRuntime(root, source, element, id).then(runtime => {
         animates[id] = runtime
         resolve()
       })
