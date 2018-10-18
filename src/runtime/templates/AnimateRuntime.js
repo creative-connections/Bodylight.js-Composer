@@ -1,7 +1,9 @@
 export default class AnimateRuntime {
-  constructor (name, source) {
+  constructor (name, source, id) {
     this.contents = {}
     source(createjs, this.contents)
+
+    this.id = id
 
     const compositionIds = Object.keys(this.contents.compositions)
     this.composition = this.contents.compositions[compositionIds[0]]
@@ -13,6 +15,13 @@ export default class AnimateRuntime {
       throw new Error(`'${this.name}' is not a valid animate component`)
     }
 
+    // check for perf component presence
+    if (typeof perf !== 'undefined') {
+      this.perf = perf
+      this.perf.register(id, name, 'animate')
+    }
+
+    this.handleTick = this.handleTick.bind(this)
     this.attachExportedComponents(this.library)
     this.initialized = false
   }
@@ -86,13 +95,20 @@ export default class AnimateRuntime {
   }
 
   startListeners () {
-    createjs.Ticker.addEventListener('tick', this.stage)
-    createjs.Ticker.addEventListener('tick', this.resize)
+    createjs.Ticker.addEventListener('tick', this.handleTick)
   }
 
   stopListeners () {
-    createjs.Ticker.removeEventListener('tick', this.stage)
-    createjs.Ticker.removeEventListener('tick', this.resize)
+    createjs.Ticker.removeEventListener('tick', this.handleTick)
+  }
+
+  handleTick () {
+    if (this.perf) { this.perf.start(this.id, 'update') }
+
+    this.stage.update()
+    this.resize()
+
+    if (this.perf) { this.perf.stop(this.id, 'update') }
   }
 
   /*

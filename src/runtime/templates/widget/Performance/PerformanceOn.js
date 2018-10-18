@@ -1,19 +1,6 @@
 export default class Performance {
   constructor () {
     this.measured = {}
-
-    if (typeof createjs !== 'undefined') {
-      this.createjs = 1
-      this.createjsTick = this.createjsTick.bind(this)
-      this.register(this.createjs, 'createjs', 'animate')
-      this.start(this.createjs, 'tick')
-      createjs.Ticker.addEventListener('tick', this.createjsTick)
-    }
-  }
-
-  createjsTick () {
-    this.stop(this.createjs, 'tick')
-    this.start(this.createjs, 'tick')
   }
 
   register (id, name, type) {
@@ -44,9 +31,10 @@ export default class Performance {
 
     performance.clearMeasures(name)
 
-    let ms = this.measured[id].measures[action]
-    let fps = 1 / (ms / 1000)
-
-    console.log(id, action, ms, 'ms', fps, 'fps')
+    if (false) {
+      let ms = this.measured[id].measures[action]
+      let fps = 1 / (ms / 1000)
+      console.log(id, action, ms, 'ms', fps, 'fps')
+    }
   }
 }
