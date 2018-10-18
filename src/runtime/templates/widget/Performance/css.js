@@ -9,8 +9,8 @@ export default function css (output = true) {
       min-width: 15em;
       min-height: 5em;
       position: absolute;
-      top:0em;
-      left:2em;
+      top:1em;
+      left:1em;
 
       background: #fff;
       box-shadow: 0 4px 16px rgba(0,0,0,.2);
@@ -18,11 +18,12 @@ export default function css (output = true) {
     }
 
     #performance-btn {
-      width: 20px;
-      height: 20px;
-      background-color: red;
+
+      background-color: #eee;
+      border: 1px solid rgba(0,0,0,.2);
+
       position:absolute;
-      top:0;
+      bottom:0;
       left:0;
       cursor: pointer;
     }

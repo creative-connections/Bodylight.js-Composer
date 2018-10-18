@@ -37,13 +37,16 @@ export default class PerformanceWindow {
     if (!this.visible) {
       return
     }
-    const fps = createjs.Ticker.getMeasuredFPS()
 
-    // FPS
     const root = document.createElement('div')
-    root.appendChild(document.createTextNode(
-      `Current: ${Math.round(1 / fps * 1000)}ms (${Number(fps).toPrecision(3)} fps)`
-    ))
+
+    if (typeof createjs !== 'undefined') {
+      const fps = createjs.Ticker.getMeasuredFPS()
+      // FPS
+      root.appendChild(document.createTextNode(
+        `Frame duration: ${Math.round(1 / fps * 1000)}ms (${Number(fps).toPrecision(3)} fps)`
+      ))
+    }
 
     const table = document.createElement('table')
 
