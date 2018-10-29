@@ -27,6 +27,8 @@ const defaultConfig = {
   target: {
     value: null,
     provider: null,
+    array: false,
+    indexes: null,
     function: null,
     typeof: false
   },
@@ -53,6 +55,8 @@ const defaultConfig = {
     value: true,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
 
@@ -61,6 +65,8 @@ const defaultConfig = {
     value: true,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
 
@@ -69,6 +75,8 @@ const defaultConfig = {
     value: 1,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
 
@@ -77,6 +85,8 @@ const defaultConfig = {
     value: 1,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   }
 }

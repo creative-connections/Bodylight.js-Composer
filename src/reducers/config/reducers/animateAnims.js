@@ -26,6 +26,8 @@ const defaultConfig = {
     value: 0,
     complex: true,
     provider: null,
+    array: false,
+    indexes: null,
     function: null,
     typeof: 'number'
   },
@@ -34,6 +36,8 @@ const defaultConfig = {
     value: 0,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
   max: {
@@ -41,6 +45,8 @@ const defaultConfig = {
     value: 100,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
   reversed: {
@@ -48,6 +54,8 @@ const defaultConfig = {
     value: false,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
   overflow: {
@@ -55,6 +63,8 @@ const defaultConfig = {
     value: false,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
   minspeed: {
@@ -62,6 +72,8 @@ const defaultConfig = {
     value: 0,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
   maxspeed: {
@@ -69,6 +81,8 @@ const defaultConfig = {
     value: 10,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   }
 }

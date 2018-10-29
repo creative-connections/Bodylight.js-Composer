@@ -30,6 +30,8 @@ const defaultConfig = {
     value: 'label',
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
 
@@ -47,6 +49,8 @@ const defaultConfig = {
     value: true,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
 
@@ -55,6 +59,8 @@ const defaultConfig = {
     value: true,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   },
 

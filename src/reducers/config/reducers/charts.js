@@ -147,6 +147,8 @@ const defaultConfig = {
     value: true,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null
   }
 }

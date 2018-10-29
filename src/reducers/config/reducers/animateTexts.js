@@ -20,6 +20,8 @@ const defaultConfig = {
     value: '',
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null,
     typeof: 'string'
   },
@@ -27,6 +29,8 @@ const defaultConfig = {
     value: true,
     complex: false,
     provider: null,
+    array: false,
+    indexes: null,
     function: null,
     typeof: 'boolean'
   }
