@@ -75,6 +75,38 @@ const parseCoSimulationAttribute = (resolver, doc, attr) => {
   return node.getAttribute(attr)
 }
 
+const findArrays = (variables, parameters) => {
+  variables = Object.values(variables)
+  parameters = Object.values(parameters)
+
+  let c = 0
+  const providers = variables.concat(parameters).sort((a, b) => {
+    c = c + 1
+    return a.name.localeCompare(b.name)
+  })
+
+  const arrays = {}
+
+  providers.forEach(provider => {
+    // find if the provider id ends with [#] - this is an array variable
+    if (/.*\[[0-9]*\]$/.test(provider.name) === false) {
+      return null
+    }
+
+    // parse common name out of the provider ('cname[32]' becomes 'cname')
+    const name = provider.name.match(/(.*)\[[0-9]*\]$/)[1]
+
+    if (typeof arrays[name] === 'undefined') {
+      arrays[name] = {}
+    }
+
+    arrays[name][provider.name] = {
+      name: provider.name,
+      reference: provider.reference
+    }
+  })
+}
+
 const parseModelDescription = (xml) => {
   var domParser = new DOMParser()
   var doc = domParser.parseFromString(xml, 'application/xml')
@@ -89,6 +121,7 @@ const parseModelDescription = (xml) => {
   // TODO catch errors
   output.variables = parseVariables(resolver, doc)
   output.parameters = parseParameters(resolver, doc)
+  output.arrays = findArrays(output.variables, output.parameters)
 
   output.modelName = parseFmiModelDescriptionAttribute(resolver, doc, 'modelName')
   output.guid = parseFmiModelDescriptionAttribute(resolver, doc, 'guid')

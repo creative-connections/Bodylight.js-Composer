@@ -52,6 +52,7 @@ const addModel = (state, payload, type, defaultConfig) => {
     modelName: {$set: payload.modelDescription.modelName},
     variables: {$set: payload.modelDescription.variables},
     parameters: {$set: payload.modelDescription.parameters},
+    arrays: {$set: payload.modelDescription.arrays},
     description: {$set: payload.modelDescription.description},
     generationDateAndTime: {$set: payload.modelDescription.generationDateAndTime},
     generationTool: {$set: payload.modelDescription.generationTool}
@@ -71,6 +72,7 @@ const updateModel = (state, payload, type) => {
       modelName: {$set: payload.modelDescription.modelName},
       variables: {$set: payload.modelDescription.variables},
       parameters: {$set: payload.modelDescription.parameters},
+      arrays: {$set: payload.modelDescription.arrays},
       description: {$set: payload.modelDescription.description},
       generationDateAndTime: {$set: payload.modelDescription.generationDateAndTime},
       generationTool: {$set: payload.modelDescription.generationTool}
