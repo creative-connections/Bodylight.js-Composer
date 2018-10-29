@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Dropdown from '@components/Dropdown'
+import ModalDropdown from '@components/ModalDropdown'
 import { getProvidersForDropdown } from '@reducers'
 
 class ProviderDropdown extends Component {
@@ -28,7 +28,7 @@ class ProviderDropdown extends Component {
   }
 
   render () {
-    return <Dropdown search button labeled floating
+    return <ModalDropdown search button labeled floating
       className='icon provider-dropdown'
       icon='code branch'
       text={this.getText()}
@@ -36,7 +36,7 @@ class ProviderDropdown extends Component {
       name={this.props.name}
       value={this.props.value}
       onChange={this.props.onChange} >
-    </Dropdown>
+    </ModalDropdown>
   }
 }
 

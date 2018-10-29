@@ -15,7 +15,7 @@ const modalStyle = {
   }
 }
 
-class Dropdown extends Component {
+class ModalDropdown extends Component {
   constructor (props) {
     super(props)
     Modal.setAppElement('#app')
@@ -123,4 +123,4 @@ class Dropdown extends Component {
   }
 }
 
-export default Dropdown
+export default ModalDropdown
