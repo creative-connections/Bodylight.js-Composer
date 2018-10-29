@@ -97,14 +97,16 @@ const findArrays = (variables, parameters) => {
     const name = provider.name.match(/(.*)\[[0-9]*\]$/)[1]
 
     if (typeof arrays[name] === 'undefined') {
-      arrays[name] = {}
+      arrays[name] = {name, providers: {}}
     }
 
-    arrays[name][provider.name] = {
+    arrays[name].providers[provider.name] = {
       name: provider.name,
       reference: provider.reference
     }
   })
+
+  return arrays
 }
 
 const parseModelDescription = (xml) => {
