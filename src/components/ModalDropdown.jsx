@@ -104,7 +104,6 @@ class ModalDropdown extends Component {
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.close}
         style={modalStyle}
-        contentLabel="Example Modal"
       >
         <p>Selected: <strong>{selected}</strong></p>
 
