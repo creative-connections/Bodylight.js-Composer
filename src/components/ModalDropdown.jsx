@@ -30,6 +30,7 @@ class ModalDropdown extends Component {
     this.handleAfterOpen = this.handleAfterOpen.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.renderModalContents = this.renderModalContents.bind(this)
   }
 
   open () {
@@ -67,25 +68,41 @@ class ModalDropdown extends Component {
     return out
   }
 
-  render () {
-    let selected = null
-    let options = []
-
+  renderModalContents (selected) {
+    const options = []
     let filter = null
     if (this.state.filter !== '') {
       filter = new RegExp(this.state.filter, 'i')
     }
 
     this.props.options.forEach(option => {
-      if (option.value === this.props.value) {
-        selected = option.text.replace('.', '. ')
-      }
       if (filter) {
         if (option.text.search(filter) > 0) {
           options.push(option)
         }
       } else {
         options.push(option)
+      }
+    })
+
+    if (this.state.opened) {
+      return <Fragment>
+        <p>Selected: <strong>{selected}</strong></p>
+        <Input placeholder='Search...' onChange={this.handleSearch} />
+        <Segment style={{ overflow: 'auto', maxHeight: '25em' }}>
+          { this.renderOptions(options) }
+        </Segment>
+        <Button labelPosition='left' onClick={this.close}>close</Button>
+      </Fragment>
+    }
+    return null
+  }
+
+  render () {
+    let selected = null
+    this.props.options.forEach(option => {
+      if (option.value === this.props.value) {
+        selected = option.text.replace('.', '. ')
       }
     })
 
@@ -105,18 +122,7 @@ class ModalDropdown extends Component {
         onRequestClose={this.close}
         style={modalStyle}
       >
-        <p>Selected: <strong>{selected}</strong></p>
-
-        <Input
-          placeholder='Search...'
-          onChange={this.handleSearch}
-        />
-
-        <Segment style={{ overflow: 'auto', maxHeight: '25em' }}>
-          { this.renderOptions(options) }
-        </Segment>
-
-        <Button labelPosition='left' onClick={this.close}>close</Button>
+        {this.renderModalContents(selected)}
       </Modal>
     </Fragment>
   }
