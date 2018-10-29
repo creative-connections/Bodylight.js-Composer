@@ -41,7 +41,7 @@ class Dataset extends Component {
 
       <GridRow label='y axis:'>
         { config.y.time === false &&
-            <ComplexAttribute complex
+            <ComplexAttribute complex array
               name={`${name}.y`}
               attribute={config.y}
               onChange={this.props.onChange}
@@ -58,11 +58,10 @@ class Dataset extends Component {
 
       <GridRow label='x axis:'>
         { config.x.time === false &&
-            <ComplexAttribute
+            <ComplexAttribute complex array
               name={`${name}.x`}
               attribute={config.x}
               onChange={this.props.onChange}
-              forceComplex={true}
             />
         }
         <Checkbox

@@ -53,6 +53,8 @@ class Datasets extends Component {
         value: 0,
         time: true,
         provider: null,
+        array: false,
+        indexes: null,
         'function': null
       },
       y: {
@@ -60,6 +62,8 @@ class Datasets extends Component {
         value: 0,
         time: false,
         provider: null,
+        array: false,
+        indexes: null,
         'function': null
       },
       maxSamples: {
@@ -67,6 +71,8 @@ class Datasets extends Component {
         value: -1,
         complex: false,
         provider: null,
+        array: false,
+        indexes: null,
         'function': 'value => value'
       }
     }

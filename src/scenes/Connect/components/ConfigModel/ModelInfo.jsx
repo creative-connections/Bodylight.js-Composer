@@ -25,6 +25,9 @@ const ModelInfo = ({config}) => {
     <GridRow label='Variables:'>
       <SimpleListSegment data={transformElementsToArray(config.variables)} />
     </GridRow>
+    <GridRow label='Arrays:'>
+      <SimpleListSegment data={transformElementsToArray(config.arrays)} />
+    </GridRow>
   </Fragment>
 }
 

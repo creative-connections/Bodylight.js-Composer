@@ -5,6 +5,7 @@ import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'
 import FunctionEditor from '@components/FunctionEditor'
 import ColorPicker from '@components/ColorPicker'
+import ModalIndexPicker from '@components/ModalIndexPicker'
 
 import ProviderDropdown from './ProviderDropdown'
 
@@ -16,6 +17,7 @@ class ComplexAttribute extends Component {
     this.renderValueInput = this.renderValueInput.bind(this)
     this.renderComplexCheckbox = this.renderComplexCheckbox.bind(this)
     this.renderFunction = this.renderFunction.bind(this)
+    this.renderArray = this.renderArray.bind(this)
     this.addFunction = this.addFunction.bind(this)
   }
 
@@ -59,14 +61,14 @@ class ComplexAttribute extends Component {
   }
 
   renderSimple () {
-    if (this.props.attribute.complex || this.props.complex) {
+    if (this.props.attribute.complex === true || this.props.complex) {
       return null
     }
     return this.renderValueInput()
   }
 
   renderComplex () {
-    if (!this.props.attribute.complex || this.props.simple) {
+    if (this.props.attribute.complex === false || this.props.simple) {
       return null
     }
 
@@ -77,6 +79,7 @@ class ComplexAttribute extends Component {
         onChange={this.props.onChange}
       />
       {this.renderFunction()}
+      {this.renderArray()}
     </Fragment>
   }
 
@@ -94,7 +97,7 @@ class ComplexAttribute extends Component {
   }
 
   renderFunction () {
-    if (this.props.nofunc) {
+    if (this.props.nofunc || this.props.attribute.array) {
       return null
     }
 
@@ -109,6 +112,33 @@ class ComplexAttribute extends Component {
         typeof={this.props.attribute.typeof}
       />
     }
+  }
+
+  renderArray () {
+    if (!this.props.array || !this.props.attribute.provider ||
+      typeof this.props.attribute.provider !== 'string') {
+      return null
+    }
+
+    const id = JSON.parse(this.props.attribute.provider).id
+    // find if the provider id ends with [#] - this is an array variable
+    if (/.*\[[0-9]*\]$/.test(id) === false) {
+      return null
+    }
+
+    return <Fragment>
+      <Checkbox label='Is array variable'
+        name={`${this.props.name}.array`}
+        checked={this.props.attribute.array}
+        onChange={this.props.onChange}
+      />
+      {this.props.attribute.array &&
+        <ModalIndexPicker
+          name={`${this.props.name}.indexes`}
+          attribute={this.props.attribute}
+          onChange={this.props.onChange}
+        />}
+    </Fragment>
   }
 
   renderComplexCheckbox () {
@@ -127,6 +157,7 @@ class ComplexAttribute extends Component {
   }
 
   render () {
+    console.log(this.props)
     return <Fragment>
       {this.renderSimple()}
       {this.renderComplex()}

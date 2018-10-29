@@ -79,9 +79,7 @@ const findArrays = (variables, parameters) => {
   variables = Object.values(variables)
   parameters = Object.values(parameters)
 
-  let c = 0
   const providers = variables.concat(parameters).sort((a, b) => {
-    c = c + 1
     return a.name.localeCompare(b.name)
   })
 
