@@ -63,3 +63,23 @@ const getProvidersForDropdownMemoized = memoize(state => {
 export const getProvidersForDropdown = (state) => {
   return getProvidersForDropdownMemoized(state)
 }
+
+export const getArrayProvidersFromProvider = (state, provider) => {
+  let providers = {}
+  if (typeof provider !== 'string') {
+    return providers
+  }
+  const parsed = JSON.parse(provider)
+  const id = parsed.id
+  const modelId = parsed.parent
+
+  // parse common name out of the provider ('cname[32]' becomes 'cname')
+  const name = id.match(/(.*)\[[0-9]*\]$/)[1]
+
+  if (typeof state.models[modelId] === 'undefined' ||
+      typeof state.models[modelId].arrays[name] === 'undefined') {
+    return providers
+  }
+
+  return state.models[modelId].arrays[name].providers
+}
