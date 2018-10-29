@@ -93,15 +93,18 @@ const findArrays = (variables, parameters) => {
       return null
     }
 
-    // parse common name out of the provider ('cname[32]' becomes 'cname')
-    const name = provider.name.match(/(.*)\[[0-9]*\]$/)[1]
+    // parse common name out of the provider ('cname[32]' becomes ['cname', '32'])
+    const regexed = provider.name.match(/(.*)\[([0-9]*)\]$/)
+    const cname = regexed[1]
+    const index = regexed[2]
 
-    if (typeof arrays[name] === 'undefined') {
-      arrays[name] = {name, providers: {}}
+    if (typeof arrays[cname] === 'undefined') {
+      arrays[cname] = {cname, providers: {}}
     }
 
-    arrays[name].providers[provider.name] = {
+    arrays[cname].providers[provider.name] = {
       name: provider.name,
+      index,
       reference: provider.reference
     }
   })
