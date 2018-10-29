@@ -31,8 +31,7 @@ const ControlledMode = props => {
       />
     </GridRow>
     <GridRow label='Overflow:'>
-      <ComplexAttribute
-        forceSimple={true}
+      <ComplexAttribute simple
         name='overflow'
         label='Allow min/max to be automatically adjusted'
         attribute={config.overflow}

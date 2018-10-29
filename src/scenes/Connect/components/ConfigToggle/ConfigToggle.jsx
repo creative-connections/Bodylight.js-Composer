@@ -55,9 +55,7 @@ class ConfigToggle extends Component {
         </Transition>
       </GridRow>
       <GridRow label='Target:' key={`target`}>
-        <ComplexAttribute
-          forceComplex={true}
-          disableFunction={true}
+        <ComplexAttribute complex nofunc
           name='target'
           attribute={config.target}
           onChange={this.handleOnChange}

@@ -42,9 +42,7 @@ class ConfigButton extends Component {
 
   renderTarget (config) {
     return <GridRow label='Target:' key={`target`}>
-      <ComplexAttribute
-        forceComplex={true}
-        disableFunction={true}
+      <ComplexAttribute complex nofunc
         name='target'
         attribute={config.target}
         onChange={this.handleOnChange}
