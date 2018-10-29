@@ -87,8 +87,8 @@ class Datasets extends Component {
     const out = []
     Object.entries(this.props.config).forEach(([id, dataset]) => {
       out.push(
-        <Collapsable title={dataset.name} className='secondary' collapsed={true} >
-          <Dataset key={id}
+        <Collapsable title={dataset.name} className='secondary' collapsed={true} key={id} >
+          <Dataset
             name={`${this.props.name}.${id}`}
             config={dataset}
             onChange={this.props.onChange}
