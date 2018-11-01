@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import { Checkbox, Input } from 'semantic-ui-react'
+import { getArrayProvidersFromProvider } from '@reducers'
 
 import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'
@@ -122,6 +124,14 @@ class ComplexAttribute extends Component {
         name: `${this.props.name}.function`,
         value: null
       })
+
+      if (this.props.attribute.indexes === null) {
+        // select all providers by default
+        this.props.onChange(e, {
+          name: `${this.props.name}.indexes`,
+          value: Object.values(this.props.arrayProviders).sort((a, b) => a.index - b.index).map(p => p.name)
+        })
+      }
     }
     this.props.onChange(e, v)
   }
@@ -177,4 +187,9 @@ class ComplexAttribute extends Component {
   }
 }
 
-export default ComplexAttribute
+export default connect(
+  (state, props) => ({
+    arrayProviders: getArrayProvidersFromProvider(state, props.attribute.provider)
+  }),
+  null
+)(ComplexAttribute)
