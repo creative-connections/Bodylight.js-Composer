@@ -176,13 +176,18 @@ export default class PlotlyChart extends Widget {
     const index = this.indexes[id]
     const altAxis = axis === 'x' ? 'y' : 'x'
     if (this.datasets[id][altAxis].time) {
-      const extend = {
-        y: [[time]],
-        x: [[time]]
+      if (!Array.isArray(value)) {
+        // plotting axis vs time - append value to the end
+        const extend = { y: [[time]], x: [[time]] }
+        extend[axis] = [[value]]
+        Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
+      } else {
+        // plotting array vs indicies - treating this as a oneshot update
+        // create indicies [0,1,2,...,length]
+        const indicies = Array.from({length: value.length}, (v, k) => k++)
+        // replace previous trace for id/axis
+        this.updateTrace(id, axis, value, indicies)
       }
-      extend[axis] = [[value]]
-
-      Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
     } else {
       // for a XY plot, we need to save the current value until we have both axis
       this.buffer[id][axis] = [[value]]
@@ -209,7 +214,6 @@ export default class PlotlyChart extends Widget {
       this.oneshotBuffer[id] = update
     } else {
       this.oneshotBuffer[id][axis] = values
-      console.log(this.oneshotBuffer[id])
     }
     if (this.oneshotBufferUpdateTracesTimeout === false) {
       this.oneshotBufferUpdateTracesTimeout = window.setTimeout(this.oneshotBufferUpdateTraces, 50)
