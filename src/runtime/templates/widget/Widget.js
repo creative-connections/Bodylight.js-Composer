@@ -73,12 +73,16 @@ export default class Widget {
   }
 
   setArray (attribute, array, time) {
-    this.setValue(attribute, array, time)
+    console.warn(`setArray for ${this.name} is not overridden`)
   }
 
   setValues (attribute, values, time) {
     // set only last value
-    this.setValue(attribute, values[values.length - 1])
+    this.setValue(attribute, values[values.length - 1], time[time.length - 1])
+  }
+
+  setArrays (attribute, arrays, time) {
+    console.warn(`setArrays for ${this.name} is not overridden`)
   }
 
   loadEventListeners () {
