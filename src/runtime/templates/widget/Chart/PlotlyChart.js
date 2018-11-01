@@ -257,6 +257,17 @@ export default class PlotlyChart extends Widget {
     this.perf.stop(this.id, 'updateTrace')
   }
 
+  setArray (attribute, array, time) {
+    this.setValue(attribute, array, time)
+  }
+
+  setArrays (attribute, arrays, times) {
+    // draw only the last array
+    const array = arrays[arrays.length - 1]
+    const time = times[times.length - 1]
+    this.setValues(attribute, array, time)
+  }
+
   setValues (attribute, values, time) {
     const lastValue = values[values.length - 1]
 
