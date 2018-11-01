@@ -19,6 +19,7 @@ class ComplexAttribute extends Component {
     this.renderFunction = this.renderFunction.bind(this)
     this.renderArray = this.renderArray.bind(this)
     this.addFunction = this.addFunction.bind(this)
+    this.onIsArrayChange = this.onIsArrayChange.bind(this)
   }
 
   renderValueInput () {
@@ -114,6 +115,17 @@ class ComplexAttribute extends Component {
     }
   }
 
+  onIsArrayChange (e, v) {
+    // on array set, disable function
+    if (v.checked === true) {
+      this.props.onChange(e, {
+        name: `${this.props.name}.function`,
+        value: null
+      })
+    }
+    this.props.onChange(e, v)
+  }
+
   renderArray () {
     if (!this.props.array || !this.props.attribute.provider ||
       typeof this.props.attribute.provider !== 'string') {
@@ -130,7 +142,7 @@ class ComplexAttribute extends Component {
       <Checkbox label='Is array variable'
         name={`${this.props.name}.array`}
         checked={this.props.attribute.array}
-        onChange={this.props.onChange}
+        onChange={this.onIsArrayChange}
       />
       {this.props.attribute.array &&
         <ModalIndexPicker
