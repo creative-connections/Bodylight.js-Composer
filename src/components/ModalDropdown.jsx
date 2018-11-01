@@ -88,7 +88,7 @@ class ModalDropdown extends Component {
     if (this.state.opened) {
       return <Fragment>
         <p>Selected: <strong>{selected}</strong></p>
-        <Input placeholder='Search...' onChange={this.handleSearch} />
+        <Input placeholder='Search...' onChange={this.handleSearch} autoFocus/>
         <Segment style={{ overflow: 'auto', maxHeight: '25em' }}>
           { this.renderOptions(options) }
         </Segment>
