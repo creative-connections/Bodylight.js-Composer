@@ -157,7 +157,6 @@ class ComplexAttribute extends Component {
   }
 
   render () {
-    console.log(this.props)
     return <Fragment>
       {this.renderSimple()}
       {this.renderComplex()}
