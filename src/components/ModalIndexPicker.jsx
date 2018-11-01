@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { getArrayProvidersFromProvider } from '@reducers'
 import Modal from 'react-modal'
-import { Button, Icon, Input, Segment } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 
 const modalStyle = {
   content: {
@@ -25,6 +25,12 @@ class ModalIndexPicker extends Component {
     this.open = this.open.bind(this)
     this.close = this.close.bind(this)
     this.renderModalContents = this.renderModalContents.bind(this)
+    this.selectChange = this.selectChange.bind(this)
+  }
+
+  selectChange (e) {
+    const value = Array.from(e.target.options).filter(o => o.selected).map(o => o.value)
+    this.props.onChange(e, {name: this.props.name, value})
   }
 
   open () {
@@ -46,8 +52,12 @@ class ModalIndexPicker extends Component {
       options.push(<option key={provider.name} value={provider.name}>{provider.name}</option>)
     })
 
+    const value = this.props.attribute.indexes || []
     return <Fragment>
-      <select style={{overflow: 'auto', maxHeight: '25em', minWidth: '200px'}} multiple size={20}>
+      <select multiple size={20} autoFocus
+        value={value}
+        onChange={this.selectChange}
+        style={{overflow: 'auto', maxHeight: '25em', minWidth: '200px'}}>
         {options}
       </select>
     </Fragment>
