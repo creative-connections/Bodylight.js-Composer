@@ -72,7 +72,12 @@ export default class Widget {
     this.setters[attribute]()
   }
 
+  setArray (attribute, array, time) {
+    this.setValue(attribute, array, time)
+  }
+
   setValues (attribute, values, time) {
+    // set only last value
     this.setValue(attribute, values[values.length - 1])
   }
 
