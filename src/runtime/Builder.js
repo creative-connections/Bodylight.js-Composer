@@ -15,6 +15,7 @@ import modelTick from './templates/model/continuous/modelTick'
 import stageTick from './templates/model/continuous/stageTick'
 import updateOutputValues from './templates/model/updateOutputValues'
 import registerValueListener from './templates/model/registerValueListener'
+import registerArrayListener from './templates/model/registerArrayListener'
 import registerInitialValueListener from './templates/model/registerInitialValueListener'
 import registerValueSetter from './templates/model/registerValueSetter'
 import updateInitialValueListeners from './templates/model/updateInitialValueListeners'
@@ -130,6 +131,7 @@ class Builder {
     append('functions.reset = ' + tpl(reset))
     append('functions.updateOutputValues = ' + tpl(updateOutputValues))
     append('functions.registerValueListener = ' + tpl(registerValueListener))
+    append('functions.registerArrayListener = ' + tpl(registerArrayListener))
     append('functions.registerInitialValueListener = ' + tpl(registerInitialValueListener))
     append('functions.updateInitialValueListeners = ' + tpl(updateInitialValueListeners))
     append('functions.registerValueSetter = ' + tpl(registerValueSetter))

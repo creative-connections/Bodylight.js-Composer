@@ -43,7 +43,15 @@ export default class PlotlyChart extends Widget {
     const attr = this.parseAttribute(attribute)
 
     if (attr && attr.dataset) {
-      target.registerValueListener(this, id, attribute)
+      const dataset = this.datasets[attr.dataset]
+      const axis = dataset[attr.axis]
+
+      // in case of an array variable we need to register an array listener
+      if (axis.array) {
+        target.registerArrayListener(this, axis.indexes, attribute)
+      } else {
+        target.registerValueListener(this, id, attribute)
+      }
     } else {
       super.setValueProvider(attribute, id, target)
     }

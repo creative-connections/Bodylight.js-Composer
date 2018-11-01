@@ -34,6 +34,7 @@ export default function createModelRuntime (Model, config, functions) {
       model.lastInputValues = {}
 
       model.registerValueListener = functions.registerValueListener.bind(model)
+      model.registerArrayListener = functions.registerArrayListener.bind(model)
       model.registerInitialValueListener = functions.registerInitialValueListener.bind(model)
 
       model.registerValueSetter = functions.registerValueSetter.bind(model)
