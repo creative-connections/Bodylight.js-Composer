@@ -189,14 +189,28 @@ export default class PlotlyChart extends Widget {
         this.updateTrace(id, axis, value, indicies)
       }
     } else {
-      // for a XY plot, we need to save the current value until we have both axis
-      this.buffer[id][axis] = [[value]]
+      // for a XY plot, we need to save the current value until we have both axes
+      if (!Array.isArray(value)) {
+        // plotting X,Y values
+        this.buffer[id][axis] = [[value]]
 
-      // if we have both of them then we flush
-      if (this.buffer[id][altAxis] !== null) {
-        Plotly.extendTraces(this.plotly, this.buffer[id], [index], this.datasets[id].maxSamples.value)
-        this.buffer[id].x = null
-        this.buffer[id].y = null
+        // if we have both of them then we flush
+        if (this.buffer[id][altAxis] !== null) {
+          Plotly.extendTraces(this.plotly, this.buffer[id], [index], this.datasets[id].maxSamples.value)
+          this.buffer[id].x = null
+          this.buffer[id].y = null
+        }
+      } else {
+        // plotting [X],[Y] arrays
+        this.buffer[id][axis] = value
+
+        // if we have both of them then we flush
+        if (this.buffer[id][altAxis] !== null) {
+          this.updateTrace(id, 'x', this.buffer[id].x, null)
+          this.updateTrace(id, 'y', this.buffer[id].y, null)
+          this.buffer[id].x = null
+          this.buffer[id].y = null
+        }
       }
     }
     this.perf.stop(this.id, 'extendTrace', id)
