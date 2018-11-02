@@ -160,6 +160,7 @@ const updateWidgetChart = (state, payload, type) => {
   const old = state[payload.widget.id]
   // copy common properties
   let newconfig = update(defaultConfig, {
+    id: {$set: old.id},
     name: {$set: old.name},
     library: {$set: payload.value},
     events: {$set: old.events},
