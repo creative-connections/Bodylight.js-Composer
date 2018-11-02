@@ -181,8 +181,6 @@ const updateWidgetChart = (state, payload, type) => {
     })
   }
 
-  console.log(newconfig)
-
   return update(state, { [payload.widget.id]: {$set: newconfig} })
 }
 
