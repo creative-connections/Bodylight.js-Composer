@@ -192,9 +192,13 @@ class Builder {
     append(getEditorHtml())
     append(`<style>${this.getCss()}</style>`)
 
+    // TODO: refactor this out and conditionally
     // CreateJS for AnimateRuntime
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
+    // PlotlyChart
     append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
+    // Chart.js (bundled with moment.js)
+    append('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>')
 
     let js = this.buildJS()
     if (this.buildMinified) {
