@@ -163,6 +163,7 @@ const updateWidgetChart = (state, payload, type) => {
     id: {$set: old.id},
     name: {$set: old.name},
     library: {$set: payload.value},
+    datasets: {$set: plotlyConfig.datasets},
     events: {$set: old.events},
     actions: {$set: old.actions},
     attributes: {$set: old.attributes},
@@ -175,7 +176,6 @@ const updateWidgetChart = (state, payload, type) => {
     })
   } else if (payload.value === 'plotly') {
     newconfig = update(newconfig, {
-      datasets: {$set: plotlyConfig.datasets},
       shapes: {$set: plotlyConfig.shapes},
       xaxis: {$set: plotlyConfig.xaxis},
       yaxis: {$set: plotlyConfig.yaxis}
