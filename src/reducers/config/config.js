@@ -73,6 +73,10 @@ export const getArrayProvidersFromProvider = (state, provider) => {
   const id = parsed.id
   const modelId = parsed.parent
 
+  if (/.*\[[0-9]*\]$/.test(id) === false) {
+    return providers
+  }
+
   // parse common name out of the provider ('cname[32]' becomes 'cname')
   const name = id.match(/(.*)\[[0-9]*\]$/)[1]
 
