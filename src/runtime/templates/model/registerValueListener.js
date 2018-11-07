@@ -14,6 +14,7 @@ export default function registerValueListener (listener, name, attribute) {
   this.valueListeners.push({
     target: listener,
     attribute,
+    indicies: null,
     index
   })
 

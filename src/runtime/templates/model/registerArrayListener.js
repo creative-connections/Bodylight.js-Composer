@@ -27,7 +27,8 @@ export default function registerArrayListener (listener, names, attribute) {
   this.valueListeners.push({
     target: listener,
     attribute,
-    indicies
+    indicies,
+    index: null
   })
 
   console.log(`${this.config.identifier}: registered array listener (..., ${lastname}) from ${listener.name} to attribute ${attribute}`)
