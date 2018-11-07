@@ -7,6 +7,8 @@ export default function initCharts () {
       try {
         if (configuration.library === 'plotly') {
           chart = new PlotlyChart(configuration)
+        } else if (configuration.library === 'chartjs') {
+          chart = new Chartjs(configuration)
         }
       } catch (e) {
         if (e instanceof ReferenceError) {

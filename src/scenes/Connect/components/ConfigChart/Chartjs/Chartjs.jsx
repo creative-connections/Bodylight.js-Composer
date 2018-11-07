@@ -9,6 +9,8 @@ import ComplexAttribute from '../../ComplexAttribute'
 import Collapsable from '../../Collapsable'
 import Events from '../../Events'
 
+import Datasets from './Datasets'
+
 class Chartjs extends Component {
   render () {
     const config = this.props.config
@@ -21,6 +23,13 @@ class Chartjs extends Component {
           onChange={this.props.onChange}
         />
       </GridRow>
+
+      <Collapsable title='Datasets' className='primary' collapsed={true}>
+        <Datasets name='datasets'
+          config={config.datasets}
+          onChange={this.props.onChange}
+        />
+      </Collapsable>
 
       <Events
         widget={this.props.chart}
