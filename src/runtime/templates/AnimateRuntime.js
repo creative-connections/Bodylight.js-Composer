@@ -30,7 +30,7 @@ export default class AnimateRuntime {
     this.canvas = canvas
     this.canvas.style.display = 'block'
 
-    const root = new this.library[this.name]()
+    this.root = new this.library[this.name]()
     this.stage = new this.library.Stage(this.canvas)
     this.contents.compositionLoaded(this.library.properties.id)
 
@@ -39,7 +39,7 @@ export default class AnimateRuntime {
 
     this.stage.setAutoPlay(autoplay)
     this.stage.update()
-    this.stage.addChild(root)
+    this.stage.addChild(this.root)
 
     // determine and load any Google Fonts required
     // const gfontFamilies = Object.keys(this.library.webFontTxtInst)
@@ -105,10 +105,98 @@ export default class AnimateRuntime {
   handleTick () {
     if (this.perf) { this.perf.start(this.id, 'update') }
 
+    // Animate 2019 Support
+    if (this.contents.Layer !== undefined) {
+      this.ZDepthHandleTick()
+    }
     this.stage.update()
     this.resize()
 
     if (this.perf) { this.perf.stop(this.id, 'update') }
+  }
+
+  ZDepthHandleTick () {
+    const cameraInstance = this.root.___camera___instance
+    if (cameraInstance !== undefined && cameraInstance.pinToObject !== undefined) {
+      cameraInstance.x = cameraInstance.pinToObject.x + cameraInstance.pinToObject.pinOffsetX
+      cameraInstance.y = cameraInstance.pinToObject.y + cameraInstance.pinToObject.pinOffsetY
+      if (cameraInstance.pinToObject.parent !== undefined && cameraInstance.pinToObject.parent.depth !== undefined) {
+        cameraInstance.depth = cameraInstance.pinToObject.parent.depth + cameraInstance.pinToObject.pinOffsetZ
+      }
+    }
+    this.applyLayerZDepth(this.root)
+  }
+
+  applyLayerZDepth (parent) {
+    const cameraInstance = parent.___camera___instance
+    const focalLength = 528.25
+    const projectionCenter = { 'x': 0, 'y': 0 }
+    if (parent === this.root) {
+      const stageCenter = { 'x': this.library.properties.width / 2, 'y': this.library.properties.height / 2 }
+      projectionCenter.x = stageCenter.x
+      projectionCenter.y = stageCenter.y
+    }
+    for (const child in parent.children) {
+      const layerObj = parent.children[child]
+      if (layerObj === cameraInstance) { continue }
+      this.applyLayerZDepth(layerObj, cameraInstance)
+      if (layerObj.layerDepth === undefined) { continue }
+      if (layerObj.currentFrame !== layerObj.parent.currentFrame) {
+        layerObj.gotoAndPlay(layerObj.parent.currentFrame)
+      }
+      const matToApply = new createjs.Matrix2D()
+      let cameraMat = new createjs.Matrix2D()
+      let totalDepth = layerObj.layerDepth ? layerObj.layerDepth : 0
+      let cameraDepth = 0
+      if (cameraInstance && !layerObj.isAttachedToCamera) {
+        const mat = cameraInstance.getMatrix()
+        mat.tx -= projectionCenter.x
+        mat.ty -= projectionCenter.y
+        cameraMat = mat.invert()
+        cameraMat.prependTransform(projectionCenter.x, projectionCenter.y, 1, 1, 0, 0, 0, 0, 0)
+        cameraMat.appendTransform(-projectionCenter.x, -projectionCenter.y, 1, 1, 0, 0, 0, 0, 0)
+        if (cameraInstance.depth) { cameraDepth = cameraInstance.depth }
+      }
+      if (layerObj.depth) {
+        totalDepth = layerObj.depth
+      }
+      // Offset by camera depth
+      totalDepth -= cameraDepth
+      if (totalDepth < -focalLength) {
+        matToApply.a = 0
+        matToApply.d = 0
+      } else {
+        if (layerObj.layerDepth) {
+          const sizeLockedMat = this.getProjectionMatrix(parent, layerObj.layerDepth)
+          if (sizeLockedMat) {
+            sizeLockedMat.invert()
+            matToApply.prependMatrix(sizeLockedMat)
+          }
+        }
+        matToApply.prependMatrix(cameraMat)
+        const projMat = this.getProjectionMatrix(parent, totalDepth)
+        if (projMat) {
+          matToApply.prependMatrix(projMat)
+        }
+      }
+      layerObj.transformMatrix = matToApply
+    }
+  }
+
+  getProjectionMatrix (container, totalDepth) {
+    const focalLength = 528.25
+    const projectionCenter = { x: this.library.properties.width / 2, y: this.library.properties.height / 2 }
+    const scale = (totalDepth + focalLength) / focalLength
+    const scaleMat = new createjs.Matrix2D()
+    scaleMat.a = 1 / scale
+    scaleMat.d = 1 / scale
+    let projMat = new createjs.Matrix2D()
+    projMat.tx = -projectionCenter.x
+    projMat.ty = -projectionCenter.y
+    projMat = projMat.prependMatrix(scaleMat)
+    projMat.tx += projectionCenter.x
+    projMat.ty += projectionCenter.y
+    return projMat
   }
 
   /*
@@ -188,7 +276,9 @@ export default class AnimateRuntime {
 
     this.stage.scaleX = pRatio * sRatio
     this.stage.scaleY = pRatio * sRatio
+    this.stage.tickOnUpdate = false
     this.stage.update()
+    this.stage.tickOnUpdate = true
   }
 
   /*
