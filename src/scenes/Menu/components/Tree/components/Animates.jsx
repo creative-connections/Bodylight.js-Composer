@@ -1,10 +1,29 @@
 import React, { Component } from 'react'
 import TreeNode from './TreeNode'
+import memoize from 'memoize-one'
 
 class Animates extends Component {
+  constructor (props) {
+    super(props)
+
+    this.sortAnims = memoize(this.sortAnims)
+    this.sortTexts = memoize(this.sortTexts)
+  }
+
+  // TODO: check if properly memoized
+  sortAnims (anims) {
+    return Object.values(anims).sort((a, b) => ('' + a.name).localeCompare(b.name))
+  }
+
+  // TODO: check if properly memoized
+  sortTexts (texts) {
+    return Object.values(texts).sort((a, b) => ('' + a.name).localeCompare(b.name))
+  }
+
   renderItems (anims, texts) {
     const out = []
-    Object.entries(anims).forEach(([key, anim]) => {
+
+    anims.forEach(anim => {
       if (this.props.filter === null || anim.name.search(this.props.filter) !== -1) {
         out.push(<TreeNode
           key={anim.id}
@@ -16,7 +35,8 @@ class Animates extends Component {
         />)
       }
     })
-    Object.entries(texts).forEach(([key, text]) => {
+
+    texts.forEach(text => {
       if (this.props.filter === null || text.name.search(this.props.filter) !== -1) {
         out.push(<TreeNode
           key={text.id}
@@ -41,7 +61,7 @@ class Animates extends Component {
         onClick={this.props.onClick}
         selected={this.props.selected}
         collapsable={true} >
-        {this.renderItems(animate.anims, animate.texts)}
+        {this.renderItems(this.sortAnims(animate.anims), this.sortTexts(animate.texts))}
       </TreeNode>
     )
   }
