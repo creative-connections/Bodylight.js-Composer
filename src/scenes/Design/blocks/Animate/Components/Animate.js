@@ -149,7 +149,7 @@ export default (editor) => {
           this.runtime.init(this.el, false, false).then()
 
           // TODO: cleanup observeStore on animateRuntimeStore flush
-          observeStore(store => {
+          observeStore(null, store => {
             if (this.runtime) {
               this.runtime.blink(getSelectedWidget(store))
             }
