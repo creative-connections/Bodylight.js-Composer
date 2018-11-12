@@ -145,7 +145,7 @@ export default (editor) => {
         const cachedRuntime = animateRuntimeStore[animate.name]
         if (cachedRuntime === undefined || cachedRuntime.hash !== animate.hash) {
           const js = AnimateRuntime.functionalizeSource(animate.js)
-          this.runtime = new AnimateRuntime(animate.originalName, js)
+          this.runtime = new AnimateRuntime(animate.originalName, js, animate.id)
           this.runtime.init(this.el, false, false).then()
 
           // save for future use
