@@ -213,6 +213,13 @@ export default class AnimateRuntime {
     return name.substr(name.lastIndexOf('_') + 1, name.length)
   }
 
+  getNameWithoutSuffix (name) {
+    if (!name) {
+      return null
+    }
+    return name.substr(0, name.lastIndexOf('_'))
+  }
+
   filterExportedComponents (exportedComponents) {
     const components = {
       'anim': {},
@@ -223,16 +230,24 @@ export default class AnimateRuntime {
     exportedComponents.forEach(component => {
       const suffix = this.getNameSuffix(component.name)
       if (typeof components[suffix] !== 'undefined') {
-        if (suffix !== 'play') {
-          if (typeof components[suffix][component.name] !== 'undefined') {
-            console.warn('Duplicate stage name ' + component.name)
-          }
-          components[suffix][component.name] = (component)
-        } else {
-          // TODO FIXME
-          // temporary special case handling for "playable" components
+        if (suffix === 'play') {
           components['play'].push(component)
+          return
         }
+
+        if (typeof components[suffix][component.name] !== 'undefined') {
+          // at that point it's out of scope of the composer anyway
+          for (let i = 1; i < 100000; i++) {
+            const name = `${this.getNameWithoutSuffix(component.name)}_${i}_${suffix}`
+            if (typeof components[suffix][name] === 'undefined') {
+              component.name = name
+              components[suffix][name] = component
+              return
+            }
+          }
+        }
+
+        components[suffix][component.name] = component
       }
     })
 
@@ -240,12 +255,17 @@ export default class AnimateRuntime {
   }
 
   blink (widget) {
+    console.log('blink', widget)
     if (this.highlighted) {
       const component = this.highlighted.component
       window.clearInterval(this.highlighted.blinker)
       component.alpha = this.highlighted.alpha
       component.gotoAndStop(0)
       this.highlighted = null
+    }
+
+    if (!widget) {
+      return
     }
 
     if (widget.parent === this.id) {
@@ -260,13 +280,13 @@ export default class AnimateRuntime {
         const blinker = window.setInterval(() => {
           if (component.alpha > 1) {
             direction = 0
-          } else if (component.alpha < 0) {
+          } else if (component.alpha < 0.4) {
             direction = 1
           }
           if (direction) {
-            component.alpha = component.alpha + 0.05
+            component.alpha = component.alpha + 0.08
           } else {
-            component.alpha = component.alpha - 0.05
+            component.alpha = component.alpha - 0.08
           }
           position = (position + 1) % framecount
           component.gotoAndStop(position)
