@@ -25,15 +25,13 @@ const preprocess = (file) => {
         return
       }
 
-      // matches lines like 'this.component.name = "component_anim"' retrieves
-      // "this.component" and inserts it as a library exported component
-      let match = line.match('\\s(.*)\\.name\\s*=\\s*".*"')
+      // matches lines like ' this.initialize(mode,startPosition,loop,{})'
+      // and adds call to addExportedComponent
+      let match = line.match(/this.initialize/)
       if (match) {
-        const reference = match[1]
-        const newline = `lib.addExportedComponent(${reference});`
+        const newline = `lib.addExportedComponent(this);`
         outlines.push(line)
         outlines.push(newline)
-        return
       }
 
       // global reference to AdobeAn in 'AdobeAn.Layer = new function() {'

@@ -34,8 +34,8 @@ export default class AnimateRuntime {
     this.stage = new this.library.Stage(this.canvas)
     this.contents.compositionLoaded(this.library.properties.id)
 
-    this.components = this.library.exportedComponents
-    delete this.library.exportedComponents
+    this.components = this.filterExportedComponents(this.exportedComponents)
+    delete this.exportedComponents
 
     this.stage.setAutoPlay(autoplay)
     this.stage.update()
@@ -199,43 +199,41 @@ export default class AnimateRuntime {
     return projMat
   }
 
-  /*
-   * Animate export to CreateJS lazy adds components to stage only when they are
-   * actually needed. This way on stage startup, not every component is
-   * available, components that first appear on a frame not currently visible
-   * have not been created at that point.
-   *
-   * So we can either cycle trough every available frame to make sure all
-   * components get created and then walk the component tree. Or we can inject a
-   * method for registering the components during library load.
-   * addExportedComponents gets called on each named component definition,
-   * injected into the Animate export file by a preprocess method elsewhere in
-   * the code.
-   */
   attachExportedComponents (library) {
-    library.exportedComponents = {
-      'anim': {},
-      'play': [],
-      'text': {}
-    }
+    this.exportedComponents = []
     library.addExportedComponent = component => {
-      const getNameSuffix = name => {
-        return name.substr(name.lastIndexOf('_') + 1, name.length)
-      }
+      this.exportedComponents.push(component)
+    }
+  }
+
+  filterExportedComponents (exportedComponents) {
+    const components = {
+      'anim': {},
+      'text': {},
+      'play': []
+    }
+
+    const getNameSuffix = name => {
+      return name.substr(name.lastIndexOf('_') + 1, name.length)
+    }
+
+    exportedComponents.forEach(component => {
       const suffix = getNameSuffix(component.name)
-      if (typeof library.exportedComponents[suffix] !== 'undefined') {
+      if (typeof components[suffix] !== 'undefined') {
         if (suffix !== 'play') {
-          if (typeof library.exportedComponents[suffix][component.name] !== 'undefined') {
+          if (typeof components[suffix][component.name] !== 'undefined') {
             console.warn('Duplicate stage name ' + component.name)
           }
-          library.exportedComponents[suffix][component.name] = (component)
+          components[suffix][component.name] = (component)
         } else {
           // TODO FIXME
           // temporary special case handling for "playable" components
-          library.exportedComponents['play'].push(component)
+          components['play'].push(component)
         }
       }
-    }
+    })
+
+    return components
   }
 
   resize () {
