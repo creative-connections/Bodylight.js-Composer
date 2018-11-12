@@ -214,6 +214,9 @@ export default class AnimateRuntime {
     }
 
     const getNameSuffix = name => {
+      if (!name) {
+        return null
+      }
       return name.substr(name.lastIndexOf('_') + 1, name.length)
     }
 
