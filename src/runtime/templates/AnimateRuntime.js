@@ -206,6 +206,13 @@ export default class AnimateRuntime {
     }
   }
 
+  getNameSuffix (name) {
+    if (!name) {
+      return null
+    }
+    return name.substr(name.lastIndexOf('_') + 1, name.length)
+  }
+
   filterExportedComponents (exportedComponents) {
     const components = {
       'anim': {},
@@ -213,15 +220,8 @@ export default class AnimateRuntime {
       'play': []
     }
 
-    const getNameSuffix = name => {
-      if (!name) {
-        return null
-      }
-      return name.substr(name.lastIndexOf('_') + 1, name.length)
-    }
-
     exportedComponents.forEach(component => {
-      const suffix = getNameSuffix(component.name)
+      const suffix = this.getNameSuffix(component.name)
       if (typeof components[suffix] !== 'undefined') {
         if (suffix !== 'play') {
           if (typeof components[suffix][component.name] !== 'undefined') {
@@ -237,6 +237,44 @@ export default class AnimateRuntime {
     })
 
     return components
+  }
+
+  blink (widget) {
+    if (this.highlighted) {
+      const component = this.highlighted.component
+      window.clearInterval(this.highlighted.blinker)
+      component.alpha = this.highlighted.alpha
+      component.gotoAndStop(0)
+      this.highlighted = null
+    }
+
+    if (widget.parent === this.id) {
+      const category = this.components[this.getNameSuffix(widget.name)]
+      if (category && category[widget.name]) {
+        const component = category[widget.name]
+        const alpha = component.alpha
+
+        const framecount = component.timeline.duration - 1
+        let position = 0
+        let direction = 1
+        const blinker = window.setInterval(() => {
+          if (component.alpha > 1) {
+            direction = 0
+          } else if (component.alpha < 0) {
+            direction = 1
+          }
+          if (direction) {
+            component.alpha = component.alpha + 0.05
+          } else {
+            component.alpha = component.alpha - 0.05
+          }
+          position = (position + 1) % framecount
+          component.gotoAndStop(position)
+        }, 20)
+
+        this.highlighted = { component, blinker, alpha }
+      }
+    }
   }
 
   resize () {
