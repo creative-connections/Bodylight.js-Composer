@@ -255,7 +255,6 @@ export default class AnimateRuntime {
   }
 
   blink (widget) {
-    console.log('blink', widget)
     if (this.highlighted) {
       const component = this.highlighted.component
       window.clearInterval(this.highlighted.blinker)
