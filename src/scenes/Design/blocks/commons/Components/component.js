@@ -55,7 +55,7 @@ export function destroy (removeWidget) {
 }
 
 export function handleClick (widget, editor) {
-  if (widget !== null) {
+  if (widget != null) {
     configureStore().store.dispatch(selectWidget(widget.id))
     editor.Panels.getButton('views', 'open-connect').set('active', true)
   }
