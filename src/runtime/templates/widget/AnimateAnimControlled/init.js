@@ -7,14 +7,16 @@ export default function initAnimateAnimsControlled () {
 
       Object.entries(widgetlist.controlled).forEach(([id, configuration]) => {
         configuration.animate = animate
-
         try {
-          widgets[configuration.id] = new AnimateAnimControlled(configuration)
+          const widget = new AnimateAnimControlled(configuration)
+          if (widget.constructed === true) {
+            widgets[configuration.id] = widget
+          }
         } catch (e) {
           if (e instanceof ReferenceError) {
             console.warn(e.message)
           } else {
-            throw e
+            console.warn(e)
           }
         }
       })
