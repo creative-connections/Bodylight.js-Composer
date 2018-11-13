@@ -2,7 +2,7 @@ const preprocess = (file) => {
   return new Promise((resolve, reject) => {
   // TODO: this will need to be versioned for different animate versions
 
-  // Adobe Animate CC 2018
+    // Adobe Animate CC 2018
 
     const lines = file.match(/^.*((\r\n|\n|\r)|$)/gm)
     const outlines = []
@@ -25,14 +25,32 @@ const preprocess = (file) => {
         return
       }
 
-      // matches lines like 'this.component.name = "component_anim"' retrieves
+      // matches lines like ' this.initialize(mode,startPosition,loop,{})'
+      // and adds call to addExportedComponent
+      let match = line.match(/this.initialize/)
+      if (match) {
+        const newline = `lib.addExportedComponent(this);`
+        outlines.push(line)
+        outlines.push(newline)
+        return
+      }
+
+      // matches lines like 'this.component.name = "component_text"' retrieves
       // "this.component" and inserts it as a library exported component
-      const match = line.match('\\s(.*)\\.name\\s*=\\s*".*"')
+      match = line.match('\\s(.*)\\.name\\s*=\\s*".*_text"')
       if (match) {
         const reference = match[1]
         const newline = `lib.addExportedComponent(${reference});`
         outlines.push(line)
         outlines.push(newline)
+        return
+      }
+
+      // global reference to AdobeAn in 'AdobeAn.Layer = new function() {'
+      // needs to be replaced with 'an'
+      match = line.match(/AdobeAn\.Layer\s*=\s*new\s*function\(\)\s*{/)
+      if (match) {
+        outlines.push('an.Layer = new function () {')
         return
       }
 

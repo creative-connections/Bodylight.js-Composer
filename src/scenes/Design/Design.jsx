@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import configureStore, { observeStore } from '@src/configureStore'
 
 import 'grapesjs/dist/css/grapes.min.css'
 import grapesjs from 'grapesjs'
@@ -20,7 +21,6 @@ import actionBlock from './blocks/Action'
 
 import connectPanel from './panels/connect'
 
-import configureStore from '@src/configureStore'
 import { editorStorageClear } from '@actions/actions'
 
 class Design extends Component {
@@ -88,6 +88,10 @@ class Design extends Component {
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
+
+    observeStore(state => state.widgets.app.selected, () => {
+      editor.Panels.getButton('views', 'open-connect').set('active', true)
+    })
   }
 
   componentWillUnmount () {

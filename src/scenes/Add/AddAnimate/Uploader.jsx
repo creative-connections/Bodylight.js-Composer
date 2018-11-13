@@ -43,6 +43,7 @@ class Uploader extends Component {
             this.props.onUpload(js, hash, rootComponent, components)
           })
         }).catch(error => {
+          console.error(error)
           if (error instanceof TypeError) {
             toast.error(`Could not load submitted js file, error: '${error.message}'.`)
             toast.info('.js file should be exported by Adobe Animate CC (2017, 2018)')

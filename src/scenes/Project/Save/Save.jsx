@@ -27,7 +27,7 @@ class Save extends Component {
     })
 
     const name = `${this.props.name}.bjp`
-    const file = new Blob([JSON.stringify(state)], { type: 'application/json' })
+    const file = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' })
     saveAs(file, name)
   }
 
