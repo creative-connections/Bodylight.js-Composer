@@ -259,7 +259,9 @@ export default class AnimateRuntime {
       const component = this.highlighted.component
       window.clearInterval(this.highlighted.blinker)
       component.alpha = this.highlighted.alpha
-      component.gotoAndStop(0)
+      if (typeof component.gotoAndStop !== 'undefined') {
+        component.gotoAndStop(0)
+      }
       this.highlighted = null
     }
 
@@ -273,7 +275,7 @@ export default class AnimateRuntime {
         const component = category[widget.name]
         const alpha = component.alpha
 
-        const framecount = component.timeline.duration - 1
+        const framecount = component.timeline ? component.timeline.duration - 1 : null
         let position = 0
         let direction = 1
         const blinker = window.setInterval(() => {
@@ -287,8 +289,10 @@ export default class AnimateRuntime {
           } else {
             component.alpha = component.alpha - 0.08
           }
-          position = (position + 1) % framecount
-          component.gotoAndStop(position)
+          if (framecount !== null) {
+            position = (position + 1) % framecount
+            component.gotoAndStop(position)
+          }
         }, 20)
 
         this.highlighted = { component, blinker, alpha }
