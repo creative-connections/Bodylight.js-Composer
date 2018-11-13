@@ -74,6 +74,7 @@ export default class AnimateRuntime {
     if (this.initialized) {
       this.stopListeners()
       this.stage.clear()
+      this.deregisterClickHandlers()
     }
   }
 
@@ -298,6 +299,32 @@ export default class AnimateRuntime {
         this.highlighted = { component, blinker, alpha }
       }
     }
+  }
+
+  registerClickHandler (handler) {
+    this.deregisterClickHandlers()
+
+    const register = component => {
+      if (component.on == null) { return }
+      this.onDblclickHandlers.push({
+        handler: component.on('dblclick', handler),
+        component
+      })
+    }
+
+    Object.values(this.components.anim).forEach(anim => register(anim))
+    Object.values(this.components.text).forEach(text => register(text))
+  }
+
+  deregisterClickHandlers () {
+    if (this.onDblclickHandlers == null) {
+      this.onDblclickHandlers = []
+      return
+    }
+    this.onDblclickHandlers.forEach(({handler, component}) => {
+      component.off('dblclick', handler)
+    })
+    this.onDblclickHandlers = []
   }
 
   resize () {
