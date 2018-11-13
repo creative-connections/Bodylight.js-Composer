@@ -64,7 +64,7 @@ export const loadStore = (json) => {
   })
 }
 
-export default (storeReplaceCallback = null) => {
+const getStore = (storeReplaceCallback = null) => {
   if (storeReplaceCallback) {
     callbacks.push(storeReplaceCallback)
   }
@@ -74,4 +74,24 @@ export default (storeReplaceCallback = null) => {
   }
 
   return { store, persistor }
+}
+
+export default getStore
+
+export const observeStore = (select = null, onChange) => {
+  const { store } = getStore()
+  let currentState
+
+  const handleChange = () => {
+    const { store } = getStore()
+    const nextState = select ? select(store.getState()) : store.getState()
+    if (nextState !== currentState) {
+      currentState = nextState
+      onChange(currentState)
+    }
+  }
+
+  const unsubscribe = store.subscribe(handleChange)
+  handleChange()
+  return unsubscribe
 }

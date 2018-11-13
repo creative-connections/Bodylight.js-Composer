@@ -22,6 +22,7 @@ class ComplexAttribute extends Component {
     this.renderArray = this.renderArray.bind(this)
     this.addFunction = this.addFunction.bind(this)
     this.onIsArrayChange = this.onIsArrayChange.bind(this)
+    this.onChangeProvider = this.onChangeProvider.bind(this)
   }
 
   renderValueInput () {
@@ -70,6 +71,23 @@ class ComplexAttribute extends Component {
     return this.renderValueInput()
   }
 
+  onChangeProvider (e, v) {
+    // reset default states
+    this.props.onChange(e, {
+      name: `${this.props.name}.function`,
+      value: null
+    })
+    this.props.onChange(e, {
+      name: `${this.props.name}.indexes`,
+      value: null
+    })
+    this.props.onChange(e, {
+      name: `${this.props.name}.array`,
+      value: false
+    })
+    this.props.onChange(e, v)
+  }
+
   renderComplex () {
     if (this.props.attribute.complex === false || this.props.simple) {
       return null
@@ -79,7 +97,7 @@ class ComplexAttribute extends Component {
       <ProviderDropdown
         name={`${this.props.name}.provider`}
         value={this.props.attribute.provider}
-        onChange={this.props.onChange}
+        onChange={this.onChangeProvider}
       />
       {this.renderFunction()}
       {this.renderArray()}
@@ -125,13 +143,11 @@ class ComplexAttribute extends Component {
         value: null
       })
 
-      if (this.props.attribute.indexes === null) {
-        // select all providers by default
-        this.props.onChange(e, {
-          name: `${this.props.name}.indexes`,
-          value: Object.values(this.props.arrayProviders).sort((a, b) => a.index - b.index).map(p => p.name)
-        })
-      }
+      // select all providers by default
+      this.props.onChange(e, {
+        name: `${this.props.name}.indexes`,
+        value: Object.values(this.props.arrayProviders).sort((a, b) => a.index - b.index).map(p => p.name)
+      })
     }
     this.props.onChange(e, v)
   }

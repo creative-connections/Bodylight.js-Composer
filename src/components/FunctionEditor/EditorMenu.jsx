@@ -8,9 +8,9 @@ const renderValidation = validation => {
   }
 
   return <Menu.Item>
-    <Container style={{ height: '100%', textSize: '12px', color: '#d85656' }}>
+    <div style={{ height: '100%', textSize: '12px', color: '#d85656' }}>
       {validation.message}
-    </Container>
+    </div>
   </Menu.Item>
 }
 

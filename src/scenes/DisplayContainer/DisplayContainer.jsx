@@ -24,7 +24,7 @@ class DisplayContainer extends Component {
 
   render () {
     return <Fragment>
-      <Container id='DisplayContainer'>
+      <div id='DisplayContainer'>
         <Route exact path={`${process.env.PATH}/`} render={this.getDesignKey} />
         <Route path={`${process.env.PATH}/preview`} component={Preview} />
         <Route path={`${process.env.PATH}/add/model`} component={AddModel} />
@@ -33,7 +33,7 @@ class DisplayContainer extends Component {
         <Route path={`${process.env.PATH}/open`} component={Open} />
         <Route path={`${process.env.PATH}/export`} component={Export} />
         <Route path={`${process.env.PATH}/export/:option`} component={Export} />
-      </Container>
+      </div>
     </Fragment>
   }
 }

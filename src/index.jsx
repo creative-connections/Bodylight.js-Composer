@@ -15,8 +15,9 @@ import { Container } from 'semantic-ui-react'
 import configureStore from './configureStore'
 
 import './theme/base.scss'
-import 'semantic-ui-less/semantic.less'
 import 'react-toastify/dist/ReactToastify.css'
+
+import 'semantic-ui-css/semantic.min.css'
 
 import generateID from '@helpers/generateID'
 
@@ -26,9 +27,9 @@ class App extends Component {
       <Fragment>
         <ToastContainer position="top-right" closeOnClick draggable pauseOnHover pauseOnVisibilityChange />
         <Menu/>
-        <Container style={{ marginLeft: 250 + 'px' }} >
+        <div style={{ marginLeft: 250 + 'px' }} >
           <DisplayContainer location={this.props.location}/>
-        </Container>
+        </div>
       </Fragment>
     )
   }

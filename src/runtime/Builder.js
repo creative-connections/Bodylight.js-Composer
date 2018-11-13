@@ -71,6 +71,7 @@ import Range from './templates/widget/Range'
 import Label from './templates/widget/Label'
 
 import PlotlyChart from './templates/widget/Chart/PlotlyChart'
+import Chartjs from './templates/widget/Chart/Chartjs'
 import initCharts from './templates/widget/Chart/init'
 
 import Button from './templates/widget/Button'
@@ -192,9 +193,13 @@ class Builder {
     append(getEditorHtml())
     append(`<style>${this.getCss()}</style>`)
 
+    // TODO: refactor this out and conditionally
     // CreateJS for AnimateRuntime
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
+    // PlotlyChart
     append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
+    // Chart.js (bundled with moment.js)
+    append('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>')
 
     let js = this.buildJS()
     if (this.buildMinified) {
@@ -296,6 +301,7 @@ class Builder {
     append(tpl(initToggles))
 
     append(tpl(PlotlyChart))
+    append(tpl(Chartjs))
     append(tpl(initCharts))
 
     append(tpl(createModelRuntime))

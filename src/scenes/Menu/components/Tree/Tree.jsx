@@ -50,7 +50,8 @@ class Tree extends Component {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
     const id = e.currentTarget.dataset.id
-    if (id === this.props.selected.id) {
+    const selected = (this.props.selected && this.props.selected.id) || null
+    if (id === selected) {
       this.props.history.push(`${process.env.PATH}/`)
     } else {
       this.props.selectWidget(id)

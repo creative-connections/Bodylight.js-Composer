@@ -1,7 +1,7 @@
-import configureStore from '@src/configureStore'
+import configureStore, { observeStore } from '@src/configureStore'
 import AnimateRuntime from '@runtime/templates/AnimateRuntime'
 import WidgetType from '@helpers/enum/WidgetType'
-import { configGetAnimate } from '@reducers'
+import { configGetAnimate, getSelectedWidget } from '@reducers'
 import { removeAnimate } from '@actions'
 import { ANIMATE, ANIMATE_ID } from '../types.js'
 import {
@@ -145,8 +145,15 @@ export default (editor) => {
         const cachedRuntime = animateRuntimeStore[animate.name]
         if (cachedRuntime === undefined || cachedRuntime.hash !== animate.hash) {
           const js = AnimateRuntime.functionalizeSource(animate.js)
-          this.runtime = new AnimateRuntime(animate.originalName, js)
+          this.runtime = new AnimateRuntime(animate.originalName, js, animate.id)
           this.runtime.init(this.el, false, false).then()
+
+          // TODO: cleanup observeStore on animateRuntimeStore flush
+          observeStore(null, store => {
+            if (this.runtime) {
+              this.runtime.blink(getSelectedWidget(store))
+            }
+          })
 
           // save for future use
           animateRuntimeStore[animate.name] = {

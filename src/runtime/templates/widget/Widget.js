@@ -3,9 +3,10 @@ export default class Widget {
     Object.assign(this, configuration)
     this.typeIdentifier = typeIdentifier
 
+    console.log(`Widget (${this.typeIdentifier}) instance ${this.name}`)
+
     this.component = this.locateComponent()
 
-    console.log(`Widget (${this.typeIdentifier}) instance ${this.name}`)
     this.perf = perf
     this.perf.register(this.id, this.name, typeIdentifier)
 
@@ -18,6 +19,8 @@ export default class Widget {
     // EventTarget listeners
     this.listeners = {}
     this.loadEventListeners()
+
+    this.constructed = true
   }
 
   addValueProvider (attribute, provider) {

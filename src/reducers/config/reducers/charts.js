@@ -22,26 +22,11 @@ import {
   updateWidget
 } from '../commons/widget'
 
-const defaultConfig = {
-  name: 'unnamed',
-  library: 'plotly',
+import update from 'immutability-helper'
 
-  events: [
-    'change'
-  ],
-
-  actions: {
-
-  },
-
-  datasets: {
-
-  },
-
-  shapes: {
-
-  },
-
+const plotlyConfig = {
+  datasets: {},
+  shapes: {},
   xaxis: {
     visible: true,
     color: '#444',
@@ -89,7 +74,6 @@ const defaultConfig = {
     rangeslider: null,
     rangeselector: null
   },
-
   yaxis: {
     visible: true,
     color: '#444',
@@ -136,12 +120,22 @@ const defaultConfig = {
     side: 'left',
     rangeslider: null,
     rangeselector: null
-  },
+  }
 
+}
+
+const chartjsConfig = {
+
+}
+
+const defaultConfig = {
+  name: 'unnamed',
+  library: null,
+  events: ['change'],
+  actions: {},
   attributes: [
     'enabled'
   ],
-
   enabled: {
     typeof: 'boolean',
     value: true,
@@ -149,11 +143,47 @@ const defaultConfig = {
     provider: null,
     array: false,
     indexes: null,
-    function: null
+    'function': null
   }
 }
 
 const type = WidgetType.CHART
+
+const updateWidgetChart = (state, payload, type) => {
+  if (type !== payload.widget.type) { return state }
+
+  // only care when changing libraries
+  if (payload.key !== 'library') {
+    return updateWidget(state, payload, type)
+  }
+
+  const old = state[payload.widget.id]
+  // copy common properties
+  let newconfig = update(defaultConfig, {
+    id: {$set: old.id},
+    name: {$set: old.name},
+    library: {$set: payload.value},
+    datasets: {$set: plotlyConfig.datasets},
+    events: {$set: old.events},
+    actions: {$set: old.actions},
+    attributes: {$set: old.attributes},
+    enabled: {$set: old.enabled}
+  })
+
+  // add library specific properties
+  if (payload.value === 'chartjs') {
+    newconfig = update(newconfig, {
+    })
+  } else if (payload.value === 'plotly') {
+    newconfig = update(newconfig, {
+      shapes: {$set: plotlyConfig.shapes},
+      xaxis: {$set: plotlyConfig.xaxis},
+      yaxis: {$set: plotlyConfig.yaxis}
+    })
+  }
+
+  return update(state, { [payload.widget.id]: {$set: newconfig} })
+}
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -164,7 +194,7 @@ export default function (state = {}, action) {
     case REMOVE_WIDGET:
       return removeWidget(state, action.payload, type)
     case UPDATE_WIDGET_CONFIG:
-      return updateWidget(state, action.payload, type)
+      return updateWidgetChart(state, action.payload, type)
     case ADD_WIDGET_ACTION:
       return addWidgetAction(state, action.payload, type)
     case REMOVE_WIDGET_ACTION:
