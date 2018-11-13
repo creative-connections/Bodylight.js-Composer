@@ -21,7 +21,7 @@ class ConfigChart extends Component {
 
     const libraries = [
       {key: 'plotly', text: 'Plot.ly', value: 'plotly'},
-      {key: 'chartjs', text: 'Chart.js', value: 'chartjs'}
+      // {key: 'chartjs', text: 'Chart.js', value: 'chartjs'}
     ]
 
     this.state = { libraries }
