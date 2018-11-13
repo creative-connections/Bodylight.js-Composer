@@ -32,6 +32,18 @@ const preprocess = (file) => {
         const newline = `lib.addExportedComponent(this);`
         outlines.push(line)
         outlines.push(newline)
+        return
+      }
+
+      // matches lines like 'this.component.name = "component_text"' retrieves
+      // "this.component" and inserts it as a library exported component
+      match = line.match('\\s(.*)\\.name\\s*=\\s*".*_text"')
+      if (match) {
+        const reference = match[1]
+        const newline = `lib.addExportedComponent(${reference});`
+        outlines.push(line)
+        outlines.push(newline)
+        return
       }
 
       // global reference to AdobeAn in 'AdobeAn.Layer = new function() {'
