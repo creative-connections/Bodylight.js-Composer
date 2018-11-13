@@ -1,8 +1,8 @@
 import configureStore, { observeStore } from '@src/configureStore'
 import AnimateRuntime from '@runtime/templates/AnimateRuntime'
 import WidgetType from '@helpers/enum/WidgetType'
-import { configGetAnimate, getSelectedWidget } from '@reducers'
-import { removeAnimate } from '@actions'
+import { configGetAnimate, getSelectedWidget, getAnimateWidgetId } from '@reducers'
+import { removeAnimate, selectWidget } from '@actions'
 import { ANIMATE, ANIMATE_ID } from '../types.js'
 import {
   handleChangeID,
@@ -152,6 +152,27 @@ export default (editor) => {
           observeStore(null, store => {
             if (this.runtime) {
               this.runtime.blink(getSelectedWidget(store))
+            }
+          })
+
+          // register double click handlers, select animate widget
+          let timestamp = Date.now()
+          this.runtime.registerClickHandler(event => {
+            // we generally only want the first one of the bubbled parent events
+            if (Date.now() - timestamp < 100 ||
+              event.currentTarget == null || event.currentTarget.name == null) {
+              return
+            }
+            const store = configureStore().store
+            const id = getAnimateWidgetId(
+              store.getState(),
+              animate.id,
+              event.currentTarget.name
+            )
+
+            if (id !== null) {
+              store.dispatch(selectWidget(id))
+              timestamp = Date.now()
             }
           })
 
