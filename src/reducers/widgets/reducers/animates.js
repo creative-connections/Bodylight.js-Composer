@@ -153,3 +153,24 @@ const getTextsForDropdownMemoized = memoize(state => {
   return options
 })
 export const getTextsForDropdown = getTextsForDropdownMemoized
+
+export const getAnimateWidgetId = (state, idAnimate, name) => {
+  if (state[idAnimate] === undefined) {
+    return null
+  }
+  const animate = state[idAnimate]
+
+  for (const [id, anim] of Object.entries(animate.anims)) {
+    if (anim.name === name) {
+      return id
+    }
+  }
+
+  for (const [id, text] of Object.entries(animate.texts)) {
+    if (text.name === name) {
+      return id
+    }
+  }
+
+  return null
+}

@@ -81,3 +81,5 @@ export const getRangesForDropdown = state => rangesSelectors.getForDropdown(stat
 export const getTogglesForDropdown = state => togglesSelectors.getForDropdown(state.toggles)
 export const getChartsForDropdown = state => chartsSelectors.getForDropdown(state.charts)
 export const getLabelsForDropdown = state => labelsSelectors.getForDropdown(state.labels)
+
+export const getAnimateWidgetId = (state, idAnimate, name) => animatesSelectors.getAnimateWidgetId(state.animates, idAnimate, name)

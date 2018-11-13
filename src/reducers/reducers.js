@@ -86,6 +86,8 @@ export const getTogglesForDropdown = state => widgetSelectors.getTogglesForDropd
 export const getChartsForDropdown = state => widgetSelectors.getChartsForDropdown(state.widgets)
 export const getLabelsForDropdown = state => widgetSelectors.getLabelsForDropdown(state.widgets)
 
+export const getAnimateWidgetId = (state, idAnimate, name) => widgetSelectors.getAnimateWidgetId(state.widgets, idAnimate, name)
+
 // application configuration
 export const getAnimateFps = state => applicationSelectors.getAnimateFps(state.application)
 export const getApplicationKey = state => applicationSelectors.getApplicationKey(state.application)
