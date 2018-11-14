@@ -50,7 +50,7 @@ export default (editor) => {
         let innerHTML = 'Loading...'
 
         let label
-        if ((label = this.getWidget()) !== null) {
+        if ((label = this.getWidget()) != null) {
           innerHTML = `${label.name}`
         }
 
