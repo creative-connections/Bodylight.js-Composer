@@ -32,12 +32,6 @@ export default (editor) => {
         }],
         resizable: true
       })
-    }, {
-      isComponent: (el) => {
-        if (el.tagName === 'LABEL') {
-          return {type: LABEL}
-        }
-      }
     }),
     view: defaultType.view.extend({
       events: {
