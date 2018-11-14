@@ -2,11 +2,12 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
-
 import { updateConfig, renameAnimate, animateSetFps } from '@actions'
 import { configGetAnimate, getAnimateFps } from '@reducers'
-import InputFloat from '@components/InputFloat'
 import GridRow from '../GridRow'
+import InputFloat from '@components/InputFloat'
+import ButtonLink from '@components/ButtonLink'
+import history from '@helpers/BrowserHistory'
 
 import AnimateInfo from './AnimateInfo'
 
@@ -16,6 +17,8 @@ class ConfigAnimate extends Component {
     this.handleOnChange = this.handleOnChange.bind(this)
     this.renameAnimate = this.renameAnimate.bind(this)
     this.handleOnChangeFps = this.handleOnChangeFps.bind(this)
+
+    this.handleOnClickUpgrade = this.handleOnClickUpgrade.bind(this)
   }
 
   handleOnChange (e, {name, value, checked}) {
@@ -33,11 +36,17 @@ class ConfigAnimate extends Component {
     this.props.animateSetFps(value)
   }
 
-  render () {
-    const config = this.props.config
+  handleOnClickUpgrade() {
+    history.push(`${process.env.PATH}/add/animate/${this.props.animate.id}`)
+  }
 
+  render () {
     return <Fragment>
-      <AnimateInfo config={config} animate={this.props.animate}/>
+      <AnimateInfo config={this.props.config} animate={this.props.animate}/>
+      <GridRow label='Actions:'>
+        <ButtonLink onClick={this.handleOnClickUpgrade}>Upgrade animate source</ButtonLink>
+      </GridRow>
+
       <GridRow label='Name:'>
         <Input
           name='name'
