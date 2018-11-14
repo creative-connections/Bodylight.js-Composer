@@ -35,12 +35,6 @@ export default (editor) => {
       toHTML: function () {
         return ''
       }
-    }, {
-      isComponent: (el) => {
-        if (el.tagName === 'ACTION') {
-          return {type: ACTION}
-        }
-      }
     }),
     view: defaultType.view.extend({
       render: function () {

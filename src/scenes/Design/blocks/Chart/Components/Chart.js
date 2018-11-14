@@ -34,12 +34,6 @@ export default (editor) => {
         }],
         resizable: true
       })
-    }, {
-      isComponent: (el) => {
-        if (el.tagName === 'CHART') {
-          return {type: CHART}
-        }
-      }
     }),
     view: defaultType.view.extend({
       events: {

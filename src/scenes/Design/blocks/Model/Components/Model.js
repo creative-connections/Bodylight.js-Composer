@@ -33,12 +33,6 @@ export default (editor) => {
       toHTML: function () {
         return ''
       }
-    }, {
-      isComponent: (el) => {
-        if (el.tagName === 'MODEL') {
-          return {type: MODEL}
-        }
-      }
     }),
     view: defaultType.view.extend({
       render: function () {

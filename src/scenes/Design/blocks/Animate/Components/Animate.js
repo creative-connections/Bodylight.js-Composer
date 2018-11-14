@@ -44,12 +44,6 @@ export default (editor) => {
           br: 0 // Bottom right
         }
       })
-    }, {
-      isComponent: (el) => {
-        if (el.tagName === 'CANVAS' && el.classList.contains(ANIMATE)) {
-          return {type: ANIMATE}
-        }
-      }
     }),
 
     view: defaultType.view.extend({

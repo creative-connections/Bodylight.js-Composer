@@ -32,12 +32,6 @@ export default (editor) => {
         }],
         resizable: true
       })
-    }, {
-      isComponent: (el) => {
-        if (el.tagName === 'TOGGLE') {
-          return {type: TOGGLE}
-        }
-      }
     }),
     view: defaultType.view.extend({
       events: {

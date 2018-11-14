@@ -32,12 +32,6 @@ export default (editor) => {
         }],
         resizable: true
       })
-    }, {
-      isComponent: (el) => {
-        if (el.tagName === 'INPUT') {
-          return {type: RANGE}
-        }
-      }
     }),
     view: defaultType.view.extend({
       events: {
