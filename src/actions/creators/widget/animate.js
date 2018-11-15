@@ -4,7 +4,7 @@ import {
   REMOVE_WIDGET,
   UPDATE_WIDGET,
   ANIMATE_SET_FPS,
-  ANIMATE_POPULATE,
+  POPULATE_ANIMATE,
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
@@ -84,7 +84,7 @@ export const animateSetFps = (fps) => ({
 })
 
 export const populateAnimate = (id, js, hash, root, components) => ({
-  type: ANIMATE_POPULATE,
+  type: POPULATE_ANIMATE,
   payload: {
     id,
     type: WidgetType.ANIMATE,
