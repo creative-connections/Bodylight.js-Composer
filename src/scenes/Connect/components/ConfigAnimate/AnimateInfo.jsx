@@ -3,7 +3,7 @@ import SimpleListSegment from '@components/SimpleListSegment'
 import { Grid } from 'semantic-ui-react'
 import GridRow from '../GridRow'
 
-const transformElementsToArray = (elements) => {
+const transformElementsToArray = (elements = {}) => {
   const data = []
   Object.keys(elements).forEach((el) => {
     data.push(elements[el].name)
@@ -11,7 +11,7 @@ const transformElementsToArray = (elements) => {
   return data
 }
 
-const AnimateInfo = ({config, animate}) => {
+const AnimateInfo = ({ animate }) => {
   return <Fragment>
     <GridRow label='anims:'>
       <SimpleListSegment data={transformElementsToArray(animate.anims)}/>

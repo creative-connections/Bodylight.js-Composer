@@ -11,12 +11,12 @@ class Animates extends Component {
   }
 
   // TODO: check if properly memoized
-  sortAnims (anims) {
+  sortAnims (anims = {}) {
     return Object.values(anims).sort((a, b) => ('' + a.name).localeCompare(b.name))
   }
 
   // TODO: check if properly memoized
-  sortTexts (texts) {
+  sortTexts (texts = {}) {
     return Object.values(texts).sort((a, b) => ('' + a.name).localeCompare(b.name))
   }
 

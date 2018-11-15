@@ -6,7 +6,6 @@ import {
 } from '@actions/types'
 
 import {
-  addWidget,
   renameWidget,
   removeWidget
 } from '../commons/widget.js'
@@ -32,6 +31,20 @@ const addAnimate = (state, payload) => {
   return update(state, { [animate.id]: {$set: animate} })
 }
 */
+
+const addAnimate = (state, payload) => {
+  if (type !== payload.type) { return state }
+
+  const animate = {
+    id: payload.id,
+    name: 'Empty Animate',
+    type: payload.type,
+    anims: {},
+    texts: {}
+  }
+
+  return update(state, { [animate.id]: {$set: animate} })
+}
 
 const updateAnimate = (state, payload) => {
   if (type !== payload.type) { return state }
@@ -104,7 +117,7 @@ const updateAnimate = (state, payload) => {
 export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
-      return addWidget(state, action.payload, type)
+      return addAnimate(state, action.payload, type)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
     case REMOVE_WIDGET:
