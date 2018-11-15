@@ -2,7 +2,8 @@ import {
   ADD_WIDGET,
   RENAME_WIDGET,
   REMOVE_WIDGET,
-  UPDATE_WIDGET
+  UPDATE_WIDGET,
+  POPULATE_ANIMATE
 } from '@actions/types'
 
 import {
@@ -16,21 +17,17 @@ import memoize from 'memoize-one'
 
 const type = WidgetType.ANIMATE
 
-/*
-const addAnimate = (state, payload) => {
+const populateAnimate = (state, payload) => {
   if (type !== payload.type) { return state }
 
-  const animate = {
-    id: payload.id,
-    name: payload.name,
-    type: payload.type,
-    anims: payload.anim,
-    texts: payload.text
-  }
-
-  return update(state, { [animate.id]: {$set: animate} })
+  return update(state, {
+    [payload.id]: {
+      name: { $set: payload.name },
+      texts: { $set: payload.text },
+      anims: { $set: payload.anim },
+    }
+  })
 }
-*/
 
 const addAnimate = (state, payload) => {
   if (type !== payload.type) { return state }
@@ -135,6 +132,8 @@ export default function (state = {}, action) {
     return removeWidget(state, action.payload, type)
   case UPDATE_WIDGET:
     return updateAnimate(state, action.payload, type)
+  case POPULATE_ANIMATE:
+    return populateAnimate(state, action.payload, type)
   }
   return state
 }
