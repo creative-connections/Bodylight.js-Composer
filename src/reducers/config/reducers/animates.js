@@ -7,6 +7,7 @@ import {
 } from '@actions/types'
 
 import {
+  addWidget,
   removeWidget,
   updateWidget,
   renameWidget
@@ -23,6 +24,7 @@ const defaultConfig = {
   hash: null
 }
 
+/*
 const addAnimate = (state, payload, type, defaultConfig) => {
   if (type !== payload.type) { return state }
   defaultConfig = update(defaultConfig, {
@@ -34,6 +36,8 @@ const addAnimate = (state, payload, type, defaultConfig) => {
   })
   return update(state, { [payload.id]: {$set: defaultConfig} })
 }
+*/
+
 
 const updateAnimate = (state, payload, type) => {
   if (type !== payload.type) { return state }
@@ -51,7 +55,7 @@ const type = WidgetType.ANIMATE
 export default function (state = {}, action) {
   switch (action.type) {
     case ADD_WIDGET:
-      return addAnimate(state, action.payload, type, defaultConfig)
+      return addWidget(state, action.payload, type, defaultConfig)
     case RENAME_WIDGET:
       return renameWidget(state, action.payload, type)
     case REMOVE_WIDGET:
