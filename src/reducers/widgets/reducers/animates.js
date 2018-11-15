@@ -25,6 +25,7 @@ const populateAnimate = (state, payload) => {
       name: { $set: payload.name },
       texts: { $set: payload.text },
       anims: { $set: payload.anim },
+      populated: { $set: true }
     }
   })
 }
