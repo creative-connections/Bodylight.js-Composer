@@ -9,7 +9,7 @@ import InputFloat from '@components/InputFloat'
 import ButtonLink from '@components/ButtonLink'
 import history from '@helpers/BrowserHistory'
 
-import AnimateInfo from './AnimateInfo'
+import AnimateInfo from './components/AnimateInfo'
 
 class ConfigAnimate extends Component {
   constructor (props) {
