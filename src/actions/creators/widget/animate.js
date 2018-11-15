@@ -37,7 +37,16 @@ const getTexts = (components, parent) => {
   return texts
 }
 
-export const addAnimate = (source, hash, animateName, components, id) => {
+export const addAnimate = (id = null) => ({
+  type: ADD_WIDGET,
+  payload: {
+    id: id || generateID(),
+    type: WidgetType.ANIMATE
+  }
+})
+
+/*
+export const temp = (source, hash, animateName, components, id) => {
   id = id || generateID()
   return {
     type: ADD_WIDGET,
@@ -53,6 +62,7 @@ export const addAnimate = (source, hash, animateName, components, id) => {
     }
   }
 }
+*/
 
 export const updateAnimate = (id, source, hash, animateName, components) => {
   return {
