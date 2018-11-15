@@ -124,10 +124,6 @@ const plotlyConfig = {
 
 }
 
-const chartjsConfig = {
-
-}
-
 const defaultConfig = {
   name: 'unnamed',
   library: null,

@@ -1,12 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
-
-// Middlewares
-import ReduxPromise from 'redux-promise'
 import { createLogger } from 'redux-logger'
-
 import localForage from 'localforage'
-
 import reducers from './reducers'
 
 let store

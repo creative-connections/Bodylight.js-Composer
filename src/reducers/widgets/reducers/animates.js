@@ -36,9 +36,9 @@ const updateAnimate = (state, payload) => {
   const animate = state[payload.id]
 
   // add missing anims
-  Object.entries(payload.anim).forEach(([id, anim]) => {
+  Object.entries(payload.anim).forEach(([, anim]) => {
     let found = false
-    Object.entries(animate.anims).forEach(([id, current]) => {
+    Object.entries(animate.anims).forEach(([, current]) => {
       if (current.name === anim.name) {
         found = true
       }
@@ -51,9 +51,9 @@ const updateAnimate = (state, payload) => {
   })
 
   // add missing texts
-  Object.entries(payload.text).forEach(([id, text]) => {
+  Object.entries(payload.text).forEach(([, text]) => {
     let found = false
-    Object.entries(animate.texts).forEach(([id, current]) => {
+    Object.entries(animate.texts).forEach(([, current]) => {
       if (current.name === text.name) {
         found = true
       }
@@ -66,9 +66,9 @@ const updateAnimate = (state, payload) => {
   })
 
   // remove missing anims
-  Object.entries(animate.anims).forEach(([id, current]) => {
+  Object.entries(animate.anims).forEach(([, current]) => {
     let found = false
-    Object.entries(payload.anim).forEach(([id, anim]) => {
+    Object.entries(payload.anim).forEach(([, anim]) => {
       if (current.name === anim.name) {
         found = true
       }
@@ -81,9 +81,9 @@ const updateAnimate = (state, payload) => {
   })
 
   // remove missing texts
-  Object.entries(animate.texts).forEach(([id, current]) => {
+  Object.entries(animate.texts).forEach(([, current]) => {
     let found = false
-    Object.entries(payload.text).forEach(([id, text]) => {
+    Object.entries(payload.text).forEach(([, text]) => {
       if (current.name === text.name) {
         found = true
       }
@@ -126,7 +126,7 @@ export const get = getMemoized
 
 const getAnimsForDropdownMemoized = memoize(state => {
   const options = []
-  for (const [animateID, animate] of Object.entries(state)) {
+  for (const [, animate] of Object.entries(state)) {
     for (const [animID, anim] of Object.entries(animate.anims)) {
       options.push({
         key: animID,
@@ -141,7 +141,7 @@ export const getAnimsForDropdown = getAnimsForDropdownMemoized
 
 const getTextsForDropdownMemoized = memoize(state => {
   const options = []
-  for (const [animateID, animate] of Object.entries(state)) {
+  for (const [, animate] of Object.entries(state)) {
     for (const [textID, text] of Object.entries(animate.texts)) {
       options.push({
         key: textID,

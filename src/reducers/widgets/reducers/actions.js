@@ -2,10 +2,7 @@ import { ADD_WIDGET, RENAME_WIDGET } from '@actions/types'
 import { addWidget, getWidget, renameWidget } from '../commons/widget.js'
 
 import WidgetType from '@helpers/enum/WidgetType'
-import ArgumentType from '@helpers/enum/ArgumentType'
 import memoize from 'memoize-one'
-import update from 'immutability-helper'
-import generateID from '@helpers/generateID'
 
 const defaultState = {
   'GHH8IZOdQtm49DsQqvYerw': {

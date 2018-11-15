@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import { updateConfig, renameAnimate, animateSetFps } from '@actions'
 import { configGetAnimate, getAnimateFps } from '@reducers'
 import GridRow from '../GridRow'
