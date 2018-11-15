@@ -11,6 +11,12 @@
       "jsx": true
     }
   },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.0"
+    }
+  },
   "env" : {
     "browser": true,
     "node": false
