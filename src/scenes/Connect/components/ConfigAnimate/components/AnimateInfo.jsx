@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import SimpleListSegment from '@components/SimpleListSegment'
-import { Grid } from 'semantic-ui-react'
 import GridRow from '../../GridRow'
 
 const transformElementsToArray = (elements = {}) => {
