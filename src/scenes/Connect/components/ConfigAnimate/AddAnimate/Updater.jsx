@@ -30,12 +30,13 @@ class AddAnimate extends Component {
     if (animates.length === 0) {
       return this.handleAdd()
     }
+
     // TEMP HACK: remove this, fix id chain from designer
     return this.handleAdd()
   }
 
   handleAdd () {
-    const upload = this.props.upload
+    const upload = this.grops.upload
     this.props.addAnimate(upload.js, upload.hash, upload.root, upload.components, this.props.id)
     toast.success(`Animate '${upload.root}' added`)
     this.props.onUpdate(true)
