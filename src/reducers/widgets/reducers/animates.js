@@ -39,11 +39,14 @@ const addAnimate = (state, payload) => {
     id: payload.id,
     name: 'Empty Animate',
     type: payload.type,
+    populated: false,
     anims: {},
     texts: {}
   }
 
-  return update(state, { [animate.id]: {$set: animate} })
+  return update(state, {
+    [animate.id]: { $set: animate }
+  })
 }
 
 const updateAnimate = (state, payload) => {
@@ -61,7 +64,11 @@ const updateAnimate = (state, payload) => {
     })
     if (!found) {
       state = update(state, {
-        [payload.id]: { anims: { [anim.id]: {$set: anim} } }
+        [payload.id]: {
+          anims: {
+            [anim.id]: { $set: anim }
+          }
+        }
       })
     }
   })
@@ -76,7 +83,11 @@ const updateAnimate = (state, payload) => {
     })
     if (!found) {
       state = update(state, {
-        [payload.id]: { texts: { [text.id]: {$set: text} } }
+        [payload.id]: {
+          texts: {
+            [text.id]: { $set: text }
+          }
+        }
       })
     }
   })
@@ -116,14 +127,14 @@ const updateAnimate = (state, payload) => {
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case ADD_WIDGET:
-      return addAnimate(state, action.payload, type)
-    case RENAME_WIDGET:
-      return renameWidget(state, action.payload, type)
-    case REMOVE_WIDGET:
-      return removeWidget(state, action.payload, type)
-    case UPDATE_WIDGET:
-      return updateAnimate(state, action.payload, type)
+  case ADD_WIDGET:
+    return addAnimate(state, action.payload, type)
+  case RENAME_WIDGET:
+    return renameWidget(state, action.payload, type)
+  case REMOVE_WIDGET:
+    return removeWidget(state, action.payload, type)
+  case UPDATE_WIDGET:
+    return updateAnimate(state, action.payload, type)
   }
   return state
 }
