@@ -2,17 +2,16 @@ import configureStore, { observeStore } from '@src/configureStore'
 import AnimateRuntime from '@runtime/templates/AnimateRuntime'
 import WidgetType from '@helpers/enum/WidgetType'
 import { configGetAnimate, getSelectedWidget, getAnimateWidgetId } from '@reducers'
-import { removeAnimate, selectWidget } from '@actions'
+import { removeAnimate, selectWidget, addAnimate } from '@actions'
 import { ANIMATE, ANIMATE_ID } from '../types.js'
 import {
   handleChangeID,
+  handleOnDrop,
   init,
   getWidget,
   destroy,
   handleClick
 } from '../../commons/Components'
-import history from '@helpers/BrowserHistory'
-import generateID from '@helpers/generateID'
 
 const animateRuntimeStore = {}
 
@@ -120,9 +119,7 @@ export default (editor) => {
       },
 
       handleOnDrop () {
-        const id = generateID()
-        this.attr.id = id
-        history.push(`${process.env.PATH}/add/animate/${id}`)
+        handleOnDrop.bind(this)(configGetAnimate, addAnimate)
       },
 
       /**
@@ -132,7 +129,8 @@ export default (editor) => {
         this.clearCanvas()
 
         const animate = this.getWidget()
-        if (!animate) {
+        // not yet uploaded Animate - display placeholder
+        if (!animate || !animate.js) {
           return this.drawPlaceholder()
         }
 
@@ -189,7 +187,7 @@ export default (editor) => {
         }
       },
 
-      handleUpdate (e) {
+      handleUpdate () {
         const el = this.el
 
         // check if we need to resize
