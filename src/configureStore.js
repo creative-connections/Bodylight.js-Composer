@@ -73,9 +73,13 @@ const getStore = (storeReplaceCallback = null) => {
 
 export default getStore
 
-export const observeStore = (select = null, onChange) => {
+export const observeStore = (select = null, onChange, ignoreFirst = false) => {
   const { store } = getStore()
-  let currentState
+  let currentState = null
+
+  if (ignoreFirst === true) {
+    currentState = select ? select(store.getState()) : store.getState()
+  }
 
   const handleChange = () => {
     const { store } = getStore()
