@@ -5,7 +5,6 @@ import {
   handleChangeID,
   init,
   handleOnDrop,
-  handleComponentRemove,
   getWidget,
   destroy,
   handleClick
@@ -41,15 +40,11 @@ export default (editor) => {
         click: 'handleClick'
       },
 
-      init () {
+      init() {
         init.bind(this)(editor)
       },
 
-      handleComponentRemove (model) {
-        handleComponentRemove.bind(this)(model)
-      },
-
-      handleOnDrop () {
+      handleOnDrop() {
         handleOnDrop.bind(this)(configGetChart, addChart)
       },
 
@@ -61,12 +56,12 @@ export default (editor) => {
         let style = this.model.get('style')
 
         if (style.width === undefined) {
-          style = update(style, {width: {$set: '100%'}})
+          style = update(style, { width: { $set: '100%' } })
           this.el.style.width = '100%'
           this.model.set('style', style)
         }
         if (style.height === undefined) {
-          style = update(style, {height: {$set: '100%'}})
+          style = update(style, { height: { $set: '100%' } })
           this.el.style.height = '100%'
           this.model.set('style', style)
         }
@@ -86,7 +81,7 @@ export default (editor) => {
         return this
       },
 
-      handleUpdate (e) {
+      handleUpdate(e) {
         const el = this.el
         if (!this.el) {
           return
@@ -105,7 +100,7 @@ export default (editor) => {
       /**
        * Registers event listeners for component update.
        */
-      registerUpdateHandler () {
+      registerUpdateHandler() {
         this.prevW = null
         this.prevH = null
         editor.on('component:styleUpdate', this.handleUpdate)
@@ -115,7 +110,7 @@ export default (editor) => {
         this.handlersRegistered = true
       },
 
-      deregisterUpdateHandler () {
+      deregisterUpdateHandler() {
         if (this.handlersRegistered !== true) {
           return
         }
@@ -127,15 +122,15 @@ export default (editor) => {
         this.handlersRegistered = false
       },
 
-      getWidget () {
+      getWidget() {
         return getWidget.bind(this)(configGetChart)
       },
 
-      handleClick () {
+      handleClick() {
         handleClick(this.getWidget(), editor)
       },
 
-      initPlotly () {
+      initPlotly() {
         const chart = this.getWidget()
         if (this.chartId === chart.id) {
           return
@@ -161,15 +156,15 @@ export default (editor) => {
         }, 100)
       },
 
-      handleChangeID (event) {
+      handleChangeID(event) {
         handleChangeID(this, event, WidgetType.CHART)
       },
 
-      destroy () {
+      destroy() {
         destroy.bind(this)(removeChart)
       },
 
-      remove () {
+      remove() {
         defaultType.view.prototype.remove.apply(this, arguments)
         this.deregisterUpdateHandler()
       }

@@ -5,7 +5,6 @@ import {
   handleChangeID,
   init,
   handleOnDrop,
-  handleComponentRemove,
   getWidget,
   destroy,
   handleClick
@@ -35,7 +34,7 @@ export default (editor) => {
     }, {
       isComponent: (el) => {
         if (el.tagName === 'BUTTON') {
-          return {type: BUTTON}
+          return { type: BUTTON }
         }
       }
     }),
@@ -45,15 +44,11 @@ export default (editor) => {
         click: 'handleClick'
       },
 
-      init () {
+      init() {
         init.bind(this)(editor)
       },
 
-      handleComponentRemove (model) {
-        handleComponentRemove.bind(this)(model)
-      },
-
-      handleOnDrop () {
+      handleOnDrop() {
         handleOnDrop.bind(this)(configGetButton, addButton)
       },
 
@@ -69,19 +64,19 @@ export default (editor) => {
         return this
       },
 
-      handleClick () {
+      handleClick() {
         handleClick(this.getWidget(), editor)
       },
 
-      getWidget () {
+      getWidget() {
         return getWidget.bind(this)(configGetButton)
       },
 
-      handleChangeID (event) {
+      handleChangeID(event) {
         handleChangeID(this, event, WidgetType.BUTTON)
       },
 
-      destroy () {
+      destroy() {
         destroy.bind(this)(removeButton)
       }
     })

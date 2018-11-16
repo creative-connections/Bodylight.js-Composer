@@ -10,8 +10,8 @@ import Connect from '@scenes/Connect'
 
 const $ = require('backbone').$
 
-module.exports = {
-  run (editor, sender) {
+export default {
+  run(editor, sender) {
     this.sender = sender
     this.toggle = this.toggle.bind(this)
 
@@ -44,7 +44,7 @@ module.exports = {
     this.$div.show()
   },
 
-  render ({store, persistor}) {
+  render({ store, persistor }) {
     ReactDOM.render(
       <Provider store={store} key={generateID()}>
         <PersistGate loading={null} persistor={persistor}>
@@ -60,7 +60,7 @@ module.exports = {
     )
   },
 
-  toggle () {
+  toggle() {
     const sender = this.sender
     if (sender && sender.get && !sender.get('active')) {
       return
@@ -69,7 +69,7 @@ module.exports = {
     this.$div.show()
   },
 
-  stop () {
+  stop() {
     this.$div && this.$div.hide()
   }
 }
