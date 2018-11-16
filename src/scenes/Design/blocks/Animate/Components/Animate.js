@@ -46,45 +46,12 @@ export default (editor) => {
     }),
 
     view: defaultType.view.extend({
-      events: {
-        changeID: 'handleChangeID',
-        click: 'handleClick'
-      },
-
-      getWidget () {
-        return getWidget.bind(this)(configGetAnimate)
-      },
-
-      clearCanvas () {
-        this.detachRuntime()
-        this.el.getContext('2d').clearRect(0, 0, this.el.width, this.el.height)
-      },
-
-      handleClick () {
-        handleClick(this.getWidget(), editor)
-      },
-
-      /**
-       * Callback on the event 'changeID'. Animate provider has changed, we
-       * need to redraw it in the editor.
-       */
-      handleChangeID (event) {
-        handleChangeID(this, event, WidgetType.ANIMATE)
-        this.attachRuntime()
-      },
-
-      drawPlaceholder () {
-        this.clearCanvas()
-
-        const width = this.el.clientWidth
-        const height = this.el.clientHeight
-        this.el.width = width
-        this.el.height = 100 // TEMP
-
-        // ANIMATE logo
-        if (!this.strokeBorder) {
-          this.strokeBorder = new Path2D('m0 0.3v23.4h24v-23.4zm1 1h22v21.4h-22z')
-          this.strokeText = new Path2D(`m6.7 13.54-0.8 2.99c-0.02 0.08-0.05 0.09-0.15
+      initialize() {
+        defaultType.view.prototype.initialize.apply(this, arguments)
+        this.drawPlaceholder = this.drawPlaceholder.bind(this)
+        this.logo = {
+          stroke: new Path2D('m0 0.3v23.4h24v-23.4zm1 1h22v21.4h-22z'),
+          fill: new Path2D(`m6.7 13.54-0.8 2.99c-0.02 0.08-0.05 0.09-0.15
             0.09h-1.47c-0.1 0-0.12-0.03-0.1-0.15l2.85-9.96c0.05-0.18 0.08-0.29
             0.1-0.79 0-0.07 0.03-0.1 0.08-0.1h2.1c0.07 0 0.1 0.02 0.12 0.1l3.19
             10.77c0.02 0.08 0 0.13-0.08 0.13h-1.65c-0.08
@@ -96,6 +63,31 @@ export default (editor) => {
             0.08-1.13 0.18v6.39c0 0.07-0.03 0.12-0.1 0.12h-1.63c-0.08
             0-0.12-0.03-0.12-0.12v-6.37z`)
         }
+      },
+
+      events: {
+        click: 'handleClick'
+      },
+
+      getWidget() {
+        return getWidget.bind(this)(configGetAnimate)
+      },
+
+      handleClick() {
+        handleClick(this.getWidget(), editor)
+      },
+
+      clearCanvas() {
+        this.el.getContext('2d').clearRect(0, 0, this.el.width, this.el.height)
+      },
+
+      drawPlaceholder() {
+        this.clearCanvas()
+
+        const width = this.el.clientWidth
+        const height = this.el.clientHeight
+        this.el.width = width
+        this.el.height = height === 0 ? 100 : height
 
         let scale
         if (height < width) {
@@ -107,149 +99,138 @@ export default (editor) => {
         const ctx = this.el.getContext('2d')
         ctx.translate(((width) / 2) - (12 * scale), (height / 2) - (12 * scale))
         ctx.scale(scale, scale)
-
         ctx.strokeStyle = '#C0C0C0'
         ctx.fillStyle = '#C0C0C0'
-        ctx.stroke(this.strokeBorder)
-        ctx.fill(this.strokeText)
+        ctx.stroke(this.logo.stroke)
+        ctx.fill(this.logo.fill)
       },
 
-      init () {
+      init() {
         init.bind(this)(editor)
       },
 
-      handleOnDrop () {
+      handleOnDrop() {
         handleOnDrop.bind(this)(configGetAnimate, addAnimate)
       },
 
-      /**
-       * Attaches runtime to the canvas, else draws a placeholder
-       */
-      attachRuntime () {
-        this.clearCanvas()
+      createRuntime(animate) {
+        const js = AnimateRuntime.functionalizeSource(animate.js)
+        const runtime = new AnimateRuntime(animate.originalName, js, animate.id)
+        runtime.init(this.el, false, false).then()
 
-        const animate = this.getWidget()
-        // not yet uploaded Animate - display placeholder
-        if (!animate || !animate.js) {
-          return this.drawPlaceholder()
+        // register double click handlers, select animate widget
+        let timestamp = Date.now()
+        runtime.registerClickHandler(e => {
+          if (Date.now() - timestamp < 100 || e.currentTarget == null || e.currentTarget.name == null) {
+            return
+          }
+          const store = configureStore().store
+          const id = getAnimateWidgetId(store.getState(), animate.id, e.currentTarget.name)
+
+          if (id !== null) {
+            store.dispatch(selectWidget(id))
+            timestamp = Date.now()
+          }
+        })
+
+        return runtime
+      },
+
+
+      attachRuntime(id) {
+        const cached = animateRuntimeStore[id]
+        if (!this.runtime && cached) {
+          this.runtime = cached.runtime
         }
 
-        const cachedRuntime = animateRuntimeStore[animate.name]
-        if (cachedRuntime === undefined || cachedRuntime.hash !== animate.hash) {
-          const js = AnimateRuntime.functionalizeSource(animate.js)
-          this.runtime = new AnimateRuntime(animate.originalName, js, animate.id)
-          this.runtime.init(this.el, false, false).then()
-
-          // TODO: cleanup observeStore on animateRuntimeStore flush
-          observeStore(null, store => {
-            if (this.runtime) {
-              this.runtime.blink(getSelectedWidget(store))
-            }
-          })
-
-          // register double click handlers, select animate widget
-          let timestamp = Date.now()
-          this.runtime.registerClickHandler(event => {
-            // we generally only want the first one of the bubbled parent events
-            if (Date.now() - timestamp < 100 ||
-              event.currentTarget == null || event.currentTarget.name == null) {
-              return
-            }
-            const store = configureStore().store
-            const id = getAnimateWidgetId(
-              store.getState(),
-              animate.id,
-              event.currentTarget.name
-            )
-
-            if (id !== null) {
-              store.dispatch(selectWidget(id))
-              timestamp = Date.now()
-            }
-          })
-
-          // save for future use
-          animateRuntimeStore[animate.name] = {
-            runtime: this.runtime,
-            hash: animate.hash
-          }
-        } else {
-          // we already have a runtime up and running, just attach
-          this.runtime = cachedRuntime.runtime
+        if (this.runtime) {
+          this.clearCanvas()
           this.runtime.attachCanvas(this.el)
+          return
         }
       },
 
-      detachRuntime () {
-        if (this.runtime !== undefined) {
+      detachRuntime() {
+        if (this.runtime) {
           this.runtime.detachCanvas()
           delete this.runtime
         }
       },
 
-      handleUpdate () {
-        const el = this.el
+      runtimeAddBlink() {
+        this.unsubBlink = observeStore(state => state.widgets.app.selected, (id, state) => {
+          this.runtime.blink(getSelectedWidget(state))
+        })
+      },
 
-        // check if we need to resize
-        if (this.prevCW !== el.clientWidth || this.prevCH !== el.clientHeight) {
-          this.prevCW = this.el.clientWidth
-          this.prevCH = this.el.clientHeight
+      runtimeRemoveBlink() {
+        this.unsubBlink && this.unsubBlink()
+      },
 
-          if (this.runtime === undefined) {
-            return this.drawPlaceholder()
-          }
+      loadRuntime(animate) {
+        const cached = animateRuntimeStore[animate.id]
+        if (cached == null) {
+          this.runtime = this.createRuntime(animate)
+          this.runtimeAddBlink()
+          animateRuntimeStore[animate.id] = { runtime: this.runtime, hash: animate.hash }
+        } else {
+          this.runtime = cached.runtime
         }
+        this.hash = animate.hash
       },
 
-      /**
-       * Registers event listeners for component update.
-       */
-      registerUpdateHandler () {
-        /*
-         * Registering update listeners, this is kinda inefficient
-         * TODO: see changes in https://github.com/artf/grapesjs/issues/1355 for
-         * a better solution to catching events
-         */
-        this.prevCW = null
-        this.prevCH = null
-        editor.on('component:styleUpdate', this.handleUpdate)
-        editor.on('component:update', this.handleUpdate)
-        editor.on('load', this.handleUpdate)
+      onRender() {
+        const animate = this.getWidget()
 
-        this.handlersRegistered = true
-      },
-
-      deregisterUpdateHandler () {
-        if (this.handlersRegistered !== true) {
+        if (animate == null) {
+          window.setTimeout(this.drawPlaceholder, 50) // waiting for canvas to resize after draw
           return
         }
 
-        editor.off('component:styleUpdate', this.handleUpdate)
-        editor.off('component:update', this.handleUpdate)
-        editor.off('load', this.handleUpdate)
+        // if we have sources we can load runtime, otherwise draw placeholder
+        if (animate.js) {
+          this.loadRuntime(animate)
+          this.attachRuntime(animate.id)
+        } else {
+          window.setTimeout(this.drawPlaceholder, 50)
+        }
 
-        this.handlersRegistered = false
+        // declare variables scoped for use in observeStore callback
+        const id = animate.id
+        const hash = animate.hash
+
+        // watch for animate deletion or hash change
+        this.unsubHashChange && this.unsubHashChange()
+        this.unsubHashChange = observeStore(state => state.config.animates[id], (animate) => {
+          if (animate == null) {
+            this.deleteRuntime(id)
+            return
+          }
+          if (animate.js && hash !== animate.hash) {
+            this.deleteRuntime(id)
+            this.loadRuntime(animate)
+            this.attachRuntime(id)
+          }
+        }, true)
       },
 
-      onRender () {
-        // bind used callbacks
-        this.handleUpdate = this.handleUpdate.bind(this)
-
-        this.attachRuntime()
-        this.registerUpdateHandler()
+      deleteRuntime(id) {
+        if (this.runtime) {
+          this.detachRuntime()
+          this.unsubHashChange()
+          this.runtimeRemoveBlink()
+          delete animateRuntimeStore[id]
+        }
       },
 
-      destroy () {
+      destroy() {
         destroy.bind(this)(removeAnimate)
       },
 
-      remove () {
+      remove() {
         defaultType.view.prototype.remove.apply(this, arguments)
-        this.detachRuntime()
-        this.deregisterUpdateHandler()
+        // this.detachRuntime()
       }
-
     })
-
   })
 }
