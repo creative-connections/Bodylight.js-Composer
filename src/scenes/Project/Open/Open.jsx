@@ -11,7 +11,7 @@ import DropZone from '@components/DropZone'
 import BusySignal from '@components/BusySignal'
 
 class Open extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.fileUploaded = this.fileUploaded.bind(this)
     this.fileRejected = this.fileRejected.bind(this)
@@ -21,12 +21,12 @@ class Open extends Component {
     }
   }
 
-  fileRejected (files) {
+  fileRejected(files) {
     // accepting all files
     toast.error(`Could not handle file upload, unknown error`)
   }
 
-  fileUploaded (files) {
+  fileUploaded(files) {
     const file = files[0]
 
     const reader = new FileReader()
@@ -39,11 +39,11 @@ class Open extends Component {
         this.setState({ pending: false })
       })
     }
-    this.setState({pending: true})
+    this.setState({ pending: true })
     reader.readAsText(file)
   }
 
-  render () {
+  render() {
     return <Fragment>
       <div id='topBar' className='header'>
       </div>
@@ -53,6 +53,7 @@ class Open extends Component {
             <BusySignal busy={this.state.pending} />
             {this.state.redirect && <Redirect to={`${process.env.PATH}/`}/>}
             <DropZone display={true}
+              className='dropzone'
               onDropAccepted={this.fileUploaded}
               onDropRejected={this.fileRejected}
               description='Project file .bjp'
@@ -67,5 +68,5 @@ class Open extends Component {
 }
 
 export default connect(null,
-  dispatch => bindActionCreators({ }, dispatch)
+  dispatch => bindActionCreators({}, dispatch)
 )(withRouter(Open))
