@@ -24,12 +24,14 @@ export default class AnimateAnimContinuous extends Widget {
     value = parseFloat(value) // FIXME: add parseFloat to config builders
 
     if (reversed) {
-      this.position = (this.position - value)
-      if (this.position < 0) {
-        this.position = this.framecount + this.position
-      }
-    } else {
-      this.position = (this.position + value) % this.framecount
+      value = -value
+    }
+
+    this.position = (this.position + value) % this.framecount
+
+    // reset position in case we have negative rotation
+    if (this.position < 0) {
+      this.position = this.framecount + this.position
     }
 
     this.component.gotoAndStop(Math.floor(this.position))
