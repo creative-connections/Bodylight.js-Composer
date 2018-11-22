@@ -99,7 +99,7 @@ import Terser from 'terser'
 import appendAPI from './templates/api'
 
 class Builder {
-  constructor (
+  constructor(
     minify = false,
     exportPerformanceBlock = false
   ) {
@@ -109,20 +109,20 @@ class Builder {
     console.log(`Building (minified: ${minify}, exportPerformanceBlock: ${exportPerformanceBlock})`)
   }
 
-  clearSrc () {
+  clearSrc() {
     this.src = ''
   }
 
-  append (code) {
+  append(code) {
     this.src = this.src + '\n' + code
   }
 
-  tpl (template) {
+  tpl(template) {
     const ast = toAST(template)
     return escodegen.generate(ast)
   }
 
-  appendFunctions (append, tpl) {
+  appendFunctions(append, tpl) {
     append('functions.cwrapFunctions = ' + tpl(cwrapFunctions))
     append('functions.consoleLogger = ' + tpl(consoleLogger))
     append('functions.gettersAndSetters = ' + tpl(gettersAndSetters))
@@ -155,7 +155,7 @@ class Builder {
     append('functions.oneshot.updateValueListeners = ' + tpl(oneshotUpdateValueListeners))
   }
 
-  minify (js) {
+  minify(js) {
     const options = {
 
       compress: {
@@ -178,16 +178,27 @@ class Builder {
     return result.code
   }
 
-  getCss () {
+  getCss() {
     return `
       ${getEditorCss()}
       ${getPerformanceCss(this.exportPerformanceBlock)}
     `
   }
 
-  build () {
+  head() {
+    return `<!doctype html><html lang="en"><head><meta charset="utf-8"></head>`
+  }
+
+  tail() {
+    return `</html>`
+  }
+
+  build() {
     const append = this.append.bind(this)
     this.clearSrc()
+
+
+    append(this.head())
 
     // append editor created html and css
     append(getEditorHtml())
@@ -212,10 +223,12 @@ class Builder {
 
     append(getPerformanceHtml(this.exportPerformanceBlock))
 
+    append(this.tail())
+
     return this.src
   }
 
-  buildJS () {
+  buildJS() {
     let js = ''
 
     const append = code => {
