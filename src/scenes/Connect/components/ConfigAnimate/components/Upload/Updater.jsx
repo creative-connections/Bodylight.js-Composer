@@ -12,7 +12,6 @@ class Updater extends Component {
 
   handleUpdate() {
     const { js, hash, root, components } = this.props.upload
-    console.log(components)
     this.props.updateAnimate(this.props.id, js, hash, root, components)
     toast.success(`Animate updated with '${root}'`)
     this.props.onUpdate(true)
