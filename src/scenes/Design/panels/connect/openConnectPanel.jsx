@@ -33,8 +33,7 @@ export default {
 
       this.render(
         configureStore(() => {
-          console.log('callback, store changed')
-          render(configureStore())
+          this.render(configureStore())
         })
       )
 

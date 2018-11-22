@@ -17,13 +17,13 @@ class Open extends Component {
     this.fileRejected = this.fileRejected.bind(this)
     this.state = {
       pending: false,
-      redirect: false
     }
   }
 
   fileRejected(files) {
     // accepting all files
     toast.error(`Could not handle file upload, unknown error`)
+    console.log('Error files', files)
   }
 
   fileUploaded(files) {
@@ -51,7 +51,6 @@ class Open extends Component {
         <Grid.Row centered padded='horizontally' className='notPadded'>
           <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
             <BusySignal busy={this.state.pending} />
-            {this.state.redirect && <Redirect to={`${process.env.PATH}/`}/>}
             <DropZone display={true}
               className='dropzone'
               onDropAccepted={this.fileUploaded}
