@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, { Component, Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route } from 'react-router-dom'
 import history from '@helpers/BrowserHistory'
@@ -22,10 +22,10 @@ import 'semantic-ui-css/semantic.min.css'
 import generateID from '@helpers/generateID'
 
 class App extends Component {
-  render () {
+  render() {
     return (
       <Fragment>
-        <ToastContainer position="top-right" closeOnClick draggable pauseOnHover pauseOnVisibilityChange />
+        <ToastContainer position="bottom-right" closeOnClick draggable pauseOnHover pauseOnVisibilityChange />
         <Menu/>
         <div style={{ marginLeft: 250 + 'px' }} >
           <DisplayContainer location={this.props.location}/>
@@ -35,7 +35,7 @@ class App extends Component {
   }
 }
 
-function render ({store, persistor}) {
+function render({ store, persistor }) {
   ReactDOM.render(
     <Provider store={store} key={generateID()}>
       <PersistGate loading={null} persistor={persistor}>
