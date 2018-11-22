@@ -51,7 +51,7 @@ class Upload extends Component {
             <Uploader onUpload={this.handleUpload} />}
 
           {this.state.updater &&
-            <Updater id={this.props.widget.id}
+            <Updater id={this.props.animate.id}
               onUpdate={this.handleUpdate} upload={this.state.uploaded}/>}
         </Grid.Row>
       </Grid>

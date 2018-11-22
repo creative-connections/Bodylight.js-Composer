@@ -21,9 +21,7 @@ class ConfigAnimate extends Component {
   }
 
   handleUpgradeClick() {
-    this.setState({
-      upgrade: true
-    })
+    this.setState({ upgrade: true })
   }
 
   render() {
