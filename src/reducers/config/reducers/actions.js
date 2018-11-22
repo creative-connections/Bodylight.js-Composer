@@ -67,8 +67,7 @@ const defaultState = {
         value: null
       }
     },
-    function: 'model.reset()'
-
+    function: 'model.reset(true, true)'
   }
 }
 
@@ -87,12 +86,12 @@ const type = WidgetType.ACTION
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case ADD_WIDGET:
-      return addWidget(state, action.payload, type, defaultConfig)
-    case RENAME_WIDGET:
-      return renameWidget(state, action.payload, type)
-    case UPDATE_WIDGET_CONFIG:
-      return updateWidget(state, action.payload, type)
+  case ADD_WIDGET:
+    return addWidget(state, action.payload, type, defaultConfig)
+  case RENAME_WIDGET:
+    return renameWidget(state, action.payload, type)
+  case UPDATE_WIDGET_CONFIG:
+    return updateWidget(state, action.payload, type)
   }
   return state
 }
