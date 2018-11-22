@@ -1,22 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
-import { Segment, Divider, Container, Menu, Input } from 'semantic-ui-react'
-
-import Models from './components/Models'
+import { Segment, Divider, Menu, Input } from 'semantic-ui-react'
 import Animates from './components/Animates'
 import Items from './components/Items'
-
-import TreeNode from './components/TreeNode'
-
 import { withRouter } from 'react-router-dom'
-
 import { getWidgetsForTree, getSelectedWidget } from '@reducers'
 import { selectWidget } from '@actions'
+import WidgetType from '@helpers/enum/WidgetType'
 
 class Tree extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.onClick = this.onClick.bind(this)
     this.onSearch = this.onSearch.bind(this)
@@ -26,7 +20,7 @@ class Tree extends Component {
     }
   }
 
-  onSearch (e, {value}) {
+  onSearch(e, { value }) {
     let filter = new RegExp(value, 'i')
     if (value === '') {
       filter = null
@@ -36,17 +30,17 @@ class Tree extends Component {
     })
   }
 
-  renderSearch () {
+  renderSearch() {
     return <Menu.Item position='right'>
       <Input icon='search' placeholder='Filter...' onChange={this.onSearch}/>
     </Menu.Item>
   }
 
-  renderModels () {
+  renderModels() {
     Object.entries(this.props.models)
   }
 
-  onClick (e, v) {
+  onClick(e) {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
     const id = e.currentTarget.dataset.id
@@ -58,7 +52,7 @@ class Tree extends Component {
     }
   }
 
-  render () {
+  render() {
     return <Fragment>
 
       { this.renderSearch() }
@@ -66,24 +60,28 @@ class Tree extends Component {
       <Segment id='menu-tree'>
         <Items name='Model'
           items={this.props.widgets.models}
+          type={WidgetType.MODEL}
           selected={this.props.selected}
           filter={this.state.filter}
           onClick={this.onClick}/>
         <Items
           name='Button'
           items={this.props.widgets.buttons}
+          type={WidgetType.BUTTON}
           selected={this.props.selected}
           filter={this.state.filter}
           onClick={this.onClick}/>
         <Items
           name='Range'
           items={this.props.widgets.ranges}
+          type={WidgetType.RANGE}
           selected={this.props.selected}
           filter={this.state.filter}
           onClick={this.onClick}/>
         <Items
           name='Toggle'
           items={this.props.widgets.toggles}
+          type={WidgetType.TOGGLE}
           selected={this.props.selected}
           filter={this.state.filter}
           collapsed={false}
@@ -91,6 +89,7 @@ class Tree extends Component {
         <Items
           name='Chart'
           items={this.props.widgets.charts}
+          type={WidgetType.CHART}
           selected={this.props.selected}
           filter={this.state.filter}
           collapsed={false}
@@ -98,6 +97,7 @@ class Tree extends Component {
         <Items
           name='Label'
           items={this.props.widgets.labels}
+          type={WidgetType.LABEL}
           selected={this.props.selected}
           filter={this.state.filter}
           collapsed={false}
@@ -110,6 +110,7 @@ class Tree extends Component {
         <Items
           name='Action'
           items={this.props.widgets.actions}
+          type={WidgetType.ACTION}
           selected={this.props.selected}
           filter={this.state.filter}
           collapsed={false}

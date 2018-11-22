@@ -4,7 +4,7 @@ import { Icon } from 'semantic-ui-react'
 import WidgetType from '@helpers/enum/WidgetType'
 
 class TreeNode extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     let collapsed = null
@@ -20,7 +20,7 @@ class TreeNode extends Component {
     this.getIcon = this.getIcon.bind(this)
   }
 
-  getIcon () {
+  getIcon() {
     if (this.props.type === WidgetType.ANIMATE_TEXT) {
       return 'text cursor'
     }
@@ -50,15 +50,15 @@ class TreeNode extends Component {
     }
   }
 
-  onIconClick () {
+  onIconClick() {
     this.setState({
       collapsed: !this.state.collapsed
     })
   }
 
-  render () {
+  render() {
     let className = ''
-    if (this.props.selected && this.props.id && this.props.selected.id === this.props.id) {
+    if (this.props.selected && this.props.id && this.props.selected === this.props.id) {
       className = 'selected'
     }
 
