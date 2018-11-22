@@ -8,22 +8,33 @@ import Upload from './components/Upload'
 class ConfigAnimate extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      upgrade: false
+    }
+
+    this.handleUpgradeClick = this.handleUpgradeClick.bind(this)
   }
 
   renderUpload() {
     return <Upload animate={this.props.widget}/>
   }
 
+  handleUpgradeClick() {
+    this.setState({
+      upgrade: true
+    })
+  }
+
   render() {
-    if (this.props.widget.populated === false) {
+    if (this.props.widget.populated === false || this.state.upgrade) {
       return this.renderUpload()
     }
 
     return <Fragment>
       <AnimateInfo animate={this.props.widget}/>
-
       <GridRow label='Actions:'>
-        <ButtonLink>Upgrade animate source</ButtonLink>
+        <ButtonLink onClick={this.handleUpgradeClick}>Upgrade animate source</ButtonLink>
       </GridRow>
     </Fragment>
   }
