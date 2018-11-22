@@ -26,7 +26,7 @@ class Items extends Component {
         name={item.name}
         type={item.type}
         onClick={this.props.onClick}
-        selected={this.props.selected.id}
+        selected={this.props.selected && this.props.selected.id}
       />
     )
   }
