@@ -7,7 +7,8 @@ const DropZone = ({
   onDropRejected,
   accept,
   imgSrc,
-  description = ''
+  description = '',
+  className = ''
 }) => {
   return <div id='dropzone'>
     <Dropzone
@@ -15,7 +16,7 @@ const DropZone = ({
       onDropAccepted={onDropAccepted}
       onDropRejected={onDropRejected}
       accept={accept}
-      className='dropzone'
+      className={className}
     >
       <div>{'Drop files here or click to upload.'}</div>
       <div><Image src={imgSrc} size='small'/></div>

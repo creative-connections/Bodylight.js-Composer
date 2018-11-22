@@ -5,7 +5,6 @@ import {
   handleChangeID,
   init,
   handleOnDrop,
-  handleComponentRemove,
   getWidget,
   destroy,
   handleClick
@@ -23,7 +22,7 @@ export default (editor) => {
         draggable: '*',
         droppable: false,
         tagName: 'input',
-        attributes: {type: 'checkbox'},
+        attributes: { type: 'checkbox' },
         classes: [],
         traits: [{
           type: TOGGLE_ID,
@@ -39,31 +38,27 @@ export default (editor) => {
         click: 'handleClick'
       },
 
-      handleClick () {
+      handleClick() {
         handleClick(this.getWidget(), editor)
       },
 
-      init () {
+      init() {
         init.bind(this)(editor)
       },
 
-      handleComponentRemove (model) {
-        handleComponentRemove.bind(this)(model)
-      },
-
-      handleOnDrop () {
+      handleOnDrop() {
         handleOnDrop.bind(this)(configGetToggle, addToggle)
       },
 
-      getWidget () {
+      getWidget() {
         return getWidget.bind(this)(configGetToggle)
       },
 
-      handleChangeID (event) {
+      handleChangeID(event) {
         handleChangeID(this, event, WidgetType.TOGGLE)
       },
 
-      destroy () {
+      destroy() {
         destroy.bind(this)(removeToggle)
       }
     })

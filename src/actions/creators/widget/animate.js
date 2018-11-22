@@ -3,7 +3,8 @@ import {
   RENAME_WIDGET,
   REMOVE_WIDGET,
   UPDATE_WIDGET,
-  ANIMATE_SET_FPS
+  ANIMATE_SET_FPS,
+  POPULATE_ANIMATE,
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
@@ -37,22 +38,13 @@ const getTexts = (components, parent) => {
   return texts
 }
 
-export const addAnimate = (source, hash, animateName, components, id) => {
-  id = id || generateID()
-  return {
-    type: ADD_WIDGET,
-    payload: {
-      id,
-      js: source,
-      hash: hash,
-      type: WidgetType.ANIMATE,
-      name: animateName,
-      originalName: animateName,
-      anim: getAnims(components, id),
-      text: getTexts(components, id)
-    }
+export const addAnimate = (id = null) => ({
+  type: ADD_WIDGET,
+  payload: {
+    id: id || generateID(),
+    type: WidgetType.ANIMATE
   }
-}
+})
 
 export const updateAnimate = (id, source, hash, animateName, components) => {
   return {
@@ -89,4 +81,18 @@ export const removeAnimate = (id) => ({
 export const animateSetFps = (fps) => ({
   type: ANIMATE_SET_FPS,
   payload: fps
+})
+
+export const populateAnimate = (id, js, hash, root, components) => ({
+  type: POPULATE_ANIMATE,
+  payload: {
+    id,
+    type: WidgetType.ANIMATE,
+    js,
+    hash,
+    name: root,
+    originalName: root,
+    anim: getAnims(components, id),
+    text: getTexts(components, id)
+  }
 })

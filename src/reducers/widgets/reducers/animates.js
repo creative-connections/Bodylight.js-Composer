@@ -2,7 +2,8 @@ import {
   ADD_WIDGET,
   RENAME_WIDGET,
   REMOVE_WIDGET,
-  UPDATE_WIDGET
+  UPDATE_WIDGET,
+  POPULATE_ANIMATE
 } from '@actions/types'
 
 import {
@@ -16,18 +17,34 @@ import memoize from 'memoize-one'
 
 const type = WidgetType.ANIMATE
 
+const populateAnimate = (state, payload) => {
+  if (type !== payload.type) { return state }
+
+  return update(state, {
+    [payload.id]: {
+      name: { $set: payload.name },
+      texts: { $set: payload.text },
+      anims: { $set: payload.anim },
+      populated: { $set: true }
+    }
+  })
+}
+
 const addAnimate = (state, payload) => {
   if (type !== payload.type) { return state }
 
   const animate = {
     id: payload.id,
-    name: payload.name,
+    name: 'Empty Animate',
     type: payload.type,
-    anims: payload.anim,
-    texts: payload.text
+    populated: false,
+    anims: {},
+    texts: {}
   }
 
-  return update(state, { [animate.id]: {$set: animate} })
+  return update(state, {
+    [animate.id]: { $set: animate }
+  })
 }
 
 const updateAnimate = (state, payload) => {
@@ -45,7 +62,11 @@ const updateAnimate = (state, payload) => {
     })
     if (!found) {
       state = update(state, {
-        [payload.id]: { anims: { [anim.id]: {$set: anim} } }
+        [payload.id]: {
+          anims: {
+            [anim.id]: { $set: anim }
+          }
+        }
       })
     }
   })
@@ -60,7 +81,11 @@ const updateAnimate = (state, payload) => {
     })
     if (!found) {
       state = update(state, {
-        [payload.id]: { texts: { [text.id]: {$set: text} } }
+        [payload.id]: {
+          texts: {
+            [text.id]: { $set: text }
+          }
+        }
       })
     }
   })
@@ -100,14 +125,16 @@ const updateAnimate = (state, payload) => {
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case ADD_WIDGET:
-      return addAnimate(state, action.payload, type)
-    case RENAME_WIDGET:
-      return renameWidget(state, action.payload, type)
-    case REMOVE_WIDGET:
-      return removeWidget(state, action.payload, type)
-    case UPDATE_WIDGET:
-      return updateAnimate(state, action.payload, type)
+  case ADD_WIDGET:
+    return addAnimate(state, action.payload, type)
+  case RENAME_WIDGET:
+    return renameWidget(state, action.payload, type)
+  case REMOVE_WIDGET:
+    return removeWidget(state, action.payload, type)
+  case UPDATE_WIDGET:
+    return updateAnimate(state, action.payload, type)
+  case POPULATE_ANIMATE:
+    return populateAnimate(state, action.payload, type)
   }
   return state
 }

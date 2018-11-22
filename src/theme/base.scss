@@ -112,6 +112,30 @@ iframe.preview {
       color: #555;
     }
   }
+
+  .side-dropzone {
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px dashed #AAA;
+    border-radius: 5px;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 1.8em;
+    padding: 10px 10px;
+
+    div {
+      margin: 1.5em;
+    }
+
+    div.description {
+      font-size: 0.7em;
+      color: #555;
+    }
+
+  }
 }
 
 #DisplayContainer {

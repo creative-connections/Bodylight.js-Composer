@@ -5,7 +5,6 @@ import {
   handleChangeID,
   init,
   handleOnDrop,
-  handleComponentRemove,
   getWidget,
   destroy,
   handleClick
@@ -23,7 +22,7 @@ export default (editor) => {
         draggable: '*',
         droppable: false,
         tagName: 'input',
-        attributes: {type: 'range'},
+        attributes: { type: 'range' },
         classes: [],
         traits: [{
           type: RANGE_ID,
@@ -39,31 +38,28 @@ export default (editor) => {
         click: 'handleClick'
       },
 
-      init () {
+      init() {
         init.bind(this)(editor)
       },
 
-      handleComponentRemove (model) {
-        handleComponentRemove.bind(this)(model)
-      },
 
-      handleOnDrop () {
+      handleOnDrop() {
         handleOnDrop.bind(this)(configGetRange, addRange)
       },
 
-      getWidget () {
+      getWidget() {
         return getWidget.bind(this)(configGetRange)
       },
 
-      handleChangeID (event) {
+      handleChangeID(event) {
         handleChangeID(this, event, WidgetType.RANGE)
       },
 
-      destroy () {
+      destroy() {
         destroy.bind(this)(removeRange)
       },
 
-      handleClick () {
+      handleClick() {
         handleClick(this.getWidget(), editor)
       }
     })

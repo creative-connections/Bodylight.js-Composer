@@ -5,7 +5,6 @@ import {
   handleChangeID,
   init,
   handleOnDrop,
-  handleComponentRemove,
   getWidget,
   destroy,
   handleClick
@@ -52,31 +51,27 @@ export default (editor) => {
         return this
       },
 
-      init () {
+      init() {
         init.bind(this)(editor)
       },
 
-      handleComponentRemove (model) {
-        handleComponentRemove.bind(this)(model)
-      },
-
-      handleOnDrop () {
+      handleOnDrop() {
         handleOnDrop.bind(this)(configGetLabel, addLabel)
       },
 
-      getWidget () {
+      getWidget() {
         return getWidget.bind(this)(configGetLabel)
       },
 
-      handleChangeID (event) {
+      handleChangeID(event) {
         handleChangeID(this, event, WidgetType.LABEL)
       },
 
-      destroy () {
+      destroy() {
         destroy.bind(this)(removeLabel)
       },
 
-      handleClick () {
+      handleClick() {
         handleClick(this.getWidget(), editor)
       }
     })
