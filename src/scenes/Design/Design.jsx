@@ -24,13 +24,15 @@ import connectPanel from './panels/connect'
 import { editorStorageClear } from '@actions/actions'
 
 class Design extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.editor = React.createRef()
   }
 
-  componentDidMount () {
+  componentDidMount() {
+    createjs.Ticker.framerate = 13
+
     const editor = grapesjs.init({
       container: this.editor.current,
 
@@ -70,7 +72,7 @@ class Design extends Component {
       className: 'fa fa-trash',
       command: e => {
         e.runCommand(cmdCanvasClear)
-        const {store} = configureStore()
+        const { store } = configureStore()
         store.dispatch(editorStorageClear())
       }
     })
@@ -94,10 +96,9 @@ class Design extends Component {
     })
   }
 
-  componentWillUnmount () {
-  }
+  componentWillUnmount() {}
 
-  render () {
+  render() {
     return (
       <div ref={this.editor} />
     )
