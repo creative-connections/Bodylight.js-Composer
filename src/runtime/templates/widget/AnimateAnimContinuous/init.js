@@ -1,4 +1,4 @@
-export default function initAnimateAnimsContinuous () {
+export default function initAnimateAnimsContinuous() {
   return new Promise(resolve => {
     const animatelist = config.widgets.animateAnims
 
@@ -9,12 +9,15 @@ export default function initAnimateAnimsContinuous () {
         configuration.animate = animate
 
         try {
-          widgets[configuration.id] = new AnimateAnimContinuous(configuration)
+          const widget = new AnimateAnimContinuous(configuration)
+          if (widget.constructed === true) {
+            widgets[configuration.id] = widget
+          }
         } catch (e) {
           if (e instanceof ReferenceError) {
             console.warn(e.message)
           } else {
-            throw e
+            console.warn(e)
           }
         }
       })
