@@ -157,7 +157,6 @@ class Builder {
 
   minify(js) {
     const options = {
-
       compress: {
         ecma: 8,
         passes: 2
@@ -196,7 +195,6 @@ class Builder {
   build() {
     const append = this.append.bind(this)
     this.clearSrc()
-
 
     append(this.head())
 
