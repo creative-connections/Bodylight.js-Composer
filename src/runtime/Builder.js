@@ -71,7 +71,7 @@ import Range from './templates/widget/Range'
 import Label from './templates/widget/Label'
 
 import PlotlyChart from './templates/widget/Chart/PlotlyChart'
-import Chartjs from './templates/widget/Chart/Chartjs'
+import Gamblegram from './templates/widget/Chart/Gamblegram'
 import initCharts from './templates/widget/Chart/init'
 
 import Button from './templates/widget/Button'
@@ -312,7 +312,7 @@ class Builder {
     append(tpl(initToggles))
 
     append(tpl(PlotlyChart))
-    append(tpl(Chartjs))
+    append(tpl(Gamblegram))
     append(tpl(initCharts))
 
     append(tpl(createModelRuntime))

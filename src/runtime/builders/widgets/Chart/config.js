@@ -3,6 +3,7 @@ import { configGetAllCharts } from '@reducers'
 import update from 'immutability-helper'
 
 import functionalize from '../functionalize'
+import functionalizeTree from '../functionalizeTree'
 import processAction from '../processAction'
 
 const processPlotly = (name, configuration) => {
@@ -14,13 +15,13 @@ const processPlotly = (name, configuration) => {
   let datasets = configuration.datasets
   Object.entries(datasets).forEach(([id, dataset]) => {
     datasets = update(datasets, {
-      [id]: {$set: functionalize(datasets[id], 'x')}
+      [id]: { $set: functionalize(datasets[id], 'x') }
     })
     datasets = update(datasets, {
-      [id]: {$set: functionalize(datasets[id], 'y')}
+      [id]: { $set: functionalize(datasets[id], 'y') }
     })
     datasets = update(datasets, {
-      [id]: {$set: functionalize(datasets[id], 'maxSamples')}
+      [id]: { $set: functionalize(datasets[id], 'maxSamples') }
     })
     // unpack other
     const other = new Function(`return ${datasets[id].other}`)()()
@@ -31,7 +32,7 @@ const processPlotly = (name, configuration) => {
 
   const shapesHelper = (shapes, id, name) => {
     return update(shapes, {
-      [id]: {$set: functionalize(shapes[id], name)}
+      [id]: { $set: functionalize(shapes[id], name) }
     })
   }
 
@@ -51,71 +52,39 @@ const processPlotly = (name, configuration) => {
   })
 
   configuration = update(configuration, {
-    datasets: {$set: datasets},
-    shapes: {$set: shapes}
+    datasets: { $set: datasets },
+    shapes: { $set: shapes }
   })
 
   Object.entries(configuration.actions).forEach(([key, action]) => {
-    configuration = update(configuration, { actions: {
-      [key]: { $set: processAction(action) } }
+    configuration = update(configuration, {
+      actions: {
+      [key]: { $set: processAction(action) }
+      }
     })
   })
 
   return configuration
 }
 
-const processChartjs = (name, configuration) => {
-  configuration.attributes.forEach(attribute => {
-    configuration = functionalize(configuration, attribute)
-  })
-
-  // functionalize datasets
-  let datasets = configuration.datasets
-  Object.entries(datasets).forEach(([id, dataset]) => {
-    datasets = update(datasets, {
-      [id]: {$set: functionalize(datasets[id], 'x')}
-    })
-    datasets = update(datasets, {
-      [id]: {$set: functionalize(datasets[id], 'y')}
-    })
-    datasets = update(datasets, {
-      [id]: {$set: functionalize(datasets[id], 'maxSamples')}
-    })
-    // unpack other
-    const other = new Function(`return ${datasets[id].other}`)()()
-    datasets = update(datasets, {
-      [id]: { other: { $set: other } }
-    })
-  })
-
-  const shapesHelper = (shapes, id, name) => {
-    return update(shapes, {
-      [id]: {$set: functionalize(shapes[id], name)}
-    })
-  }
-  configuration = update(configuration, {
-    datasets: {$set: datasets}
-  })
-
-  Object.entries(configuration.actions).forEach(([key, action]) => {
-    configuration = update(configuration, { actions: {
-      [key]: { $set: processAction(action) } }
-    })
-  })
-
-  return configuration
+const processGamblegram = (name, configuration) => {
+  return functionalizeTree(configuration)
 }
 
 export default () => {
   const charts = configGetAllCharts(configureStore().store.getState())
   const config = {}
   Object.entries(charts).forEach(([name, configuration]) => {
-    if (configuration.library === 'plotly') {
+    switch (configuration.library) {
+    case 'plotly':
       config[name] = processPlotly(name, configuration)
-      return
-    }
-    if (configuration.library === 'chartjs') {
-      config[name] = processChartjs(name, configuration)
+      break
+    case 'chartjs':
+      // TODO: implement chartjs
+      break
+    case 'gamblegram':
+      config[name] = processGamblegram(name, configuration)
+      break
     }
   })
   return config
