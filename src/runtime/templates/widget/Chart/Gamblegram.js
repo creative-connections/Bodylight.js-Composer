@@ -98,7 +98,7 @@ export default class Gamblegram extends Widget {
 
     const traces = []
 
-    Object.values(this.items).forEach(item => {
+    Object.values(this.items).forEach(({ item }) => {
       const x = this.x
       const y = Array(this.columns.length)
       traces.push({ x, y, name: item.name, type: 'bar' })
