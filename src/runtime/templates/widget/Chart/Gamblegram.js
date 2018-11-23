@@ -52,11 +52,14 @@ export default class Gamblegram extends Widget {
   }
 
   setItem(id, value) {
+    this.perf.start(this.id, 'setItem', id)
     const { c, trace } = this.items[id]
     const y = Array(this.columns.length)
     y[c] = value
 
     Plotly.restyle(this.plotly, { y: [y] }, [trace])
+
+    this.perf.stop(this.id, 'setItem', id)
   }
 
   initData() {
@@ -109,6 +112,7 @@ export default class Gamblegram extends Widget {
       //yaxis: this.yaxis,
       barmode: 'relative',
       margin: { l: 50, r: 20, b: 20, t: 20, pad: 4 },
+      bargap: 0
     }
     const config = {
       displayModeBar: false
