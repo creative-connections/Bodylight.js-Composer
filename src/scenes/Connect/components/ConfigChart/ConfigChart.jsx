@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import { Input, Dropdown } from 'semantic-ui-react'
 import { configGetChart } from '@reducers'
 import { updateConfig, renameChart, removeChart } from '@actions/actions'
@@ -9,9 +8,10 @@ import { updateConfig, renameChart, removeChart } from '@actions/actions'
 import GridRow from '../GridRow'
 import PlotlyChart from './PlotlyChart'
 import Chartjs from './Chartjs'
+import Gamblegram from './Gamblegram'
 
 class ConfigChart extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.handleRemove = this.handleRemove.bind(this)
@@ -20,29 +20,29 @@ class ConfigChart extends Component {
     this.renameChart = this.renameChart.bind(this)
 
     const libraries = [
-      {key: 'plotly', text: 'Plot.ly', value: 'plotly'},
-      // {key: 'chartjs', text: 'Chart.js', value: 'chartjs'}
+      { key: 'plotly', text: 'Plot.ly', value: 'plotly' },
+      { key: 'gamblegram', text: 'Plot.ly - gamblegram', value: 'gamblegram' },
     ]
 
     this.state = { libraries }
   }
 
-  handleAutoRename () {
+  handleAutoRename() {
     let config = this.props.config
     const provider = ValueProviders.value(config.target.provider)
     const generatedName = `${provider.parent}.${provider.name}`
-    this.renameChart(null, {value: generatedName})
+    this.renameChart(null, { value: generatedName })
   }
 
-  renameChart (e, {value}) {
+  renameChart(e, { value }) {
     this.props.renameChart(this.props.chart, value)
   }
 
-  handleRemove (e, {value}) {
+  handleRemove(e, { value }) {
     this.props.removeChart(this.props.chart, value)
   }
 
-  handleOnChange (e, {name, value, checked}) {
+  handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined') {
       value = checked
     }
@@ -50,7 +50,7 @@ class ConfigChart extends Component {
     this.props.updateConfig(this.props.chart, name, value)
   }
 
-  render () {
+  render() {
     const config = this.props.config
     return <Fragment>
       <GridRow label='Name:'>
@@ -71,18 +71,11 @@ class ConfigChart extends Component {
       </GridRow>
 
       {config.library === 'plotly' &&
-      <PlotlyChart
-        config={config}
-        chart={this.props.chart}
-        onChange={this.handleOnChange}/>
-      }
-
+        <PlotlyChart config={config} chart={this.props.chart} onChange={this.handleOnChange}/> }
       {config.library === 'chartjs' &&
-        <Chartjs
-          config={config}
-          chart={this.props.chart}
-          onChange={this.handleOnChange}/>
-      }
+        <Chartjs config={config} chart={this.props.chart} onChange={this.handleOnChange}/> }
+      {config.library === 'gamblegram' &&
+        <Gamblegram config={config} chart={this.props.chart} onChange={this.handleOnChange}/> }
     </Fragment>
   }
 }
