@@ -3,9 +3,11 @@ import update from 'immutability-helper'
 export const addWidget = (state, payload, type, defaultConfig) => {
   if (type !== payload.type) { return state }
   defaultConfig = update(defaultConfig, {
-    id: {$set: payload.id}
+    id: { $set: payload.id }
   })
-  return update(state, { [payload.id]: {$set: defaultConfig} })
+  return update(state, {
+    [payload.id]: { $set: defaultConfig }
+  })
 }
 
 export const removeWidget = (state, payload, type) => {
@@ -19,32 +21,68 @@ export const renameWidget = (state, payload, type) => {
   if (type !== payload.widget.type) { return state }
   return update(state, {
     [payload.widget.id]: {
-      name: {$set: payload.name}
+      name: { $set: payload.name }
     }
   })
 }
 
 const updateKeyValue = (state, id, key, value) => {
   return update(state, {
-    [id]: {[key]: {$set: value}}
+    [id]: {
+      [key]: { $set: value }
+    }
   })
 }
 
 const updateKeyKeyValue = (state, id, key1, key2, value) => {
   return update(state, {
-    [id]: {[key1]: {[key2]: {$set: value}}}
+    [id]: {
+      [key1]: {
+        [key2]: { $set: value }
+      }
+    }
   })
 }
 
 const updateKeyKeyKeyValue = (state, id, key1, key2, key3, value) => {
   return update(state, {
-    [id]: {[key1]: {[key2]: {[key3]: {$set: value}}}}
+    [id]: {
+      [key1]: {
+        [key2]: {
+          [key3]: { $set: value }
+        }
+      }
+    }
   })
 }
 
 const updateKeyKeyKeyKeyValue = (state, id, key1, key2, key3, key4, value) => {
   return update(state, {
-    [id]: {[key1]: {[key2]: {[key3]: {[key4]: {$set: value}}}}}
+    [id]: {
+      [key1]: {
+        [key2]: {
+          [key3]: {
+            [key4]: { $set: value }
+          }
+        }
+      }
+    }
+  })
+}
+
+const updateKeyKeyKeyKeyKeyValue = (state, id, key1, key2, key3, key4, key5, value) => {
+  return update(state, {
+    [id]: {
+      [key1]: {
+        [key2]: {
+          [key3]: {
+            [key4]: {
+              [key5]: { $set: value }
+            }
+          }
+        }
+      }
+    }
   })
 }
 
@@ -89,6 +127,15 @@ export const updateWidget = (state, { widget, key, value }, type) => {
     if (keys[3] === 'complex' && value === false) {
       state = updateKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], 'provider', null)
       state = updateKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], 'function', null)
+    }
+    return state
+  }
+
+  if (keys.length === 5) {
+    state = updateKeyKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], keys[3], keys[4], value)
+    if (keys[4] === 'complex' && value === false) {
+      state = updateKeyKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], keys[3], 'provider', null)
+      state = updateKeyKeyKeyKeyKeyValue(state, widget.id, keys[0], keys[1], keys[2], keys[3], 'function', null)
     }
     return state
   }
