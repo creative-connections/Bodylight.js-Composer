@@ -2,7 +2,7 @@ import toAST from 'to-ast'
 import escodegen from 'escodegen'
 
 import createModelRuntime from './templates/createModelRuntime'
-import AnimateRuntime from './templates/AnimateRuntime'
+import AnimateRuntime from './AnimateRuntime'
 import createAnimateRuntime from './templates/createAnimateRuntime'
 
 import init from './templates/init'
