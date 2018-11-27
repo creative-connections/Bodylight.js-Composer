@@ -91,12 +91,17 @@ class Design extends Component {
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
 
-    observeStore(state => state.widgets.app.selected, () => {
+    this.unsubscribeSelectedWidget = observeStore(state => state.widgets.app.selected, () => {
       editor.Panels.getButton('views', 'open-connect').set('active', true)
     })
+
+    this.editor = editor
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.editor.destroy()
+    this.unsubscribeSelectedWidget()
+  }
 
   render() {
     return (
