@@ -2,7 +2,7 @@ import configureStore from '@src/configureStore'
 import generateID from '@helpers/generateID'
 import { selectWidget } from '@actions'
 
-export const handleChangeID = (component, {detail}, type) => {
+export const handleChangeID = (component, { detail }, type) => {
   /*
    * Trait sets this automatically somewhere down the lifecycle, but we need the
    * value before that happens. This should be safe.
@@ -11,7 +11,7 @@ export const handleChangeID = (component, {detail}, type) => {
   component.render()
 }
 
-export function init (editor) {
+export function init(editor) {
   if (!this.inited) {
     this.inited = true
     // activeOnRender: 1 in block options triggers active on block drop
@@ -23,7 +23,7 @@ export function init (editor) {
   }
 }
 
-export function handleOnDrop (configGetWidget, addWidget) {
+export function handleOnDrop(configGetWidget, addWidget) {
   const store = configureStore().store
   const id = generateID()
 
@@ -32,7 +32,8 @@ export function handleOnDrop (configGetWidget, addWidget) {
     // look for WIDGET_ADD to finish adding our id
     if (config) {
       unsubscribe() // don't listen anymore
-      this.attr.id = id
+      this.attr.id = id // possibly redundant
+      this.setAttribute('id', id)
       this.render()
     }
   })
@@ -40,7 +41,7 @@ export function handleOnDrop (configGetWidget, addWidget) {
   store.dispatch(addWidget(id))
 }
 
-export function getWidget (configGetWidget) {
+export function getWidget(configGetWidget) {
   const id = this.attr.id
   if (typeof id === 'undefined' || id === null || id === '') {
     return null
@@ -48,13 +49,13 @@ export function getWidget (configGetWidget) {
   return configGetWidget(configureStore().store.getState(), id)
 }
 
-export function destroy (removeWidget) {
+export function destroy(removeWidget) {
   if (this.attr.id) {
     configureStore().store.dispatch(removeWidget(this.attr.id))
   }
 }
 
-export function handleClick (widget, editor) {
+export function handleClick(widget, editor) {
   if (widget != null) {
     configureStore().store.dispatch(selectWidget(widget.id))
     editor.Panels.getButton('views', 'open-connect').set('active', true)
