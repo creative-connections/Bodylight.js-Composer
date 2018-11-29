@@ -48,7 +48,7 @@ module.exports = (env, argv) => {
           test: /\.otf(\?.*)?$/,
           use: 'file-loader?name=/fonts/[name].  [ext]&mimetype=application/font-otf'
         }
-      ]
+      ],
     },
     resolve: {
       extensions: ['*', '.js', '.jsx'],
@@ -63,6 +63,10 @@ module.exports = (env, argv) => {
         '@reducers': path.resolve(__dirname, 'src/reducers/'),
         '@src': path.resolve(__dirname, 'src/')
       }
+    },
+    optimization: {
+      minimize: false,
+      concatenateModules: false
     },
     output: {
       path: __dirname + '/dist',
