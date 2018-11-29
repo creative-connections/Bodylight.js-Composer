@@ -22,6 +22,7 @@ import updateInitialValueListeners from './templates/model/updateInitialValueLis
 import getReferenceFromName from './templates/model/getReferenceFromName'
 import setInitialValues from './templates/model/setInitialValues'
 import setInitialValueByName from './templates/model/setInitialValueByName'
+import updateValueByName from './templates/model/updateValueByName'
 
 import instantiate from './templates/model/instantiate'
 import setup from './templates/model/setup'
@@ -139,6 +140,7 @@ class Builder {
     append('functions.getReferenceFromName = ' + tpl(getReferenceFromName))
     append('functions.setInitialValues = ' + tpl(setInitialValues))
     append('functions.setInitialValueByName = ' + tpl(setInitialValueByName))
+    append('functions.updateValueByName = ' + tpl(updateValueByName))
 
     append('functions.continuous = {}')
     append('functions.continuous.play = ' + tpl(continuousPlay))
