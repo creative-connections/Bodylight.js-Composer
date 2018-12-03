@@ -3,10 +3,11 @@ export default function setup() {
   // TODO: configure precision
   this.fmi2SetupExperiment(this.inst, 1, 0.000001, this.config.startTime, 0)
 
-  this.fmi2EnterInitializationMode(this.inst)
-
   this.setInitialValues()
   this.flushSetQueues()
+
+  this.fmi2EnterInitializationMode(this.inst)
+
 
   this.fmi2ExitInitializationMode(this.inst)
 
