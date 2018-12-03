@@ -16,7 +16,7 @@ import ComplexAttribute from '../ComplexAttribute'
 import Events from '../Events'
 
 class ConfigRange extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.handleOnChange = this.handleOnChange.bind(this)
@@ -24,11 +24,12 @@ class ConfigRange extends Component {
     this.clearFor = this.clearFor.bind(this)
   }
 
-  renameLabel (e, {value}) {
+  renameLabel(e, { value }) {
+    this.handleOnChange(e, { name: 'label.value', value })
     this.props.renameLabel(this.props.label, value)
   }
 
-  handleOnChange (e, {name, value, checked}) {
+  handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined') {
       value = checked
     }
@@ -36,16 +37,16 @@ class ConfigRange extends Component {
     this.props.updateConfig(this.props.label, name, value)
   }
 
-  clearFor () {
-    this.handleOnChange(null, {name: 'for', value: null})
+  clearFor() {
+    this.handleOnChange(null, { name: 'for', value: null })
   }
 
-  render () {
+  render() {
     const config = this.props.config
 
     const toggles = []
     Object.entries(this.props.toggles).forEach(([id, toggle]) => {
-      toggles.push({key: id, text: `toggle: ${toggle.name}`, value: id})
+      toggles.push({ key: id, text: `toggle: ${toggle.name}`, value: id })
     })
 
     return <Fragment>

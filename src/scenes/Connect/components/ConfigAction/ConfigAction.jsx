@@ -2,34 +2,34 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Input, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import { configGetAction } from '@reducers'
 import { updateConfig, renameAction } from '@actions'
 
 import GridRow from '../GridRow'
-import ComplexAttribute from '../ComplexAttribute'
 import FunctionEditor from '@components/FunctionEditor'
 import Args from './Args'
 
 class ConfigAction extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.handleOnChange = this.handleOnChange.bind(this)
     this.rename = this.rename.bind(this)
   }
 
-  handleOnChange (e, {name, value, checked}) {
+  handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined') {
       value = checked
     }
     this.props.updateConfig(this.props.action, name, value)
   }
 
-  rename (e, {value}) {
+  rename(e, { value }) {
+    this.handleOnChange(e, { name: 'label', value })
     this.props.renameAction(this.props.action, value)
   }
 
-  render () {
+  render() {
     const config = this.props.config
 
     return <Fragment>
