@@ -11,9 +11,24 @@ import EditorSettings from './EditorSettings'
 import uuid from 'uuid/v1'
 import Validator from './Validator'
 
+import Modal from 'react-modal'
+
+const modalStyle = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+}
+
+
 class FunctionEditor extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
+    Modal.setAppElement('#app')
 
     this.state = {
       key: this.generateKey(),
@@ -33,19 +48,20 @@ class FunctionEditor extends Component {
     this.handleRemoveFunction = this.handleRemoveFunction.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
     this.handleDisplayEditor = this.handleDisplayEditor.bind(this)
+
   }
 
-  generateKey () {
+  generateKey() {
     return `${this.props.name}-${uuid()}`
   }
 
-  toggleSettings () {
+  toggleSettings() {
     this.setState({
       displaySettings: !this.state.displaySettings
     })
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     if (this.state !== nextState) {
       if (this.state.validation !== nextState.validation) {
         // not necessary to update when validation.message did not change
@@ -57,20 +73,20 @@ class FunctionEditor extends Component {
     return true
   }
 
-  handleEditorChange (e, {value}) {
+  handleEditorChange(e, { value }) {
     const result = Validator.validate(value, this.props.typeof)
     this.setState({
       validation: result
     })
   }
 
-  handleDisplayEditor () {
+  handleDisplayEditor() {
     this.setState({
       displayEditor: true
     })
   }
 
-  handleSave () {
+  handleSave() {
     this.props.onChange(null, {
       name: this.props.name,
       value: this.state.validation.parsed
@@ -80,7 +96,7 @@ class FunctionEditor extends Component {
     })
   }
 
-  handleRemoveFunction () {
+  handleRemoveFunction() {
     this.props.onChange(null, {
       name: this.props.name,
       value: null
@@ -90,21 +106,25 @@ class FunctionEditor extends Component {
     })
   }
 
-  handleCancel () {
+  handleCancel() {
     this.setState({
       displayEditor: false
     })
   }
 
-  render () {
+  render() {
     if (this.state.displayEditor === true) {
       return (
+
+        <Modal isOpen={this.state.displayEditor} onRequestClose={this.handleCancel} style={modalStyle} >
+
         <div style={{width: '100%', ...this.props.style}}>
           <Transition transitionOnMount={true} animation='fade' duration={200} visible={true}>
             <Segment style={{
               padding: '0',
               marginTop: '1em',
-              marginBottom: '1em'
+              marginBottom: '1em',
+              width: '50vw',
             }}>
 
               <Editor
@@ -130,6 +150,7 @@ class FunctionEditor extends Component {
             </Segment>
           </Transition>
         </div>
+      </Modal>
       )
     }
 
