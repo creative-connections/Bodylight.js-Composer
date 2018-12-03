@@ -1,11 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
-import update from 'immutability-helper'
-
-import { Input, Dropdown, Grid, Divider, Transition } from 'semantic-ui-react'
-
+import { Input, Dropdown } from 'semantic-ui-react'
 import { configGetLabel, getToggles } from '@reducers'
 import { updateConfig, renameLabel } from '@actions/actions'
 
