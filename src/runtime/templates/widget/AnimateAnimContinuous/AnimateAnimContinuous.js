@@ -1,7 +1,7 @@
 class Widget {}
 
 export default class AnimateAnimContinuous extends Widget {
-  constructor (configuration) {
+  constructor(configuration) {
     super(configuration, 'AnimateAnimContinuous')
 
     // duration: 100 -> 0 - 99
@@ -12,7 +12,7 @@ export default class AnimateAnimContinuous extends Widget {
     createjs.Ticker.addEventListener('tick', this.tick)
   }
 
-  tick () {
+  tick() {
     let value = this.value.value
     const min = this.min.value
     const max = this.max.value
@@ -21,7 +21,6 @@ export default class AnimateAnimContinuous extends Widget {
     const reversed = this.reversed.value
 
     value = (((value - min) / (max - min)) * (maxspeed - minspeed)) + minspeed
-    value = parseFloat(value) // FIXME: add parseFloat to config builders
 
     if (reversed) {
       value = -value
@@ -37,7 +36,7 @@ export default class AnimateAnimContinuous extends Widget {
     this.component.gotoAndStop(Math.floor(this.position))
   }
 
-  generateSetters () {
+  generateSetters() {
     this.setters = {
       value: () => {
         if (this.value.function !== null) {
@@ -72,7 +71,7 @@ export default class AnimateAnimContinuous extends Widget {
     }
   }
 
-  locateComponent () {
+  locateComponent() {
     if (typeof this.animate === 'function') {
       throw new ReferenceError(
         `Widget (${this.name}) of type (${this.typeIdentifier}) with ` +
