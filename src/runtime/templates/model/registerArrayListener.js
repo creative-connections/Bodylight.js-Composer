@@ -1,4 +1,4 @@
-export default function registerArrayListener (listener, names, attribute) {
+export default function registerArrayListener(listener, names, attribute) {
   if (!Array.isArray(names)) {
     console.warn(`${this.config.identifier}: failed to register array listener '${names}' (not an array) from ${listener.name} to attribute ${attribute}`)
     return false
@@ -14,11 +14,7 @@ export default function registerArrayListener (listener, names, attribute) {
       return false
     }
 
-    let index = this.outputValuesIds.indexOf(reference)
-    if (index === -1) {
-      index = this.outputValuesLength
-      this.outputValuesIds[this.outputValuesLength++] = reference
-    }
+    const index = this.outputValues.watch(reference)
 
     lastname = name
     indicies.push(index)

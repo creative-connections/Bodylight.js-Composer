@@ -13,7 +13,7 @@ import gettersAndSetters from './templates/model/gettersAndSetters'
 import modelInit from './templates/model/init'
 import modelTick from './templates/model/continuous/modelTick'
 import stageTick from './templates/model/continuous/stageTick'
-import updateOutputValues from './templates/model/updateOutputValues'
+import OutputValues from './templates/model/OutputValues'
 import registerValueListener from './templates/model/registerValueListener'
 import registerArrayListener from './templates/model/registerArrayListener'
 import registerInitialValueListener from './templates/model/registerInitialValueListener'
@@ -131,7 +131,6 @@ class Builder {
     append('functions.instantiate = ' + tpl(instantiate))
     append('functions.setup = ' + tpl(setup))
     append('functions.reset = ' + tpl(reset))
-    append('functions.updateOutputValues = ' + tpl(updateOutputValues))
     append('functions.registerValueListener = ' + tpl(registerValueListener))
     append('functions.registerArrayListener = ' + tpl(registerArrayListener))
     append('functions.registerInitialValueListener = ' + tpl(registerInitialValueListener))
@@ -141,6 +140,7 @@ class Builder {
     append('functions.setInitialValues = ' + tpl(setInitialValues))
     append('functions.setInitialValueByName = ' + tpl(setInitialValueByName))
     append('functions.updateValueByName = ' + tpl(updateValueByName))
+    append('functions.OutputValues = ' + tpl(OutputValues))
 
     append('functions.continuous = {}')
     append('functions.continuous.play = ' + tpl(continuousPlay))

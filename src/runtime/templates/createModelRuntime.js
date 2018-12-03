@@ -23,10 +23,8 @@ export default function createModelRuntime(Model, config, functions) {
       model.gettersAndSetters = functions.gettersAndSetters.bind(model)
       model.gettersAndSetters()
 
-      model.updateOutputValues = functions.updateOutputValues.bind(model)
+      model.outputValues = new functions.OutputValues(model)
 
-      model.outputValuesIds = []
-      model.outputValuesLength = 0
       model.valueListeners = []
       model.initialValueListeners = []
       model.initialValues = {}
