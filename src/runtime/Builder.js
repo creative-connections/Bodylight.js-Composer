@@ -2,7 +2,7 @@ import toAST from 'to-ast'
 import escodegen from 'escodegen'
 
 import createModelRuntime from './templates/createModelRuntime'
-import AnimateRuntime from './templates/AnimateRuntime'
+import AnimateRuntime from './AnimateRuntime'
 import createAnimateRuntime from './templates/createAnimateRuntime'
 
 import init from './templates/init'
@@ -13,7 +13,7 @@ import gettersAndSetters from './templates/model/gettersAndSetters'
 import modelInit from './templates/model/init'
 import modelTick from './templates/model/continuous/modelTick'
 import stageTick from './templates/model/continuous/stageTick'
-import updateOutputValues from './templates/model/updateOutputValues'
+import OutputValues from './templates/model/OutputValues'
 import registerValueListener from './templates/model/registerValueListener'
 import registerArrayListener from './templates/model/registerArrayListener'
 import registerInitialValueListener from './templates/model/registerInitialValueListener'
@@ -22,6 +22,7 @@ import updateInitialValueListeners from './templates/model/updateInitialValueLis
 import getReferenceFromName from './templates/model/getReferenceFromName'
 import setInitialValues from './templates/model/setInitialValues'
 import setInitialValueByName from './templates/model/setInitialValueByName'
+import updateValueByName from './templates/model/updateValueByName'
 
 import instantiate from './templates/model/instantiate'
 import setup from './templates/model/setup'
@@ -71,7 +72,7 @@ import Range from './templates/widget/Range'
 import Label from './templates/widget/Label'
 
 import PlotlyChart from './templates/widget/Chart/PlotlyChart'
-import Chartjs from './templates/widget/Chart/Chartjs'
+import Gamblegram from './templates/widget/Chart/Gamblegram'
 import initCharts from './templates/widget/Chart/init'
 
 import Button from './templates/widget/Button'
@@ -130,7 +131,6 @@ class Builder {
     append('functions.instantiate = ' + tpl(instantiate))
     append('functions.setup = ' + tpl(setup))
     append('functions.reset = ' + tpl(reset))
-    append('functions.updateOutputValues = ' + tpl(updateOutputValues))
     append('functions.registerValueListener = ' + tpl(registerValueListener))
     append('functions.registerArrayListener = ' + tpl(registerArrayListener))
     append('functions.registerInitialValueListener = ' + tpl(registerInitialValueListener))
@@ -139,6 +139,8 @@ class Builder {
     append('functions.getReferenceFromName = ' + tpl(getReferenceFromName))
     append('functions.setInitialValues = ' + tpl(setInitialValues))
     append('functions.setInitialValueByName = ' + tpl(setInitialValueByName))
+    append('functions.updateValueByName = ' + tpl(updateValueByName))
+    append('functions.OutputValues = ' + tpl(OutputValues))
 
     append('functions.continuous = {}')
     append('functions.continuous.play = ' + tpl(continuousPlay))
@@ -312,7 +314,7 @@ class Builder {
     append(tpl(initToggles))
 
     append(tpl(PlotlyChart))
-    append(tpl(Chartjs))
+    append(tpl(Gamblegram))
     append(tpl(initCharts))
 
     append(tpl(createModelRuntime))

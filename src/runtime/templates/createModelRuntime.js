@@ -1,4 +1,4 @@
-export default function createModelRuntime (Model, config, functions) {
+export default function createModelRuntime(Model, config, functions) {
   return new Promise((resolve, reject) => {
     Model()().ready.then(model => {
       // save configuration information about this instance
@@ -23,10 +23,8 @@ export default function createModelRuntime (Model, config, functions) {
       model.gettersAndSetters = functions.gettersAndSetters.bind(model)
       model.gettersAndSetters()
 
-      model.updateOutputValues = functions.updateOutputValues.bind(model)
+      model.outputValues = new functions.OutputValues(model)
 
-      model.outputValuesIds = []
-      model.outputValuesLength = 0
       model.valueListeners = []
       model.initialValueListeners = []
       model.initialValues = {}
@@ -41,6 +39,7 @@ export default function createModelRuntime (Model, config, functions) {
       model.updateInitialValueListeners = functions.updateInitialValueListeners.bind(model)
       model.setInitialValues = functions.setInitialValues.bind(model)
       model.setInitialValueByName = functions.setInitialValueByName.bind(model)
+      model.updateValueByName = functions.updateValueByName.bind(model)
 
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
 

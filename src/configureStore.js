@@ -25,7 +25,7 @@ const createNewStore = (initialState = undefined) => {
   const persistConfig = {
     key: 'root',
     storage: localForage,
-    throttle: '1024', // ms
+    //throttle: '1024', // ms
   }
   store = createStore(
     persistReducer(persistConfig, reducers),

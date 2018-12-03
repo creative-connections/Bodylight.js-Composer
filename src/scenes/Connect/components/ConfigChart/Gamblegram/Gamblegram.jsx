@@ -4,13 +4,10 @@ import GridRow from '../../GridRow'
 import ComplexAttribute from '../../ComplexAttribute'
 import Collapsable from '../../Collapsable'
 import Events from '../../Events'
-
-import Datasets from './Datasets'
-import Shapes from './Shapes'
+import Columns from './Columns'
 import Axis from './Axis'
 
-const PlotlyChart = props => {
-
+const Gamblegram = props => {
   const config = props.config
   return <Fragment>
       <GridRow label='Enabled:'>
@@ -22,8 +19,8 @@ const PlotlyChart = props => {
         />
       </GridRow>
 
-      <Collapsable title='Datasets' className='primary' collapsed={true}>
-        <Datasets name='datasets' config={config.datasets} onChange={props.onChange}/>
+      <Collapsable title='Columns' className='primary' collapsed={true}>
+        <Columns name='columns' config={config.columns} onChange={props.onChange}/>
       </Collapsable>
 
       <Collapsable title='Axes' className='primary' collapsed={true}>
@@ -36,13 +33,8 @@ const PlotlyChart = props => {
         </Collapsable>
       </Collapsable>
 
-      <Collapsable title='Shapes' className='primary' collapsed={true}>
-        <Shapes name='shapes' config={config.shapes} onChange={props.onChange}/>
-      </Collapsable>
-
       <Events widget={props.chart} config={config} />
-
     </Fragment>
 }
 
-export default PlotlyChart
+export default Gamblegram

@@ -1,5 +1,5 @@
 import configureStore from '@src/configureStore'
-import AnimateRuntime from '@runtime/templates/AnimateRuntime'
+import AnimateRuntime from '@runtime/AnimateRuntime'
 import {
   configGetAllAnimates
 } from '@reducers'
@@ -12,7 +12,6 @@ export default (append, tpl) => {
     append(`animates['${id}'] = {
       source: ${tpl(source)},
       root: '${animate.originalName}'
-    }`
-    )
+    }`)
   })
 }

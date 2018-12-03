@@ -124,6 +124,104 @@ const plotlyConfig = {
 
 }
 
+const gamblegramConfig = {
+  columns: {},
+  xaxis: {
+    visible: true,
+    color: '#444',
+    title: '',
+    type: 'linear',
+    autorange: true,
+    rangemode: 'normal',
+    range: null,
+    fixedrange: false,
+    tickmode: 'auto',
+    nticks: 0,
+    tickvals: null,
+    ticktext: null,
+    ticks: null,
+    mirror: null,
+    ticklen: 5,
+    tickwidth: 1,
+    tickcolor: '#444',
+    tickfont: null,
+    tickangle: 'auto',
+    tickprefix: '',
+    showtickprefix: 'all',
+    ticksuffix: '',
+    showticksuffix: 'all',
+    showexponent: 'all',
+    exponentformat: 'e',
+    separatethousands: false,
+    showticklabels: true,
+    automargin: true,
+    showspikes: false,
+    spikethickness: 3,
+    spikedash: 'dash',
+    spikemode: 'toaxis',
+    spikesnap: 'data',
+    showline: false,
+    linecolor: '#444',
+    linewidth: 1,
+    showgrid: true,
+    gridcolor: '#eee',
+    gridwidth: 1,
+    zeroline: false,
+    zerolinecolor: '#444',
+    zerolinewidth: 1,
+    side: 'left',
+    rangeslider: null,
+    rangeselector: null
+  },
+  yaxis: {
+    visible: true,
+    color: '#444',
+    title: '',
+    type: 'linear',
+    autorange: true,
+    rangemode: 'normal',
+    range: null,
+    fixedrange: false,
+    tickmode: 'auto',
+    nticks: 0,
+    tickvals: null,
+    ticktext: null,
+    ticks: null,
+    mirror: null,
+    ticklen: 5,
+    tickwidth: 1,
+    tickcolor: '#444',
+    tickfont: null,
+    tickangle: 'auto',
+    tickprefix: '',
+    showtickprefix: 'all',
+    ticksuffix: '',
+    showticksuffix: 'all',
+    showexponent: 'all',
+    exponentformat: 'e',
+    separatethousands: false,
+    showticklabels: true,
+    automargin: true,
+    showspikes: false,
+    spikethickness: 3,
+    spikedash: 'dash',
+    spikemode: 'toaxis',
+    spikesnap: 'data',
+    showline: false,
+    linecolor: '#444',
+    linewidth: 1,
+    showgrid: true,
+    gridcolor: '#eee',
+    gridwidth: 1,
+    zeroline: false,
+    zerolinecolor: '#444',
+    zerolinewidth: 1,
+    side: 'left',
+    rangeslider: null,
+    rangeselector: null
+  }
+}
+
 const defaultConfig = {
   name: 'unnamed',
   library: null,
@@ -156,47 +254,54 @@ const updateWidgetChart = (state, payload, type) => {
   const old = state[payload.widget.id]
   // copy common properties
   let newconfig = update(defaultConfig, {
-    id: {$set: old.id},
-    name: {$set: old.name},
-    library: {$set: payload.value},
-    datasets: {$set: plotlyConfig.datasets},
-    events: {$set: old.events},
-    actions: {$set: old.actions},
-    attributes: {$set: old.attributes},
-    enabled: {$set: old.enabled}
+    id: { $set: old.id },
+    name: { $set: old.name },
+    library: { $set: payload.value },
+    attributes: { $set: old.attributes },
+    enabled: { $set: old.enabled },
+    events: { $set: old.events },
+    actions: { $set: old.actions },
   })
 
   // add library specific properties
   if (payload.value === 'chartjs') {
-    newconfig = update(newconfig, {
-    })
+    newconfig = update(newconfig, {})
   } else if (payload.value === 'plotly') {
     newconfig = update(newconfig, {
-      shapes: {$set: plotlyConfig.shapes},
-      xaxis: {$set: plotlyConfig.xaxis},
-      yaxis: {$set: plotlyConfig.yaxis}
+      datasets: { $set: plotlyConfig.datasets },
+      shapes: { $set: plotlyConfig.shapes },
+      xaxis: { $set: plotlyConfig.xaxis },
+      yaxis: { $set: plotlyConfig.yaxis }
+    })
+  } else if (payload.value === 'gamblegram') {
+    newconfig = update(newconfig, {
+      columns: { $set: gamblegramConfig.columns },
+      xaxis: { $set: gamblegramConfig.xaxis },
+      yaxis: { $set: gamblegramConfig.yaxis }
     })
   }
 
-  return update(state, { [payload.widget.id]: {$set: newconfig} })
+  return update(state, {
+    [payload.widget.id]: { $set: newconfig }
+  })
 }
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case ADD_WIDGET:
-      return addWidget(state, action.payload, type, defaultConfig)
-    case RENAME_WIDGET:
-      return renameWidget(state, action.payload, type)
-    case REMOVE_WIDGET:
-      return removeWidget(state, action.payload, type)
-    case UPDATE_WIDGET_CONFIG:
-      return updateWidgetChart(state, action.payload, type)
-    case ADD_WIDGET_ACTION:
-      return addWidgetAction(state, action.payload, type)
-    case REMOVE_WIDGET_ACTION:
-      return removeWidgetAction(state, action.payload, type)
-    case UPDATE_WIDGET_ACTION:
-      return updateWidgetAction(state, action.payload, type)
+  case ADD_WIDGET:
+    return addWidget(state, action.payload, type, defaultConfig)
+  case RENAME_WIDGET:
+    return renameWidget(state, action.payload, type)
+  case REMOVE_WIDGET:
+    return removeWidget(state, action.payload, type)
+  case UPDATE_WIDGET_CONFIG:
+    return updateWidgetChart(state, action.payload, type)
+  case ADD_WIDGET_ACTION:
+    return addWidgetAction(state, action.payload, type)
+  case REMOVE_WIDGET_ACTION:
+    return removeWidgetAction(state, action.payload, type)
+  case UPDATE_WIDGET_ACTION:
+    return updateWidgetAction(state, action.payload, type)
   }
   return state
 }

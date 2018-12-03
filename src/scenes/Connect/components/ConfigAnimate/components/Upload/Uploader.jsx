@@ -10,7 +10,7 @@ import BusySignal from '@components/BusySignal'
 
 import { addAnimate } from '@actions'
 
-import Runtime from '@runtime/templates/AnimateRuntime'
+import Runtime from '@runtime/AnimateRuntime'
 import preprocess from './preprocess'
 import generateHash from '@helpers/generateHash'
 

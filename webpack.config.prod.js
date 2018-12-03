@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env, argv) => {
   return {
@@ -49,7 +50,7 @@ module.exports = (env, argv) => {
           test: /\.otf(\?.*)?$/,
           use: 'file-loader?name=/fonts/[name].  [ext]&mimetype=application/font-otf'
         }
-      ]
+      ],
     },
     resolve: {
       extensions: ['*', '.js', '.jsx'],
@@ -70,7 +71,14 @@ module.exports = (env, argv) => {
       filename: 'bundle.[hash].js'
     },
     optimization: {
-      minimize: false
+      minimize: false,
+      concatenateModules: false,
+      minimizer: [new TerserPlugin({
+        sourceMap: true,
+        parallel: true,
+        cache: './.build_cache/terser',
+        exclude: /.*src.*/,
+      })]
     },
     plugins: [
       new HtmlWebpackPlugin({
