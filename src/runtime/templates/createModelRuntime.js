@@ -40,6 +40,7 @@ export default function createModelRuntime(Model, config, functions) {
       model.setInitialValues = functions.setInitialValues.bind(model)
       model.setInitialValueByName = functions.setInitialValueByName.bind(model)
       model.updateValueByName = functions.updateValueByName.bind(model)
+      model.getValueByName = functions.getValueByName.bind(model)
 
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
 
