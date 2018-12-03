@@ -4,14 +4,9 @@ export default function updateValueByName(name, modifier) {
     return
   }
 
-  const reference = this.getReferenceFromName(name)
+  let value = this.getValueByName(name)
+  if (value == null) { return }
 
-  if (reference == null) {
-    console.warn(`Can not update ${name} - name not found.`)
-    return
-  }
-
-  let value = this.getSingleReal(reference)
   typeof modifier === 'function' ? value = modifier(value) : value = Number(modifier)
 
   if (isNaN(value)) {
