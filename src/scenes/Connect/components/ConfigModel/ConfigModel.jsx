@@ -68,6 +68,15 @@ class ConfigModel extends Component {
 
   renderOneshot(config) {
     return <Fragment>
+      <GridRow label=''>
+          <Checkbox
+            label='Recreate model on change'
+            name='destroyOnReset'
+            checked={config.destroyOnReset}
+            onClick={this.handleOnChange}
+          />
+      </GridRow>
+
       <GridRow label='Step length [time]'>
         <InputFloat
           name='stepSize'
@@ -91,14 +100,6 @@ class ConfigModel extends Component {
           onChange={this.handleOnChange}>
           <input />
         </InputFloat>
-      </GridRow>
-      <GridRow label='Stop time'>
-          <Checkbox
-            label='Destroy model on reset'
-            name='destroyOnReset'
-            checked={config.destroyOnReset}
-            onClick={this.handleOnChange}
-          />
       </GridRow>
     </Fragment>
   }
