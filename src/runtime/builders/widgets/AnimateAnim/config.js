@@ -2,6 +2,7 @@ import configureStore from '@src/configureStore'
 import { configGetAllAnimateAnims } from '@reducers'
 
 import functionalize from '../functionalize'
+import floatize from '../floatize'
 import AnimateAnimMode from '@helpers/AnimateAnimMode'
 
 export default () => {
@@ -19,6 +20,8 @@ export default () => {
     configuration.attributes.forEach(attribute => {
       configuration = functionalize(configuration, attribute)
     })
+
+    configuration = floatize(configuration, ['min', 'max', 'maxspeed', 'minspeed'])
 
     if (configuration.mode === AnimateAnimMode.CONTROLLED) {
       config[configuration.parent].controlled[id] = configuration

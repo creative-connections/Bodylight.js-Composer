@@ -5,16 +5,16 @@ const defaultState = {
   mode: 'javascript',
   theme: 'tomorrow',
   fontSize: '1em',
-  height: '12em',
+  height: '25em',
   keyboardHandler: 'default'
 }
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case FUNCTION_EDITOR_CONFIG_CHANGE:
-      state = update(state, {
-        [action.payload.key]: {$set: action.payload.value}
-      })
+  case FUNCTION_EDITOR_CONFIG_CHANGE:
+    state = update(state, {
+        [action.payload.key]: { $set: action.payload.value }
+    })
   }
 
   return state

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Input, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { Input, Checkbox, Transition } from 'semantic-ui-react'
 import { configGetButton } from '@reducers'
 import { updateConfig, renameButton, removeButton } from '@actions'
 
@@ -14,7 +14,7 @@ import ComplexAttribute from '../ComplexAttribute'
 import Events from '../Events'
 
 class ConfigButton extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.handleAutoRename = this.handleAutoRename.bind(this)
@@ -22,25 +22,26 @@ class ConfigButton extends Component {
     this.rename = this.rename.bind(this)
   }
 
-  handleAutoRename () {
+  handleAutoRename() {
     let config = this.props.config
     const provider = ValueProviders.value(config.target.provider)
     const generatedName = `${provider.parent}.${provider.name}`
-    this.rename(null, {value: generatedName})
+    this.rename(null, { value: generatedName })
   }
 
-  rename (e, {value}) {
+  rename(e, { value }) {
+    this.handleOnChange(e, { name: 'label', value })
     this.props.renameButton(this.props.button, value)
   }
 
-  handleOnChange (e, {name, value, checked}) {
+  handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
     this.props.updateConfig(this.props.button, name, value)
   }
 
-  renderTarget (config) {
+  renderTarget(config) {
     return <GridRow label='Target:' key={`target`}>
       <ComplexAttribute complex nofunc
         name='target'
@@ -50,7 +51,7 @@ class ConfigButton extends Component {
     </GridRow>
   }
 
-  renderClickMode (config) {
+  renderClickMode(config) {
     return [
       this.renderTarget(config),
       <GridRow label='On click:' key={`onClick`}>
@@ -63,7 +64,7 @@ class ConfigButton extends Component {
     ]
   }
 
-  renderPressMode (config) {
+  renderPressMode(config) {
     return [
       this.renderTarget(config),
       <GridRow label='On press:' key={`onPress`}>
@@ -83,7 +84,7 @@ class ConfigButton extends Component {
     ]
   }
 
-  render () {
+  render() {
     const config = this.props.config
 
     return <Fragment>
