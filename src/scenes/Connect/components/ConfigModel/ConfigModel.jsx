@@ -11,30 +11,30 @@ import InputFloat from '@components/InputFloat'
 import GridRow from '../GridRow'
 
 class ConfigModel extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.handleOnChange = this.handleOnChange.bind(this)
     this.renameModel = this.renameModel.bind(this)
   }
 
-  handleOnChange (e, {name, value, checked}) {
+  handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
     this.props.updateConfig(this.props.model, name, value)
   }
 
-  renameModel (e, {value}) {
+  renameModel(e, { value }) {
     this.props.renameModel(this.props.model, value)
   }
 
-  renderTps (config) {
+  renderTps(config) {
     const tps = 1000 / config.interval
     const factor = tps * config.stepSize
     return `${tps} tps (${factor}x)`
   }
 
-  renderContinuous (config) {
+  renderContinuous(config) {
     return <Fragment>
       <GridRow label='Step length [time]'>
         <InputFloat
@@ -66,7 +66,7 @@ class ConfigModel extends Component {
     </Fragment>
   }
 
-  renderOneshot (config) {
+  renderOneshot(config) {
     return <Fragment>
       <GridRow label='Step length [time]'>
         <InputFloat
@@ -92,16 +92,24 @@ class ConfigModel extends Component {
           <input />
         </InputFloat>
       </GridRow>
+      <GridRow label='Stop time'>
+          <Checkbox
+            label='Destroy model on reset'
+            name='destroyOnReset'
+            checked={config.destroyOnReset}
+            onClick={this.handleOnChange}
+          />
+      </GridRow>
     </Fragment>
   }
 
-  renderTicked (config) {
+  renderTicked() {
     return <GridRow>
       <p>Not implemented yet</p>
     </GridRow>
   }
 
-  render () {
+  render() {
     const config = this.props.config
 
     return <Fragment>

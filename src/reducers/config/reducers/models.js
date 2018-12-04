@@ -24,6 +24,8 @@ const defaultConfig = {
   startTime: 0.0,
   stopTime: 60.0,
 
+  destroyOnReset: false,
+
   id: null,
   name: null,
   originalName: null,
@@ -42,22 +44,23 @@ const defaultConfig = {
 const addModel = (state, payload, type, defaultConfig) => {
   if (type !== payload.type) { return state }
   defaultConfig = update(defaultConfig, {
-    id: {$set: payload.id},
-    name: {$set: payload.name},
-    originalName: {$set: payload.name},
-    js: {$set: payload.js},
-    hash: {$set: payload.hash},
-    guid: {$set: payload.modelDescription.guid},
-    identifier: {$set: payload.modelDescription.modelIdentifier},
-    modelName: {$set: payload.modelDescription.modelName},
-    variables: {$set: payload.modelDescription.variables},
-    parameters: {$set: payload.modelDescription.parameters},
-    arrays: {$set: payload.modelDescription.arrays},
-    description: {$set: payload.modelDescription.description},
-    generationDateAndTime: {$set: payload.modelDescription.generationDateAndTime},
-    generationTool: {$set: payload.modelDescription.generationTool}
+    id: { $set: payload.id },
+    name: { $set: payload.name },
+    originalName: { $set: payload.name },
+    js: { $set: payload.js },
+    hash: { $set: payload.hash },
+    guid: { $set: payload.modelDescription.guid },
+    identifier: { $set: payload.modelDescription.modelIdentifier },
+    modelName: { $set: payload.modelDescription.modelName },
+    variables: { $set: payload.modelDescription.variables },
+    parameters: { $set: payload.modelDescription.parameters },
+    arrays: { $set: payload.modelDescription.arrays },
+    description: { $set: payload.modelDescription.description },
+    generationDateAndTime: { $set: payload.modelDescription.generationDateAndTime },
+    generationTool: { $set: payload.modelDescription.generationTool }
   })
-  return update(state, { [payload.id]: {$set: defaultConfig} })
+  return update(state, {
+    [payload.id]: { $set: defaultConfig } })
 }
 
 const updateModel = (state, payload, type) => {
@@ -65,17 +68,17 @@ const updateModel = (state, payload, type) => {
 
   state = update(state, {
     [payload.id]: {
-      js: {$set: payload.js},
-      hash: {$set: payload.hash},
-      guid: {$set: payload.modelDescription.guid},
-      identifier: {$set: payload.modelDescription.modelIdentifier},
-      modelName: {$set: payload.modelDescription.modelName},
-      variables: {$set: payload.modelDescription.variables},
-      parameters: {$set: payload.modelDescription.parameters},
-      arrays: {$set: payload.modelDescription.arrays},
-      description: {$set: payload.modelDescription.description},
-      generationDateAndTime: {$set: payload.modelDescription.generationDateAndTime},
-      generationTool: {$set: payload.modelDescription.generationTool}
+      js: { $set: payload.js },
+      hash: { $set: payload.hash },
+      guid: { $set: payload.modelDescription.guid },
+      identifier: { $set: payload.modelDescription.modelIdentifier },
+      modelName: { $set: payload.modelDescription.modelName },
+      variables: { $set: payload.modelDescription.variables },
+      parameters: { $set: payload.modelDescription.parameters },
+      arrays: { $set: payload.modelDescription.arrays },
+      description: { $set: payload.modelDescription.description },
+      generationDateAndTime: { $set: payload.modelDescription.generationDateAndTime },
+      generationTool: { $set: payload.modelDescription.generationTool }
     }
   })
 
@@ -86,14 +89,14 @@ const type = WidgetType.MODEL
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case ADD_WIDGET:
-      return addModel(state, action.payload, type, defaultConfig)
-    case RENAME_WIDGET:
-      return renameWidget(state, action.payload, type)
-    case UPDATE_WIDGET:
-      return updateModel(state, action.payload, type)
-    case UPDATE_WIDGET_CONFIG:
-      return updateWidget(state, action.payload, type)
+  case ADD_WIDGET:
+    return addModel(state, action.payload, type, defaultConfig)
+  case RENAME_WIDGET:
+    return renameWidget(state, action.payload, type)
+  case UPDATE_WIDGET:
+    return updateModel(state, action.payload, type)
+  case UPDATE_WIDGET_CONFIG:
+    return updateWidget(state, action.payload, type)
   }
   return state
 }
@@ -103,8 +106,8 @@ export const get = (state, id) => state[id]
 
 const generateProviderID = (type, id, parent) => {
   return `{"type":${JSON.stringify(type)},` +
-          `"id":${JSON.stringify(id)},` +
-          `"parent":${JSON.stringify(parent)}}`
+    `"id":${JSON.stringify(id)},` +
+    `"parent":${JSON.stringify(parent)}}`
 }
 
 const getProvidersForDropdownMemoized = memoize(state => {
