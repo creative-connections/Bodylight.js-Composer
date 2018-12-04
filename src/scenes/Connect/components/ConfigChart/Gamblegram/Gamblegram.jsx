@@ -10,7 +10,7 @@ import Axis from './Axis'
 const Gamblegram = props => {
   const config = props.config
   return <Fragment>
-      <GridRow label='Enabled:'>
+      <GridRow border label='Enabled'>
         <ComplexAttribute
           name='enabled'
           label='Chart responds to input change'

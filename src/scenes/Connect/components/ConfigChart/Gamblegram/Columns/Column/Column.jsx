@@ -1,11 +1,8 @@
 import React, { Component, Fragment } from 'react'
-import { Input, Checkbox, Dropdown, Grid, Divider } from 'semantic-ui-react'
-
+import { Input } from 'semantic-ui-react'
 import GridRow from '@scenes/Connect/components/GridRow'
-import Collapsable from '@scenes/Connect/components/Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import FunctionEditor from '@components/FunctionEditor'
-
 import Items from './Items'
 
 class Column extends Component {
@@ -17,7 +14,7 @@ class Column extends Component {
     const config = this.props.config
     const name = this.props.name
     return <Fragment>
-      <GridRow label='Name:'>
+      <GridRow label='Name'>
         <Input
           name={`${name}.name`}
           value={config.name}
@@ -31,7 +28,7 @@ class Column extends Component {
         onChange={this.props.onChange}
         />
 
-      <GridRow label='Custom:'>
+      <GridRow label='Custom'>
         <FunctionEditor
           name={`${name}.other`}
           value={config.other}
@@ -41,10 +38,9 @@ class Column extends Component {
         />
       </GridRow>
 
-      <GridRow label='' compact={true}>
+      <GridRow border label='' compact={true}>
         <ButtonLink name={config.id} onClick={this.props.onRemove}>remove dataset</ButtonLink>
       </GridRow>
-
     </Fragment>
   }
 }

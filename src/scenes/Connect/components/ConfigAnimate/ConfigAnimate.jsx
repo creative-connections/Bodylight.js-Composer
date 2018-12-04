@@ -31,7 +31,7 @@ class ConfigAnimate extends Component {
 
     return <Fragment>
       <AnimateInfo animate={this.props.widget}/>
-      <GridRow label='Actions:'>
+      <GridRow border label='Actions'>
         <ButtonLink onClick={this.handleUpgradeClick}>Upgrade animate source</ButtonLink>
       </GridRow>
     </Fragment>

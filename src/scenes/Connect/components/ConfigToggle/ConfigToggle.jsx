@@ -2,57 +2,43 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Input, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import { configGetToggle } from '@reducers'
 import { updateConfig, renameToggle } from '@actions'
 
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
-
-import ButtonLink from '@components/ButtonLink'
-
 import Events from '../Events'
 
 class ConfigToggle extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
-    this.handleAutoRename = this.handleAutoRename.bind(this)
     this.handleOnChange = this.handleOnChange.bind(this)
     this.rename = this.rename.bind(this)
   }
 
-  handleAutoRename () {
-    let config = this.props.config
-    const provider = ValueProviders.value(config.target.provider)
-    const generatedName = `${provider.parent}.${provider.name}`
-    this.rename(null, {value: generatedName})
-  }
-
-  rename (e, {value}) {
+  rename(e, { value }) {
     this.props.renameToggle(this.props.toggle, value)
   }
 
-  handleOnChange (e, {name, value, checked}) {
+  handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
     this.props.updateConfig(this.props.toggle, name, value)
   }
 
-  render () {
+  render() {
     const config = this.props.config
 
     return <Fragment>
-      <GridRow label='Name:'>
+      <GridRow label='Name'>
         <Input
           name='name'
           value={this.props.toggle.name}
           onChange={this.rename}
         />
-        <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
-          <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
-        </Transition>
       </GridRow>
       <GridRow label='Target:' key={`target`}>
         <ComplexAttribute complex nofunc
@@ -75,7 +61,7 @@ class ConfigToggle extends Component {
           onChange={this.handleOnChange}
         />
       </GridRow>
-      <GridRow label='Enabled:'>
+      <GridRow label='Enabled'>
         <ComplexAttribute
           name='enabled'
           label='Toggle is enabled'
@@ -83,7 +69,7 @@ class ConfigToggle extends Component {
           onChange={this.handleOnChange}
         />
       </GridRow>
-      <GridRow label='Visible:'>
+      <GridRow label='Visible'>
         <ComplexAttribute
           name='visible'
           label='Toggle is visible'

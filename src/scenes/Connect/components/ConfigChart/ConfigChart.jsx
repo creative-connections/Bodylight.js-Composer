@@ -16,7 +16,6 @@ class ConfigChart extends Component {
 
     this.handleRemove = this.handleRemove.bind(this)
     this.handleOnChange = this.handleOnChange.bind(this)
-    this.handleAutoRename = this.handleAutoRename.bind(this)
     this.renameChart = this.renameChart.bind(this)
 
     const libraries = [
@@ -25,13 +24,6 @@ class ConfigChart extends Component {
     ]
 
     this.state = { libraries }
-  }
-
-  handleAutoRename() {
-    let config = this.props.config
-    const provider = ValueProviders.value(config.target.provider)
-    const generatedName = `${provider.parent}.${provider.name}`
-    this.renameChart(null, { value: generatedName })
   }
 
   renameChart(e, { value }) {
@@ -53,14 +45,14 @@ class ConfigChart extends Component {
   render() {
     const config = this.props.config
     return <Fragment>
-      <GridRow label='Name:'>
+      <GridRow label='Name'>
         <Input
           name='name'
           value={this.props.chart.name}
           onChange={this.renameChart}
         />
       </GridRow>
-      <GridRow label='Chart library:'>
+      <GridRow inline label='Chart library'>
         <Dropdown
           name='library'
           placeholder='Select chart library'

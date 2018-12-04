@@ -39,7 +39,7 @@ class Line extends Component {
 
     return <Fragment>
 
-      <GridRow label='Name:'>
+      <GridRow label='Name'>
         <Input
           name={`${name}.name`}
           value={config.name}
@@ -48,7 +48,7 @@ class Line extends Component {
       </GridRow>
 
       <h3>Coordinates</h3>
-      <GridRow label='x0:'>
+      <GridRow label='x0'>
         <ComplexAttribute
           name={`${name}.x0`}
           attribute={config.x0}
@@ -56,7 +56,7 @@ class Line extends Component {
         />
       </GridRow>
 
-      <GridRow label='y0:'>
+      <GridRow label='y0'>
         <ComplexAttribute
           name={`${name}.y0`}
           attribute={config.y0}
@@ -64,7 +64,7 @@ class Line extends Component {
         />
       </GridRow>
 
-      <GridRow label='x1:'>
+      <GridRow label='x1'>
         <ComplexAttribute
           name={`${name}.x1`}
           attribute={config.x1}
@@ -72,7 +72,7 @@ class Line extends Component {
         />
       </GridRow>
 
-      <GridRow label='y1:'>
+      <GridRow label='y1'>
         <ComplexAttribute
           name={`${name}.y1`}
           attribute={config.y1}
@@ -80,7 +80,7 @@ class Line extends Component {
         />
       </GridRow>
 
-      <GridRow label='x reference:'>
+      <GridRow label='x reference'>
         <Dropdown
           name={`${name}.xref`}
           value={config.xref}
@@ -89,7 +89,7 @@ class Line extends Component {
         />
       </GridRow>
 
-      <GridRow label='y reference:'>
+      <GridRow label='y reference'>
         <Dropdown
           name={`${name}.yref`}
           value={config.yref}
@@ -114,7 +114,7 @@ class Line extends Component {
         />
       </GridRow>
 
-      <GridRow label='Layer:'>
+      <GridRow label='Layer'>
         <Dropdown
           name={`${name}.layer`}
           value={config.layer}

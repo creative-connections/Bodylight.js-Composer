@@ -11,29 +11,29 @@ import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
 
 class ConfigAnimateText extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.handleOnChange = this.handleOnChange.bind(this)
   }
 
-  handleOnChange (e, {name, value, checked}) {
+  handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined') {
       value = checked
     }
     this.props.updateConfig(this.props.text, name, value)
   }
 
-  render () {
+  render() {
     const config = this.props.config
     return <Fragment>
-      <GridRow label='Value:'>
+      <GridRow border label='Value'>
         <ComplexAttribute
           name='value'
           attribute={config.value}
           onChange={this.handleOnChange}
         />
       </GridRow>
-      <GridRow label='visible:'>
+      <GridRow border label='visible'>
         <ComplexAttribute
           label="Display the text"
           name='visible'

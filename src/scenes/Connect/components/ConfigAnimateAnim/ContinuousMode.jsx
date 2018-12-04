@@ -8,42 +8,42 @@ const ContinuousMode = props => {
   const config = props.config
   const onChange = props.onChange
   return <Fragment>
-    <GridRow label='Speed:'>
+    <GridRow border label='Speed'>
       <ComplexAttribute
         name='value'
         attribute={config.value}
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Maximum:'>
+    <GridRow border label='Maximum'>
       <ComplexAttribute
         name='max'
         attribute={config.max}
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Minimum:'>
+    <GridRow border label='Minimum'>
       <ComplexAttribute
         name='min'
         attribute={config.min}
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Minimum speed:'>
+    <GridRow border label='Minimum speed'>
       <ComplexAttribute
         name='minspeed'
         attribute={config.minspeed}
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Maximum speed:'>
+    <GridRow border label='Maximum speed'>
       <ComplexAttribute
         name='maxspeed'
         attribute={config.maxspeed}
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Reversed:'>
+    <GridRow border label='Reversed'>
       <ComplexAttribute
         name='reversed'
         label='Value input is reversed'

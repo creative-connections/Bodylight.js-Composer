@@ -45,19 +45,19 @@ class AnimateInfo extends Component {
     }
 
     return <Fragment>
-    <GridRow label='anims:'>
+    <GridRow border label='anims'>
       <SimpleListSegment data={this.transformElementsToArray(this.props.animate.anims)}/>
     </GridRow>
 
-    <GridRow label='texts:'>
+    <GridRow border label='texts'>
       <SimpleListSegment data={this.transformElementsToArray(this.props.animate.texts)}/>
     </GridRow>
 
-    <GridRow label='Name:'>
+    <GridRow label='Name'>
       <Input name='name' value={this.props.animate.name} onChange={this.renameAnimate} />
     </GridRow>
 
-    <GridRow label='FPS:'>
+    <GridRow border label='FPS'>
       <p>This option is common to every Animate</p>
       <InputFloat name='fps' value={this.props.fps} onChange={this.handleOnChangeFps} />
     </GridRow>

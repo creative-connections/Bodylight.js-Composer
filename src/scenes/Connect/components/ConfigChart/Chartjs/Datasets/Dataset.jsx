@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Input, Checkbox, Dropdown, Grid, Divider } from 'semantic-ui-react'
+import { Input, Checkbox, Dropdown } from 'semantic-ui-react'
 
 import ComplexAttribute from '../../../ComplexAttribute'
 import GridRow from '../../../GridRow'
@@ -9,14 +9,14 @@ import FunctionEditor from '@components/FunctionEditor'
 import Line from './Line'
 
 class Dataset extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const mode = [
-      {key: 'lines', text: 'Lines', value: 'lines'},
-      {key: 'markers', text: 'Markers', value: 'markers'},
-      {key: 'lines+markers', text: 'Lines + Markers', value: 'lines+markers'},
-      {key: 'none', text: 'None', value: 'none'}
+      { key: 'lines', text: 'Lines', value: 'lines' },
+      { key: 'markers', text: 'Markers', value: 'markers' },
+      { key: 'lines+markers', text: 'Lines + Markers', value: 'lines+markers' },
+      { key: 'none', text: 'None', value: 'none' }
     ]
 
     this.state = {
@@ -26,13 +26,12 @@ class Dataset extends Component {
     }
   }
 
-  render () {
+  render() {
     const config = this.props.config
     const name = this.props.name
-    console.log(config)
     return <Fragment>
 
-      <GridRow label='Name:'>
+      <GridRow label='Name'>
         <Input
           name={`${name}.name`}
           value={config.name}
@@ -40,7 +39,7 @@ class Dataset extends Component {
         />
       </GridRow>
 
-      <GridRow label='y axis:'>
+      <GridRow border label='y axis'>
         { config.y.time === false &&
             <ComplexAttribute complex array
               name={`${name}.y`}
@@ -49,7 +48,6 @@ class Dataset extends Component {
             />
         }
         <Checkbox
-          style={{padding: '0.8em 0em 0.8em 0.0em'}}
           label='y is controlled by time'
           name={`${name}.y.time`}
           checked={config.y.time}
@@ -57,7 +55,7 @@ class Dataset extends Component {
         />
       </GridRow>
 
-      <GridRow label='x axis:'>
+      <GridRow border label='x axis'>
         { config.x.time === false &&
             <ComplexAttribute complex array
               name={`${name}.x`}
@@ -66,25 +64,24 @@ class Dataset extends Component {
             />
         }
         <Checkbox
-          style={{padding: '0.8em 0em 0.8em 0.0em'}}
           label='x is controlled by time'
           name={`${name}.x.time`}
           checked={config.x.time}
           onChange={this.props.onChange}
         />
       </GridRow>
-      <GridRow label='Maximum samples:'>
+      <GridRow border label='Maximum samples'>
         <ComplexAttribute
           name={`${name}.maxSamples`}
           attribute={config.maxSamples}
           onChange={this.props.onChange}
         />
       </GridRow>
-      <GridRow label='' compact={true}>
+      <GridRow border label='' compact={true}>
         <ButtonLink name={config.id} onClick={this.props.onRemove}>remove dataset</ButtonLink>
       </GridRow>
 
-      <GridRow label='Mode:'>
+      <GridRow border label='Mode'>
         <Dropdown
           name={`${name}.mode`}
           value={config.mode}
@@ -97,7 +94,7 @@ class Dataset extends Component {
         config={config.line}
         onChange={this.props.onChange}
       />
-      <GridRow label='Custom:'>
+      <GridRow label='Custom'>
         <FunctionEditor
           name={`${name}.other`}
           value={config.other}

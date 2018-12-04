@@ -1,23 +1,19 @@
 import React, { Component, Fragment } from 'react'
 
 import update from 'immutability-helper'
-import { Input, Header, Grid, Divider, Transition, Dropdown } from 'semantic-ui-react'
-import ButtonLink from '@components/ButtonLink'
+import { Input, Dropdown } from 'semantic-ui-react'
 import GridRow from '../../GridRow'
-
 import FunctionEditor from '@components/FunctionEditor'
-
 import escodegen from 'escodegen'
 import toAST from 'to-ast'
-const acorn = require('acorn')
 
 class Axis extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const type = [
-      {key: 'linear', text: 'linear', value: 'linear'},
-      {key: 'log', text: 'log', value: 'log'}
+      { key: 'linear', text: 'linear', value: 'linear' },
+      { key: 'log', text: 'log', value: 'log' }
     ]
 
     this.state = {
@@ -30,9 +26,9 @@ class Axis extends Component {
     this.handleEditorChange = this.handleEditorChange.bind(this)
   }
 
-  handleChange (e, {name, value}) {
+  handleChange(e, { name, value }) {
     let config = update(this.props.config, {
-      [name]: {$set: value}
+      [name]: { $set: value }
     })
     this.props.onChange(e, {
       name: this.props.name,
@@ -40,7 +36,7 @@ class Axis extends Component {
     })
   }
 
-  handleEditorChange (e, {value}) {
+  handleEditorChange(e, { value }) {
     const fn = Function(`return ${value}`)()
     const config = fn()
     this.props.onChange(e, {
@@ -49,19 +45,18 @@ class Axis extends Component {
     })
   }
 
-  getConfigString () {
+  getConfigString() {
     const string = escodegen.generate(
-      toAST(this.props.config),
-      { format: { quotes: 'double' } }
+      toAST(this.props.config), { format: { quotes: 'double' } }
     )
     return `() => (${string})`
   }
 
-  render () {
+  render() {
     const config = this.getConfigString()
 
     return <Fragment>
-      <GridRow label='Title:'>
+      <GridRow label='Title'>
         <Input
           name='title'
           value={this.props.config.title}
@@ -69,7 +64,7 @@ class Axis extends Component {
           onChange={this.handleChange}
         />
       </GridRow>
-      <GridRow label='Type:'>
+      <GridRow inline label='Type'>
         <Dropdown
           name='type'
           value={this.props.config.type}
@@ -78,7 +73,7 @@ class Axis extends Component {
           onChange={this.handleChange}
         />
       </GridRow>
-      <GridRow label='Advanced:'>
+      <GridRow label='Advanced'>
         <FunctionEditor
           name={this.props.name}
           value={config}

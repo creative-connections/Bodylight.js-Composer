@@ -115,14 +115,14 @@ class ConfigModel extends Component {
 
     return <Fragment>
       <ModelInfo config={config}/>
-      <GridRow label='Name:'>
+      <GridRow label='Name'>
         <Input
           name='name'
           value={this.props.model.name}
           onChange={this.renameModel}
         />
       </GridRow>
-      <GridRow label='Mode:'>
+      <GridRow border label='Mode'>
         <div>
           <Checkbox
             radio

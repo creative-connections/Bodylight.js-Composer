@@ -2,11 +2,10 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Input, Checkbox, Transition } from 'semantic-ui-react'
+import { Input, Checkbox } from 'semantic-ui-react'
 import { configGetButton } from '@reducers'
 import { updateConfig, renameButton, removeButton } from '@actions'
 
-import ButtonLink from '@components/ButtonLink'
 import ButtonMode from '@helpers/enum/ButtonMode'
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
@@ -17,16 +16,8 @@ class ConfigButton extends Component {
   constructor(props) {
     super(props)
 
-    this.handleAutoRename = this.handleAutoRename.bind(this)
     this.handleOnChange = this.handleOnChange.bind(this)
     this.rename = this.rename.bind(this)
-  }
-
-  handleAutoRename() {
-    let config = this.props.config
-    const provider = ValueProviders.value(config.target.provider)
-    const generatedName = `${provider.parent}.${provider.name}`
-    this.rename(null, { value: generatedName })
   }
 
   rename(e, { value }) {
@@ -42,7 +33,7 @@ class ConfigButton extends Component {
   }
 
   renderTarget(config) {
-    return <GridRow label='Target:' key={`target`}>
+    return <GridRow border label='Target:' key={`target`}>
       <ComplexAttribute complex nofunc
         name='target'
         attribute={config.target}
@@ -54,7 +45,7 @@ class ConfigButton extends Component {
   renderClickMode(config) {
     return [
       this.renderTarget(config),
-      <GridRow label='On click:' key={`onClick`}>
+      <GridRow border label='On click:' key={`onClick`}>
         <ComplexAttribute
           name='onClick'
           attribute={config.onClick}
@@ -67,14 +58,14 @@ class ConfigButton extends Component {
   renderPressMode(config) {
     return [
       this.renderTarget(config),
-      <GridRow label='On press:' key={`onPress`}>
+      <GridRow border label='On press:' key={`onPress`}>
         <ComplexAttribute
           name='onPress'
           attribute={config.onPress}
           onChange={this.handleOnChange}
         />
       </GridRow>,
-      <GridRow label='On release:' key={`onRelease`}>
+      <GridRow border label='On release:' key={`onRelease`}>
         <ComplexAttribute
           name='onRelease'
           attribute={config.onRelease}
@@ -88,24 +79,21 @@ class ConfigButton extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <GridRow label='Name:'>
+      <GridRow label='Name'>
         <Input
           name='name'
           value={this.props.button.name}
           onChange={this.rename}
         />
-        <Transition animation='slide up' duration={200} visible={config.target.provider !== null}>
-          <ButtonLink onClick={this.handleAutoRename}>auto rename</ButtonLink>
-        </Transition>
       </GridRow>
-      <GridRow label='Label:'>
+      <GridRow border label='Label'>
         <ComplexAttribute
           name='label'
           attribute={config.label}
           onChange={this.handleOnChange}
         />
       </GridRow>
-      <GridRow label='Mode:'>
+      <GridRow border label='Mode'>
         <div>
           <Checkbox
             radio
@@ -135,7 +123,7 @@ class ConfigButton extends Component {
       </GridRow>
       { config.mode === ButtonMode.CLICK && this.renderClickMode(config)}
       { config.mode === ButtonMode.PRESS && this.renderPressMode(config)}
-      <GridRow label='Enabled:'>
+      <GridRow border label='Enabled'>
         <ComplexAttribute
           name='enabled'
           label='Button is enabled'
@@ -144,7 +132,7 @@ class ConfigButton extends Component {
         />
       </GridRow>
 
-      <GridRow label='Visible:'>
+      <GridRow border label='Visible'>
         <ComplexAttribute
           name='visible'
           label='Button is visible'

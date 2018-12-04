@@ -67,7 +67,7 @@ class Events extends Component {
 
   render () {
     return <Fragment>
-      <GridRow label='Events:'>
+      <GridRow label='Events'>
         {this.renderEvents()}
         {this.renderAddEvent()}
       </GridRow>

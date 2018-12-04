@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { Grid, Divider } from 'semantic-ui-react'
 
 import GridRow from '@scenes/Connect/components/GridRow'
 import Collapsable from '@scenes/Connect/components/Collapsable'
@@ -83,7 +82,7 @@ class Items extends Component {
     return <Fragment>
       {this.renderItems()}
 
-      <GridRow label='' compact={true}>
+      <GridRow border label='' compact={true}>
         <ButtonLink onClick={this.handleAdd}>Add item</ButtonLink>
       </GridRow>
 

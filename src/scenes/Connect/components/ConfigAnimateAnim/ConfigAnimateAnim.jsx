@@ -16,24 +16,24 @@ import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
 
 class ConfigAnimateAnim extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.handleOnChange = this.handleOnChange.bind(this)
   }
 
-  handleOnChange (e, {name, value, checked}) {
+  handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
     this.props.updateConfig(this.props.anim, name, value)
   }
 
-  render () {
+  render() {
     const config = this.props.config
 
     return <Fragment>
-      <GridRow label='Mode:'>
+      <GridRow border label='Mode'>
         <Checkbox
           radio
           label='Controlled by value'

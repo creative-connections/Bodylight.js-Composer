@@ -60,7 +60,7 @@ class Axis extends Component {
     const config = this.getConfigString()
 
     return <Fragment>
-      <GridRow label='Title:'>
+      <GridRow label='Title'>
         <Input
           name='title'
           value={this.props.config.title}
@@ -68,7 +68,7 @@ class Axis extends Component {
           onChange={this.handleChange}
         />
       </GridRow>
-      <GridRow label='Type:'>
+      <GridRow inline label='Type'>
         <Dropdown
           name='type'
           value={this.props.config.type}
@@ -77,7 +77,7 @@ class Axis extends Component {
           onChange={this.handleChange}
         />
       </GridRow>
-      <GridRow label='Advanced:'>
+      <GridRow label='Advanced'>
         <FunctionEditor
           name={this.props.name}
           value={config}

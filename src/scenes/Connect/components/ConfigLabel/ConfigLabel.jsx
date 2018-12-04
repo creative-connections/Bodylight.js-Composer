@@ -46,14 +46,14 @@ class ConfigRange extends Component {
     })
 
     return <Fragment>
-      <GridRow label='Name:'>
+      <GridRow label='Name'>
         <Input
           name='name'
           value={this.props.label.name}
           onChange={this.renameLabel}
         />
       </GridRow>
-      <GridRow label='Label:'>
+      <GridRow label='Label'>
         <ComplexAttribute
           name='label'
           attribute={config.label}
@@ -61,7 +61,7 @@ class ConfigRange extends Component {
         />
       </GridRow>
 
-      <GridRow label='Enabled:'>
+      <GridRow label='Enabled'>
         <ComplexAttribute
           name='enabled'
           label='Label can change'
@@ -70,7 +70,7 @@ class ConfigRange extends Component {
         />
       </GridRow>
 
-      <GridRow label='Visible:'>
+      <GridRow label='Visible'>
         <ComplexAttribute
           name='visible'
           label='Label is visible'
@@ -79,7 +79,7 @@ class ConfigRange extends Component {
         />
       </GridRow>
 
-      <GridRow label='For:'>
+      <GridRow label='For'>
         <Dropdown
           name='for'
           value={config.for}

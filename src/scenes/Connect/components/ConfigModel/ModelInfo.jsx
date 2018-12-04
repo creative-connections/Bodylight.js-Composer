@@ -6,28 +6,43 @@ import SimpleListSegment from '@components/SimpleListSegment'
 const transformElementsToArray = (elements) => {
   const data = []
   Object.keys(elements).forEach((el) => {
-    data.push(elements[el].name)
+    if (elements[el].name) {
+      data.push(elements[el].name)
+    } else if (elements[el].cname) {
+      data.push(`${elements[el].cname} (${Object.keys(elements[el].providers).length})`)
+    }
   })
+
   return data
 }
 
-const ModelInfo = ({config}) => {
+const ModelInfo = ({ config }) => {
+  const parameters = transformElementsToArray(config.parameters)
+  const variables = transformElementsToArray(config.variables)
+  const arrays = transformElementsToArray(config.arrays)
+
   return <Fragment>
-    <GridRow label='Model name:'>
+    <GridRow border label='Model name'>
       {`${config.modelName} (${config.identifier})`}
     </GridRow>
-    <GridRow label='Generator:'>
+    <GridRow border label='Generator'>
       {`${config.generationTool} (${config.generationDateAndTime})`}
     </GridRow>
-    <GridRow label='Parameters:'>
-      <SimpleListSegment data={transformElementsToArray(config.parameters)} />
-    </GridRow>
-    <GridRow label='Variables:'>
-      <SimpleListSegment data={transformElementsToArray(config.variables)} />
-    </GridRow>
-    <GridRow label='Arrays:'>
-      <SimpleListSegment data={transformElementsToArray(config.arrays)} />
-    </GridRow>
+
+    {parameters.length !== 0 &&
+      <GridRow border label='Parameters'>
+        <SimpleListSegment data={parameters} />
+      </GridRow>}
+
+    {variables.length !== 0 &&
+      <GridRow border label='Variables'>
+        <SimpleListSegment data={variables} />
+      </GridRow>}
+
+    {arrays.length !== 0 &&
+      <GridRow border label='Arrays'>
+        <SimpleListSegment data={arrays} />
+      </GridRow>}
   </Fragment>
 }
 

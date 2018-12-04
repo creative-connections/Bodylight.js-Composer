@@ -67,6 +67,12 @@ iframe.preview {
   display: inline !important;
 }
 
+.ui.button.basic.link {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+}
+
 .visible.transition.inline-block{
   display: inline-block!important;
 }
@@ -382,26 +388,33 @@ div#main-menu {
   font-size: 10px;
   text-align: left;
 
+  div.row.dark div.row-content{
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    padding: 5px 5px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  div.row.light div.row-content{
+    boder: none;
+    background-color: inherit;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
   div.row {
-    margin-bottom: 5px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     margin-left: 10px;
     margin-right: 10px;
 
-    label.row-label {
-      display: block;
-    }
-
     div.row-content {
-      background-color: rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(0, 0, 0, 0.25);
-      padding: 5px 5px;
-
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-
       div.input {
-        width: 50%;
+        width: 100%;
         padding-right: 2px;
       }
 
@@ -430,7 +443,6 @@ div#main-menu {
         display: block;
       }
 
-
       .ui.segment {
         width: 100%;
         background-color: rgba(0, 0, 0, 0);
@@ -440,6 +452,12 @@ div#main-menu {
         color: #ddd;
         margin: 0;
         padding: 0;
+      }
+
+      .ui.dropdown {
+        border: 1px rgba(0, 0, 0, 0.25) dashed;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
       }
 
       .event-line {
@@ -457,6 +475,20 @@ div#main-menu {
       }
 
     }
+
+    label.row-label {
+      display: block;
+    }
+
+    label.row-label.inline {
+      display: inline;
+      margin-right: 0.5em;
+    }
+    div.row-content.inline {
+      display: inline
+    }
+
+
 
 
     .ui.input > input {
@@ -548,6 +580,10 @@ div#main-menu {
 
   .ui.checkbox label:hover, .ui.checkbox + label:hover {
     color: #3b97e3;
+  }
+
+  .ui.checkbox {
+    padding-top: 0.2em;
   }
 
 }

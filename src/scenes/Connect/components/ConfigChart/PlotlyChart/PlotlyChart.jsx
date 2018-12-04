@@ -13,7 +13,7 @@ const PlotlyChart = props => {
 
   const config = props.config
   return <Fragment>
-      <GridRow label='Enabled:'>
+      <GridRow label='Enabled'>
         <ComplexAttribute
           name='enabled'
           label='Chart responds to input change'

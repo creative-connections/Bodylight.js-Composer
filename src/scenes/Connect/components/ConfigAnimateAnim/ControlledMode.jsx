@@ -9,28 +9,28 @@ const ControlledMode = props => {
   const config = props.config
   const onChange = props.onChange
   return <Fragment>
-    <GridRow label='Value:'>
+    <GridRow border label='Value'>
       <ComplexAttribute
         name='value'
         attribute={config.value}
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Maximum:'>
+    <GridRow border label='Maximum'>
       <ComplexAttribute
         name='max'
         attribute={config.max}
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Minimum:'>
+    <GridRow border label='Minimum'>
       <ComplexAttribute
         name='min'
         attribute={config.min}
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Overflow:'>
+    <GridRow border label='Overflow'>
       <ComplexAttribute simple
         name='overflow'
         label='Allow min/max to be automatically adjusted'
@@ -38,7 +38,7 @@ const ControlledMode = props => {
         onChange={onChange}
       />
     </GridRow>
-    <GridRow label='Reversed:'>
+    <GridRow border label='Reversed'>
       <ComplexAttribute
         name='reversed'
         label='Value input is reversed'
