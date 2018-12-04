@@ -10,10 +10,7 @@ export default function createModelRuntime(Model, config, functions) {
 
       // bind a consoleLogger instance function
       model.consoleLogger = functions.consoleLogger.bind(model)
-      model.consoleLoggerPtr = model.addFunction(
-        model.consoleLogger,
-        model.config.identifier + '_consoleLogger' // WASM signature
-      )
+      model.consoleLoggerPtr = model.addFunction(model.consoleLogger, 'viiiiii')
 
       model.init = functions.init.bind(model)
       model.instantiate = functions.instantiate.bind(model)
