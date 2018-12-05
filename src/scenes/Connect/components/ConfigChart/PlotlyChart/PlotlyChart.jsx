@@ -7,7 +7,7 @@ import Events from '../../Events'
 
 import Datasets from './Datasets'
 import Shapes from './Shapes'
-import Axis from './Axis'
+import Axis from '../components/Axis'
 
 const PlotlyChart = props => {
 

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 
 import update from 'immutability-helper'
 import { Input, Dropdown } from 'semantic-ui-react'
-import GridRow from '../../GridRow'
+import GridRow from '@scenes/Connect/components/GridRow'
 import FunctionEditor from '@components/FunctionEditor'
 import escodegen from 'escodegen'
 import toAST from 'to-ast'
