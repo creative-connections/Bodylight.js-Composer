@@ -24,11 +24,11 @@ const Gamblegram = props => {
       </Collapsable>
 
       <Collapsable title='Axes' className='primary' collapsed={true}>
-        <Collapsable title='X Axis' className='secondary' collapsed={false}>
+        <Collapsable title='X Axis' className='secondary' collapsed={true}>
           <Axis name='xaxis' config={config.xaxis} onChange={props.onChange}/>
         </Collapsable>
 
-        <Collapsable title='Y Axis' className='secondary' collapsed={false}>
+        <Collapsable title='Y Axis' className='secondary' collapsed={true}>
           <Axis name='yaxis' config={config.yaxis} onChange={props.onChange}/>
         </Collapsable>
       </Collapsable>
