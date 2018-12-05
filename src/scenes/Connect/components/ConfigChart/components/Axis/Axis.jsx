@@ -7,6 +7,8 @@ import FunctionEditor from '@components/FunctionEditor'
 import escodegen from 'escodegen'
 import toAST from 'to-ast'
 
+import Range from './Range'
+
 class Axis extends Component {
   constructor(props) {
     super(props)
