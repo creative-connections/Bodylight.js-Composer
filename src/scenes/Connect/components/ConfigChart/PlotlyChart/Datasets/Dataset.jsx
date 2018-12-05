@@ -98,7 +98,7 @@ class Dataset extends Component {
           options={this.state.options.mode}
         />
       </GridRow>
-      <GridRow inline label='fill'>
+      <GridRow inline label='Fill'>
         <Dropdown
           name={`${name}.fill`}
           value={config.fill}
