@@ -1,16 +1,16 @@
-class Widget { }
+class Widget {}
 
 export default class PlotlyChart extends Widget {
-  constructor (configuration) {
+  constructor(configuration) {
     super(configuration, 'chart')
 
     Object.entries(this.datasets).forEach(([id, dataset]) => {
-      this.addValueProvider(JSON.stringify({dataset: id, axis: 'x'}), dataset.x.provider)
-      this.addValueProvider(JSON.stringify({dataset: id, axis: 'y'}), dataset.y.provider)
-      this.addValueProvider(JSON.stringify({dataset: id, type: 'maxSamples'}), dataset.maxSamples.provider)
+      this.addValueProvider(JSON.stringify({ dataset: id, axis: 'x' }), dataset.x.provider)
+      this.addValueProvider(JSON.stringify({ dataset: id, axis: 'y' }), dataset.y.provider)
+      this.addValueProvider(JSON.stringify({ dataset: id, type: 'maxSamples' }), dataset.maxSamples.provider)
     })
 
-    this.shapeComplexNames = [ 'x0', 'x1', 'y0', 'y1', 'visible', 'opacity', 'color', 'width', 'dash' ]
+    this.shapeComplexNames = ['x0', 'x1', 'y0', 'y1', 'visible', 'opacity', 'color', 'width', 'dash']
 
     // fill additional missing setters for shapes
     this.shapeComplexNames.forEach(name => {
@@ -32,14 +32,14 @@ export default class PlotlyChart extends Widget {
 
     Object.entries(this.shapes).forEach(([id, shape]) => {
       this.shapeComplexNames.forEach(name => {
-        this.addValueProvider(JSON.stringify({shape: id, setter: `shape-${name}`, name}), shape[name].provider)
+        this.addValueProvider(JSON.stringify({ shape: id, setter: `shape-${name}`, name }), shape[name].provider)
       })
     })
 
     this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
   }
 
-  setValueProvider (attribute, id, target) {
+  setValueProvider(attribute, id, target) {
     const attr = this.parseAttribute(attribute)
 
     if (attr && attr.dataset) {
@@ -57,7 +57,7 @@ export default class PlotlyChart extends Widget {
     }
   }
 
-  generateSetters () {
+  generateSetters() {
     this.setters = {
       enabled: () => {
         if (this.enabled.function !== null) {
@@ -74,7 +74,7 @@ export default class PlotlyChart extends Widget {
     }
   }
 
-  initPlotly () {
+  initPlotly() {
     if (this.plotly === null || this.plotly === undefined) {
       const d3 = Plotly.d3
 
@@ -96,15 +96,16 @@ export default class PlotlyChart extends Widget {
       Object.entries(this.datasets).forEach(([id, dataset]) => {
         this.indexes[id] = index
         // create buffer for XY plots
-        this.buffer[id] = {x: null, y: null}
-        this.oneshotBuffer[id] = {x: null, y: null}
+        this.buffer[id] = { x: null, y: null }
+        this.oneshotBuffer[id] = { x: null, y: null }
         data[index] = {
           x: [],
           y: [],
           type: 'scatter',
           mode: dataset.mode,
           name: dataset.name,
-          line: dataset.line
+          line: dataset.line,
+          fill: dataset.fill,
         }
         // rest of the configuration options
         Object.entries(dataset.other).forEach(([key, value]) => {
@@ -162,13 +163,13 @@ export default class PlotlyChart extends Widget {
     }
   }
 
-  updateComponent () {
+  updateComponent() {
     super.updateComponent()
     this.initPlotly()
     Plotly.Plots.resize(this.plotly)
   }
 
-  extendTrace (id, axis, value, time) {
+  extendTrace(id, axis, value, time) {
     this.perf.start(this.id, 'extendTrace', id)
     if (this.enabled.value === false) {
       return
@@ -184,7 +185,7 @@ export default class PlotlyChart extends Widget {
       } else {
         // plotting array vs indicies - treating this as a oneshot update
         // create indicies [0,1,2,...,length]
-        const indicies = Array.from({length: value.length}, (v, k) => k++)
+        const indicies = Array.from({ length: value.length }, (v, k) => k++)
         // replace previous trace for id/axis
         this.updateTrace(id, axis, value, indicies)
       }
@@ -216,7 +217,7 @@ export default class PlotlyChart extends Widget {
     this.perf.stop(this.id, 'extendTrace', id)
   }
 
-  updateTrace (id, axis, values, time) {
+  updateTrace(id, axis, values, time) {
     if (this.enabled.value === false) {
       return
     }
@@ -234,11 +235,11 @@ export default class PlotlyChart extends Widget {
     }
   }
 
-  oneshotBufferUpdateTraces () {
+  oneshotBufferUpdateTraces() {
     this.perf.start(this.id, 'updateTrace')
     const buf = this.oneshotBuffer
     const tracesToUpdate = []
-    const update = {x: [], y: []}
+    const update = { x: [], y: [] }
 
     Object.entries(buf).forEach(([id, data]) => {
       const index = this.indexes[id]
@@ -257,18 +258,18 @@ export default class PlotlyChart extends Widget {
     this.perf.stop(this.id, 'updateTrace')
   }
 
-  setArray (attribute, array, time) {
+  setArray(attribute, array, time) {
     this.setValue(attribute, array, time)
   }
 
-  setArrays (attribute, arrays, times) {
+  setArrays(attribute, arrays, times) {
     // draw only the last array
     const array = arrays[arrays.length - 1]
     const time = times[times.length - 1]
     this.setValues(attribute, array, time)
   }
 
-  setValues (attribute, values, time) {
+  setValues(attribute, values, time) {
     const lastValue = values[values.length - 1]
 
     if (attribute.startsWith('{')) {
@@ -299,7 +300,7 @@ export default class PlotlyChart extends Widget {
     }
   }
 
-  setValue (attribute, value, time) {
+  setValue(attribute, value, time) {
     // when we have an JSON encoded attribute specifier
     if (attribute.startsWith('{')) {
       const attr = JSON.parse(attribute)
@@ -328,7 +329,7 @@ export default class PlotlyChart extends Widget {
     super.setValue(attribute, value, time)
   }
 
-  parseAttribute (attribute) {
+  parseAttribute(attribute) {
     if (attribute.startsWith('{')) {
       return JSON.parse(attribute)
     }

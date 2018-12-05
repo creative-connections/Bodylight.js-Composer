@@ -10,28 +10,45 @@ import update from 'immutability-helper'
 import Dataset from './Dataset'
 
 class Datasets extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.handleDatasetAdd = this.handleDatasetAdd.bind(this)
     this.handleDatasetRemove = this.handleDatasetRemove.bind(this)
   }
 
-  handleDatasetAdd () {
+  handleDatasetAdd() {
     let datasets = this.props.config
     const pos = Object.entries(datasets).length + 1
 
     let color = '#5DA5DA'
 
     switch (pos) {
-      case 0: color = '#5DA5DA'; break
-      case 1: color = '#FAA43A'; break
-      case 2: color = '#60BD68'; break
-      case 3: color = '#F17CB0'; break
-      case 4: color = '#B276B2'; break
-      case 5: color = '#DECF3F'; break
-      case 6: color = '#F15854'; break
-      case 7: color = '#B2912F'; break
-      default: break
+    case 0:
+      color = '#5DA5DA';
+      break
+    case 1:
+      color = '#FAA43A';
+      break
+    case 2:
+      color = '#60BD68';
+      break
+    case 3:
+      color = '#F17CB0';
+      break
+    case 4:
+      color = '#B276B2';
+      break
+    case 5:
+      color = '#DECF3F';
+      break
+    case 6:
+      color = '#F15854';
+      break
+    case 7:
+      color = '#B2912F';
+      break
+    default:
+      break
     }
 
     const id = generateID()
@@ -39,6 +56,7 @@ class Datasets extends Component {
       id,
       name: '',
       mode: 'lines',
+      fill: 'none',
       other: '() => ({})',
       line: {
         color: color,
@@ -78,18 +96,18 @@ class Datasets extends Component {
     }
 
     datasets = update(datasets, {
-      [id]: {$set: defaultConfig}
+      [id]: { $set: defaultConfig }
     })
 
-    this.props.onChange(null, {name: this.props.name, value: datasets})
+    this.props.onChange(null, { name: this.props.name, value: datasets })
   }
 
-  handleDatasetRemove (e, {name, value}) {
+  handleDatasetRemove(e, { name, value }) {
     const datasets = update(this.props.config, { $unset: [name] })
-    this.props.onChange(e, {name: this.props.name, value: datasets})
+    this.props.onChange(e, { name: this.props.name, value: datasets })
   }
 
-  renderDatasets () {
+  renderDatasets() {
     const out = []
     Object.entries(this.props.config).forEach(([id, dataset]) => {
       out.push(
@@ -106,7 +124,7 @@ class Datasets extends Component {
     return out
   }
 
-  render () {
+  render() {
     return <Fragment>
       {this.renderDatasets()}
       <GridRow label='' compact={true}>

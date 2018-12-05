@@ -19,10 +19,18 @@ class Dataset extends Component {
       { key: 'none', text: 'None', value: 'none' }
     ]
 
+    const fill = [
+      { key: 'none', text: 'none', value: 'none' },
+      { key: 'tozeroy', text: 'tozeroy', value: 'tozeroy' },
+      { key: 'tozerox', text: 'tozerox', value: 'tozerox' },
+      { key: 'tonexty', text: 'tonexty', value: 'tonexty' },
+      { key: 'tonextx', text: 'tonextx', value: 'tonextx' },
+      { key: 'toself', text: 'toself', value: 'toself' },
+      { key: 'tonext', text: 'tonext', value: 'tonext' },
+    ]
+
     this.state = {
-      options: {
-        mode
-      }
+      options: { mode, fill }
     }
   }
 
@@ -88,6 +96,14 @@ class Dataset extends Component {
           value={config.mode}
           onChange={this.props.onChange}
           options={this.state.options.mode}
+        />
+      </GridRow>
+      <GridRow inline label='fill'>
+        <Dropdown
+          name={`${name}.fill`}
+          value={config.fill}
+          onChange={this.props.onChange}
+          options={this.state.options.fill}
         />
       </GridRow>
       <Line
