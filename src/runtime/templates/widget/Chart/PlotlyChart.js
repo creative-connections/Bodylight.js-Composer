@@ -132,11 +132,12 @@ export default class PlotlyChart extends Widget {
           y1: shape.y1.value,
           visible: shape.visible.value,
           opacity: shape.opacity.value,
+          fillcolor: shape.fillcolor.value,
           line: {
             color: shape.color.value,
             width: shape.width.value,
             dash: shape.dash.value
-          }
+          },
         }
         index++
       })

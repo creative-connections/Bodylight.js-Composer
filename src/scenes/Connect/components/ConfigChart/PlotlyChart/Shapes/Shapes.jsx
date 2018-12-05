@@ -7,16 +7,16 @@ import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
 import update from 'immutability-helper'
 
-import Line from './Line'
+import Shape from './Shape'
 
 class Shapes extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-    this.handleAddLine = this.handleAddLine.bind(this)
+    this.handleAddShape = this.handleAddShape.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
   }
 
-  handleAddLine () {
+  handleAddShape() {
     let shapes = this.props.config
     const id = generateID()
 
@@ -76,6 +76,13 @@ class Shapes extends Component {
         provider: null,
         'function': 'value => value'
       },
+      fillcolor: {
+        typeof: 'color',
+        value: '#FF0000',
+        complex: false,
+        provider: null,
+        'function': 'value => value'
+      },
       width: {
         typeof: 'number',
         value: 1.5,
@@ -94,41 +101,37 @@ class Shapes extends Component {
     }
 
     shapes = update(shapes, {
-      [id]: {$set: defaultConfig}
+      [id]: { $set: defaultConfig }
     })
 
-    this.props.onChange(null, {name: this.props.name, value: shapes})
+    this.props.onChange(null, { name: this.props.name, value: shapes })
   }
 
-  handleRemove (e, {name, value}) {
+  handleRemove(e, { name, value }) {
     const shapes = update(this.props.config, { $unset: [name] })
-    this.props.onChange(e, {name: this.props.name, value: shapes})
+    this.props.onChange(e, { name: this.props.name, value: shapes })
   }
 
-  renderShapes () {
+  renderShapes() {
     const out = []
     Object.entries(this.props.config).forEach(([id, shape]) => {
-      if (shape.type === 'line') {
-        out.push(
-          <Collapsable title='line' className='secondary' collapsed={true}>
-            <Line key={id}
-              name={`${this.props.name}.${id}`}
-              config={shape}
-              onChange={this.props.onChange}
-              onRemove={this.handleRemove}
-            />
-          </Collapsable>
-        )
-      }
+      out.push(<Collapsable key={id} title={shape.type} className='secondary' collapsed={true}>
+        <Shape
+          name={`${this.props.name}.${id}`}
+          config={shape}
+          onChange={this.props.onChange}
+          onRemove={this.handleRemove}
+        />
+      </Collapsable>)
     })
     return out
   }
 
-  render () {
+  render() {
     return <Fragment>
       {this.renderShapes()}
       <GridRow label='' compact={true}>
-        <ButtonLink onClick={this.handleAddLine}>Add line</ButtonLink>
+        <ButtonLink onClick={this.handleAddShape}>Add shape</ButtonLink>
       </GridRow>
     </Fragment>
   }

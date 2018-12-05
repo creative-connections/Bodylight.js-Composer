@@ -1,49 +1,55 @@
 import React, { Component, Fragment } from 'react'
-import { Dropdown, Grid, Input, Header, Divider } from 'semantic-ui-react'
+import { Dropdown, Input } from 'semantic-ui-react'
 
 import ComplexAttribute from '../../../ComplexAttribute'
 import GridRow from '../../../GridRow'
 import ButtonLink from '@components/ButtonLink'
-import generateID from '@helpers/generateID'
-import update from 'immutability-helper'
 
-class Line extends Component {
-  constructor (props) {
+class Shape extends Component {
+  constructor(props) {
     super(props)
 
     const layer = [
-      {key: 'above', text: 'Draw above traces', value: 'above'},
-      {key: 'below', text: 'Draw below traced', value: 'below'}
+      { key: 'above', text: 'Draw above traces', value: 'above' },
+      { key: 'below', text: 'Draw below traces', value: 'below' }
     ]
     const xref = [
-      {key: 'x', text: 'Referenced to x axis', value: 'x'},
-      {key: 'paper', text: 'Referenced to drawing area (0-1)', value: 'paper'}
+      { key: 'x', text: 'Referenced to x axis', value: 'x' },
+      { key: 'paper', text: 'Referenced to drawing area (0-1)', value: 'paper' }
     ]
     const yref = [
-      {key: 'y', text: 'Referenced to y axis', value: 'y'},
-      {key: 'paper', text: 'Referenced to drawing area (0-1)', value: 'paper'}
+      { key: 'y', text: 'Referenced to y axis', value: 'y' },
+      { key: 'paper', text: 'Referenced to drawing area (0-1)', value: 'paper' }
+    ]
+    const type = [
+      { key: 'line', text: 'line', value: 'line' },
+      { key: 'rect', text: 'rect', value: 'rect' },
     ]
 
     this.state = {
-      options: {
-        layer,
-        xref,
-        yref
-      }
+      options: { layer, xref, yref, type }
     }
   }
 
-  render () {
+  render() {
     const config = this.props.config
     const name = this.props.name
 
     return <Fragment>
-
       <GridRow label='Name'>
         <Input
           name={`${name}.name`}
           value={config.name}
           onChange={this.props.onChange}
+        />
+      </GridRow>
+
+      <GridRow inline label='Type'>
+        <Dropdown
+          name={`${name}.type`}
+          value={config.type}
+          onChange={this.props.onChange}
+          options={this.state.options.type}
         />
       </GridRow>
 
@@ -101,7 +107,7 @@ class Line extends Component {
       <GridRow label='Visible'>
         <ComplexAttribute
           name={`${name}.visible`}
-          label='Line is visible'
+          label='Shape is visible'
           attribute={config.visible}
           onChange={this.props.onChange}
         />
@@ -131,6 +137,14 @@ class Line extends Component {
         />
       </GridRow>
 
+      <GridRow label='Fill color'>
+        <ComplexAttribute
+          name={`${name}.fillcolor`}
+          attribute={config.fillcolor}
+          onChange={this.props.onChange}
+        />
+      </GridRow>
+
       <GridRow label='Width'>
         <ComplexAttribute
           name={`${name}.width`}
@@ -148,11 +162,11 @@ class Line extends Component {
       </GridRow>
 
       <GridRow label='' compact={true}>
-        <ButtonLink name={config.id} onClick={this.props.onRemove}>remove line</ButtonLink>
+        <ButtonLink name={config.id} onClick={this.props.onRemove}>remove shape</ButtonLink>
       </GridRow>
 
     </Fragment>
   }
 }
 
-export default Line
+export default Shape
