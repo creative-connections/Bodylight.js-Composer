@@ -230,7 +230,7 @@ export default class AnimateRuntime {
 
     const blacklist = []
     exportedComponents.forEach(component => {
-      // blacklist parents of extended componetns
+      // blacklist parents of extended components
       if (typeof component[component.name] !== 'undefined') {
         blacklist.push(component[component.name])
       }
