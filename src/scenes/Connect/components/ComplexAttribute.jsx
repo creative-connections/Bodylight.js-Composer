@@ -12,7 +12,7 @@ import ModalIndexPicker from '@components/ModalIndexPicker'
 import ProviderDropdown from './ProviderDropdown'
 
 class ComplexAttribute extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.renderSimple = this.renderSimple.bind(this)
     this.renderComplex = this.renderComplex.bind(this)
@@ -25,7 +25,7 @@ class ComplexAttribute extends Component {
     this.onChangeProvider = this.onChangeProvider.bind(this)
   }
 
-  renderValueInput () {
+  renderValueInput() {
     const attribute = this.props.attribute
     const name = this.props.name
     const label = this.props.label
@@ -64,14 +64,14 @@ class ComplexAttribute extends Component {
     return `Attribute type ${attribute.typeof} is not implemented yet`
   }
 
-  renderSimple () {
+  renderSimple() {
     if (this.props.attribute.complex === true || this.props.complex) {
       return null
     }
     return this.renderValueInput()
   }
 
-  onChangeProvider (e, v) {
+  onChangeProvider(e, v) {
     // reset default states
     this.props.onChange(e, {
       name: `${this.props.name}.function`,
@@ -88,7 +88,7 @@ class ComplexAttribute extends Component {
     this.props.onChange(e, v)
   }
 
-  renderComplex () {
+  renderComplex() {
     if (this.props.attribute.complex === false || this.props.simple) {
       return null
     }
@@ -104,7 +104,7 @@ class ComplexAttribute extends Component {
     </Fragment>
   }
 
-  addFunction () {
+  addFunction() {
     const values = {
       boolean: 'value => true;',
       number: 'value => value;',
@@ -117,7 +117,7 @@ class ComplexAttribute extends Component {
     })
   }
 
-  renderFunction () {
+  renderFunction() {
     if (this.props.nofunc || this.props.attribute.array) {
       return null
     }
@@ -135,7 +135,7 @@ class ComplexAttribute extends Component {
     }
   }
 
-  onIsArrayChange (e, v) {
+  onIsArrayChange(e, v) {
     // on array set, disable function
     if (v.checked === true) {
       this.props.onChange(e, {
@@ -152,7 +152,7 @@ class ComplexAttribute extends Component {
     this.props.onChange(e, v)
   }
 
-  renderArray () {
+  renderArray() {
     if (!this.props.array || !this.props.attribute.provider ||
       typeof this.props.attribute.provider !== 'string') {
       return null
@@ -179,7 +179,7 @@ class ComplexAttribute extends Component {
     </Fragment>
   }
 
-  renderComplexCheckbox () {
+  renderComplexCheckbox() {
     // do not show when we are forcing either simple or complex
     if (this.props.simple || this.props.complex) {
       return null
@@ -194,7 +194,7 @@ class ComplexAttribute extends Component {
     </div>
   }
 
-  render () {
+  render() {
     return <Fragment>
       {this.renderSimple()}
       {this.renderComplex()}

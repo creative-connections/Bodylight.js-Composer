@@ -58,6 +58,13 @@ class Datasets extends Component {
       mode: 'lines',
       fill: 'none',
       other: '() => ({})',
+      offset: {
+        typeof: 'number',
+        value: 0,
+        complex: false,
+        provider: null,
+        'function': 'value => value'
+      },
       line: {
         color: color,
         width: 2,

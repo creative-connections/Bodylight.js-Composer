@@ -94,6 +94,13 @@ export default class PlotlyChart extends Widget {
             this.datasets[dataset].maxSamples.value = this.datasets[dataset].maxSamples.function(this.datasets[dataset].maxSamples.value)
           }
         }
+      },
+      offset: (dataset) => {
+        if (dataset) {
+          if (this.datasets[dataset].offset.function !== null) {
+            this.datasets[dataset].offset.value = this.datasets[dataset].offset.function(this.datasets[dataset].offset.value)
+          }
+        }
       }
     }
   }
@@ -137,6 +144,10 @@ export default class PlotlyChart extends Widget {
         })
         index++
       })
+
+      this.shapes = this.shapes || {}
+      this.annotations = this.annotations || {}
+      this.images = this.images || {}
 
       this.shapeIndexes = []
       const shapes = []
@@ -337,14 +348,29 @@ export default class PlotlyChart extends Widget {
     this.perf.stop(this.id, 'updateTrace')
   }
 
+  offsetArrayTime(attribute, array, time) {
+    const attr = JSON.parse(attribute)
+    if (Array.isArray(time) === false) {
+      time = [...Array(array.length).keys()]
+    }
+
+    const dataset = this.datasets[attr.dataset]
+    if (dataset.offset != null && dataset.offset.value > 0) {
+      time = time.map(val => parseFloat(val) + parseFloat(dataset.offset.value))
+    }
+
+    return time
+  }
+
   setArray(attribute, array, time) {
+    time = this.offsetArrayTime(attribute, array, time)
     this.setValue(attribute, array, time)
   }
 
   setArrays(attribute, arrays, times) {
     // draw only the last array
     const array = arrays[arrays.length - 1]
-    const time = times[times.length - 1]
+    const time = this.offsetArrayTime(attribute, array, times[times.length - 1])
     this.setValues(attribute, array, time)
   }
 
