@@ -10,17 +10,19 @@ export default class PlotlyChart extends Widget {
       this.addValueProvider(JSON.stringify({ dataset: id, type: 'maxSamples' }), dataset.maxSamples.provider)
     })
 
-    this.initShapes()
+    this.initAdditionals('shapes', this.shapes, this.shapeIndexes)
+
 
     this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
   }
 
-  initShapes() {
-    const shapes = Object.values(this.shapes)
-    if (shapes.length === 0) { return }
+  // Initializes setters for shapes, annotations, etc.
+  initAdditionals(identifier, config, indexes) {
+    const items = Object.values(config)
+    if (items.length === 0) { return }
 
     const complex = []
-    Object.entries(shapes[0]).forEach(([key, value]) => {
+    Object.entries(items[0]).forEach(([key, value]) => {
       if (typeof value['complex'] !== 'undefined' && value['complex']) {
         complex.push(key)
       }
@@ -28,33 +30,34 @@ export default class PlotlyChart extends Widget {
 
     // create setter for each complex attribute
     complex.forEach(name => {
-      this.setters[`shape-${name}`] = (shape) => {
-        if (shape == null) { return }
+      this.setters[`${identifier}-${name}`] = (item) => {
+        if (item == null) { return }
 
-        const attr = this.shapes[shape][name]
+        const attr = config[item][name]
         if (attr.function !== null) {
           attr.value = attr.function(attr.value)
         }
 
-        const shapeIdentifier = `shapes[${this.shapeIndexes[shape]}].${name}`
+        const itemIdentifier = `${identifier}[${indexes[item]}].${name}`
         Plotly.relayout(this.plotly, {
-          [shapeIdentifier]: attr.value
+          [itemIdentifier]: attr.value
         })
       }
     })
 
     // register provider
-    Object.entries(this.shapes).forEach(([id, shape]) => {
+    Object.entries(config).forEach(([id, item]) => {
       complex.forEach(name => {
-        if (shape[name].provider) {
-          this.addValueProvider(JSON.stringify({ shape: id, setter: `shape-${name}`, name }), shape[name].provider)
+        if (item[name].provider) {
+          this.addValueProvider(JSON.stringify({
+            identifier,
+            id,
+            setter: `${identifier}-${name}`,
+            name
+          }), item[name].provider)
         }
       })
     })
-  }
-
-  initAnnotations() {
-
   }
 
   setValueProvider(attribute, id, target) {
@@ -311,10 +314,10 @@ export default class PlotlyChart extends Widget {
         this.setters[attr.type](attr.dataset)
         return
       }
-      // attribute is shape
-      if (attr.shape) {
-        this.shapes[attr.shape][attr.name].value = lastValue
-        this.setters[attr.setter](attr.shape)
+      // attribute is item
+      if (attr.identifier) {
+        this[attr.identifier][attr.id][attr.name].value = lastValue
+        this.setters[attr.setter](attr.id)
       }
     }
   }
@@ -338,9 +341,9 @@ export default class PlotlyChart extends Widget {
         return
       }
       // attribute is shape
-      if (attr.shape) {
-        this.shapes[attr.shape][attr.name].value = value
-        this.setters[attr.setter](attr.shape)
+      if (attr.identifier) {
+        this[attr.identifier][attr.id][attr.name].value = value
+        this.setters[attr.setter](attr.id)
         return
       }
     }
