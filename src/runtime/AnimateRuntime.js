@@ -1,5 +1,5 @@
 export default class AnimateRuntime {
-  constructor (name, source, id) {
+  constructor(name, source, id) {
     this.contents = {}
     source(createjs, this.contents)
 
@@ -26,7 +26,7 @@ export default class AnimateRuntime {
     this.initialized = false
   }
 
-  init (canvas, autoplay = false) {
+  init(canvas, autoplay = false) {
     this.canvas = canvas
     this.canvas.style.display = 'block'
 
@@ -63,14 +63,14 @@ export default class AnimateRuntime {
     })
   }
 
-  getComponents () {
+  getComponents() {
     if (typeof this.components !== 'undefined') {
       return this.components
     }
     return []
   }
 
-  destroy () {
+  destroy() {
     if (this.initialized) {
       this.stopListeners()
       this.stage.clear()
@@ -78,7 +78,7 @@ export default class AnimateRuntime {
     }
   }
 
-  attachCanvas (canvas) {
+  attachCanvas(canvas) {
     this.stopListeners()
     this.stage.enableDOMEvents(false)
     this.stage.canvas = canvas
@@ -87,7 +87,7 @@ export default class AnimateRuntime {
     this.startListeners()
   }
 
-  detachCanvas () {
+  detachCanvas() {
     this.stopListeners()
     this.stage.enableDOMEvents(false)
     this.stage.canvas = null
@@ -95,15 +95,15 @@ export default class AnimateRuntime {
     this.stage.enableDOMEvents(true)
   }
 
-  startListeners () {
+  startListeners() {
     createjs.Ticker.addEventListener('tick', this.handleTick)
   }
 
-  stopListeners () {
+  stopListeners() {
     createjs.Ticker.removeEventListener('tick', this.handleTick)
   }
 
-  handleTick () {
+  handleTick() {
     if (this.perf) { this.perf.start(this.id, 'update') }
 
     // Animate 2019 Support
@@ -116,7 +116,7 @@ export default class AnimateRuntime {
     if (this.perf) { this.perf.stop(this.id, 'update') }
   }
 
-  ZDepthHandleTick () {
+  ZDepthHandleTick() {
     const cameraInstance = this.root.___camera___instance
     if (cameraInstance !== undefined && cameraInstance.pinToObject !== undefined) {
       cameraInstance.x = cameraInstance.pinToObject.x + cameraInstance.pinToObject.pinOffsetX
@@ -128,7 +128,7 @@ export default class AnimateRuntime {
     this.applyLayerZDepth(this.root)
   }
 
-  applyLayerZDepth (parent) {
+  applyLayerZDepth(parent) {
     const cameraInstance = parent.___camera___instance
     const focalLength = 528.25
     const projectionCenter = { 'x': 0, 'y': 0 }
@@ -184,7 +184,7 @@ export default class AnimateRuntime {
     }
   }
 
-  getProjectionMatrix (container, totalDepth) {
+  getProjectionMatrix(container, totalDepth) {
     const focalLength = 528.25
     const projectionCenter = { x: this.library.properties.width / 2, y: this.library.properties.height / 2 }
     const scale = (totalDepth + focalLength) / focalLength
@@ -200,33 +200,41 @@ export default class AnimateRuntime {
     return projMat
   }
 
-  attachExportedComponents (library) {
+  attachExportedComponents(library) {
     this.exportedComponents = []
     library.addExportedComponent = component => {
       this.exportedComponents.push(component)
     }
   }
 
-  getNameSuffix (name) {
+  getNameSuffix(name) {
     if (!name) {
       return null
     }
     return name.substr(name.lastIndexOf('_') + 1, name.length)
   }
 
-  getNameWithoutSuffix (name) {
+  getNameWithoutSuffix(name) {
     if (!name) {
       return null
     }
     return name.substr(0, name.lastIndexOf('_'))
   }
 
-  filterExportedComponents (exportedComponents) {
+  filterExportedComponents(exportedComponents) {
     const components = {
       'anim': {},
       'text': {},
       'play': []
     }
+
+    const blacklist = []
+    exportedComponents.forEach(component => {
+      // blacklist parents of extended componetns
+      if (typeof component[component.name] !== 'undefined') {
+        blacklist.push(component[component.name])
+      }
+    })
 
     exportedComponents.forEach(component => {
       const suffix = this.getNameSuffix(component.name)
@@ -235,6 +243,8 @@ export default class AnimateRuntime {
           components['play'].push(component)
           return
         }
+
+        if (blacklist.includes(component)) { return }
 
         if (typeof components[suffix][component.name] !== 'undefined') {
           // at that point it's out of scope of the composer anyway
@@ -255,7 +265,7 @@ export default class AnimateRuntime {
     return components
   }
 
-  blink (widget) {
+  blink(widget) {
     if (this.highlighted) {
       const component = this.highlighted.component
       window.clearInterval(this.highlighted.blinker)
@@ -301,7 +311,7 @@ export default class AnimateRuntime {
     }
   }
 
-  registerClickHandler (handler) {
+  registerClickHandler(handler) {
     this.deregisterClickHandlers()
 
     const register = component => {
@@ -316,18 +326,18 @@ export default class AnimateRuntime {
     Object.values(this.components.text).forEach(text => register(text))
   }
 
-  deregisterClickHandlers () {
+  deregisterClickHandlers() {
     if (this.onDblclickHandlers == null) {
       this.onDblclickHandlers = []
       return
     }
-    this.onDblclickHandlers.forEach(({handler, component}) => {
+    this.onDblclickHandlers.forEach(({ handler, component }) => {
       component.off('dblclick', handler)
     })
     this.onDblclickHandlers = []
   }
 
-  resize () {
+  resize() {
     // noop if render size didn't change
     if (this.prevClientWidth === this.canvas.clientWidth &&
       this.prevClientHeight === this.canvas.clientHeight) {
@@ -374,7 +384,7 @@ export default class AnimateRuntime {
    * Initializes a virutal Runtime and determines the component names.
    * Returns Promise with {category: [comp1, comp2,...]} on resolve
    */
-  static getComponentNames (source, name) {
+  static getComponentNames(source, name) {
     return new Promise((resolve, reject) => {
       // init new runtime to fill library with components
       let runtime
@@ -404,7 +414,7 @@ export default class AnimateRuntime {
     })
   }
 
-  static functionalizeSource (source) {
+  static functionalizeSource(source) {
     return Function(`"use strict"; return(${source})`)()
   }
 }
