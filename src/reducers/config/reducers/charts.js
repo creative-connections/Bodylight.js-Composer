@@ -27,6 +27,7 @@ import update from 'immutability-helper'
 const plotlyConfig = {
   datasets: {},
   shapes: {},
+  annotations: {},
   xaxis: {
     visible: true,
     color: '#444',
@@ -270,6 +271,7 @@ const updateWidgetChart = (state, payload, type) => {
     newconfig = update(newconfig, {
       datasets: { $set: plotlyConfig.datasets },
       shapes: { $set: plotlyConfig.shapes },
+      annotations: { $set: plotlyConfig.annotations },
       xaxis: { $set: plotlyConfig.xaxis },
       yaxis: { $set: plotlyConfig.yaxis }
     })

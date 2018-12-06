@@ -11,6 +11,7 @@ export default class PlotlyChart extends Widget {
     })
 
     this.initAdditionals('shapes', this.shapes, this.shapeIndexes)
+    this.initAdditionals('annotations', this.annotations, this.annotationIndexes)
 
 
     this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
@@ -18,6 +19,7 @@ export default class PlotlyChart extends Widget {
 
   // Initializes setters for shapes, annotations, etc.
   initAdditionals(identifier, config, indexes) {
+    if (config == null) { return }
     const items = Object.values(config)
     if (items.length === 0) { return }
 
@@ -163,6 +165,34 @@ export default class PlotlyChart extends Widget {
         index++
       })
 
+      this.annotationIndexes = []
+      const annotations = []
+      index = 1
+      Object.entries(this.annotations).forEach(([id, annotation]) => {
+        this.annotationIndexes[id] = index
+
+        annotations[index] = {
+          xref: annotation.xref,
+          yref: annotation.yref,
+          x: annotation.x.value,
+          y: annotation.y.value,
+          visible: annotation.visible.value,
+          opacity: annotation.opacity.value,
+          font: {
+            family: annotation.family.value,
+            size: annotation.size.value,
+            color: annotation.color.value,
+          },
+          bgcolor: annotation.bgcolor.value,
+          bordercolor: annotation.bordercolor.value,
+          width: annotation.width.value,
+          height: annotation.height.value,
+          text: annotation.text.value,
+          showarrow: false
+        }
+        index++
+      })
+
       const layout = {
         xaxis: this.xaxis,
         yaxis: this.yaxis,
@@ -173,7 +203,8 @@ export default class PlotlyChart extends Widget {
           t: 20,
           pad: 4
         },
-        shapes: shapes
+        shapes,
+        annotations
       }
       const config = {
         'displayModeBar': false

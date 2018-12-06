@@ -7,6 +7,7 @@ import Events from '../../Events'
 
 import Datasets from './Datasets'
 import Shapes from './Shapes'
+import Annotations from './Annotations'
 import Axis from '../components/Axis'
 
 const PlotlyChart = props => {
@@ -38,6 +39,10 @@ const PlotlyChart = props => {
 
       <Collapsable title='Shapes' className='primary' collapsed={true}>
         <Shapes name='shapes' config={config.shapes} onChange={props.onChange}/>
+      </Collapsable>
+
+      <Collapsable title='Annotations' className='primary' collapsed={true}>
+        <Annotations name='annotations' config={config.annotations} onChange={props.onChange}/>
       </Collapsable>
 
       <Events widget={props.chart} config={config} />

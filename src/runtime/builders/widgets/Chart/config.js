@@ -7,22 +7,10 @@ import functionalizeTree from '../functionalizeTree'
 import processAction from '../processAction'
 
 const processPlotly = (name, configuration) => {
-  configuration.attributes.forEach(attribute => {
-    configuration = functionalize(configuration, attribute)
-  })
+  configuration = functionalizeTree(configuration)
 
-  // functionalize datasets
   let datasets = configuration.datasets
-  Object.entries(datasets).forEach(([id, dataset]) => {
-    datasets = update(datasets, {
-      [id]: { $set: functionalize(datasets[id], 'x') }
-    })
-    datasets = update(datasets, {
-      [id]: { $set: functionalize(datasets[id], 'y') }
-    })
-    datasets = update(datasets, {
-      [id]: { $set: functionalize(datasets[id], 'maxSamples') }
-    })
+  Object.entries(datasets).forEach(([id]) => {
     // unpack other
     const other = new Function(`return ${datasets[id].other}`)()()
     datasets = update(datasets, {
@@ -30,30 +18,8 @@ const processPlotly = (name, configuration) => {
     })
   })
 
-  const shapesHelper = (shapes, id, name) => {
-    return update(shapes, {
-      [id]: { $set: functionalize(shapes[id], name) }
-    })
-  }
-
-  // functionalize shapes
-  let shapes = configuration.shapes
-  Object.entries(shapes).forEach(([id, shape]) => {
-    shapes = shapesHelper(shapes, id, 'x0')
-    shapes = shapesHelper(shapes, id, 'x1')
-    shapes = shapesHelper(shapes, id, 'y0')
-    shapes = shapesHelper(shapes, id, 'y1')
-    shapes = shapesHelper(shapes, id, 'visible')
-    shapes = shapesHelper(shapes, id, 'opacity')
-    shapes = shapesHelper(shapes, id, 'layer')
-    shapes = shapesHelper(shapes, id, 'color')
-    shapes = shapesHelper(shapes, id, 'width')
-    shapes = shapesHelper(shapes, id, 'dash')
-  })
-
   configuration = update(configuration, {
     datasets: { $set: datasets },
-    shapes: { $set: shapes }
   })
 
   Object.entries(configuration.actions).forEach(([key, action]) => {
