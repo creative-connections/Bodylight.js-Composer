@@ -10,33 +10,51 @@ export default class PlotlyChart extends Widget {
       this.addValueProvider(JSON.stringify({ dataset: id, type: 'maxSamples' }), dataset.maxSamples.provider)
     })
 
-    this.shapeComplexNames = ['x0', 'x1', 'y0', 'y1', 'visible', 'opacity', 'color', 'width', 'dash']
+    this.initShapes()
 
-    // fill additional missing setters for shapes
-    this.shapeComplexNames.forEach(name => {
-      this.setters[`shape-${name}`] = (shape) => {
-        if (!shape) {
-          return
-        }
-        if (this.shapes[shape][name].function !== null) {
-          this.shapes[shape][name].value = this.shapes[shape][name].function(this.shapes[shape][name].value)
-        }
+    this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
+  }
 
-        const shapeIdentifier = `shapes[${this.shapeIndexes[shape]}].${name}`
-        const layout = {
-          [shapeIdentifier]: this.shapes[shape][name].value
-        }
-        Plotly.relayout(this.plotly, layout)
+  initShapes() {
+    const shapes = Object.values(this.shapes)
+    if (shapes.length === 0) { return }
+
+    const complex = []
+    Object.entries(shapes[0]).forEach(([key, value]) => {
+      if (typeof value['complex'] !== 'undefined' && value['complex']) {
+        complex.push(key)
       }
     })
 
-    Object.entries(this.shapes).forEach(([id, shape]) => {
-      this.shapeComplexNames.forEach(name => {
-        this.addValueProvider(JSON.stringify({ shape: id, setter: `shape-${name}`, name }), shape[name].provider)
-      })
+    // create setter for each complex attribute
+    complex.forEach(name => {
+      this.setters[`shape-${name}`] = (shape) => {
+        if (shape == null) { return }
+
+        const attr = this.shapes[shape][name]
+        if (attr.function !== null) {
+          attr.value = attr.function(attr.value)
+        }
+
+        const shapeIdentifier = `shapes[${this.shapeIndexes[shape]}].${name}`
+        Plotly.relayout(this.plotly, {
+          [shapeIdentifier]: attr.value
+        })
+      }
     })
 
-    this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
+    // register provider
+    Object.entries(this.shapes).forEach(([id, shape]) => {
+      complex.forEach(name => {
+        if (shape[name].provider) {
+          this.addValueProvider(JSON.stringify({ shape: id, setter: `shape-${name}`, name }), shape[name].provider)
+        }
+      })
+    })
+  }
+
+  initAnnotations() {
+
   }
 
   setValueProvider(attribute, id, target) {
