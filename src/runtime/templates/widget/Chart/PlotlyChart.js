@@ -12,6 +12,7 @@ export default class PlotlyChart extends Widget {
 
     this.initAdditionals('shapes', this.shapes, this.shapeIndexes)
     this.initAdditionals('annotations', this.annotations, this.annotationIndexes)
+    this.initAdditionals('images', this.images, this.imageIndexes)
 
 
     this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
@@ -193,6 +194,30 @@ export default class PlotlyChart extends Widget {
         index++
       })
 
+      this.imageIndexes = []
+      const images = []
+      index = 1
+      Object.entries(this.images).forEach(([id, image]) => {
+        this.imageIndexes[id] = index
+        images[index] = {
+          name: image.name,
+          source: image.source,
+          xref: image.xref,
+          yref: image.yref,
+          sizing: image.sizing,
+          x: image.x.value,
+          y: image.y.value,
+          sizex: image.sizex.value,
+          sizey: image.sizey.value,
+          visible: image.visible.value,
+          opacity: image.opacity.value,
+          layer: image.layer,
+          xanchor: image.xanchor,
+          yanchor: image.yanchor
+        }
+        index++
+      })
+
       const layout = {
         xaxis: this.xaxis,
         yaxis: this.yaxis,
@@ -204,7 +229,8 @@ export default class PlotlyChart extends Widget {
           pad: 4
         },
         shapes,
-        annotations
+        annotations,
+        images
       }
       const config = {
         'displayModeBar': false

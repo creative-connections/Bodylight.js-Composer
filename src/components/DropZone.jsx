@@ -18,8 +18,7 @@ const DropZone = ({
       accept={accept}
       className={className}
     >
-      <div>{'Drop files here or click to upload.'}</div>
-      <div><Image src={imgSrc} size='small'/></div>
+      {imgSrc != null && <div><Image src={imgSrc} size='small'/></div>}
       <div className='description'>{description}</div>
     </Dropzone>
   </div>

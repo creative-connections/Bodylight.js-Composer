@@ -96,18 +96,16 @@ iframe.preview {
 
 
   .dropzone {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    margin-bottom: 5px;
     border: 2px dashed #AAA;
     border-radius: 5px;
 
-    display:flex;
+    display:  flex;
     flex-direction: column;
     align-items: center;
 
     font-size: 1.8em;
-    padding: 54px 54px;
 
     div {
       margin: 1.5em;
@@ -115,7 +113,6 @@ iframe.preview {
 
     div.description {
       font-size: 0.7em;
-      color: #555;
     }
   }
 
@@ -393,9 +390,9 @@ div#main-menu {
     border: 1px solid rgba(0, 0, 0, 0.25);
     padding: 5px 5px;
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    //display: flex;
+    //flex-direction: row;
+    //flex-wrap: wrap;
   }
 
   div.row.light div.row-content{

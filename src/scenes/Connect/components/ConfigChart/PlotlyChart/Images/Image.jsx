@@ -5,7 +5,9 @@ import ComplexAttribute from '../../../ComplexAttribute'
 import GridRow from '../../../GridRow'
 import ButtonLink from '@components/ButtonLink'
 
-class Annotation extends Component {
+import Source from './Source'
+
+class Image extends Component {
   constructor(props) {
     super(props)
 
@@ -17,9 +19,28 @@ class Annotation extends Component {
       { key: 'y', text: 'Referenced to y axis', value: 'y' },
       { key: 'paper', text: 'Referenced to drawing area (0-1)', value: 'paper' }
     ]
+    const layer = [
+      { key: 'below', text: 'Below', value: 'below' },
+      { key: 'above', text: 'Above', value: 'above' },
+    ]
+    const xanchor = [
+      { key: 'left', text: 'Left', value: 'left' },
+      { key: 'center', text: 'Center', value: 'center' },
+      { key: 'right', text: 'Right', value: 'right' },
+    ]
+    const yanchor = [
+      { key: 'top', text: 'Top', value: 'top' },
+      { key: 'middle', text: 'Middle', value: 'middle' },
+      { key: 'bottom', text: 'Bottom', value: 'bottom' },
+    ]
+    const sizing = [
+      { key: 'fill', text: 'Fill', value: 'fill' },
+      { key: 'contain', text: 'Contain', value: 'contain' },
+      { key: 'stretch', text: 'Stretch', value: 'stretch' },
+    ]
 
     this.state = {
-      options: { xref, yref }
+      options: { xref, yref, layer, xanchor, yanchor, sizing }
     }
   }
 
@@ -28,13 +49,22 @@ class Annotation extends Component {
     const name = this.props.name
 
     return <Fragment>
-      <GridRow border label='text'>
-        <ComplexAttribute
-          name={`${name}.text`}
-          attribute={config.text}
+      <GridRow label='Name'>
+        <Input
+          name={`${name}.name`}
+          value={config.name}
           onChange={this.props.onChange}
         />
       </GridRow>
+
+      <GridRow border label='source'>
+        <Source
+          name={`${name}.source`}
+          value={config.source}
+          onChange={this.props.onChange}
+          />
+      </GridRow>
+
       <GridRow border label='x'>
         <ComplexAttribute
           name={`${name}.x`}
@@ -58,7 +88,6 @@ class Annotation extends Component {
           options={this.state.options.xref}
         />
       </GridRow>
-
       <GridRow label='y reference'>
         <Dropdown
           name={`${name}.yref`}
@@ -68,38 +97,17 @@ class Annotation extends Component {
         />
       </GridRow>
 
-      <GridRow border label='Font family'>
+      <GridRow border label='Size x'>
         <ComplexAttribute
-          name={`${name}.family`}
-          attribute={config.family}
+          name={`${name}.sizex`}
+          attribute={config.sizex}
           onChange={this.props.onChange}
         />
       </GridRow>
-      <GridRow border label='Color'>
+      <GridRow border label='Size y'>
         <ComplexAttribute
-          name={`${name}.color`}
-          attribute={config.color}
-          onChange={this.props.onChange}
-        />
-      </GridRow>
-      <GridRow border label='Background color'>
-        <ComplexAttribute
-          name={`${name}.bgcolor`}
-          attribute={config.bgcolor}
-          onChange={this.props.onChange}
-        />
-      </GridRow>
-      <GridRow border label='Border color'>
-        <ComplexAttribute
-          name={`${name}.bordercolor`}
-          attribute={config.bordercolor}
-          onChange={this.props.onChange}
-        />
-      </GridRow>
-      <GridRow border label='Size'>
-        <ComplexAttribute
-          name={`${name}.size`}
-          attribute={config.size}
+          name={`${name}.sizey`}
+          attribute={config.sizey}
           onChange={this.props.onChange}
         />
       </GridRow>
@@ -120,27 +128,48 @@ class Annotation extends Component {
         />
       </GridRow>
 
-      <GridRow border label='Width'>
-        <ComplexAttribute
-          name={`${name}.width`}
-          attribute={config.width}
+      <GridRow label='Layer'>
+        <Dropdown
+          name={`${name}.layer`}
+          value={config.layer}
           onChange={this.props.onChange}
-        />
-      </GridRow>
-      <GridRow border label='Height'>
-        <ComplexAttribute
-          name={`${name}.height`}
-          attribute={config.height}
-          onChange={this.props.onChange}
+          options={this.state.options.layer}
         />
       </GridRow>
 
+      <GridRow label='Sizing'>
+        <Dropdown
+          name={`${name}.sizing`}
+          value={config.sizing}
+          onChange={this.props.onChange}
+          options={this.state.options.sizing}
+        />
+      </GridRow>
+
+      <GridRow label='X anchor'>
+        <Dropdown
+          name={`${name}.xanchor`}
+          value={config.xanchor}
+          onChange={this.props.onChange}
+          options={this.state.options.xanchor}
+        />
+      </GridRow>
+      <GridRow label='Y anchor'>
+        <Dropdown
+          name={`${name}.yanchor`}
+          value={config.yanchor}
+          onChange={this.props.onChange}
+          options={this.state.options.yanchor}
+        />
+      </GridRow>
+
+
       <GridRow label='' compact={true}>
-        <ButtonLink name={config.id} onClick={this.props.onRemove}>remove annotation</ButtonLink>
+        <ButtonLink name={config.id} onClick={this.props.onRemove}>remove image</ButtonLink>
       </GridRow>
 
     </Fragment>
   }
 }
 
-export default Annotation
+export default Image
