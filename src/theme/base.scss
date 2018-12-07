@@ -385,6 +385,40 @@ div#main-menu {
   font-size: 10px;
   text-align: left;
 
+  div.complex-attribute {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .inputs {
+      flex-grow: 1;
+    }
+
+    .buttons {
+      margin-left: 0.3em
+    }
+
+    .complex-button {
+      display: inline-block;
+      font-size: 15px;
+
+      padding: 0.2em 0.26em;
+      margin: 0;
+      color: white;
+      height: auto;
+      width: auto;
+      opacity: 0.5;
+
+      &.active {
+        color: #d278c9;
+        background-color: rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.25) inset;
+      }
+    }
+
+
+  }
+
   div.row.dark div.row-content{
     background-color: rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.25);
@@ -407,23 +441,9 @@ div#main-menu {
     margin-top: 8px;
     margin-bottom: 8px;
     margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 5px;
 
     div.row-content {
-      div.input {
-        width: 100%;
-        padding-right: 2px;
-      }
-
-      .complex-checkbox {
-        display: inline-block;
-        margin: auto;
-        padding-left: 2px;
-        text-align: right;
-        * {
-          font-size: 10px;
-        }
-      }
 
       .provider-dropdown {
         width: 100%;

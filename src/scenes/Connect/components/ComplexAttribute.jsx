@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Checkbox, Input } from 'semantic-ui-react'
+import { Checkbox, Input, Icon } from 'semantic-ui-react'
 import { getArrayProvidersFromProvider } from '@reducers'
 
 import InputFloat from '@components/InputFloat'
@@ -14,15 +14,10 @@ import ProviderDropdown from './ProviderDropdown'
 class ComplexAttribute extends Component {
   constructor(props) {
     super(props)
-    this.renderSimple = this.renderSimple.bind(this)
-    this.renderComplex = this.renderComplex.bind(this)
-    this.renderValueInput = this.renderValueInput.bind(this)
-    this.renderComplexCheckbox = this.renderComplexCheckbox.bind(this)
-    this.renderFunction = this.renderFunction.bind(this)
-    this.renderArray = this.renderArray.bind(this)
     this.addFunction = this.addFunction.bind(this)
     this.onIsArrayChange = this.onIsArrayChange.bind(this)
     this.onChangeProvider = this.onChangeProvider.bind(this)
+    this.toggleComplex = this.toggleComplex.bind(this)
   }
 
   renderValueInput() {
@@ -179,26 +174,36 @@ class ComplexAttribute extends Component {
     </Fragment>
   }
 
-  renderComplexCheckbox() {
+  toggleComplex(e) {
+    this.props.onChange(e, {
+      name: `${this.props.name}.complex`,
+      value: !this.props.attribute.complex
+    })
+  }
+
+  renderComplexButton() {
     // do not show when we are forcing either simple or complex
     if (this.props.simple || this.props.complex) {
       return null
     }
 
-    return <div className='complex-checkbox'>
-      <Checkbox label='provided'
-        name={`${this.props.name}.complex`}
-        checked={this.props.attribute.complex}
-        onChange={this.props.onChange}
-      />
-    </div>
+    return <Icon name='plug' link
+      className={this.props.attribute.complex ? 'complex-button active' : 'complex-button'}
+      onClick={this.toggleComplex}
+    />
   }
 
   render() {
     return <Fragment>
-      {this.renderSimple()}
-      {this.renderComplex()}
-      {this.renderComplexCheckbox()}
+      <div className='complex-attribute'>
+        <div className='inputs'>
+          {this.renderSimple()}
+          {this.renderComplex()}
+        </div>
+        <div className='buttons'>
+          {this.renderComplexButton()}
+        </div>
+      </div>
     </Fragment>
   }
 }
