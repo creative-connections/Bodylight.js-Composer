@@ -228,14 +228,6 @@ export default class AnimateRuntime {
       'play': []
     }
 
-    const blacklist = []
-    exportedComponents.forEach(component => {
-      // blacklist parents of extended components
-      if (typeof component[component.name] !== 'undefined') {
-        blacklist.push(component[component.name])
-      }
-    })
-
     exportedComponents.forEach(component => {
       const suffix = this.getNameSuffix(component.name)
       if (typeof components[suffix] !== 'undefined') {
@@ -243,8 +235,6 @@ export default class AnimateRuntime {
           components['play'].push(component)
           return
         }
-
-        if (blacklist.includes(component)) { return }
 
         if (typeof components[suffix][component.name] !== 'undefined') {
           // at that point it's out of scope of the composer anyway
