@@ -14,10 +14,10 @@ import ProviderDropdown from './ProviderDropdown'
 class ComplexAttribute extends Component {
   constructor(props) {
     super(props)
-    this.addFunction = this.addFunction.bind(this)
     this.onIsArrayChange = this.onIsArrayChange.bind(this)
     this.onChangeProvider = this.onChangeProvider.bind(this)
     this.toggleComplex = this.toggleComplex.bind(this)
+    this.toggleFunction = this.toggleFunction.bind(this)
   }
 
   renderValueInput() {
@@ -99,28 +99,9 @@ class ComplexAttribute extends Component {
     </Fragment>
   }
 
-  addFunction() {
-    const values = {
-      boolean: 'value => true;',
-      number: 'value => value;',
-      string: 'value => `${value}`'
-    }
-
-    this.props.onChange(null, {
-      name: `${this.props.name}.function`,
-      value: values[this.props.attribute.typeof]
-    })
-  }
-
   renderFunction() {
-    if (this.props.nofunc || this.props.attribute.array) {
-      return null
-    }
-
     // render 'add function' button or function editor
-    if (this.props.attribute.function === null) {
-      return <ButtonLink onClick={() => this.addFunction()}>{'add function'}</ButtonLink>
-    } else {
+    if (this.props.attribute.function != null) {
       return <FunctionEditor
         name={`${this.props.name}.function`}
         value={this.props.attribute.function}
@@ -174,6 +155,29 @@ class ComplexAttribute extends Component {
     </Fragment>
   }
 
+  toggleFunction(e) {
+    const values = {
+      boolean: 'value => true;',
+      number: 'value => value;',
+      string: 'value => `${value}`'
+    }
+
+    this.props.onChange(e, {
+      name: `${this.props.name}.function`,
+      value: this.props.attribute.function == null ? values[this.props.attribute.typeof] : null
+    })
+  }
+
+  renderFunctionButton() {
+    if (this.props.nofunc || this.props.attribute.complex === false || this.props.attribute.array) {
+      return null
+    }
+    return <Icon name='file code' link
+      className={this.props.attribute.function != null ? 'toggle-button active' : 'toggle-button'}
+      onClick={this.toggleFunction}
+    />
+  }
+
   toggleComplex(e) {
     this.props.onChange(e, {
       name: `${this.props.name}.complex`,
@@ -187,8 +191,8 @@ class ComplexAttribute extends Component {
       return null
     }
 
-    return <Icon name='plug' link
-      className={this.props.attribute.complex ? 'complex-button active' : 'complex-button'}
+    return <Icon name='code branch' link
+      className={this.props.attribute.complex ? 'toggle-button active' : 'toggle-button'}
       onClick={this.toggleComplex}
     />
   }
@@ -201,6 +205,7 @@ class ComplexAttribute extends Component {
           {this.renderComplex()}
         </div>
         <div className='buttons'>
+          {this.renderFunctionButton()}
           {this.renderComplexButton()}
         </div>
       </div>

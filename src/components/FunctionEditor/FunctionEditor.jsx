@@ -45,10 +45,8 @@ class FunctionEditor extends Component {
     this.handleEditorChange = this.handleEditorChange.bind(this)
     this.toggleSettings = this.toggleSettings.bind(this)
     this.handleSave = this.handleSave.bind(this)
-    this.handleRemoveFunction = this.handleRemoveFunction.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
     this.handleDisplayEditor = this.handleDisplayEditor.bind(this)
-
   }
 
   generateKey() {
@@ -90,16 +88,6 @@ class FunctionEditor extends Component {
     this.props.onChange(null, {
       name: this.props.name,
       value: this.state.validation.parsed
-    })
-    this.setState({
-      displayEditor: false
-    })
-  }
-
-  handleRemoveFunction() {
-    this.props.onChange(null, {
-      name: this.props.name,
-      value: null
     })
     this.setState({
       displayEditor: false
@@ -165,13 +153,9 @@ class FunctionEditor extends Component {
 
     return (
       <div style={this.props.style}>
-        <Button icon labelPosition='left' onClick={this.handleDisplayEditor}
-          style={{
-          }}
-        >
-          <Icon name='pencil'/>{preview}
+        <Button icon labelPosition='left' onClick={this.handleDisplayEditor}>
+          <Icon name='code'/>{preview}
         </Button>
-        {this.props.disableRemove !== true && <ButtonLink onClick={this.handleRemoveFunction}>{'remove'}</ButtonLink>}
       </div>
     )
   }

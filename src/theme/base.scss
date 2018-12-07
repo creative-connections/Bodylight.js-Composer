@@ -398,11 +398,11 @@ div#main-menu {
       margin-left: 0.3em
     }
 
-    .complex-button {
+    .toggle-button {
       display: inline-block;
       font-size: 15px;
 
-      padding: 0.2em 0.26em;
+      padding: 0.1em 0.26em;
       margin: 0;
       color: white;
       height: auto;
@@ -415,18 +415,16 @@ div#main-menu {
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.25) inset;
       }
     }
+  }
 
-
+  .ui.input {
+    width: 100%;
   }
 
   div.row.dark div.row-content{
     background-color: rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.25);
     padding: 5px 5px;
-
-    //display: flex;
-    //flex-direction: row;
-    //flex-wrap: wrap;
   }
 
   div.row.light div.row-content{
@@ -441,7 +439,7 @@ div#main-menu {
     margin-top: 8px;
     margin-bottom: 8px;
     margin-left: 10px;
-    margin-right: 5px;
+    margin-right: 8px;
 
     div.row-content {
 
