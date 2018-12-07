@@ -14,10 +14,9 @@ import { Container } from 'semantic-ui-react'
 
 import configureStore from './configureStore'
 
-import './theme/base.scss'
 import 'react-toastify/dist/ReactToastify.css'
-
 import 'semantic-ui-css/semantic.min.css'
+import './theme/base.scss'
 
 import generateID from '@helpers/generateID'
 

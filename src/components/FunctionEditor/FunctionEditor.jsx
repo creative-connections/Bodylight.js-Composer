@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import { Segment, Icon, Button, Transition } from 'semantic-ui-react'
-
-import ButtonLink from '@components/ButtonLink'
 
 import Editor from './Editor'
 import EditorMenu from './EditorMenu'
@@ -103,7 +101,6 @@ class FunctionEditor extends Component {
   render() {
     if (this.state.displayEditor === true) {
       return (
-
         <Modal isOpen={this.state.displayEditor} onRequestClose={this.handleCancel} style={modalStyle} >
 
         <div style={{width: '100%', ...this.props.style}}>
@@ -151,13 +148,11 @@ class FunctionEditor extends Component {
       }
     }
 
-    return (
-      <div style={this.props.style}>
-        <Button icon labelPosition='left' onClick={this.handleDisplayEditor}>
-          <Icon name='code'/>{preview}
-        </Button>
-      </div>
-    )
+    return <Fragment>
+      <Button icon labelPosition='left' onClick={this.handleDisplayEditor}>
+        <Icon name='code'/>{preview}
+      </Button>
+    </Fragment>
   }
 }
 

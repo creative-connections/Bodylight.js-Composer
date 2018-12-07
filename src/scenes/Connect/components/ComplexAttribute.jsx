@@ -94,21 +94,21 @@ class ComplexAttribute extends Component {
         value={this.props.attribute.provider}
         onChange={this.onChangeProvider}
       />
-      {this.renderFunction()}
       {this.renderArray()}
     </Fragment>
   }
 
   renderFunction() {
-    // render 'add function' button or function editor
-    if (this.props.attribute.function != null) {
-      return <FunctionEditor
-        name={`${this.props.name}.function`}
-        value={this.props.attribute.function}
-        onChange={this.props.onChange}
-        typeof={this.props.attribute.typeof}
-      />
+    if (this.props.attribute.complex == false || this.props.attribute.function == null) {
+      return null
     }
+
+    return <FunctionEditor
+      name={`${this.props.name}.function`}
+      value={this.props.attribute.function}
+      onChange={this.props.onChange}
+      typeof={this.props.attribute.typeof}
+    />
   }
 
   onIsArrayChange(e, v) {
@@ -200,13 +200,18 @@ class ComplexAttribute extends Component {
   render() {
     return <Fragment>
       <div className='complex-attribute'>
-        <div className='inputs'>
-          {this.renderSimple()}
-          {this.renderComplex()}
+        <div className='complex-row'>
+          <div className='inputs'>
+            {this.renderSimple()}
+            {this.renderComplex()}
+          </div>
+          <div className='buttons'>
+            {this.renderFunctionButton()}
+            {this.renderComplexButton()}
+          </div>
         </div>
-        <div className='buttons'>
-          {this.renderFunctionButton()}
-          {this.renderComplexButton()}
+        <div className='complex-row'>
+          {this.renderFunction()}
         </div>
       </div>
     </Fragment>

@@ -4,6 +4,7 @@
 
 html, body {
   height: 100%;
+  font-size: 14px;
 }
 
 div#app {
@@ -382,43 +383,71 @@ div#main-menu {
 
 .connect-sidebar {
   color: #ddd;
-  font-size: 10px;
+  font-size: 0.75rem;
   text-align: left;
 
   div.complex-attribute {
-    display: flex;
-    flex-direction: row;
     width: 100%;
 
-    .inputs {
-      flex-grow: 1;
-    }
+    div.complex-row {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      margin-bottom: 2px;
 
-    .buttons {
-      margin-left: 0.3em
-    }
-
-    .toggle-button {
-      display: inline-block;
-      font-size: 15px;
-
-      padding: 0.1em 0.26em;
-      margin: 0;
-      color: white;
-      height: auto;
-      width: auto;
-      opacity: 0.5;
-
-      &.active {
-        color: #d278c9;
-        background-color: rgba(0, 0, 0, 0.15);
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.25) inset;
+      .inputs {
+        flex-grow: 1;
       }
+
+      .buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 0.3em
+      }
+
+      .toggle-button {
+        display: inline;
+        font-size: 1rem;
+
+        padding: 0.15rem 0.3rem;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        height: auto;
+        width: auto;
+
+        color: white;
+        opacity: 0.5;
+
+        &.active {
+          color: #d278c9;
+          background-color: rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.25) inset;
+        }
+      }
+
     }
+  }
+
+  button, button.ui.button {
+    width: 100%;
+    font-size: 0.75rem;
+    min-height: 1.5rem;
+    line-height: 1rem;
+    padding: 0.3rem 0;
+    margin: 0;
   }
 
   .ui.input {
     width: 100%;
+  }
+
+  .ui.checkbox {
+    label {
+      font-size: 0.75rem;
+    }
   }
 
   div.row.dark div.row-content{
@@ -435,6 +464,7 @@ div#main-menu {
     flex-wrap: wrap;
   }
 
+
   div.row {
     margin-top: 8px;
     margin-bottom: 8px;
@@ -442,17 +472,6 @@ div#main-menu {
     margin-right: 8px;
 
     div.row-content {
-
-      .provider-dropdown {
-        width: 100%;
-        margin-bottom: 2px;
-      }
-
-      button, label {
-        font-size: 10px;
-        margin-bottom: 2px;
-      }
-
       .radio {
         margin: auto;
         display: block;
