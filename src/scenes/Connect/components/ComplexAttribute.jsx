@@ -94,7 +94,6 @@ class ComplexAttribute extends Component {
         value={this.props.attribute.provider}
         onChange={this.onChangeProvider}
       />
-      {this.renderArray()}
     </Fragment>
   }
 
@@ -103,12 +102,14 @@ class ComplexAttribute extends Component {
       return null
     }
 
-    return <FunctionEditor
-      name={`${this.props.name}.function`}
-      value={this.props.attribute.function}
-      onChange={this.props.onChange}
-      typeof={this.props.attribute.typeof}
-    />
+    return <div className='complex-row'>
+      <FunctionEditor
+        name={`${this.props.name}.function`}
+        value={this.props.attribute.function}
+        onChange={this.props.onChange}
+        typeof={this.props.attribute.typeof}
+        />
+    </div>
   }
 
   onIsArrayChange(e, v) {
@@ -141,17 +142,19 @@ class ComplexAttribute extends Component {
     }
 
     return <Fragment>
-      <Checkbox label='Is array variable'
-        name={`${this.props.name}.array`}
-        checked={this.props.attribute.array}
-        onChange={this.onIsArrayChange}
-      />
-      {this.props.attribute.array &&
-        <ModalIndexPicker
-          name={`${this.props.name}.indexes`}
-          attribute={this.props.attribute}
-          onChange={this.props.onChange}
-        />}
+      <div className='complex-row'>
+        <Checkbox label={this.props.attribute.array ? '' : 'Array'}
+          name={`${this.props.name}.array`}
+          checked={this.props.attribute.array}
+          onChange={this.onIsArrayChange}
+        />
+        {this.props.attribute.array &&
+          <ModalIndexPicker
+            name={`${this.props.name}.indexes`}
+            attribute={this.props.attribute}
+            onChange={this.props.onChange}
+          />}
+      </div>
     </Fragment>
   }
 
@@ -210,9 +213,8 @@ class ComplexAttribute extends Component {
             {this.renderComplexButton()}
           </div>
         </div>
-        <div className='complex-row'>
-          {this.renderFunction()}
-        </div>
+        {this.renderArray()}
+        {this.renderFunction()}
       </div>
     </Fragment>
   }
