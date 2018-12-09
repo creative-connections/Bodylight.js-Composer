@@ -207,18 +207,30 @@ export default class AnimateRuntime {
     }
   }
 
+  getSuffixes() {
+    return ['_text', '_play', '_anim']
+  }
+
   getNameSuffix(name) {
     if (!name) {
       return null
     }
-    return name.substr(name.lastIndexOf('_') + 1, name.length)
+
+    let found = null
+    this.getSuffixes().map((suffix) => {
+      const index = name.lastIndexOf(suffix)
+      if (~index) { found = suffix.substr(1) }
+    })
+    console.log(name, found)
+    return found
   }
 
   getNameWithoutSuffix(name) {
     if (!name) {
       return null
     }
-    return name.substr(0, name.lastIndexOf('_'))
+    const index = name.lastIndexOf(this.getNameSuffix(name))
+    return name.substr(0, index - 1)
   }
 
   filterExportedComponents(exportedComponents) {

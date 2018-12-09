@@ -1,13 +1,13 @@
 const preprocess = (file) => {
   return new Promise((resolve, reject) => {
-  // TODO: this will need to be versioned for different animate versions
+    // TODO: this will need to be versioned for different animate versions
 
     // Adobe Animate CC 2018
 
     const lines = file.match(/^.*((\r\n|\n|\r)|$)/gm)
     const outlines = []
 
-    const notfound = [ true ]
+    const notfound = [true]
 
     lines.forEach(line => {
       if (notfound[0]) {
@@ -35,9 +35,10 @@ const preprocess = (file) => {
         return
       }
 
-      // matches lines like 'this.component.name = "component_text"' retrieves
-      // "this.component" and inserts it as a library exported component
-      match = line.match('\\s(.*)\\.name\\s*=\\s*".*_text"')
+      // matches lines like 'this.component.name = "component_text"' and lines like
+      //                    'this.component.name = "component_text_1"'
+      // retrieves "this.component" and inserts it as a library exported component
+      match = line.match('\\s(.*)\\.name\\s*=\\s*".*_text.*"')
       if (match) {
         const reference = match[1]
         const newline = `lib.addExportedComponent(${reference});`
