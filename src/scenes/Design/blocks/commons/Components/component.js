@@ -14,6 +14,7 @@ export const handleChangeID = (component, { detail }, type) => {
 export function init(editor) {
   if (!this.inited) {
     this.inited = true
+    this.editor = editor
     // activeOnRender: 1 in block options triggers active on block drop
     this.handleOnDrop = this.handleOnDrop.bind(this)
     this.listenTo(this.model, 'active', this.handleOnDrop)
@@ -27,14 +28,13 @@ export function handleOnDrop(configGetWidget, addWidget) {
   const store = configureStore().store
   const id = generateID()
 
-  let unsubscribe = store.subscribe(() => {
+  const unsubscribe = store.subscribe(() => {
     const config = configGetWidget(store.getState(), id)
     // look for WIDGET_ADD to finish adding our id
     if (config) {
       unsubscribe() // don't listen anymore
-      this.attr.id = id // possibly redundant
-      this.setAttribute('id', id)
-      this.render()
+      this.attr.id = id
+      this.editor.store()
     }
   })
 

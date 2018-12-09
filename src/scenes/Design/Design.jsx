@@ -47,7 +47,7 @@ class Design extends Component {
       storageManager: {
         id: '',
         type: 'redux',
-        stepsBeforeSave: 1
+        stepsBeforeSave: 0
       },
 
       plugins: [
