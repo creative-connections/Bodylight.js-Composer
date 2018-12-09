@@ -221,7 +221,6 @@ export default class AnimateRuntime {
       const index = name.lastIndexOf(suffix)
       if (~index) { found = suffix.substr(1) }
     })
-    console.log(name, found)
     return found
   }
 
