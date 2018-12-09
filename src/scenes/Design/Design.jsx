@@ -27,14 +27,14 @@ class Design extends Component {
   constructor(props) {
     super(props)
 
-    this.editor = React.createRef()
+    this.ref = React.createRef()
   }
 
   componentDidMount() {
     createjs.Ticker.framerate = 13
 
     const editor = grapesjs.init({
-      container: this.editor.current,
+      container: this.ref.current,
 
       components: '',
       fromElement: false,
@@ -104,9 +104,7 @@ class Design extends Component {
   }
 
   render() {
-    return (
-      <div ref={this.editor} />
-    )
+    return <div ref={this.ref} />
   }
 }
 
