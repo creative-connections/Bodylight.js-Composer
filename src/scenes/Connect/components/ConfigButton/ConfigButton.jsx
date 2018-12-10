@@ -21,7 +21,7 @@ class ConfigButton extends Component {
   }
 
   rename(e, { value }) {
-    this.handleOnChange(e, { name: 'label', value })
+    this.handleOnChange(e, { name: 'label.value', value })
     this.props.renameButton(this.props.button, value)
   }
 
