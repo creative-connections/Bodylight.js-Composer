@@ -95,6 +95,10 @@ class Design extends Component {
       editor.Panels.getButton('views', 'open-connect').set('active', true)
     })
 
+    editor.on('component:clone', model => {
+      model.cloned = true
+    })
+
     this.editor = editor
   }
 

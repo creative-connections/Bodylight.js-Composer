@@ -21,6 +21,10 @@ export function init(editor) {
 
     this.destroy = this.destroy.bind(this)
     this.listenTo(this.model, 'component:destroy', this.destroy)
+
+    if (this.model.cloned) {
+      this.handleOnDrop()
+    }
   }
 }
 
@@ -35,6 +39,7 @@ export function handleOnDrop(configGetWidget, addWidget) {
       unsubscribe() // don't listen anymore
       this.attr.id = id
       this.editor.store()
+      this.render()
     }
   })
 

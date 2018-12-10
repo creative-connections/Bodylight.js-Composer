@@ -55,7 +55,7 @@ export default (editor) => {
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
 
-        let innerHTML = 'loading...'
+        let innerHTML = '>UNSET<'
         let button = this.getWidget()
         if (button) {
           innerHTML = `${button.name}`
