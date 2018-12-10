@@ -40,6 +40,7 @@ export default function createModelRuntime(Model, config, functions) {
       model.getValueByName = functions.getValueByName.bind(model)
 
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
+      model.setSpeed = functions.setSpeed.bind(model)
 
       model.perf = perf
       model.config.type = WidgetType.MODEL

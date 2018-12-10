@@ -24,6 +24,7 @@ import setInitialValues from './templates/model/setInitialValues'
 import setInitialValueByName from './templates/model/setInitialValueByName'
 import updateValueByName from './templates/model/updateValueByName'
 import getValueByName from './templates/model/getValueByName'
+import setSpeed from './templates/model/api/setSpeed'
 
 import instantiate from './templates/model/instantiate'
 import setup from './templates/model/setup'
@@ -143,6 +144,7 @@ class Builder {
     append('functions.updateValueByName = ' + tpl(updateValueByName))
     append('functions.getValueByName = ' + tpl(getValueByName))
     append('functions.OutputValues = ' + tpl(OutputValues))
+    append('functions.setSpeed = ' + tpl(setSpeed))
 
     append('functions.continuous = {}')
     append('functions.continuous.play = ' + tpl(continuousPlay))
