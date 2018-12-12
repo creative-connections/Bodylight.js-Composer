@@ -336,10 +336,12 @@ export default class PlotlyChart extends Widget {
       if (data.x === null || data.y === null) { return }
 
       const maxSamples = Number(this.datasets[id].maxSamples.value)
-      if (maxSamples > 0) {
-        data.x.splice(maxSamples)
-        data.y.splice(maxSamples)
+      const length = data.x.length
+      if (maxSamples > 0 && length > maxSamples) {
+        data.x = data.x.slice(length - maxSamples)
+        data.y = data.y.slice(length - maxSamples)
       }
+
       tracesToUpdate.push(index)
       update.x.push(data.x)
       update.y.push(data.y)
