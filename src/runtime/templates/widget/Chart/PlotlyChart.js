@@ -333,8 +333,12 @@ export default class PlotlyChart extends Widget {
 
     Object.entries(buf).forEach(([id, data]) => {
       const index = this.indexes[id]
-      if (data.x === null || data.y === null) {
-        return
+      if (data.x === null || data.y === null) { return }
+
+      const maxSamples = Number(this.datasets[id].maxSamples.value)
+      if (maxSamples > 0) {
+        data.x.splice(maxSamples)
+        data.y.splice(maxSamples)
       }
       tracesToUpdate.push(index)
       update.x.push(data.x)
