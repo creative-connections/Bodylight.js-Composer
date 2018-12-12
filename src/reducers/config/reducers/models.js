@@ -60,7 +60,8 @@ const addModel = (state, payload, type, defaultConfig) => {
     generationTool: { $set: payload.modelDescription.generationTool }
   })
   return update(state, {
-    [payload.id]: { $set: defaultConfig } })
+    [payload.id]: { $set: defaultConfig }
+  })
 }
 
 const updateModel = (state, payload, type) => {
@@ -116,6 +117,7 @@ const getProvidersForDropdownMemoized = memoize(state => {
     Object.entries(model.parameters).forEach(([parameterID, parameter]) => {
       const ID = generateProviderID(ProviderType.MODEL_PARAMETER, parameterID, modelID)
       options.push({
+        id: parameterID,
         text: `${model.name}: ${parameter.name}`,
         value: ID
       })
@@ -123,6 +125,7 @@ const getProvidersForDropdownMemoized = memoize(state => {
     Object.entries(model.variables).forEach(([variableID, variable]) => {
       const ID = generateProviderID(ProviderType.MODEL_VARIABLE, variableID, modelID)
       options.push({
+        id: variableID,
         text: `${model.name}: ${variable.name}`,
         value: ID
       })

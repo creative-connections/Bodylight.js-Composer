@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getProvidersForDropdown } from '@reducers'
 import Modal from 'react-modal'
 import { Button, Icon, Input, Segment } from 'semantic-ui-react'
+import similarity from 'string-similarity'
 
 const modalStyle = {
   content: {
@@ -16,7 +17,7 @@ const modalStyle = {
 }
 
 class ModalDropdown extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     Modal.setAppElement('#app')
 
@@ -33,22 +34,21 @@ class ModalDropdown extends Component {
     this.renderModalContents = this.renderModalContents.bind(this)
   }
 
-  open () {
+  open() {
     this.setState({ opened: true })
   }
 
-  close () {
+  close() {
     this.setState({ opened: false })
   }
 
-  handleAfterOpen () {
-  }
+  handleAfterOpen() {}
 
-  handleSearch (e, { value }) {
+  handleSearch(e, { value }) {
     this.setState({ filter: value })
   }
 
-  handleSelect (value) {
+  handleSelect(value) {
     this.props.onChange(null, {
       name: this.props.name,
       value: value
@@ -56,7 +56,7 @@ class ModalDropdown extends Component {
     this.close()
   }
 
-  renderOptions (options) {
+  renderOptions(options) {
     const out = []
     options.forEach(option => {
       out.push(
@@ -68,22 +68,16 @@ class ModalDropdown extends Component {
     return out
   }
 
-  renderModalContents (selected) {
-    const options = []
-    let filter = null
-    if (this.state.filter !== '') {
-      filter = new RegExp(this.state.filter, 'i')
-    }
+  renderModalContents(selected) {
+    const options = Array.from(this.props.options)
+    const scores = {}
 
-    this.props.options.forEach(option => {
-      if (filter) {
-        if (option.text.search(filter) > 0) {
-          options.push(option)
-        }
-      } else {
-        options.push(option)
-      }
-    })
+    if (this.state.filter !== '') {
+      options.forEach(option => {
+        scores[option.text] = similarity.compareTwoStrings(this.state.filter, option.id)
+      })
+      options.sort((a, b) => { return scores[b.text] - scores[a.text] })
+    }
 
     if (this.state.opened) {
       return <Fragment>
@@ -98,7 +92,7 @@ class ModalDropdown extends Component {
     return null
   }
 
-  render () {
+  render() {
     let selected = null
     this.props.options.forEach(option => {
       if (option.value === this.props.value) {

@@ -93,6 +93,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.83.0",
     "slugid": "^2.0.0",
+    "string-similarity": "^3.0.0",
     "terser": "^3.11.0",
     "to-ast": "^1.0.0",
     "uuid": "^3.3.2",

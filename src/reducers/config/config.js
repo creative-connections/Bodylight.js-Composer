@@ -54,7 +54,7 @@ export const configGetAllActions = state => actionsSelectors.getAll(state.action
 export const configGetAction = (state, id) => actionsSelectors.get(state.actions, id)
 
 const getProvidersForDropdownMemoized = memoize(state => {
-  const options = [ { text: 'none', value: null } ]
+  const options = [{ id: 'none', text: 'none', value: null }]
   return options.concat(
     modelsSelectors.getProvidersForDropdown(state.models)
   )
@@ -81,7 +81,7 @@ export const getArrayProvidersFromProvider = (state, provider) => {
   const name = id.match(/(.*)\[[0-9]*\]$/)[1]
 
   if (typeof state.models[modelId] === 'undefined' ||
-      typeof state.models[modelId].arrays[name] === 'undefined') {
+    typeof state.models[modelId].arrays[name] === 'undefined') {
     return providers
   }
 
