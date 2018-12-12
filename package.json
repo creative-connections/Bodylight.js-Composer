@@ -58,7 +58,7 @@
     "escodegen": "^1.11.0",
     "fast-memoize": "^2.5.1",
     "file-saver": "^2.0.0",
-    "grapesjs": "github:david-polak/grapesjs#temp3",
+    "grapesjs": "github:david-polak/grapesjs#temp4",
     "grapesjs-blocks-basic": "^0.1.8",
     "grapesjs-blocks-flexbox": "git+https://github.com/david-polak/grapesjs-blocks-flexbox.git",
     "grapesjs-preset-webpage": "^0.1.10",
