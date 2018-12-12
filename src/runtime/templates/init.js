@@ -3,8 +3,9 @@
 /* global initWidgets */
 /* global models */
 /* global animateFps */
+/* global spinner */
 
-function init () {
+function init() {
   createjs.Ticker.framerate = animateFps
 
   Promise.all([
@@ -17,6 +18,7 @@ function init () {
       resolveValueProviders()
       Object.entries(models).forEach(([id, model]) => model.init())
       Object.entries(widgets).forEach(([id, widget]) => widget.updateComponent())
+      spinner.hide()
     })
   })
 }

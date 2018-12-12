@@ -96,6 +96,10 @@ import PerformanceOn from './templates/widget/Performance/PerformanceOn'
 import PerformanceOff from './templates/widget/Performance/PerformanceOff'
 import PerformanceWindow from './templates/widget/Performance/PerformanceWindow'
 
+import SpinnerHtml from './templates/widget/Spinner/html'
+import SpinnerCss from './templates/widget/Spinner/css'
+import Spinner from './templates/widget/Spinner'
+
 import Terser from 'terser'
 
 // API
@@ -187,6 +191,7 @@ class Builder {
     return `
       ${getEditorCss()}
       ${getPerformanceCss(this.exportPerformanceBlock)}
+      ${SpinnerCss()}
     `
   }
 
@@ -204,8 +209,12 @@ class Builder {
 
     append(this.head())
 
+    append(SpinnerHtml())
+
     // append editor created html and css
+    append(`<div id='spinner-blur'>`)
     append(getEditorHtml())
+    append(`<div/>`)
     append(`<style>${this.getCss()}</style>`)
 
     // TODO: refactor this out and conditionally
@@ -261,6 +270,9 @@ class Builder {
       append(tpl(PerformanceOff))
     }
     append(`const perf = new Performance()`)
+
+    append(tpl(Spinner))
+    append(`const spinner = new Spinner()`)
 
     // create config object
     append('const config = {}')
