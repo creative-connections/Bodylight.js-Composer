@@ -69,10 +69,6 @@ class ComplexAttribute extends Component {
   onChangeProvider(e, v) {
     // reset default states
     this.props.onChange(e, {
-      name: `${this.props.name}.function`,
-      value: null
-    })
-    this.props.onChange(e, {
       name: `${this.props.name}.indexes`,
       value: null
     })
