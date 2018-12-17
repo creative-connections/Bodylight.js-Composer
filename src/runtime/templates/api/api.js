@@ -36,13 +36,14 @@ function getToggleByID (id) {
   return null
 }
 
-function getModelByName (name) {
-  Object.entries(models).forEach(([id, model]) => {
-    if (model.name === name) {
-      return model
+function getModelByName(name) {
+  let found = null
+  Object.entries(models).forEach(([, model]) => {
+    if (model.config.name === name) {
+      found = model
     }
   })
-  return null
+  return found
 }
 
 export default function api (append, tpl) {
