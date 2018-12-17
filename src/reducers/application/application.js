@@ -7,6 +7,7 @@ const generateState = () => {
     animate: {fps: 24},
     key: generateID(),
     export: {
+      name: 'Application',
       performance: false
     }
   }
