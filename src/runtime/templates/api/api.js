@@ -1,37 +1,37 @@
 /* global models, widgets */
 
-function getModelByID (id) {
+function getModelByID(id) {
   if (models[id]) { return models[id] }
   return null
 }
 
-function getAnimateAnimByID (id) {
+function getAnimateAnimByID(id) {
   console.log(widgets)
   if (widgets[id]) { return widgets[id] }
   return null
 }
 
-function getAnimateTextByID (id) {
+function getAnimateTextByID(id) {
   if (widgets[id]) { return widgets[id] }
   return null
 }
 
-function getButtonByID (id) {
+function getButtonByID(id) {
   if (widgets[id]) { return widgets[id] }
   return null
 }
 
-function getRangeByID (id) {
+function getRangeByID(id) {
   if (widgets[id]) { return widgets[id] }
   return null
 }
 
-function getChartByID (id) {
+function getChartByID(id) {
   if (widgets[id]) { return widgets[id] }
   return null
 }
 
-function getToggleByID (id) {
+function getToggleByID(id) {
   if (widgets[id]) { return widgets[id] }
   return null
 }
@@ -46,7 +46,7 @@ function getModelByName(name) {
   return found
 }
 
-export default function api (append, tpl) {
+export default function api(append, tpl) {
   append(tpl(getModelByID))
   append(tpl(getModelByName))
   append(tpl(getAnimateAnimByID))
