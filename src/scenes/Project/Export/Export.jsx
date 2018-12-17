@@ -34,7 +34,7 @@ class Export extends Component {
     const builder = new Builder(true, this.props.export.performance)
     try {
       const html = new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
-      const filename = `${this.props.name}.html`
+      const filename = `${this.props.export.name}.html`
       saveAs(html, filename)
       toast.success(`Project exported as ${filename}`)
       this.setState({ pending: false })
@@ -58,7 +58,7 @@ class Export extends Component {
   quickExport() {
     const builder = new Builder(false, true)
     const html = new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
-    const filename = `${this.props.name}.html`
+    const filename = `${this.props.export.name}.html`
     saveAs(html, filename)
     toast.success(`Project exported as ${filename} without optimizations. Do not use in production.`)
   }
