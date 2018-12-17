@@ -77,6 +77,9 @@ class Design extends Component {
       }
     })
 
+    const fullscreenBtn = editor.Panels.getButton('options', 'fullscreen')
+    fullscreenBtn.collection.remove(fullscreenBtn)
+
     connectPanel(editor)
 
     animateBlock(editor)
@@ -90,6 +93,8 @@ class Design extends Component {
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
+
+
 
     this.unsubscribeSelectedWidget = observeStore(state => state.widgets.app.selected, () => {
       editor.Panels.getButton('views', 'open-connect').set('active', true)
