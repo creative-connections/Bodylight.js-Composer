@@ -1,6 +1,6 @@
 export default {
   id: null,
-  name: '',
+  name: 'unnamed',
   mode: 'lines',
   fill: 'none',
   other: '() => ({})',
