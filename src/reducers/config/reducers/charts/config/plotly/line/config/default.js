@@ -13,6 +13,7 @@ export default {
   annotations: {},
   datasets: {},
   shapes: {},
+  images: {},
 
   enabled: {
     typeof: 'boolean',
