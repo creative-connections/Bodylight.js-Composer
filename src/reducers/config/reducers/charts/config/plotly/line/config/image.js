@@ -1,6 +1,6 @@
 export default {
   id: null,
-  name: '',
+  name: 'image',
   xref: 'paper',
   yref: 'paper',
   source: '',

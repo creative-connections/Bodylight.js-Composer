@@ -4,9 +4,7 @@ import { bindActionCreators } from 'redux'
 import GridRow from '../../../GridRow'
 import Collapsable from '../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
-import generateID from '@helpers/generateID'
 import { chartAddOption, chartRemoveOption } from '@actions'
-import update from 'immutability-helper'
 
 import Image from './Image'
 

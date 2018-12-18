@@ -1,6 +1,6 @@
 export default {
   id: null,
-  name: 'unnamed',
+  name: 'dataset',
   mode: 'lines',
   fill: 'none',
   other: '() => ({})',

@@ -2,11 +2,13 @@ import update from 'immutability-helper'
 import dataset from './config/dataset'
 import annotation from './config/annotation'
 import image from './config/image'
+import shape from './config/shape'
 
 const options = {
   dataset,
   annotation,
-  image
+  image,
+  shape
 }
 
 const addDataset = (chart, id) => {
@@ -40,7 +42,6 @@ const addDataset = (chart, id) => {
 }
 
 const addOption = (chart, id, option) => {
-  console.log(options)
   return update(chart, {
     [`${option}s`]: {
       [id]: { $set: update(options[option], { id: { $set: id } }) }

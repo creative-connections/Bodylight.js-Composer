@@ -1,115 +1,26 @@
 import React, { Component, Fragment } from 'react'
-import { Grid, Divider } from 'semantic-ui-react'
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import GridRow from '../../../GridRow'
 import Collapsable from '../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
-import generateID from '@helpers/generateID'
-import update from 'immutability-helper'
+import { chartAddOption, chartRemoveOption } from '@actions'
 
 import Shape from './Shape'
 
 class Shapes extends Component {
   constructor(props) {
     super(props)
-    this.handleAddShape = this.handleAddShape.bind(this)
-    this.handleRemove = this.handleRemove.bind(this)
+    this.add = this.add.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
-  handleAddShape() {
-    let shapes = this.props.config
-    const id = generateID()
-
-    const defaultConfig = {
-      id,
-      type: 'line',
-      name: '',
-      layer: 'above',
-      visible: {
-        typeof: 'boolean',
-        value: true,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      opacity: {
-        typeof: 'number',
-        value: 1,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      xref: 'paper',
-      yref: 'paper',
-      x0: {
-        typeof: 'number',
-        value: 0,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      x1: {
-        typeof: 'number',
-        value: 1,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      y0: {
-        typeof: 'number',
-        value: 0,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      y1: {
-        typeof: 'number',
-        value: 1,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      color: {
-        typeof: 'color',
-        value: '#FF0000',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      fillcolor: {
-        typeof: 'color',
-        value: '#FF0000',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      width: {
-        typeof: 'number',
-        value: 1.5,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      dash: {
-        typeof: 'string',
-        value: 'solid',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      }
-
-    }
-
-    shapes = update(shapes, {
-      [id]: { $set: defaultConfig }
-    })
-
-    this.props.onChange(null, { name: this.props.name, value: shapes })
+  add() {
+    this.props.chartAddOption(this.props.chart, 'shape')
   }
 
-  handleRemove(e, { name, value }) {
-    const shapes = update(this.props.config, { $unset: [name] })
-    this.props.onChange(e, { name: this.props.name, value: shapes })
+  remove(e, { name }) {
+    this.props.chartRemoveOption(this.props.chart, 'shape', name)
   }
 
   renderShapes() {
@@ -120,7 +31,7 @@ class Shapes extends Component {
           name={`${this.props.name}.${id}`}
           config={shape}
           onChange={this.props.onChange}
-          onRemove={this.handleRemove}
+          onRemove={this.remove}
         />
       </Collapsable>)
     })
@@ -131,10 +42,12 @@ class Shapes extends Component {
     return <Fragment>
       {this.renderShapes()}
       <GridRow label='' compact={true}>
-        <ButtonLink onClick={this.handleAddShape}>Add shape</ButtonLink>
+        <ButtonLink onClick={this.add}>Add shape</ButtonLink>
       </GridRow>
     </Fragment>
   }
 }
 
-export default Shapes
+export default connect(null,
+  dispatch => bindActionCreators({ chartAddOption, chartRemoveOption }, dispatch)
+)(Shapes)
