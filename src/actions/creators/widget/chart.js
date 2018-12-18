@@ -1,7 +1,9 @@
 import {
   ADD_WIDGET,
   RENAME_WIDGET,
-  REMOVE_WIDGET
+  REMOVE_WIDGET,
+  ADD_WIDGET_OPTION,
+  REMOVE_WIDGET_OPTION,
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
@@ -15,18 +17,22 @@ export const addChart = (id) => ({
   }
 })
 
-export const renameChart = (chart, name) => ({
-  type: RENAME_WIDGET,
-  payload: {
-    widget: chart,
-    name
-  }
+export const removeChart = id => ({
+  type: REMOVE_WIDGET,
+  payload: { type: WidgetType.CHART, id }
 })
 
-export const removeChart = (id) => ({
-  type: REMOVE_WIDGET,
-  payload: {
-    id,
-    type: WidgetType.CHART
-  }
+export const renameChart = (widget, name) => ({
+  type: RENAME_WIDGET,
+  payload: { widget, name }
+})
+
+export const chartAddOption = (widget, option) => ({
+  type: ADD_WIDGET_OPTION,
+  payload: { id: generateID(), widget, option }
+})
+
+export const chartRemoveOption = (widget, option, id) => ({
+  type: REMOVE_WIDGET_OPTION,
+  payload: { widget, option, id }
 })

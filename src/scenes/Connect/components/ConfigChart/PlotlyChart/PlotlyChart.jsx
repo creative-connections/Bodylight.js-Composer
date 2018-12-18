@@ -12,8 +12,9 @@ import Annotations from './Annotations'
 import Axis from '../components/Axis'
 
 const PlotlyChart = props => {
-
   const config = props.config
+  const chart = props.chart
+
   return <Fragment>
       <GridRow label='Enabled'>
         <ComplexAttribute
@@ -25,7 +26,7 @@ const PlotlyChart = props => {
       </GridRow>
 
       <Collapsable title='Datasets' className='primary' collapsed={true}>
-        <Datasets name='datasets' config={config.datasets} onChange={props.onChange}/>
+        <Datasets name='datasets' chart={chart} config={config.datasets} onChange={props.onChange}/>
       </Collapsable>
 
       <Collapsable title='Axes' className='primary' collapsed={true}>

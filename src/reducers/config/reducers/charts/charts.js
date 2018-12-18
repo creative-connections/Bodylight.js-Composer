@@ -5,7 +5,9 @@ import {
   UPDATE_WIDGET_CONFIG,
   ADD_WIDGET_ACTION,
   REMOVE_WIDGET_ACTION,
-  UPDATE_WIDGET_ACTION
+  UPDATE_WIDGET_ACTION,
+  ADD_WIDGET_OPTION,
+  REMOVE_WIDGET_OPTION
 } from '@actions/types'
 
 import WidgetType from '@helpers/enum/WidgetType'
@@ -58,6 +60,26 @@ const updateChart = (state, payload, type) => {
   return updateWidget(state, payload, type)
 }
 
+import plotlyAddOption from './config/plotly/line/addOption'
+import plotlyRemoveOption from './config/plotly/line/removeOption'
+
+const addOption = (state, { id, widget, option }, type) => {
+  if (type !== widget.type) { return state }
+
+  widget = state[widget.id]
+
+  switch (widget.library) {
+  case 'plotly':
+    return update(state, {
+      [widget.id]: { $set: plotlyAddOption(widget, id, option) }
+    })
+  case 'gamblegram':
+    console.warn('addOption for gamblegram not implemented yet')
+  }
+
+  return state
+}
+
 export default function (state = {}, action) {
   switch (action.type) {
   case ADD_WIDGET:
@@ -68,6 +90,11 @@ export default function (state = {}, action) {
     return removeWidget(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
     return updateChart(state, action.payload, type)
+  case ADD_WIDGET_OPTION:
+    return addOption(state, action.payload, type)
+  case REMOVE_WIDGET_OPTION:
+    console.log(REMOVE_WIDGET_OPTION)
+    return state
   case ADD_WIDGET_ACTION:
     return addWidgetAction(state, action.payload, type)
   case REMOVE_WIDGET_ACTION:

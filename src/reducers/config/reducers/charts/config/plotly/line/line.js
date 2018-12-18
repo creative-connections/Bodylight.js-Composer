@@ -1,5 +1,5 @@
 import update from 'immutability-helper'
-import defaultConfig from './default.js'
+import defaultConfig from './config/default'
 
 export default (config, clear = false) => {
   // On library switch (clear == true) only keep the name from the previous configuration.

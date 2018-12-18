@@ -6,6 +6,8 @@ export const RENAME_WIDGET = 'widget/RENAME'
 export const SELECT_WIDGET = 'app/SELECT_WIDGET'
 export const UPDATE_WIDGET = 'widget/UPDATE'
 export const REMOVE_WIDGET = 'widget/REMOVE'
+export const ADD_WIDGET_OPTION = 'widget/option/ADD'
+export const REMOVE_WIDGET_OPTION = 'widget/option/REMOVE'
 
 export const UPDATE_WIDGET_CONFIG = 'widget/config/UPDATE'
 
