@@ -31,24 +31,24 @@ const PlotlyChart = props => {
 
       <Collapsable title='Axes' className='primary' collapsed={true}>
         <Collapsable title='X Axis' className='secondary' collapsed={true}>
-          <Axis name='xaxis' config={config.xaxis} onChange={props.onChange}/>
+          <Axis name='xaxis' chart={chart} config={config.xaxis} onChange={props.onChange}/>
         </Collapsable>
 
         <Collapsable title='Y Axis' className='secondary' collapsed={true}>
-          <Axis name='yaxis' config={config.yaxis} onChange={props.onChange}/>
+          <Axis name='yaxis' chart={chart} config={config.yaxis} onChange={props.onChange}/>
         </Collapsable>
       </Collapsable>
 
       <Collapsable title='Shapes' className='primary' collapsed={true}>
-        <Shapes name='shapes' config={config.shapes} onChange={props.onChange}/>
+        <Shapes name='shapes' chart={chart} config={config.shapes} onChange={props.onChange}/>
       </Collapsable>
 
       <Collapsable title='Annotations' className='primary' collapsed={true}>
-        <Annotations name='annotations' config={config.annotations} onChange={props.onChange}/>
+        <Annotations name='annotations' chart={chart} config={config.annotations} onChange={props.onChange}/>
       </Collapsable>
 
       <Collapsable title='Images' className='primary' collapsed={true}>
-        <Images name='images' config={config.images} onChange={props.onChange}/>
+        <Images name='images' chart={chart} config={config.images} onChange={props.onChange}/>
       </Collapsable>
 
       <Events widget={props.chart} config={config} />

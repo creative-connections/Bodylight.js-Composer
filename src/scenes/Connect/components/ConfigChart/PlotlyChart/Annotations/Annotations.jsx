@@ -1,125 +1,27 @@
 import React, { Component, Fragment } from 'react'
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import GridRow from '../../../GridRow'
 import Collapsable from '../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
 import update from 'immutability-helper'
-
+import { chartAddOption, chartRemoveOption } from '@actions'
 import Annotation from './Annotation'
 
 class Annotations extends Component {
   constructor(props) {
     super(props)
-    this.handleAdd = this.handleAdd.bind(this)
-    this.handleRemove = this.handleRemove.bind(this)
+    this.add = this.add.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
-  handleAdd() {
-    let annotations = this.props.config || {}
-    const id = generateID()
-
-    const defaultConfig = {
-      id,
-      text: {
-        typeof: 'string',
-        value: 'annotation',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      xref: 'paper',
-      yref: 'paper',
-      x: {
-        typeof: 'number',
-        value: 0,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      y: {
-        typeof: 'number',
-        value: 1,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      visible: {
-        typeof: 'boolean',
-        value: true,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      opacity: {
-        typeof: 'number',
-        value: 1,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      // font
-      family: {
-        typeof: 'string',
-        value: '',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      size: {
-        typeof: 'number',
-        value: 12,
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      color: {
-        typeof: 'color',
-        value: '#000',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      bgcolor: {
-        typeof: 'color',
-        value: '',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      bordercolor: {
-        typeof: 'color',
-        value: '',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      width: {
-        typeof: 'number',
-        value: '',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-      height: {
-        typeof: 'number',
-        value: '',
-        complex: false,
-        provider: null,
-        'function': 'value => value'
-      },
-    }
-
-    annotations = update(annotations, {
-      [id]: { $set: defaultConfig }
-    })
-
-    this.props.onChange(null, { name: this.props.name, value: annotations })
+  add() {
+    this.props.chartAddOption(this.props.chart, 'annotation')
   }
 
-  handleRemove(e, { name }) {
-    const annotations = update(this.props.config, { $unset: [name] })
-    this.props.onChange(e, { name: this.props.name, value: annotations })
+  remove(e, { name }) {
+    this.props.chartRemoveOption(this.props.chart, 'annotation', name)
   }
 
   renderAnnotations() {
@@ -133,7 +35,7 @@ class Annotations extends Component {
           name={`${this.props.name}.${id}`}
           config={annotation}
           onChange={this.props.onChange}
-          onRemove={this.handleRemove}
+          onRemove={this.remove}
         />
       </Collapsable>)
     })
@@ -144,10 +46,12 @@ class Annotations extends Component {
     return <Fragment>
       {this.renderAnnotations()}
       <GridRow label='' compact={true}>
-        <ButtonLink onClick={this.handleAdd}>Add annotation</ButtonLink>
+        <ButtonLink onClick={this.add}>Add annotation</ButtonLink>
       </GridRow>
     </Fragment>
   }
 }
 
-export default Annotations
+export default connect(null,
+  dispatch => bindActionCreators({ chartAddOption, chartRemoveOption }, dispatch)
+)(Annotations)

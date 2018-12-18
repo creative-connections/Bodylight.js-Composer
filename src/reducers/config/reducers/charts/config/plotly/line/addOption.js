@@ -1,5 +1,6 @@
 import update from 'immutability-helper'
 import dataset from './config/dataset'
+import annotation from './config/annotation'
 
 const addDataset = (chart, id) => {
   // We want our charts to share colors on dataset positions
@@ -26,9 +27,15 @@ const addDataset = (chart, id) => {
 
   return update(chart, {
     datasets: {
-        [id]: {
-        $set: config
-      }
+      [id]: { $set: config }
+    }
+  })
+}
+
+const addAnnotation = (chart, id) => {
+  return update(chart, {
+    annotations: {
+      [id]: { $set: update(annotation, { id: { $set: id } }) }
     }
   })
 }
@@ -37,6 +44,8 @@ export default (chart, id, option) => {
   switch (option) {
   case 'dataset':
     return addDataset(chart, id)
+  case 'annotation':
+    return addAnnotation(chart, id)
   }
   return chart
 }
