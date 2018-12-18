@@ -1,5 +1,5 @@
 export default class Widget {
-  constructor (configuration, typeIdentifier) {
+  constructor(configuration, typeIdentifier) {
     Object.assign(this, configuration)
     this.typeIdentifier = typeIdentifier
 
@@ -23,36 +23,39 @@ export default class Widget {
     this.constructed = true
   }
 
-  addValueProvider (attribute, provider) {
+  addValueProvider(attribute, provider) {
     if (provider !== null) {
       this.valueProviders[attribute] = provider
     }
   }
 
-  fillValueProviders () {
-    this.attributes.forEach(attribute => {
-      if (this[attribute].provider !== null) {
-        this.addValueProvider(attribute, this[attribute].provider)
+  fillValueProviders() {
+    Object.entries(this).forEach((id, entry) => {
+      if (typeof entry !== 'object') {
+        return
+      }
+      if (typeof entry['provider'] !== 'undefined' && entry.provider !== null) {
+        this.addValueProvider(entry, entry.provider)
       }
     })
   }
 
-  getValueProviders () {
+  getValueProviders() {
     return this.valueProviders
   }
 
-  setValueProvider (attribute, id, target) {
+  setValueProvider(attribute, id, target) {
     target.registerValueListener(this, id, attribute)
     target.registerInitialValueListener(this, id, attribute)
   }
 
-  setValueProviders (providers) {
+  setValueProviders(providers) {
     Object.entries(providers).forEach(([attribute, config]) => {
       this.setValueProvider(attribute, config.id, config.target)
     })
   }
 
-  locateComponent () {
+  locateComponent() {
     const component = document.getElementById(this.id)
     if (component === null || component === undefined) {
       throw new ReferenceError(`Widget (${this.name}) of type (${this.typeIdentifier}) was not found.`)
@@ -60,35 +63,35 @@ export default class Widget {
     return component
   }
 
-  generateSetters () {
+  generateSetters() {
     console.warn(`generateSetters for ${this.name} is not overridden`)
   }
 
-  updateComponent () {
+  updateComponent() {
     Object.entries(this.setters).forEach(([name, setter]) => {
       setter()
     })
   }
 
-  setValue (attribute, value, time) {
+  setValue(attribute, value, time) {
     this[attribute].value = value
     this.setters[attribute]()
   }
 
-  setArray (attribute, array, time) {
+  setArray(attribute, array, time) {
     console.warn(`setArray for ${this.name} is not overridden`)
   }
 
-  setValues (attribute, values, time) {
+  setValues(attribute, values, time) {
     // set only last value
     this.setValue(attribute, values[values.length - 1], time[time.length - 1])
   }
 
-  setArrays (attribute, arrays, time) {
+  setArrays(attribute, arrays, time) {
     console.warn(`setArrays for ${this.name} is not overridden`)
   }
 
-  loadEventListeners () {
+  loadEventListeners() {
     if (this.actions === undefined || this.actions === null) {
       return
     }
@@ -97,14 +100,14 @@ export default class Widget {
     })
   }
 
-  addEventListener (type, callback) {
+  addEventListener(type, callback) {
     if (!(type in this.listeners)) {
       this.listeners[type] = []
     }
     this.listeners[type].push(callback)
   }
 
-  removeEventListener (type, callback) {
+  removeEventListener(type, callback) {
     if (!(type in this.listeners)) {
       return
     }
@@ -117,7 +120,7 @@ export default class Widget {
     }
   }
 
-  dispatchEvent (event) {
+  dispatchEvent(event) {
     if (!(event.type in this.listeners)) {
       return true
     }
