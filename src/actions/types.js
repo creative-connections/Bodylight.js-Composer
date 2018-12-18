@@ -13,8 +13,8 @@ export const ADD_WIDGET_ACTION = 'widget/config/action/ADD'
 export const REMOVE_WIDGET_ACTION = 'widget/config/action/REMOVE'
 export const UPDATE_WIDGET_ACTION = 'widget/config/action/UPDATE'
 
-export const EDITOR_STORAGE_STORE = 'EDITOR_STORAGE_STORE'
-export const EDITOR_STORAGE_CLEAR = 'EDITOR_STORAGE_CLEAR'
+export const EDITOR_STORAGE_STORE = 'editor/STORE'
+export const EDITOR_STORAGE_CLEAR = 'editor/CLEAR'
 
 export const EDITOR_WIDGET_PLACE = 'editor/widget/PLACE'
 export const EDITOR_WIDGET_REMOVE = 'editor/widget/REMOVE'
