@@ -65,18 +65,29 @@ import plotlyRemoveOption from './config/plotly/line/removeOption'
 
 const addOption = (state, { id, widget, option }, type) => {
   if (type !== widget.type) { return state }
-
   widget = state[widget.id]
-
   switch (widget.library) {
   case 'plotly':
     return update(state, {
       [widget.id]: { $set: plotlyAddOption(widget, id, option) }
     })
   case 'gamblegram':
-    console.warn('addOption for gamblegram not implemented yet')
+    console.warn('ADD_WIDGET_OPTION for gamblegram not implemented yet')
   }
+  return state
+}
 
+const removeOption = (state, { id, widget, option }, type) => {
+  if (type !== widget.type) { return state }
+  widget = state[widget.id]
+  switch (widget.library) {
+  case 'plotly':
+    return update(state, {
+      [widget.id]: { $set: plotlyRemoveOption(widget, id, option) }
+    })
+  case 'gamblegram':
+    console.warn('REMOVE_WIDGET_OPTION for gamblegram not implemented yet')
+  }
   return state
 }
 
@@ -93,8 +104,7 @@ export default function (state = {}, action) {
   case ADD_WIDGET_OPTION:
     return addOption(state, action.payload, type)
   case REMOVE_WIDGET_OPTION:
-    console.log(REMOVE_WIDGET_OPTION)
-    return state
+    return removeOption(state, action.payload, type)
   case ADD_WIDGET_ACTION:
     return addWidgetAction(state, action.payload, type)
   case REMOVE_WIDGET_ACTION:

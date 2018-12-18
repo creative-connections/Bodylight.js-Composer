@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import GridRow from '../../../GridRow'
 import Collapsable from '../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
-import { chartAddOption } from '@actions'
+import { chartAddOption, chartRemoveOption } from '@actions'
 import Dataset from './Dataset'
 
 class Datasets extends Component {
@@ -50,5 +50,5 @@ class Datasets extends Component {
 }
 
 export default connect(null,
-  dispatch => bindActionCreators({ chartAddOption }, dispatch)
+  dispatch => bindActionCreators({ chartAddOption, chartRemoveOption }, dispatch)
 )(Datasets)
