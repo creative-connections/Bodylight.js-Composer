@@ -2,35 +2,21 @@ import configureStore from '@src/configureStore'
 import { configGetAllCharts } from '@reducers'
 import update from 'immutability-helper'
 
-import functionalize from '../functionalize'
 import functionalizeTree from '../functionalizeTree'
-import processAction from '../processAction'
 
 const processPlotly = (name, configuration) => {
   configuration = functionalizeTree(configuration)
 
+  // we need to unpack 'other' configuration options for dataset, to support configuration options
+  // not included in the ui
   let datasets = configuration.datasets
   Object.entries(datasets).forEach(([id]) => {
-    // unpack other
     const other = new Function(`return ${datasets[id].other}`)()()
     datasets = update(datasets, {
       [id]: { other: { $set: other } }
     })
   })
-
-  configuration = update(configuration, {
-    datasets: { $set: datasets },
-  })
-
-  Object.entries(configuration.actions).forEach(([key, action]) => {
-    configuration = update(configuration, {
-      actions: {
-      [key]: { $set: processAction(action) }
-      }
-    })
-  })
-
-  return configuration
+  return update(configuration, { datasets: { $set: datasets }, })
 }
 
 const processGamblegram = (name, configuration) => {
