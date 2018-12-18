@@ -38,7 +38,7 @@ export default (action) => {
       args += ','
     }
   }
-  const fn = `function() { config.actions.${action.action}.bind(this)(${args}) }`
+  const fn = `function() { config.actions['${action.action}'].bind(this)(${args}) }`
   const fun = new Function(`return ${fn}`)()
 
   // we don't need the additional 'args' and 'action' metadata
