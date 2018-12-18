@@ -278,6 +278,8 @@ export default class PlotlyChart extends Widget {
         const indicies = Array.from({ length: value.length }, (v, k) => k++)
         // replace previous trace for id/axis
         this.updateTrace(id, axis, value, indicies)
+
+        this.dispatchEvent(new Event('change'))
       }
     } else {
       // for a XY plot, we need to save the current value until we have both axes
@@ -288,6 +290,8 @@ export default class PlotlyChart extends Widget {
         // if we have both of them then we flush
         if (this.buffer[id][altAxis] !== null) {
           Plotly.extendTraces(this.plotly, this.buffer[id], [index], this.datasets[id].maxSamples.value)
+
+          this.dispatchEvent(new Event('change'))
           this.buffer[id].x = null
           this.buffer[id].y = null
         }
@@ -351,6 +355,9 @@ export default class PlotlyChart extends Widget {
 
     Plotly.restyle(this.plotly, update, tracesToUpdate)
     this.oneshotBufferUpdateTracesTimeout = false
+
+    this.dispatchEvent(new Event('change'))
+
     this.perf.stop(this.id, 'updateTrace')
   }
 
