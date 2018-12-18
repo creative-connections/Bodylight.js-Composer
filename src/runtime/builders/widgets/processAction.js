@@ -10,27 +10,27 @@ export default (action) => {
       args += `null`
     } else {
       switch (arg.type) {
-        case ArgumentType.MODEL:
-          args += `getModelByID('${action.args[i].value}')`
-          break
-        case ArgumentType.ANIMATE_ANIM:
-          args += `getAnimateAnimByID('${action.args[i].value}')`
-          break
-        case ArgumentType.ANIMATE_TEXT:
-          args += `getAnimateTextByID('${action.args[i].value}')`
-          break
-        case ArgumentType.BUTTON:
-          args += `getButtonByID('${action.args[i].value}')`
-          break
-        case ArgumentType.RANGE:
-          args += `getRangeByID('${action.args[i].value}')`
-          break
-        case ArgumentType.TOGGLE:
-          args += `getToggleByID('${action.args[i].value}')`
-          break
-        case ArgumentType.CHART:
-          args += `getChartByID('${action.args[i].value}')`
-          break
+      case ArgumentType.MODEL:
+        args += `getModelByID('${action.args[i].value}')`
+        break
+      case ArgumentType.ANIMATE_ANIM:
+        args += `getAnimateAnimByID('${action.args[i].value}')`
+        break
+      case ArgumentType.ANIMATE_TEXT:
+        args += `getAnimateTextByID('${action.args[i].value}')`
+        break
+      case ArgumentType.BUTTON:
+        args += `getButtonByID('${action.args[i].value}')`
+        break
+      case ArgumentType.RANGE:
+        args += `getRangeByID('${action.args[i].value}')`
+        break
+      case ArgumentType.TOGGLE:
+        args += `getToggleByID('${action.args[i].value}')`
+        break
+      case ArgumentType.CHART:
+        args += `getChartByID('${action.args[i].value}')`
+        break
       }
     }
 
