@@ -19,8 +19,8 @@ class ConfigChart extends Component {
     this.renameChart = this.renameChart.bind(this)
 
     const libraries = [
-      { key: 'plotly', text: 'Plot.ly', value: 'plotly' },
-      { key: 'gamblegram', text: 'Plot.ly - gamblegram', value: 'gamblegram' },
+      { key: 'plotly', text: 'Line chart - Plot.ly', value: 'plotly' },
+      { key: 'gamblegram', text: 'Gamblegram - Plot.ly', value: 'gamblegram' },
     ]
 
     this.state = { libraries }
@@ -52,10 +52,10 @@ class ConfigChart extends Component {
           onChange={this.renameChart}
         />
       </GridRow>
-      <GridRow inline label='Chart library'>
+      <GridRow inline label='Chart type'>
         <Dropdown
           name='library'
-          placeholder='Select chart library'
+          placeholder='Select chart type'
           value={config.library}
           onChange={this.handleOnChange}
           options={this.state.libraries}
