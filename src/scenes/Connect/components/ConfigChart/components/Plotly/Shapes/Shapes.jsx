@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import GridRow from '../../../GridRow'
-import Collapsable from '../../../Collapsable'
+import GridRow from '../../../../GridRow'
+import Collapsable from '../../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import { chartAddOption, chartRemoveOption } from '@actions'
 
-import Image from './Image'
+import Shape from './Shape'
 
-class Images extends Component {
+class Shapes extends Component {
   constructor(props) {
     super(props)
     this.add = this.add.bind(this)
@@ -16,23 +16,20 @@ class Images extends Component {
   }
 
   add() {
-    this.props.chartAddOption(this.props.chart, 'image')
+    this.props.chartAddOption(this.props.chart, 'shape')
   }
 
   remove(e, { name }) {
-    this.props.chartRemoveOption(this.props.chart, 'image', name)
+    this.props.chartRemoveOption(this.props.chart, 'shape', name)
   }
 
-  renderImages() {
+  renderShapes() {
     const out = []
-    if (this.props.config == null) {
-      return out
-    }
-    Object.entries(this.props.config).forEach(([id, image]) => {
-      out.push(<Collapsable key={id} title={image.name} className='secondary' collapsed={true}>
-        <Image
+    Object.entries(this.props.config).forEach(([id, shape]) => {
+      out.push(<Collapsable key={id} title={shape.type} className='secondary' collapsed={true}>
+        <Shape
           name={`${this.props.name}.${id}`}
-          config={image}
+          config={shape}
           onChange={this.props.onChange}
           onRemove={this.remove}
         />
@@ -43,9 +40,9 @@ class Images extends Component {
 
   render() {
     return <Fragment>
-      {this.renderImages()}
+      {this.renderShapes()}
       <GridRow label='' compact={true}>
-        <ButtonLink onClick={this.add}>Add image</ButtonLink>
+        <ButtonLink onClick={this.add}>Add shape</ButtonLink>
       </GridRow>
     </Fragment>
   }
@@ -53,4 +50,4 @@ class Images extends Component {
 
 export default connect(null,
   dispatch => bindActionCreators({ chartAddOption, chartRemoveOption }, dispatch)
-)(Images)
+)(Shapes)

@@ -1,16 +1,23 @@
 import xaxis from './xaxis'
 import yaxis from './yaxis'
+import margin from './margin'
+import legend from './legend'
 
 export default {
   name: 'unnamed',
   library: 'gamblegram',
   xaxis,
   yaxis,
+  margin,
+  legend,
 
   events: ['change'],
   actions: {},
 
-  columns: {},
+  annotations: {},
+  datasets: {},
+  shapes: {},
+  images: {},
 
   enabled: {
     typeof: 'boolean',

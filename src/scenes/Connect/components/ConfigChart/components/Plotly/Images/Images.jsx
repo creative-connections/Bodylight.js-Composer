@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import GridRow from '../../../GridRow'
-import Collapsable from '../../../Collapsable'
+import GridRow from '../../../../GridRow'
+import Collapsable from '../../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import { chartAddOption, chartRemoveOption } from '@actions'
-import Annotation from './Annotation'
 
-class Annotations extends Component {
+import Image from './Image'
+
+class Images extends Component {
   constructor(props) {
     super(props)
     this.add = this.add.bind(this)
@@ -15,23 +16,23 @@ class Annotations extends Component {
   }
 
   add() {
-    this.props.chartAddOption(this.props.chart, 'annotation')
+    this.props.chartAddOption(this.props.chart, 'image')
   }
 
   remove(e, { name }) {
-    this.props.chartRemoveOption(this.props.chart, 'annotation', name)
+    this.props.chartRemoveOption(this.props.chart, 'image', name)
   }
 
-  renderAnnotations() {
+  renderImages() {
     const out = []
     if (this.props.config == null) {
       return out
     }
-    Object.entries(this.props.config).forEach(([id, annotation]) => {
-      out.push(<Collapsable key={id} title={annotation.text.value} className='secondary' collapsed={true}>
-        <Annotation
+    Object.entries(this.props.config).forEach(([id, image]) => {
+      out.push(<Collapsable key={id} title={image.name} className='secondary' collapsed={true}>
+        <Image
           name={`${this.props.name}.${id}`}
-          config={annotation}
+          config={image}
           onChange={this.props.onChange}
           onRemove={this.remove}
         />
@@ -42,9 +43,9 @@ class Annotations extends Component {
 
   render() {
     return <Fragment>
-      {this.renderAnnotations()}
+      {this.renderImages()}
       <GridRow label='' compact={true}>
-        <ButtonLink onClick={this.add}>Add annotation</ButtonLink>
+        <ButtonLink onClick={this.add}>Add image</ButtonLink>
       </GridRow>
     </Fragment>
   }
@@ -52,4 +53,4 @@ class Annotations extends Component {
 
 export default connect(null,
   dispatch => bindActionCreators({ chartAddOption, chartRemoveOption }, dispatch)
-)(Annotations)
+)(Images)

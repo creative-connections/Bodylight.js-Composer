@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import GridRow from '../../../GridRow'
-import Collapsable from '../../../Collapsable'
+import GridRow from '../../../../GridRow'
+import Collapsable from '../../../../Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import { chartAddOption, chartRemoveOption } from '@actions'
+import Annotation from './Annotation'
 
-import Shape from './Shape'
-
-class Shapes extends Component {
+class Annotations extends Component {
   constructor(props) {
     super(props)
     this.add = this.add.bind(this)
@@ -16,20 +15,23 @@ class Shapes extends Component {
   }
 
   add() {
-    this.props.chartAddOption(this.props.chart, 'shape')
+    this.props.chartAddOption(this.props.chart, 'annotation')
   }
 
   remove(e, { name }) {
-    this.props.chartRemoveOption(this.props.chart, 'shape', name)
+    this.props.chartRemoveOption(this.props.chart, 'annotation', name)
   }
 
-  renderShapes() {
+  renderAnnotations() {
     const out = []
-    Object.entries(this.props.config).forEach(([id, shape]) => {
-      out.push(<Collapsable key={id} title={shape.type} className='secondary' collapsed={true}>
-        <Shape
+    if (this.props.config == null) {
+      return out
+    }
+    Object.entries(this.props.config).forEach(([id, annotation]) => {
+      out.push(<Collapsable key={id} title={annotation.text.value} className='secondary' collapsed={true}>
+        <Annotation
           name={`${this.props.name}.${id}`}
-          config={shape}
+          config={annotation}
           onChange={this.props.onChange}
           onRemove={this.remove}
         />
@@ -40,9 +42,9 @@ class Shapes extends Component {
 
   render() {
     return <Fragment>
-      {this.renderShapes()}
+      {this.renderAnnotations()}
       <GridRow label='' compact={true}>
-        <ButtonLink onClick={this.add}>Add shape</ButtonLink>
+        <ButtonLink onClick={this.add}>Add annotation</ButtonLink>
       </GridRow>
     </Fragment>
   }
@@ -50,4 +52,4 @@ class Shapes extends Component {
 
 export default connect(null,
   dispatch => bindActionCreators({ chartAddOption, chartRemoveOption }, dispatch)
-)(Shapes)
+)(Annotations)

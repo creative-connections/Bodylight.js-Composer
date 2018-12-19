@@ -6,12 +6,12 @@ import Collapsable from '../../Collapsable'
 import Events from '../../Events'
 
 import Datasets from './Datasets'
-import Shapes from './Shapes'
-import Images from './Images'
-import Annotations from './Annotations'
-import Axis from '../components/Axis'
-import Margin from './Margin'
-import Legend from './Legend'
+import Shapes from '../components/Plotly/Shapes'
+import Images from '../components/Plotly/Images'
+import Annotations from '../components/Plotly/Annotations'
+import Axis from '../components/Plotly/Axis'
+import Margin from '../components/Plotly/Margin'
+import Legend from '../components/Plotly/Legend'
 
 const PlotlyChart = props => {
   const config = props.config

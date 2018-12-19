@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Dropdown, Input } from 'semantic-ui-react'
 
-import ComplexAttribute from '../../../ComplexAttribute'
-import GridRow from '../../../GridRow'
+import ComplexAttribute from '../../../../ComplexAttribute'
+import GridRow from '../../../../GridRow'
 import ButtonLink from '@components/ButtonLink'
 
 import Source from './Source'
