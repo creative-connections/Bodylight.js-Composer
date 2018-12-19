@@ -11,6 +11,7 @@ import Images from './Images'
 import Annotations from './Annotations'
 import Axis from '../components/Axis'
 import Margin from './Margin'
+import Legend from './Legend'
 
 const PlotlyChart = props => {
   const config = props.config
@@ -54,6 +55,10 @@ const PlotlyChart = props => {
 
       <Collapsable title='Margin' className='primary' collapsed={true}>
         <Margin name='margin' chart={chart} config={config.margin} onChange={props.onChange}/>
+      </Collapsable>
+
+      <Collapsable title='Legend' className='primary' collapsed={true}>
+        <Legend name='legend' chart={chart} config={config.legend} onChange={props.onChange}/>
       </Collapsable>
 
       <Events widget={props.chart} config={config} />

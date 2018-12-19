@@ -1,6 +1,7 @@
 import xaxis from './xaxis'
 import yaxis from './yaxis'
 import margin from './margin'
+import legend from './legend'
 
 export default {
   name: 'unnamed',
@@ -8,6 +9,7 @@ export default {
   xaxis,
   yaxis,
   margin,
+  legend,
 
   events: ['change'],
   actions: {},

@@ -4,6 +4,7 @@ export default {
   mode: 'lines',
   fill: 'none',
   other: '() => ({})',
+  showlegend: true,
   offset: {
     typeof: 'number',
     value: 0,

@@ -137,6 +137,7 @@ export default class PlotlyChart extends Widget {
           name: dataset.name,
           line: dataset.line,
           fill: dataset.fill,
+          showlegend: dataset.showlegend
         }
         // rest of the configuration options
         Object.entries(dataset.other).forEach(([key, value]) => {
@@ -233,6 +234,7 @@ export default class PlotlyChart extends Widget {
         xaxis: this.xaxis,
         yaxis: this.yaxis,
         margin: this.margin,
+        legend: this.legend,
         shapes,
         annotations,
         images
