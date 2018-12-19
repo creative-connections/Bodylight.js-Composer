@@ -28,4 +28,6 @@ export const POPULATE_ANIMATE = 'widget/animate/POPULATE'
 
 export const UPDATE_EXPORT_OPTION = 'app/exportoption/UPDATE'
 
+export const LOAD_STORE = 'store/LOAD'
+
 export const SWITCH_DISPLAY_TAB = 'app/SWITCH_DISPLAY_TAB'

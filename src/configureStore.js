@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import { createLogger } from 'redux-logger'
 import localForage from 'localforage'
 import reducers from './reducers'
+import { loadStore as loadStoreAction } from '@actions'
 
 let store
 let persistor
@@ -33,6 +34,7 @@ const createNewStore = (initialState = undefined) => {
     createMiddleware()
   )
   persistor = persistStore(store)
+  store.dispatch(loadStoreAction(store.getState()))
 }
 
 const loadState = (state) => {
