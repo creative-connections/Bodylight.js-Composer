@@ -7,7 +7,8 @@ import {
   REMOVE_WIDGET_ACTION,
   UPDATE_WIDGET_ACTION,
   ADD_WIDGET_OPTION,
-  REMOVE_WIDGET_OPTION
+  REMOVE_WIDGET_OPTION,
+  LOAD_STORE
 } from '@actions/types'
 import { REHYDRATE } from 'redux-persist'
 
@@ -137,6 +138,7 @@ export default function (state = {}, action) {
   case UPDATE_WIDGET_ACTION:
     return updateWidgetAction(state, action.payload, type)
   case REHYDRATE:
+  case LOAD_STORE:
     if (action != null && action.payload != null) {
       return rehydrate(state, action.payload)
     }
