@@ -115,6 +115,7 @@ export default class Gamblegram extends PlotlyBase {
       xaxis: this.xaxis,
       yaxis: this.yaxis,
       margin: this.margin,
+      legend: this.legend,
       barmode: 'relative',
       shapes,
       annotations,
