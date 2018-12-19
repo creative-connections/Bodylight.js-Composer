@@ -94,7 +94,6 @@ export default class Gamblegram extends PlotlyBase {
     return traces
   }
 
-
   initPlotly() {
     if (this.plotly != null) {
       return
@@ -109,7 +108,6 @@ export default class Gamblegram extends PlotlyBase {
     const shapes = this.initShapes()
     const annotations = this.initAnnotations()
     const images = this.initImages()
-
 
     const layout = {
       xaxis: this.xaxis,
@@ -129,13 +127,5 @@ export default class Gamblegram extends PlotlyBase {
 
     Plotly.newPlot(this.plotly, traces, layout, config)
     this.initialized = true
-  }
-
-
-  parseAttribute(attribute) {
-    if (attribute.startsWith('{')) {
-      return JSON.parse(attribute)
-    }
-    return null
   }
 }

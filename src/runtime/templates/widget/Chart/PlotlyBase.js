@@ -14,6 +14,13 @@ export default class PlotlyBase extends Widget {
     this.initPlotly()
   }
 
+  parseAttribute(attribute) {
+    if (attribute.startsWith('{')) {
+      return JSON.parse(attribute)
+    }
+    return null
+  }
+
   // Initializes setters for shapes, annotations, etc.
   initAdditionals(identifier, config, indexes) {
     if (config == null) { return }

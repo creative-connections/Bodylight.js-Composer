@@ -305,11 +305,4 @@ export default class PlotlyChart extends PlotlyBase {
 
     super.setValue(attribute, value, time)
   }
-
-  parseAttribute(attribute) {
-    if (attribute.startsWith('{')) {
-      return JSON.parse(attribute)
-    }
-    return null
-  }
 }
