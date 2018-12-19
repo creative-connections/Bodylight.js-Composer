@@ -9,6 +9,7 @@ import {
   ADD_WIDGET_OPTION,
   REMOVE_WIDGET_OPTION
 } from '@actions/types'
+import { REHYDRATE } from 'redux-persist'
 
 import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
@@ -91,6 +92,30 @@ const removeOption = (state, { id, widget, option }, type) => {
   return state
 }
 
+const rehydrate = (oldstate, newstate) => {
+  /*
+   * This is an instead-of-migration fast-forward approach to data model updates. When features
+   * are added to the data model, this ensures that project files from previous version of the
+   * composer are brought up to date with current default configuration.
+   *
+   * Missing keys are added and initialized to their default values.
+   */
+  const charts = {}
+  Object.entries(newstate.config.charts).forEach(([id, chart]) => {
+    switch (chart.library) {
+    case 'plotly':
+      chart = line(chart, false)
+      break
+    case 'gamblegram':
+      console.warn('REHYDRATE for gamblegram not implemented yet')
+    }
+    charts[id] = chart
+  })
+
+
+  return charts
+}
+
 export default function (state = {}, action) {
   switch (action.type) {
   case ADD_WIDGET:
@@ -111,6 +136,11 @@ export default function (state = {}, action) {
     return removeWidgetAction(state, action.payload, type)
   case UPDATE_WIDGET_ACTION:
     return updateWidgetAction(state, action.payload, type)
+  case REHYDRATE:
+    if (action != null && action.payload != null) {
+      return rehydrate(state, action.payload)
+    }
+    break;
   }
   return state
 }
