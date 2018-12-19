@@ -1,14 +1,8 @@
-class Widget {}
+class PlotlyBase {}
 
-export default class Gamblegram extends Widget {
+export default class Gamblegram extends PlotlyBase {
   constructor(configuration) {
     super(configuration, 'chart')
-  }
-
-  updateComponent() {
-    super.updateComponent()
-    this.initData()
-    this.initPlotly()
   }
 
   sort(obj) {
@@ -90,28 +84,42 @@ export default class Gamblegram extends Widget {
     }
   }
 
-  initPlotly() {
-    if (this.plotly != null) {
-      return
-    }
-
-    const d3 = Plotly.d3
-    const div = d3.select(this.component).append('div').style({ width: '100%', height: '100%' })
-    this.plotly = div.node()
-
+  initTraces() {
     const traces = []
-
     Object.values(this.items).forEach(({ item }) => {
       const x = this.x
       const y = Array(this.columns.length)
       traces.push({ x, y, name: item.name, type: 'bar' })
     })
+    return traces
+  }
+
+
+  initPlotly() {
+    if (this.plotly != null) {
+      return
+    }
+    this.initData()
+
+    const d3 = Plotly.d3
+    const div = d3.select(this.component).append('div').style({ width: '100%', height: '100%' })
+    this.plotly = div.node()
+
+    const traces = this.initTraces()
+    const shapes = this.initShapes()
+    const annotations = this.initAnnotations()
+    const images = this.initImages()
+
 
     const layout = {
-      //xaxis: this.xaxis,
-      //yaxis: this.yaxis,
+      xaxis: this.xaxis,
+      yaxis: this.yaxis,
+      margin: this.margin,
       barmode: 'relative',
-      margin: { l: 50, r: 20, b: 20, t: 20, pad: 4 },
+      shapes,
+      annotations,
+      images,
+
       bargap: 0
     }
     const config = {

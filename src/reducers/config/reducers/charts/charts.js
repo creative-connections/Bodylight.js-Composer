@@ -64,6 +64,9 @@ const updateChart = (state, payload, type) => {
 
 import plotlyAddOption from './config/plotly/line/addOption'
 import plotlyRemoveOption from './config/plotly/line/removeOption'
+import gamblegramAddOption from './config/plotly/gamblegram/addOption'
+import gamblegramRemoveOption from './config/plotly/gamblegram/removeOption'
+
 
 const addOption = (state, { id, widget, option }, type) => {
   if (type !== widget.type) { return state }
@@ -74,7 +77,9 @@ const addOption = (state, { id, widget, option }, type) => {
       [widget.id]: { $set: plotlyAddOption(widget, id, option) }
     })
   case 'gamblegram':
-    console.warn('ADD_WIDGET_OPTION for gamblegram not implemented yet')
+    return update(state, {
+      [widget.id]: { $set: gamblegramAddOption(widget, id, option) }
+    })
   }
   return state
 }
@@ -88,7 +93,9 @@ const removeOption = (state, { id, widget, option }, type) => {
       [widget.id]: { $set: plotlyRemoveOption(widget, id, option) }
     })
   case 'gamblegram':
-    console.warn('REMOVE_WIDGET_OPTION for gamblegram not implemented yet')
+    return update(state, {
+      [widget.id]: { $set: gamblegramRemoveOption(widget, id, option) }
+    })
   }
   return state
 }
@@ -108,7 +115,8 @@ const rehydrate = (oldstate, newstate) => {
       chart = line(chart, false)
       break
     case 'gamblegram':
-      console.warn('REHYDRATE for gamblegram not implemented yet')
+      chart = gamblegram(chart, false)
+      break
     }
     charts[id] = chart
   })

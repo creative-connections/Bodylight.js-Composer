@@ -73,6 +73,7 @@ import AnimateText from './templates/widget/AnimateText'
 import Range from './templates/widget/Range'
 import Label from './templates/widget/Label'
 
+import PlotlyBase from './templates/widget/Chart/PlotlyBase'
 import PlotlyChart from './templates/widget/Chart/PlotlyChart'
 import Gamblegram from './templates/widget/Chart/Gamblegram'
 import initCharts from './templates/widget/Chart/init'
@@ -329,6 +330,7 @@ class Builder {
     append(tpl(Toggle))
     append(tpl(initToggles))
 
+    append(tpl(PlotlyBase))
     append(tpl(PlotlyChart))
     append(tpl(Gamblegram))
     append(tpl(initCharts))
