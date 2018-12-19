@@ -26,7 +26,6 @@ const yanchor = [
 ]
 
 const Legend = ({ name, config = {}, onChange }) => {
-  console.log(config)
   return <Fragment>
       <GridRow label='Orientation'>
         <Dropdown
