@@ -376,9 +376,25 @@ div#main-menu {
   vertical-align: bottom;
   display: inline-block;
   margin-right: 4px;
+  margin-left: 4px;
   width: 12px;
   height: 12px;
   border: 1px solid gray;
+}
+
+button, button.ui.button {
+  width: 100%;
+  font-size: 0.75rem;
+  min-height: 1.5rem;
+  line-height: 1rem;
+  word-break: break-all;
+}
+
+div.colorpicker {
+  button, button.ui.button {
+    padding: 0.5em;
+    margin: 0;
+  }
 }
 
 .connect-sidebar {
@@ -428,18 +444,14 @@ div#main-menu {
         }
       }
 
+      button, button.ui.button {
+        padding: 0.3rem 0;
+        margin: 0;
+      }
     }
   }
 
-  button, button.ui.button {
-    width: 100%;
-    font-size: 0.75rem;
-    min-height: 1.5rem;
-    line-height: 1rem;
-    padding: 0.3rem 0;
-    margin: 0;
-    word-break: break-all;
-  }
+
 
   .ui.input {
     width: 100%;
