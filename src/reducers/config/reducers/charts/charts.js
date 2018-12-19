@@ -140,7 +140,6 @@ export default function (state = {}, action) {
     if (action != null && action.payload != null) {
       return rehydrate(state, action.payload)
     }
-    break;
   }
   return state
 }

@@ -3,6 +3,7 @@ import {
   RENAME_WIDGET,
   UPDATE_WIDGET_CONFIG
 } from '@actions/types'
+import { REHYDRATE } from 'redux-persist'
 
 import WidgetType from '@helpers/enum/WidgetType'
 import ArgumentType from '@helpers/enum/ArgumentType'
@@ -92,6 +93,8 @@ export default function (state = defaultState, action) {
     return renameWidget(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
     return updateWidget(state, action.payload, type)
+  case REHYDRATE:
+    return action.payload ? action.payload.config.actions : state
   }
   return state
 }

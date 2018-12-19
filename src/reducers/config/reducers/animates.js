@@ -6,6 +6,7 @@ import {
   UPDATE_WIDGET_CONFIG,
   POPULATE_ANIMATE
 } from '@actions/types'
+import { REHYDRATE } from 'redux-persist'
 
 import {
   addWidget,
@@ -65,6 +66,8 @@ export default function (state = {}, action) {
     return updateWidget(state, action.payload, type)
   case POPULATE_ANIMATE:
     return populateAnimate(state, action.payload, type)
+  case REHYDRATE:
+    return action.payload ? action.payload.config.animates : state
   }
   return state
 }

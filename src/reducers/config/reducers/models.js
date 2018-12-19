@@ -4,6 +4,7 @@ import {
   UPDATE_WIDGET,
   UPDATE_WIDGET_CONFIG
 } from '@actions/types'
+import { REHYDRATE } from 'redux-persist'
 
 import {
   updateWidget,
@@ -98,6 +99,8 @@ export default function (state = {}, action) {
     return updateModel(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
     return updateWidget(state, action.payload, type)
+  case REHYDRATE:
+    return action.payload ? action.payload.config.models : state
   }
   return state
 }

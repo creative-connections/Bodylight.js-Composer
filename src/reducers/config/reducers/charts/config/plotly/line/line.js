@@ -5,9 +5,6 @@ import dataset from './config/dataset'
 import annotation from './config/annotation'
 import image from './config/image'
 import shape from './config/shape'
-import xaxis from './config/xaxis'
-import yaxis from './config/yaxis'
-
 
 const merge = (defaultConfig, items) => {
   if (items == null) { return items }
@@ -32,7 +29,5 @@ export default (config, clear = false) => {
   chart.annotations = merge(annotation, chart.annotations)
   chart.images = merge(image, chart.images)
   chart.shapes = merge(shape, chart.shapes)
-  chart.xaxis = { ...xaxis, ...chart.xaxis }
-  chart.yaxis = { ...yaxis, ...chart.yaxis }
   return chart
 }

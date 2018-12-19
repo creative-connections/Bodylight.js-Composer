@@ -3,6 +3,7 @@ import {
   UPDATE_WIDGET,
   REMOVE_WIDGET
 } from '@actions/types'
+import { REHYDRATE } from 'redux-persist'
 
 import AnimateAnimMode from '@helpers/AnimateAnimMode'
 import WidgetType from '@helpers/enum/WidgetType'
@@ -92,11 +93,13 @@ const type = WidgetType.ANIMATE_ANIM
 const addAnimateAnim = (state, payload) => {
   if (type !== payload.widget.type) { return state }
   let config = update(defaultConfig, {
-    id: {$set: payload.widget.id},
-    name: {$set: payload.widget.name},
-    parent: {$set: payload.widget.parent}
+    id: { $set: payload.widget.id },
+    name: { $set: payload.widget.name },
+    parent: { $set: payload.widget.parent }
   })
-  return update(state, { [payload.widget.id]: {$set: config} })
+  return update(state, {
+    [payload.widget.id]: { $set: config }
+  })
 }
 
 const updateAnimateAnim = (state, payload) => {
@@ -123,7 +126,7 @@ const removeMissingAnimateAnims = (state, payload) => {
       }
     })
     if (!found) {
-      state = update(state, {$unset: [id]})
+      state = update(state, { $unset: [id] })
     }
   })
 
@@ -132,12 +135,14 @@ const removeMissingAnimateAnims = (state, payload) => {
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case UPDATE_WIDGET:
-      return removeMissingAnimateAnims(state, action.payload)
-    case UPDATE_WIDGET_CONFIG:
-      return updateAnimateAnim(state, action.payload)
-    case REMOVE_WIDGET:
-      return removeWidget(state, action.payload, WidgetType.ANIMATE)
+  case UPDATE_WIDGET:
+    return removeMissingAnimateAnims(state, action.payload)
+  case UPDATE_WIDGET_CONFIG:
+    return updateAnimateAnim(state, action.payload)
+  case REMOVE_WIDGET:
+    return removeWidget(state, action.payload, WidgetType.ANIMATE)
+  case REHYDRATE:
+    return action.payload ? action.payload.config.animateAnims : state
   }
   return state
 }
