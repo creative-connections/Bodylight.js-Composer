@@ -27,7 +27,7 @@ const yanchor = [
 
 const Legend = ({ name, config = {}, onChange }) => {
   return <Fragment>
-      <GridRow label='Orientation'>
+      <GridRow inline label='Orientation'>
         <Dropdown
           name={`${name}.orientation`}
           value={config.orientation}
@@ -44,7 +44,7 @@ const Legend = ({ name, config = {}, onChange }) => {
         />
       </GridRow>
 
-      <GridRow label='x anchor'>
+      <GridRow inline label='x anchor'>
         <Dropdown
           name={`${name}.xanchor`}
           value={config.xanchor}
@@ -61,7 +61,7 @@ const Legend = ({ name, config = {}, onChange }) => {
         />
       </GridRow>
 
-      <GridRow label='y anchor'>
+      <GridRow inline label='y anchor'>
         <Dropdown
           name={`${name}.yanchor`}
           value={config.yanchor}
@@ -78,7 +78,7 @@ const Legend = ({ name, config = {}, onChange }) => {
         />
       </GridRow>
 
-      <GridRow label='Border color'>
+      <GridRow inline label='Border color'>
         <ColorPicker
           name={`${name}.bordercolor`}
           value={config.bordercolor}
@@ -102,7 +102,7 @@ const Legend = ({ name, config = {}, onChange }) => {
         />
       </GridRow>
 
-      <GridRow label='Font color'>
+      <GridRow inline label='Font color'>
         <ColorPicker
           name={`${name}.font.color`}
           value={config.font.color}
@@ -110,7 +110,7 @@ const Legend = ({ name, config = {}, onChange }) => {
         />
       </GridRow>
 
-      <GridRow label='Order'>
+      <GridRow inline label='Order'>
         <Dropdown
           name={`${name}.traceorder`}
           value={config.traceorder}
