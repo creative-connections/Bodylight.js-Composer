@@ -232,13 +232,7 @@ export default class PlotlyChart extends Widget {
       const layout = {
         xaxis: this.xaxis,
         yaxis: this.yaxis,
-        margin: {
-          l: 50,
-          r: 20,
-          b: 20,
-          t: 20,
-          pad: 4
-        },
+        margin: this.margin,
         shapes,
         annotations,
         images
