@@ -86,7 +86,7 @@ module.exports = (env, argv) => {
         template: './src/template.hbs'
       }),
       new Dotenv({
-        path: './.env.prod',
+        path: './.env.dev',
         safe: true,
         systemvars: false,
         silent: false
