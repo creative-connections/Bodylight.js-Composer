@@ -94,7 +94,10 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(['build/*.js']),
       new CopyWebpackPlugin([
         { from: 'dist/images', to: 'images' }
-      ])
+      ]),
+      new webpack.DefinePlugin({
+        '__BUILD_DATE__': JSON.stringify((new Date()).getTime()),
+      })
     ]
   }
 }

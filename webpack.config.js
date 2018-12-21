@@ -84,7 +84,10 @@ module.exports = (env, argv) => {
         title: 'Composer - Bodylight.js',
         template: './src/template.hbs'
       }),
-      new Dotenv()
+      new Dotenv(),
+      new webpack.DefinePlugin({
+        '__BUILD_DATE__': JSON.stringify((new Date()).getTime()),
+      })
     ]
   }
 }

@@ -23,6 +23,8 @@ import connectPanel from './panels/connect'
 
 import { editorStorageClear } from '@actions/actions'
 
+import moment from 'moment'
+
 class Design extends Component {
   constructor(props) {
     super(props)
@@ -77,6 +79,14 @@ class Design extends Component {
       }
     })
 
+    editor.Panels.addButton('options', {
+      id: 'build-date',
+      className: 'build-date',
+      command: null,
+      attributes: {},
+      label: moment(__BUILD_DATE__).format('[built:] YYYY-MM-DD hh:mm:ss')
+    })
+
     const fullscreenBtn = editor.Panels.getButton('options', 'fullscreen')
     fullscreenBtn.collection.remove(fullscreenBtn)
 
@@ -93,8 +103,6 @@ class Design extends Component {
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
-
-
 
     this.unsubscribeSelectedWidget = observeStore(state => state.widgets.app.selected, () => {
       editor.Panels.getButton('views', 'open-connect').set('active', true)
