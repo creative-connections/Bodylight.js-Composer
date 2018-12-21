@@ -30,12 +30,12 @@ export default class Widget {
   }
 
   fillValueProviders() {
-    Object.entries(this).forEach((id, entry) => {
+    Object.entries(this).forEach(([id, entry]) => {
       if (typeof entry !== 'object') {
         return
       }
       if (typeof entry['provider'] !== 'undefined' && entry.provider !== null) {
-        this.addValueProvider(entry, entry.provider)
+        this.addValueProvider(id, entry.provider)
       }
     })
   }
