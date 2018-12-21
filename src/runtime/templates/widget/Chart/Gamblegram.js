@@ -114,12 +114,12 @@ export default class Gamblegram extends PlotlyBase {
       yaxis: this.yaxis,
       margin: this.margin,
       legend: this.legend,
-      barmode: 'relative',
       shapes,
       annotations,
       images,
 
-      bargap: 0
+      barmode: this.barmode,
+      bargap: this.bargap
     }
     const config = {
       displayModeBar: false

@@ -19,6 +19,9 @@ export default {
   shapes: {},
   images: {},
 
+  bargap: 0,
+  barmode: 'relative',
+
   enabled: {
     typeof: 'boolean',
     value: true,

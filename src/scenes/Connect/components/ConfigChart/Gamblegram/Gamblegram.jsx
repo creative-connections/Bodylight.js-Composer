@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react'
+import { Dropdown, Checkbox } from 'semantic-ui-react'
 
 import GridRow from '../../GridRow'
 import ComplexAttribute from '../../ComplexAttribute'
 import Collapsable from '../../Collapsable'
+import InputFloat from '@components/InputFloat'
 import Events from '../../Events'
 
 import Columns from './Columns'
@@ -13,6 +15,13 @@ import Annotations from '../components/Plotly/Annotations'
 import Axis from '../components/Plotly/Axis'
 import Margin from '../components/Plotly/Margin'
 import Legend from '../components/Plotly/Legend'
+
+const barmode = [
+  { key: 'relative', text: 'Relative', value: 'relative' },
+  { key: 'stack', text: 'Stack', value: 'stack' },
+  { key: 'group', text: 'Group', value: 'group' },
+  { key: 'overlay', text: 'Overlay', value: 'overlay' },
+    ]
 
 const Gamblegram = ({ chart, config, onChange }) => {
   return <Fragment>
@@ -58,6 +67,23 @@ const Gamblegram = ({ chart, config, onChange }) => {
       <Collapsable title='Legend' className='primary' collapsed={true}>
         <Legend name='legend' chart={chart} config={config.legend} onChange={onChange}/>
       </Collapsable>
+
+      <GridRow label='Gap between bars (0-1)'>
+        <InputFloat
+          name='bargap'
+          value={config.bargap}
+          onChange={onChange}
+        />
+      </GridRow>
+
+      <GridRow inline label='Bar mode'>
+        <Dropdown
+          name='barmode'
+          value={config.barmode}
+          onChange={onChange}
+          options={barmode}
+        />
+      </GridRow>
 
       <Events widget={chart} config={config} />
     </Fragment>
