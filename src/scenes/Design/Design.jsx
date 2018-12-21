@@ -84,7 +84,7 @@ class Design extends Component {
       className: 'build-date',
       command: null,
       attributes: {},
-      label: moment(__BUILD_DATE__).format('[built:] YYYY-MM-DD hh:mm:ss')
+      label: moment(__BUILD_DATE__).format('[built:] YYYY-MM-DD HH:mm:ss')
     })
 
     const fullscreenBtn = editor.Panels.getButton('options', 'fullscreen')
