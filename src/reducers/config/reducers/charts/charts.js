@@ -68,33 +68,33 @@ import gamblegramAddOption from './config/plotly/gamblegram/addOption'
 import gamblegramRemoveOption from './config/plotly/gamblegram/removeOption'
 
 
-const addOption = (state, { id, widget, option }, type) => {
+const addOption = (state, { id, widget, option, params }, type) => {
   if (type !== widget.type) { return state }
   widget = state[widget.id]
   switch (widget.library) {
   case 'plotly':
     return update(state, {
-      [widget.id]: { $set: plotlyAddOption(widget, id, option) }
+      [widget.id]: { $set: plotlyAddOption(widget, id, option, params) }
     })
   case 'gamblegram':
     return update(state, {
-      [widget.id]: { $set: gamblegramAddOption(widget, id, option) }
+      [widget.id]: { $set: gamblegramAddOption(widget, id, option, params) }
     })
   }
   return state
 }
 
-const removeOption = (state, { id, widget, option }, type) => {
+const removeOption = (state, { id, widget, option, params }, type) => {
   if (type !== widget.type) { return state }
   widget = state[widget.id]
   switch (widget.library) {
   case 'plotly':
     return update(state, {
-      [widget.id]: { $set: plotlyRemoveOption(widget, id, option) }
+      [widget.id]: { $set: plotlyRemoveOption(widget, id, option, params) }
     })
   case 'gamblegram':
     return update(state, {
-      [widget.id]: { $set: gamblegramRemoveOption(widget, id, option) }
+      [widget.id]: { $set: gamblegramRemoveOption(widget, id, option, params) }
     })
   }
   return state

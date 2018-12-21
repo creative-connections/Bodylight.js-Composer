@@ -24,6 +24,8 @@ class Column extends Component {
 
       <Items
         name={`columns.${this.props.config.id}.items`}
+        column={config}
+        chart={this.props.chart}
         config={config.items}
         onChange={this.props.onChange}
         />
@@ -39,7 +41,7 @@ class Column extends Component {
       </GridRow>
 
       <GridRow border label='' compact={true}>
-        <ButtonLink name={config.id} onClick={this.props.onRemove}>remove dataset</ButtonLink>
+        <ButtonLink name={config.id} onClick={this.props.onRemove}>remove column</ButtonLink>
       </GridRow>
     </Fragment>
   }

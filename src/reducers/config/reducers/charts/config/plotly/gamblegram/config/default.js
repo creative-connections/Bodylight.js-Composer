@@ -15,7 +15,7 @@ export default {
   actions: {},
 
   annotations: {},
-  datasets: {},
+  columns: {},
   shapes: {},
   images: {},
 

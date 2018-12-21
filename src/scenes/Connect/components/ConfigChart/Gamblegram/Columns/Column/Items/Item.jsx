@@ -3,6 +3,7 @@ import { Input } from 'semantic-ui-react'
 import GridRow from '@scenes/Connect/components/GridRow'
 import ComplexAttribute from '@scenes/Connect/components/ComplexAttribute'
 import FunctionEditor from '@components/FunctionEditor'
+import ButtonLink from '@components/ButtonLink'
 
 class Item extends Component {
   render() {
@@ -33,6 +34,10 @@ class Item extends Component {
           typeof='object'
           disableRemove={true}
         />
+      </GridRow>
+
+      <GridRow border label='' compact={true}>
+        <ButtonLink name={config.id} onClick={this.props.onRemove}>remove item</ButtonLink>
       </GridRow>
     </Fragment>
   }

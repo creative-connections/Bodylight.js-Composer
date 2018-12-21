@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react'
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import GridRow from '@scenes/Connect/components/GridRow'
 import Collapsable from '@scenes/Connect/components/Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
 import update from 'immutability-helper'
+import { chartAddOption, chartRemoveOption } from '@actions'
 import memoize from 'fast-memoize'
 
 import Item from './Item'
@@ -12,9 +14,9 @@ import Item from './Item'
 class Items extends Component {
   constructor(props) {
     super(props)
-    this.handleAdd = this.handleAdd.bind(this)
-    this.handleRemove = this.handleRemove.bind(this)
     this.sort = memoize(this.sort.bind(this))
+    this.add = this.add.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
   getLastPosition() {
@@ -29,36 +31,12 @@ class Items extends Component {
     return Object.values(items).sort((a, b) => a.position - b.position)
   }
 
-  handleAdd() {
-    let items = this.props.config
-    const id = generateID()
-    const position = this.getLastPosition() + 1
-    const defaultConfig = {
-      id,
-      position,
-      name: `item ${position}`,
-      other: '() => ({})',
-      value: {
-        typeof: 'number',
-        value: 0,
-        time: true,
-        provider: null,
-        array: false,
-        indexes: null,
-        'function': null
-      },
-    }
-
-    items = update(items, {
-      [id]: { $set: defaultConfig }
-    })
-
-    this.props.onChange(null, { name: this.props.name, value: items })
+  add() {
+    this.props.chartAddOption(this.props.chart, 'item', { idColumn: this.props.column.id })
   }
 
-  handleRemove(e, { name }) {
-    const items = update(this.props.config, { $unset: [name] })
-    this.props.onChange(e, { name: this.props.name, value: items })
+  remove(e, { name }) {
+    this.props.chartRemoveOption(this.props.chart, 'item', name, { idColumn: this.props.column.id })
   }
 
   renderItems() {
@@ -70,7 +48,7 @@ class Items extends Component {
             name={`${this.props.name}.${item.id}`}
             config={item}
             onChange={this.props.onChange}
-            onRemove={this.handleRemove}
+            onRemove={this.remove}
           />
         </Collapsable>
       )
@@ -83,11 +61,13 @@ class Items extends Component {
       {this.renderItems()}
 
       <GridRow border label='' compact={true}>
-        <ButtonLink onClick={this.handleAdd}>Add item</ButtonLink>
+        <ButtonLink onClick={this.add}>Add item</ButtonLink>
       </GridRow>
 
     </Fragment>
   }
 }
 
-export default Items
+export default connect(null,
+  dispatch => bindActionCreators({ chartAddOption, chartRemoveOption }, dispatch)
+)(Items)

@@ -27,12 +27,12 @@ export const renameChart = (widget, name) => ({
   payload: { widget, name }
 })
 
-export const chartAddOption = (widget, option) => ({
+export const chartAddOption = (widget, option, params = null) => ({
   type: ADD_WIDGET_OPTION,
-  payload: { id: generateID(), widget, option }
+  payload: { id: generateID(), widget, option, params }
 })
 
-export const chartRemoveOption = (widget, option, id) => ({
+export const chartRemoveOption = (widget, option, id, params = null) => ({
   type: REMOVE_WIDGET_OPTION,
-  payload: { widget, option, id }
+  payload: { widget, option, id, params }
 })

@@ -1,19 +1,18 @@
 import React, { Component, Fragment } from 'react'
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import GridRow from '@scenes/Connect/components/GridRow'
 import Collapsable from '@scenes/Connect/components/Collapsable'
 import ButtonLink from '@components/ButtonLink'
-import generateID from '@helpers/generateID'
-import update from 'immutability-helper'
 import memoize from 'fast-memoize'
-
+import { chartAddOption, chartRemoveOption } from '@actions'
 import Column from './Column'
 
 class Columns extends Component {
   constructor(props) {
     super(props)
-    this.handleAdd = this.handleAdd.bind(this)
-    this.handleRemove = this.handleRemove.bind(this)
+    this.add = this.add.bind(this)
+    this.remove = this.remove.bind(this)
     this.sort = memoize(this.sort.bind(this))
   }
 
@@ -29,28 +28,12 @@ class Columns extends Component {
     return Object.values(columns).sort((a, b) => a.position - b.position)
   }
 
-  handleAdd() {
-    let columns = this.props.config
-    const id = generateID()
-    const position = this.getLastPosition() + 1
-    const defaultConfig = {
-      id,
-      position,
-      name: `column ${position}`,
-      items: {},
-      other: '() => ({})'
-    }
-
-    columns = update(columns, {
-      [id]: { $set: defaultConfig }
-    })
-
-    this.props.onChange(null, { name: this.props.name, value: columns })
+  add() {
+    this.props.chartAddOption(this.props.chart, 'column')
   }
 
-  handleRemove(e, { name }) {
-    const columns = update(this.props.config, { $unset: [name] })
-    this.props.onChange(e, { name: this.props.name, value: columns })
+  remove(e, { name }) {
+    this.props.chartRemoveOption(this.props.chart, 'column', name)
   }
 
   renderColumns() {
@@ -61,8 +44,9 @@ class Columns extends Component {
           <Column
             name={`${this.props.name}.${column.id}`}
             config={column}
+            chart={this.props.chart}
             onChange={this.props.onChange}
-            onRemove={this.handleRemove}
+            onRemove={this.remove}
           />
         </Collapsable>
       )
@@ -75,10 +59,12 @@ class Columns extends Component {
       {this.renderColumns()}
 
       <GridRow border label='' compact={true}>
-        <ButtonLink onClick={this.handleAdd}>Add column</ButtonLink>
+        <ButtonLink onClick={this.add}>Add column</ButtonLink>
       </GridRow>
     </Fragment>
   }
 }
 
-export default Columns
+export default connect(null,
+  dispatch => bindActionCreators({ chartAddOption, chartRemoveOption }, dispatch)
+)(Columns)
