@@ -1,6 +1,8 @@
 import update from 'immutability-helper'
 import defaultConfig from './config/default'
 
+import column from './config/column'
+import item from './config/item'
 import annotation from './config/annotation'
 import image from './config/image'
 import shape from './config/shape'
@@ -27,5 +29,12 @@ export default (config, clear = false) => {
   gamblegram.annotations = merge(annotation, gamblegram.annotations)
   gamblegram.images = merge(image, gamblegram.images)
   gamblegram.shapes = merge(shape, gamblegram.shapes)
+  gamblegram.columns = merge(column, gamblegram.columns)
+
+
+  Object.entries(gamblegram.columns).forEach(([id, ]) => {
+    gamblegram.columns[id].items = merge(item, gamblegram.columns[id].items)
+  })
+
   return gamblegram
 }

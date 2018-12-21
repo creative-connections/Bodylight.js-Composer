@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Input } from 'semantic-ui-react'
+import { Input, Checkbox } from 'semantic-ui-react'
 import GridRow from '@scenes/Connect/components/GridRow'
 import ComplexAttribute from '@scenes/Connect/components/ComplexAttribute'
 import FunctionEditor from '@components/FunctionEditor'
@@ -24,6 +24,15 @@ class Item extends Component {
           attribute={config.value}
           onChange={this.props.onChange}
           />
+      </GridRow>
+
+      <GridRow border label='Value'>
+        <Checkbox
+          label='Display name in item'
+          name={`${name}.displayName`}
+          checked={config.displayName}
+          onChange={this.props.onChange}
+        />
       </GridRow>
 
       <GridRow label='Custom'>

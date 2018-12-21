@@ -89,7 +89,14 @@ export default class Gamblegram extends PlotlyBase {
     Object.values(this.items).forEach(({ item }) => {
       const x = this.x
       const y = Array(this.columns.length)
-      traces.push({ x, y, name: item.name, type: 'bar' })
+      traces.push({
+        x,
+        y,
+        name: item.name,
+        text: item.displayName ? item.name : '',
+        textposition: item.textposition,
+        type: 'bar'
+      })
     })
     return traces
   }
