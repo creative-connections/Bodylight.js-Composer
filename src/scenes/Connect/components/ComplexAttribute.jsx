@@ -158,7 +158,7 @@ class ComplexAttribute extends Component {
     const values = {
       boolean: 'value => true;',
       number: 'value => value;',
-      string: 'value => `${value}`'
+      string: 'value => `${Number(value).toFixed(2)}`'
     }
 
     this.props.onChange(e, {
