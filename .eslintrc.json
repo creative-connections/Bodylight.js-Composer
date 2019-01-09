@@ -32,7 +32,13 @@
     "no-debugger": "warn",
     "no-console": "warn",
     "no-template-curly-in-string": "warn",
-    "semi": ["error", "never"],
-    "multiline-comment-style": ["error", "starred-block"]
+	"no-tabs": "error",
+	"semi": ["error", "never"],
+	"multiline-comment-style": ["error", "starred-block"],
+	"max-len": ["error", { 
+		"code": 100, 
+		"comments": 80
+	}],
+	"indent": ["error", 2]
   }
 }
