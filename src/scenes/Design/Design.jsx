@@ -9,6 +9,8 @@ import gjsBlocksBasic from 'grapesjs-blocks-basic'
 import gjsBlocksFlexbox from 'grapesjs-blocks-flexbox'
 import gjsReduxStorage from './storage/redux'
 
+import gjsBlocksFlexblocks from './blocks/Flexblocks/'
+
 import animateBlock from './blocks/Animate'
 import buttonBlock from './blocks/Button'
 import rangeBlock from './blocks/Range'
@@ -54,7 +56,7 @@ class Design extends Component {
 
       plugins: [
         'gjs-redux-storage',
-        'gjs-blocks-flexbox',
+        'gjs-blocks-flexblocks',
         'gjs-blocks-basic'
       ],
 
