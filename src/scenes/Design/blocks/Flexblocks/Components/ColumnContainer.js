@@ -1,6 +1,4 @@
 import attrsToString from '../attrsToString'
-import generateClasses from '../classes'
-
 const label = `
 <svg class="gjs-block-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
   <g shape-rendering="auto">
@@ -14,26 +12,7 @@ const label = `
 `
 
 export default (editor, opt = {}) => {
-  const stylePrefix = opt.stylePrefix
-  const classes = generateClasses(stylePrefix)
-
-  const resizer = {
-    tl: 0,
-    tc: 0,
-    tr: 0,
-    cl: 0,
-    cr: 0,
-    bl: 0,
-    br: 0,
-    minDim: 1,
-  }
-
-  const attr = {
-    class: classes.columnContainer,
-    'data-gjs-droppable': `.${classes.item}`,
-    'data-gjs-resizable': resizer,
-    'data-gjs-custom-name': 'Column container',
-  }
+  const classes = opt.classes
 
   editor.on('selector:add', selector => {
     `.${classes.columnContainer}` === selector.getFullName() && selector.set('private', 1)
@@ -45,16 +24,10 @@ export default (editor, opt = {}) => {
     label,
     category,
     content: `
-      <div ${attrsToString(attr)}></div>
-      <style>
-        .${classes.columnContainer} {
-          display: flex;
-          flex-direction: row;
-          padding: 10px;
-          height: 100%;
-          width: 100%;
-        }
-      </style>
+      <div ${attrsToString(opt.attr.columnContainer)}>
+        <div ${attrsToString(opt.attr.item)}></div>
+      </div>
+      <style> ${opt.styles} </style>
     `
   },
   ...opt.flexboxBlock
