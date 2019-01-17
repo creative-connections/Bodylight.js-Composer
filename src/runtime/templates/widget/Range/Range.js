@@ -21,8 +21,10 @@ export default class Range extends Widget {
     if (this.target.function !== null) {
       value = this.target.function(value)
     }
+    this.target.value = value
+    
     if (this.target.provider) {
-      this.target.provider.setValue(this.target.reference, value)
+      this.target.provider.setValue(this.target.reference, this.target.value)
     }
     this.dispatchEvent(new Event('change'))
   }
