@@ -175,6 +175,17 @@ class Design extends Component {
       model.cloned = true
     })
 
+    /*
+     * We most likely want to open the Style Manager if we are not selecting our
+     * own block or component. Otherwise handleClick applies on the component.
+     */
+    editor.on('component:selected', model => {
+      const inited = model && model.view && model.view.inited
+      if (!inited) {
+        editor.Panels.getButton('views', 'open-sm').set('active', true)
+      }
+    })
+
     this.editor = editor
   }
 
