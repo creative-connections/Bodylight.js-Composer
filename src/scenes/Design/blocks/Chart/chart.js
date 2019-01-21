@@ -21,8 +21,6 @@ export default editor => {
     `,
     content: {
       type: CHART,
-      style: {
-      },
       removable: true,
       activeOnRender: 1
     }
