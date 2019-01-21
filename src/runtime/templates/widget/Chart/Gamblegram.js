@@ -108,7 +108,7 @@ export default class Gamblegram extends PlotlyBase {
     this.initData()
 
     const d3 = Plotly.d3
-    const div = d3.select(this.component).append('div').style({ width: '100%', height: '100%' })
+    const div = d3.select(this.component).style({ width: '100%', height: '100%' })
     this.plotly = div.node()
 
     const traces = this.initTraces()
@@ -129,7 +129,8 @@ export default class Gamblegram extends PlotlyBase {
       bargap: this.bargap
     }
     const config = {
-      displayModeBar: false
+      displayModeBar: false,
+      responsive: true
     }
 
     Plotly.newPlot(this.plotly, traces, layout, config)

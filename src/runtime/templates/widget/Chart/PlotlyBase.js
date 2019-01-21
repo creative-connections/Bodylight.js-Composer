@@ -8,11 +8,6 @@ export default class PlotlyBase extends Widget {
     this.initAdditionals('annotations', this.annotations, this.annotationIndexes)
     this.initAdditionals('images', this.images, this.imageIndexes)
 
-    window.addEventListener('resize', () => {
-      if (this.plotly) {
-        Plotly.Plots.resize(this.plotly)
-      }
-    })
   }
 
   updateComponent() {

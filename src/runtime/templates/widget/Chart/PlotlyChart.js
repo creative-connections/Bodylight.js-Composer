@@ -87,7 +87,7 @@ export default class PlotlyChart extends PlotlyBase {
     if (this.plotly === null || this.plotly === undefined) {
       const d3 = Plotly.d3
 
-      var div = d3.select(this.component).append('div').style({ width: '100%', height: '100%' })
+      var div = d3.select(this.component).style({ width: '100%', height: '100%' })
       this.plotly = div.node()
 
       this.buffer = {}
@@ -109,7 +109,8 @@ export default class PlotlyChart extends PlotlyBase {
         images
       }
       const config = {
-        'displayModeBar': false
+        'displayModeBar': false,
+        'responsive': true
       }
 
       Plotly.newPlot(this.plotly, data, layout, config)
@@ -132,8 +133,10 @@ export default class PlotlyChart extends PlotlyBase {
         extend[axis] = [[value]]
         Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
       } else {
-        // plotting array vs indicies - treating this as a oneshot update
-        // create indicies [0,1,2,...,length]
+        /*
+         * plotting array vs indicies - treating this as a oneshot update
+         * create indicies [0,1,2,...,length]
+         */
         const indicies = Array.from({ length: value.length }, (v, k) => k++)
         // replace previous trace for id/axis
         this.updateTrace(id, axis, value, indicies)
