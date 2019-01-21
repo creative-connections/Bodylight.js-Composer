@@ -54,7 +54,6 @@ export default (editor) => {
         // TEMP FIXME: add a proper placeholder
         this.el.innerHTML = 'Chart'
         this.el.style['text-align'] = 'center'
-        this.el.style['padding-top'] = '10px'
         return this
       },
 
