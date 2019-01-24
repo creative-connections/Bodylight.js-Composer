@@ -6,6 +6,7 @@ export default class AnimateAnimControlled extends Widget {
 
     // duration: 100 -> 0 - 99
     this.framecount = this.component.timeline.duration - 1
+    this.originalAlpha = this.component.alpha
   }
 
   generateSetters () {
@@ -69,5 +70,25 @@ export default class AnimateAnimControlled extends Widget {
         `Animate is not loaded.`)
     }
     return this.animate.components.anim[this.name]
+  }
+
+  blink (up = 0.08, down = 0.08) {
+    const component = this.component
+
+    if (component.alpha > 1) {
+      this.blinkDirection = 0
+    } else if (component.alpha < 0.4) {
+      this.blinkDirection = 1
+    }
+    if (this.blinkDirection) {
+      component.alpha = component.alpha + up
+    } else {
+      component.alpha = component.alpha - down
+    }
+  }
+
+  stopBlinking () {
+    this.component.alpha = this.originalAlpha
+    this.blinkDirection = 0
   }
 }
