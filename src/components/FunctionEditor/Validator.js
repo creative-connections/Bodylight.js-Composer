@@ -69,13 +69,16 @@ class Validator {
       return result
     }
 
-    try {
-      run(result.parsed, type)
-    } catch (e) {
-      result.error = true
-      result.message = `Runtime error: ${e.message}`
-      return result
-    }
+    /*
+     * TEMP FIXME: add API methods mockups
+     * try {
+     * run(result.parsed, type)
+     * } catch (e) {
+     * result.error = true
+     * result.message = `Runtime error: ${e.message}`
+     * return result
+     * }
+     */
 
     return result
   }
