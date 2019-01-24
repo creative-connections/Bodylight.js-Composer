@@ -104,6 +104,10 @@ export default class PlotlyChart extends PlotlyBase {
         yaxis: this.yaxis,
         margin: this.margin,
         legend: this.legend,
+        
+        plot_bgcolor: this.plot_bgcolor,
+        paper_bgcolor: this.paper_bgcolor,
+
         shapes,
         annotations,
         images

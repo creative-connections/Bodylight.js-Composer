@@ -14,6 +14,9 @@ export default {
   events: ['change'],
   actions: {},
 
+  plot_bgcolor: '#FFFFFF00',
+  paper_bgcolor: '#FFFFFF00',
+
   annotations: {},
   columns: {},
   shapes: {},

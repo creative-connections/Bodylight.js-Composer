@@ -11,6 +11,9 @@ export default {
   margin,
   legend,
 
+  plot_bgcolor: '#FFFFFF00',
+  paper_bgcolor: '#FFFFFF00',
+
   events: ['change'],
   actions: {},
 
