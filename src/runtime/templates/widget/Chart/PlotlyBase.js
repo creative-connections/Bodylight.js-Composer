@@ -25,18 +25,24 @@ export default class PlotlyBase extends Widget {
   // Initializes setters for shapes, annotations, etc.
   initAdditionals(identifier, config, indexes) {
     if (config == null) { return }
-    const items = Object.values(config)
-    if (items.length === 0) { return }
+    if (Object.values(config) === 0) { return }
 
     const complex = []
-    Object.entries(items[0]).forEach(([key, value]) => {
-      if (typeof value['complex'] !== 'undefined' && value['complex']) {
-        complex.push(key)
-      }
+    Object.entries(config).forEach(([id, item]) => {
+      Object.entries(item).forEach(([name, value]) => {
+        if (typeof value['complex'] !== 'undefined' && value['complex']) {
+          complex.push({id, name})
+        }
+      })
     })
 
     // create setter for each complex attribute
-    complex.forEach(name => {
+    complex.forEach(({id, name}) => {
+      this.addValueProvider(JSON.stringify( {
+        identifier, id, name,
+        setter: `${identifier}-${name}`,
+      }), config[id][name].provider)
+
       this.setters[`${identifier}-${name}`] = (item) => {
         if (item == null) { return }
 
