@@ -15,4 +15,6 @@ export default function setup() {
   this.updateInitialValueListeners()
 
   this.modelTickInterval = null
+
+  this.modelIsSetup = true
 }

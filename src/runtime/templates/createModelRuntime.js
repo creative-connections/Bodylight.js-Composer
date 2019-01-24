@@ -4,6 +4,8 @@ export default function createModelRuntime(Model, config, functions) {
       // save configuration information about this instance
       model.config = config
 
+      model.modelIsSetup = false
+
       // cwrap functions for their use in this module
       model.cwrapFunctions = functions.cwrapFunctions.bind(model)
       model.cwrapFunctions()
