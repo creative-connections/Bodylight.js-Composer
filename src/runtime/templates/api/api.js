@@ -6,7 +6,6 @@ function getModelByID(id) {
 }
 
 function getAnimateAnimByID(id) {
-  console.log(widgets)
   if (widgets[id]) { return widgets[id] }
   return null
 }
