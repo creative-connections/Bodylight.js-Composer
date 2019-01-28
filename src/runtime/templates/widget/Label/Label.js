@@ -23,11 +23,11 @@ export default class Label extends Widget {
         this.component.hidden = !this.visible.function(this.visible.value)
       },
       label: () => {
-        if (this.label.function === null) {
-          this.component.innerHTML = this.label.value
-          return
+        const label = this.label
+        let value = label.function ? label.function(label.value) : label.value
+        if (this.component.innerHTML !== value) {
+          this.component.innerHTML = value
         }
-        this.component.innerHTML = this.label.function(this.label.value)
       }
     }
   }
