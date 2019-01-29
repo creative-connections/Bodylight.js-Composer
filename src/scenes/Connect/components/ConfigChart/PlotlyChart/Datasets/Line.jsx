@@ -38,7 +38,11 @@ class Line extends Component {
     }
   }
 
-  handleOnChange(e, { name, value }) {
+  handleOnChange(e, { name, value, checked }) {
+    if (typeof checked !== 'undefined') {
+      value = checked
+    }
+
     const config = update(this.props.config, {
       [name]: { $set: value }
     })
