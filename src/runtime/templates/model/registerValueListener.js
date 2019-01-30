@@ -1,4 +1,4 @@
-export default function registerValueListener(listener, name, attribute) {
+export default function registerValueListener(listener, name, attribute, immediate = false) {
   const reference = this.getReferenceFromName(name)
   if (reference === null) {
     console.log(`${this.config.identifier}: failed to register value listener ${name} from ${listener.name} to attribute ${attribute}`)
@@ -11,7 +11,8 @@ export default function registerValueListener(listener, name, attribute) {
     target: listener,
     attribute,
     indicies: null,
-    index
+    index,
+    immediate
   })
 
   console.log(`${this.config.identifier}: registered value listener ${name} (${reference}) from ${listener.name} as index ${index} to attribute ${attribute}`)

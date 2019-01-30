@@ -1,5 +1,8 @@
-export default function updateValueListeners() {
+export default function updateValueListeners(immediate) {
   this.valueListeners.forEach(listener => {
+    if (listener.immediate !== immediate) {
+      return
+    }
     if (listener.index !== null) {
       listener.target.setValue(
         listener.attribute,

@@ -7,7 +7,10 @@ export default class PlotlyChart extends PlotlyBase {
     Object.entries(this.datasets).forEach(([id, dataset]) => {
       this.addValueProvider(JSON.stringify({ dataset: id, axis: 'x' }), dataset.x.provider)
       this.addValueProvider(JSON.stringify({ dataset: id, axis: 'y' }), dataset.y.provider)
-      this.addValueProvider(JSON.stringify({ dataset: id, type: 'maxSamples' }), dataset.maxSamples.provider)
+      this.addValueProvider(
+        JSON.stringify({ dataset: id, type: 'maxSamples' }),
+        dataset.maxSamples.provider
+      )
     })
 
     this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
@@ -24,7 +27,7 @@ export default class PlotlyChart extends PlotlyBase {
       if (axis.array) {
         target.registerArrayListener(this, axis.indexes, attribute)
       } else {
-        target.registerValueListener(this, id, attribute)
+        target.registerValueListener(this, id, attribute, true)
       }
     } else {
       super.setValueProvider(attribute, id, target)
@@ -41,14 +44,18 @@ export default class PlotlyChart extends PlotlyBase {
       maxSamples: (dataset) => {
         if (dataset) {
           if (this.datasets[dataset].maxSamples.function !== null) {
-            this.datasets[dataset].maxSamples.value = this.datasets[dataset].maxSamples.function(this.datasets[dataset].maxSamples.value)
+            this.datasets[dataset].maxSamples.value = this.datasets[dataset].maxSamples.function(
+              this.datasets[dataset].maxSamples.value
+            )
           }
         }
       },
       offset: (dataset) => {
         if (dataset) {
           if (this.datasets[dataset].offset.function !== null) {
-            this.datasets[dataset].offset.value = this.datasets[dataset].offset.function(this.datasets[dataset].offset.value)
+            this.datasets[dataset].offset.value = this.datasets[dataset].offset.function(
+              this.datasets[dataset].offset.value
+            )
           }
         }
       }
@@ -104,7 +111,7 @@ export default class PlotlyChart extends PlotlyBase {
         yaxis: this.yaxis,
         margin: this.margin,
         legend: this.legend,
-        
+
         plot_bgcolor: this.plot_bgcolor,
         paper_bgcolor: this.paper_bgcolor,
 
