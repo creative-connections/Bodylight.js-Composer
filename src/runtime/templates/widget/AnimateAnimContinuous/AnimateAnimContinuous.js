@@ -12,7 +12,7 @@ export default class AnimateAnimContinuous extends Widget {
     createjs.Ticker.addEventListener('tick', this.tick)
   }
 
-  tick() {
+  getNextPosition(stopping = false) {
     let value = this.value.value
     const min = this.min.value
     const max = this.max.value
@@ -26,14 +26,32 @@ export default class AnimateAnimContinuous extends Widget {
       value = -value
     }
 
-    this.position = (this.position + value) % this.framecount
-
-    // reset position in case we have negative rotation
-    if (this.position < 0) {
-      this.position = this.framecount + this.position
+    if (stopping) {
+      const overflow = (this.position + value) > this.framecount
+      const underflow = (this.position + value) < 0
+      if (overflow || underflow) {
+        return 0
+      }
     }
 
-    this.component.gotoAndStop(Math.floor(this.position))
+    let position = (this.position + value) % this.framecount
+    if (position < 0) {
+      position = this.framecount + this.position
+    }
+
+    return position
+  }
+
+  tick() {
+    if (this.trigger.value) {
+      this.position = this.getNextPosition(false)
+      this.component.gotoAndStop(Math.floor(this.position))
+    } else {
+      if (this.position !== 0 && this.triggerFinish) {
+        this.position = this.getNextPosition(true)
+        this.component.gotoAndStop(Math.floor(this.position))
+      }
+    }
   }
 
   generateSetters() {
@@ -41,6 +59,11 @@ export default class AnimateAnimContinuous extends Widget {
       value: () => {
         if (this.value.function !== null) {
           this.value.value = this.value.function(this.value.value)
+        }
+      },
+      trigger: () => {
+        if (this.trigger.function !== null) {
+          this.trigger.value = this.trigger.function(this.trigger.value)
         }
       },
       min: () => {

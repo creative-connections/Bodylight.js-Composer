@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 
-import { Grid } from 'semantic-ui-react'
+import { Checkbox } from 'semantic-ui-react'
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
 
@@ -12,6 +12,20 @@ const ContinuousMode = props => {
       <ComplexAttribute
         name='value'
         attribute={config.value}
+        onChange={onChange}
+      />
+    </GridRow>
+    <GridRow border label='Animation trigger'>
+      <ComplexAttribute
+        label='Animation is running'
+        name='trigger'
+        attribute={config.trigger}
+        onChange={onChange}
+      />
+      <Checkbox
+        label='let animation finish on trigger false'
+        name='triggerFinish'
+        checked={config.triggerFinish}
         onChange={onChange}
       />
     </GridRow>

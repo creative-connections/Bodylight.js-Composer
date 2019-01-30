@@ -13,6 +13,19 @@ export default {
     'function': null,
     typeof: 'number'
   },
+
+  trigger: {
+    value: true,
+    complex: false,
+    provider: null,
+    array: false,
+    indexes: null,
+    'function': null,
+    typeof: 'boolean'
+  },
+
+  triggerFinish: true,
+
   min: {
     typeof: 'number',
     value: 0,
