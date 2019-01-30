@@ -1,7 +1,7 @@
 import configureStore from '@src/configureStore'
 import { configGetAllAnimateAnims } from '@reducers'
 
-import functionalize from '../functionalize'
+import functionalizeTree from '../functionalizeTree'
 import floatize from '../floatize'
 import AnimateAnimMode from '@helpers/AnimateAnimMode'
 
@@ -17,9 +17,7 @@ export default () => {
       }
     }
 
-    configuration.attributes.forEach(attribute => {
-      configuration = functionalize(configuration, attribute)
-    })
+    configuration = functionalizeTree(configuration)
 
     configuration = floatize(configuration, ['min', 'max', 'maxspeed', 'minspeed'])
 

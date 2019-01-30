@@ -1,94 +1,17 @@
 import {
   UPDATE_WIDGET_CONFIG,
   UPDATE_WIDGET,
-  REMOVE_WIDGET
+  REMOVE_WIDGET,
+  LOAD_STORE
 } from '@actions/types'
 import { REHYDRATE } from 'redux-persist'
 
-import AnimateAnimMode from '@helpers/AnimateAnimMode'
 import WidgetType from '@helpers/enum/WidgetType'
 import update from 'immutability-helper'
-
-import { updateWidget, removeWidget } from '../commons/widget'
-
-const defaultConfig = {
-  mode: AnimateAnimMode.CONTROLLED,
-  name: null,
-  parent: null,
-  attributes: [
-    'value',
-    'min',
-    'max',
-    'reversed',
-    'minspeed',
-    'maxspeed'
-  ],
-  value: {
-    value: 0,
-    complex: true,
-    provider: null,
-    array: false,
-    indexes: null,
-    function: null,
-    typeof: 'number'
-  },
-  min: {
-    typeof: 'number',
-    value: 0,
-    complex: false,
-    provider: null,
-    array: false,
-    indexes: null,
-    function: null
-  },
-  max: {
-    typeof: 'number',
-    value: 100,
-    complex: false,
-    provider: null,
-    array: false,
-    indexes: null,
-    function: null
-  },
-  reversed: {
-    typeof: 'boolean',
-    value: false,
-    complex: false,
-    provider: null,
-    array: false,
-    indexes: null,
-    function: null
-  },
-  overflow: {
-    typeof: 'boolean',
-    value: false,
-    complex: false,
-    provider: null,
-    array: false,
-    indexes: null,
-    function: null
-  },
-  minspeed: {
-    typeof: 'number',
-    value: 0,
-    complex: false,
-    provider: null,
-    array: false,
-    indexes: null,
-    function: null
-  },
-  maxspeed: {
-    typeof: 'number',
-    value: 10,
-    complex: false,
-    provider: null,
-    array: false,
-    indexes: null,
-    function: null
-  }
-}
+import { updateWidget, removeWidget } from '../../commons/widget'
 
 const type = WidgetType.ANIMATE_ANIM
+import defaultConfig from './config/default'
 
 const addAnimateAnim = (state, payload) => {
   if (type !== payload.widget.type) { return state }
@@ -113,7 +36,6 @@ const updateAnimateAnim = (state, payload) => {
 
 const removeMissingAnimateAnims = (state, payload) => {
   if (WidgetType.ANIMATE !== payload.type) { return state }
-
   Object.entries(state).forEach(([id, current]) => {
     if (current.parent !== payload.id) {
       return
@@ -129,8 +51,28 @@ const removeMissingAnimateAnims = (state, payload) => {
       state = update(state, { $unset: [id] })
     }
   })
-
   return state
+}
+
+const merge = (defaultConfig, items) => {
+  if (items == null) { return items }
+  return { ...defaultConfig, ...items }
+}
+
+const rehydrate = (oldstate, newstate) => {
+  /*
+   * This is an instead-of-migration fast-forward approach to data model updates. When features
+   * are added to the data model, this ensures that project files from previous version of the
+   * composer are brought up to date with current default configuration.
+   *
+   * Missing keys are added and initialized to their default values.
+   */
+  const animateAnims = {}
+  Object.entries(newstate.config.animateAnims).forEach(([id, animateAnim]) => {
+    animateAnims[id] = merge(defaultConfig, animateAnim)
+  })
+
+  return animateAnims
 }
 
 export default function (state = {}, action) {
@@ -142,7 +84,10 @@ export default function (state = {}, action) {
   case REMOVE_WIDGET:
     return removeWidget(state, action.payload, WidgetType.ANIMATE)
   case REHYDRATE:
-    return action.payload ? action.payload.config.animateAnims : state
+  case LOAD_STORE:
+    if (action != null && action.payload != null) {
+      return rehydrate(state, action.payload)
+    }
   }
   return state
 }
