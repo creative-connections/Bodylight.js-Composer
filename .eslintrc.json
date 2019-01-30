@@ -35,9 +35,9 @@
 	"no-tabs": "error",
 	"semi": ["error", "never"],
 	"multiline-comment-style": ["error", "starred-block"],
-	"max-len": ["error", { 
-		"code": 100, 
-		"comments": 80
+	"max-len": ["error", {
+		"code": 100,
+		"comments": 100
 	}],
 	"indent": ["error", 2]
   }
