@@ -11,6 +11,8 @@ export default {
   margin,
   legend,
 
+  fps: 20,
+
   events: ['change'],
   actions: {},
 

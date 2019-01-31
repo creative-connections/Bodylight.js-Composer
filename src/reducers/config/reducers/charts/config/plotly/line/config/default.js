@@ -11,6 +11,8 @@ export default {
   margin,
   legend,
 
+  fps: 20,
+
   plot_bgcolor: '#FFFFFF00',
   paper_bgcolor: '#FFFFFF00',
 
