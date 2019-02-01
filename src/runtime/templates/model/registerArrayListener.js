@@ -1,4 +1,4 @@
-export default function registerArrayListener(listener, names, attribute) {
+export default function registerArrayListener(listener, names, attribute, immediate = false) {
   if (!Array.isArray(names)) {
     console.warn(`${this.config.identifier}: failed to register array listener '${names}' (not an array) from ${listener.name} to attribute ${attribute}`)
     return false
@@ -24,7 +24,8 @@ export default function registerArrayListener(listener, names, attribute) {
     target: listener,
     attribute,
     indicies,
-    index: null
+    index: null,
+    immediate
   })
 
   console.log(`${this.config.identifier}: registered array listener (..., ${lastname}) from ${listener.name} to attribute ${attribute}`)

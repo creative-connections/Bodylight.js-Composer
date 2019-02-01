@@ -28,7 +28,7 @@ export default class PlotlyChart extends PlotlyBase {
 
       // in case of an array variable we need to register an array listener
       if (axis.array) {
-        target.registerArrayListener(this, axis.indexes, attribute)
+        target.registerArrayListener(this, axis.indexes, attribute, true)
       } else {
         target.registerValueListener(this, id, attribute, true)
       }
@@ -242,7 +242,6 @@ export default class PlotlyChart extends PlotlyBase {
   }
 
   setValue(attribute, value, time) {
-    // when we have an JSON encoded attribute specifier
     if (attribute.startsWith('{')) {
       const attr = JSON.parse(attribute)
       // attribute is time series
@@ -254,7 +253,7 @@ export default class PlotlyChart extends PlotlyBase {
           if (!Array.isArray(value)) {
             this.appendToDataset(attr.dataset, attr.axis, value, time)
           } else {
-            console.warn('Array update is not re-implemented')
+            this.replaceDataset(attr.dataset, attr.axis, value, time)
           }
         }
         return
@@ -322,84 +321,86 @@ export default class PlotlyChart extends PlotlyBase {
     }
   }
 
+  replaceDataset(id, axis, values, time) {
+    const altAxis = axis === 'x' ? 'y' : 'x'
+    const buffer = this.buffer
+
+    if (this.datasets[id][altAxis].time) {
+      buffer[id][axis] = this.truncateDatapoints(id, values)
+      buffer[id][altAxis] = this.truncateDatapoints(id, time)
+      buffer[id].replace = true
+    } else {
+      if (buffer[id].current == null) { buffer[id].current = {x: null, y: null} }
+
+      const current = buffer[id].current
+
+      if (current[axis] != null) {
+        console.warn(
+          `Discarding ${axis} data points id:${id} values:${values} for time:${time}. ` +
+          'This usually happens when one of the axes of the XY chart is updating faster ' +
+          'than the other one. Chart is now probably in an inconsistent state.`'
+        )
+      }
+
+      current[axis] = values
+
+      if (current[axis] != null && current[altAxis] != null) {
+        if (buffer[id][axis] == null) { buffer[id][axis] = [] }
+        if (buffer[id][altAxis] == null) { buffer[id][altAxis] = [] }
+
+        buffer[id][axis] = current[axis]
+        buffer[id][altAxis] = current[altAxis]
+        buffer[id].current = null
+        buffer[id].replace = true
+      }
+    }
+  }
+
+  truncateDatapoints(id, values) {
+    const maxSamples = Number(this.datasets[id].maxSamples.value)
+    const length = values.length
+    if (maxSamples > 0 && length > maxSamples) {
+      return values.slice(length - maxSamples)
+    }
+    return values
+  }
+
+
   tick () {
     this.perf.start(this.id, 'tick')
+    this.flushBuffer()
+    this.perf.stop(this.id, 'tick')
+  }
 
+  flushBuffer () {
     const extend = { x: [], y: [] }
-    const indexes = []
+    const replace = { x: [], y: [] }
+    const indexes =  {extend: [], replace: []}
     const maxSamples = { x: [], y: [] }
 
     Object.entries(this.buffer).forEach(([id, buffer]) => {
       if (buffer.x && buffer.y) {
-        extend.x.push(buffer.x)
-        extend.y.push(buffer.y)
-        indexes.push(this.indexes[id])
-        maxSamples.x.push(this.datasets[id].maxSamples.value)
-        maxSamples.y.push(this.datasets[id].maxSamples.value)
+        if (buffer.replace) {
+          replace.x.push(buffer.x)
+          replace.y.push(buffer.y)
+          indexes.replace.push(this.indexes[id])
+        } else {
+          extend.x.push(buffer.x)
+          extend.y.push(buffer.y)
+          indexes.extend.push(this.indexes[id])
+          maxSamples.x.push(this.datasets[id].maxSamples.value)
+          maxSamples.y.push(this.datasets[id].maxSamples.value)
+        }
         this.buffer[id] = { current: null, x: null, y: null }
       }
     })
 
-    if (indexes.length > 0) {
-      Plotly.extendTraces(this.plotly, { x: extend.x, y: extend.y}, indexes, maxSamples)
+    if (indexes.extend.length > 0) {
+      Plotly.extendTraces(this.plotly, { x: extend.x, y: extend.y}, indexes.extend, maxSamples)
     }
 
-    this.perf.stop(this.id, 'tick')
-  }
-
-  other () {
-
-    console.log(id, 'index', index, axis, value, time)
-
-    this.perf.stop(this.id, 'appendToDataset', id)
-
-    return
-    if (this.datasets[id][altAxis].time) {
-      if (!Array.isArray(value)) {
-        // plotting axis vs time - append value to the end
-        const extend = { y: [[time]], x: [[time]] }
-        extend[axis] = [[value]]
-        Plotly.extendTraces(this.plotly, extend, [index], this.datasets[id].maxSamples.value)
-      } else {
-        /*
-         * plotting array vs indicies - treating this as a oneshot update
-         * create indicies [0,1,2,...,length]
-         */
-        const indicies = Array.from({ length: value.length }, (v, k) => k++)
-        // replace previous trace for id/axis
-        this.updateTrace(id, axis, value, indicies)
-
-        this.dispatchEvent(new Event('change'))
-      }
-    } else {
-      // for a XY plot, we need to save the current value until we have both axes
-      if (!Array.isArray(value)) {
-        // plotting X,Y values
-        this.buffer[id][axis] = [[value]]
-
-        // if we have both of them then we flush
-        if (this.buffer[id][altAxis] !== null) {
-          Plotly.extendTraces(this.plotly, this.buffer[id], [index], this.datasets[id].maxSamples.value)
-
-          this.dispatchEvent(new Event('change'))
-          this.buffer[id].x = null
-          this.buffer[id].y = null
-        }
-      } else {
-        // plotting [X],[Y] arrays
-        this.buffer[id][axis] = value
-
-        // if we have both of them then we flush
-        if (this.buffer[id][altAxis] !== null) {
-          this.updateTrace(id, 'x', this.buffer[id].x, null)
-          this.updateTrace(id, 'y', this.buffer[id].y, null)
-          this.buffer[id].x = null
-          this.buffer[id].y = null
-        }
-      }
+    if (indexes.replace.length > 0) {
+      Plotly.restyle(this.plotly, replace, indexes.replace)
     }
-    this.perf.stop(this.id, 'appendToDataset', id)
   }
-
-
 }
