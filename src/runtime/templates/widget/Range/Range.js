@@ -15,14 +15,11 @@ export default class Range extends Widget {
 
   handleOnChange () {
     let value = this.component.value
-    if (this.reversed.value) {
-      value = this.max - value
-    }
     if (this.target.function !== null) {
       value = this.target.function(value)
     }
     this.target.value = value
-    
+
     if (this.target.provider) {
       this.target.provider.setValue(this.target.reference, this.target.value)
     }
@@ -63,6 +60,7 @@ export default class Range extends Widget {
         if (this.reversed.function !== null) {
           this.reversed.value = this.reversed.function(this.reversed.value)
         }
+        this.component.style.setProperty('direction', this.reversed.value ? 'rtl' : 'ltr')
       }
     }
   }
