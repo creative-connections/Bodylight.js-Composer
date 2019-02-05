@@ -66,6 +66,10 @@ class Design extends Component {
         }
       },
 
+      assetManager: {
+        embedAsBase64: true,
+      },
+
       styleManager : {
         sectors: [{
           name: 'General',
