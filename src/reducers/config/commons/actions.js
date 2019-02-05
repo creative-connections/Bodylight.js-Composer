@@ -37,6 +37,15 @@ export const updateWidgetAction = (state, {widget, id, key, value}, type) => {
     return updateWidgetActionArgument(state, widget, id, value)
   }
 
+  // if changing action reset arguments
+  if (key === 'action' && value !== state[widget.id].actions[id].action) {
+    state = update(state, {
+      [widget.id]: { actions: {
+        [id]: { args: {$set: []}}
+      }}
+    })
+  }
+
   return update(state, {
     [widget.id]: { actions: {
       [id]: { [key]: { $set: value } }
