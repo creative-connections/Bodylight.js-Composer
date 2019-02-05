@@ -10,14 +10,14 @@ export default {
   yanchor: 'top',
   x: {
     typeof: 'number',
-    value: 0.5,
+    value: 0,
     complex: false,
     provider: null,
     'function': 'value => value'
   },
   y: {
     typeof: 'number',
-    value: 0.5,
+    value: 1,
     complex: false,
     provider: null,
     'function': 'value => value'
