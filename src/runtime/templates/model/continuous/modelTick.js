@@ -1,4 +1,6 @@
 export default function modelTick() {
+  this.updateValueListeners(true)
+
   this.perf.start(this.config.id, 'tick')
 
   this.flushSetQueues()
@@ -14,6 +16,4 @@ export default function modelTick() {
   this.outputValues.update()
 
   this.perf.stop(this.config.id, 'tick')
-
-  this.updateValueListeners(true)
 }
