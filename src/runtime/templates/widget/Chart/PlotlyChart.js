@@ -210,6 +210,11 @@ export default class PlotlyChart extends PlotlyBase {
     this.setValues(attribute, array, time)
   }
 
+  clear() {
+    this.plotly = null
+    this.initPlotly()
+  }
+
   setValues(attribute, values, time) {
     const lastValue = values[values.length - 1]
 
