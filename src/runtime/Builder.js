@@ -215,11 +215,13 @@ class Builder {
     // append editor created html and css
     append(`<div id='spinner-blur'>`)
     append(getEditorHtml())
-    append(`<div/>`)
+    append(`</div>`)
     append(`<style>${this.getCss()}</style>`)
 
-    // TODO: refactor this out and conditionally
-    // CreateJS for AnimateRuntime
+    /*
+     * TODO: refactor this out and conditionally
+     * CreateJS for AnimateRuntime
+     */
     append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
     // PlotlyChart
     append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
@@ -290,8 +292,10 @@ class Builder {
     append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
     append(`config.widgets.labels = ${tpl(buildLabelConfig())}`)
 
-    // create model functions
-    // TODO: refactor to config.models[model].functions with overrides
+    /*
+     * create model functions
+     * TODO: refactor to config.models[model].functions with overrides
+     */
     append('const functions = {}')
     this.appendFunctions(append, tpl)
 
