@@ -43,6 +43,7 @@ export const getActions = state => widgetSelectors.getActions(state.widgets)
 export const getToggles = state => widgetSelectors.getToggles(state.widgets)
 export const getCharts = state => widgetSelectors.getCharts(state.widgets)
 export const getLabels = state => widgetSelectors.getLabels(state.widgets)
+export const getTickers = state => widgetSelectors.getTickers(state.widgets)
 
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
 export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(state.widgets)
@@ -83,6 +84,7 @@ export const getRangesForDropdown = state => widgetSelectors.getRangesForDropdow
 export const getTogglesForDropdown = state => widgetSelectors.getTogglesForDropdown(state.widgets)
 export const getChartsForDropdown = state => widgetSelectors.getChartsForDropdown(state.widgets)
 export const getLabelsForDropdown = state => widgetSelectors.getLabelsForDropdown(state.widgets)
+export const getTickersForDropdown = state => widgetSelectors.getTickersForDropdown(state.widgets)
 
 export const getAnimateWidgetId = (state, idAnimate, name) => widgetSelectors.getAnimateWidgetId(state.widgets, idAnimate, name)
 

@@ -10,6 +10,7 @@ import actions, * as actionsSelectors from './reducers/actions'
 import toggles, * as togglesSelectors from './reducers/toggles'
 import charts, * as chartsSelectors from './reducers/charts'
 import labels, * as labelsSelectors from './reducers/labels'
+import tickers, * as tickersSelectors from './reducers/tickers'
 
 import memoize from 'memoize-one'
 
@@ -22,6 +23,7 @@ export default combineReducers({
   toggles,
   charts,
   labels,
+  tickers,
   app
 })
 
@@ -34,6 +36,12 @@ export const getToggles = state => togglesSelectors.getAll(state.toggles)
 export const getCharts = state => chartsSelectors.getAll(state.charts)
 export const getLabels = state => labelsSelectors.getAll(state.labels)
 
+/*
+ * This returns the complete configuration object, as per the new strategy of unifying widget
+ * retucers and config reducers.
+ */
+export const getTickers = state => tickersSelectors.getAll(state.tickers)
+
 const getWidgetMemoized = memoize((state, id) => {
   let widget = null
   if ((widget = buttonsSelectors.get(state.buttons, id)) !== null) { return widget }
@@ -44,6 +52,7 @@ const getWidgetMemoized = memoize((state, id) => {
   if ((widget = togglesSelectors.get(state.toggles, id)) !== null) { return widget }
   if ((widget = chartsSelectors.get(state.charts, id)) !== null) { return widget }
   if ((widget = labelsSelectors.get(state.labels, id)) !== null) { return widget }
+  if ((widget = tickersSelectors.get(state.tickers, id)) !== null) { return widget }
   return widget
 })
 
@@ -66,6 +75,7 @@ const getWidgetsForTreeMemoized = memoize(state => {
   widgets.toggles = togglesSelectors.getAll(state.toggles)
   widgets.charts = chartsSelectors.getAll(state.charts)
   widgets.labels = labelsSelectors.getAll(state.labels)
+  widgets.tickers = tickersSelectors.getAll(state.tickers)
   return widgets
 })
 
@@ -81,5 +91,6 @@ export const getRangesForDropdown = state => rangesSelectors.getForDropdown(stat
 export const getTogglesForDropdown = state => togglesSelectors.getForDropdown(state.toggles)
 export const getChartsForDropdown = state => chartsSelectors.getForDropdown(state.charts)
 export const getLabelsForDropdown = state => labelsSelectors.getForDropdown(state.labels)
+export const getTickersForDropdown = state => tickersSelectors.getForDropdown(state.tickers)
 
 export const getAnimateWidgetId = (state, idAnimate, name) => animatesSelectors.getAnimateWidgetId(state.animates, idAnimate, name)

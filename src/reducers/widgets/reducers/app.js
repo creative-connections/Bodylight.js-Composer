@@ -15,10 +15,11 @@ const defaultState = {
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case SELECT_WIDGET:
-      return selectWidget(state, action.payload.id)
-    case ADD_WIDGET:
-      return selectWidget(state, action.payload.id)
+  case SELECT_WIDGET:
+    return selectWidget(state, action.payload.id)
+  case ADD_WIDGET:
+    if (action.payload.select === false) { return state }
+    return selectWidget(state, action.payload.id)
   }
   return state
 }

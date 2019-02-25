@@ -10,6 +10,8 @@ import ModelMode from '@helpers/enum/ModelMode'
 import InputFloat from '@components/InputFloat'
 import GridRow from '../GridRow'
 
+import TickerList from '../ConfigTicker/TickerList'
+
 class ConfigModel extends Component {
   constructor(props) {
     super(props)
@@ -69,12 +71,12 @@ class ConfigModel extends Component {
   renderOneshot(config) {
     return <Fragment>
       <GridRow label=''>
-          <Checkbox
-            label='Recreate model on change'
-            name='destroyOnReset'
-            checked={config.destroyOnReset}
-            onClick={this.handleOnChange}
-          />
+        <Checkbox
+          label='Recreate model on change'
+          name='destroyOnReset'
+          checked={config.destroyOnReset}
+          onClick={this.handleOnChange}
+        />
       </GridRow>
 
       <GridRow label='Step length [time]'>
@@ -104,9 +106,13 @@ class ConfigModel extends Component {
     </Fragment>
   }
 
-  renderTicked() {
+  renderTicked(config) {
     return <GridRow>
-      <p>Not implemented yet</p>
+      <TickerList
+        name='ticker'
+        value={config.ticker}
+        onChange={this.handleOnChange}
+      />
     </GridRow>
   }
 
