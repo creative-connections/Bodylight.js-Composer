@@ -9,11 +9,14 @@ import {
 import { REHYDRATE } from 'redux-persist'
 
 import {
-  addWidget,
-  removeWidget,
-  updateWidget,
   renameWidget
 } from '../commons/widget'
+
+import {
+  addWidget,
+  removeWidget,
+  updateWidgetConfig
+} from '../../widgets/commons/config'
 
 import update from 'immutability-helper'
 import WidgetType from '@helpers/enum/WidgetType'
@@ -63,7 +66,7 @@ export default function (state = {}, action) {
   case UPDATE_WIDGET:
     return updateAnimate(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
-    return updateWidget(state, action.payload, type)
+    return updateWidgetConfig(state, action.payload, type)
   case POPULATE_ANIMATE:
     return populateAnimate(state, action.payload, type)
   case REHYDRATE:

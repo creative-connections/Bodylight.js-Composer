@@ -10,6 +10,7 @@ import ModelMode from '@helpers/enum/ModelMode'
 import InputFloat from '@components/InputFloat'
 import GridRow from '../GridRow'
 
+import ConfigTicker from '../ConfigTicker'
 import TickerList from '../ConfigTicker/TickerList'
 
 class ConfigModel extends Component {
@@ -113,6 +114,7 @@ class ConfigModel extends Component {
         value={config.ticker}
         onChange={this.handleOnChange}
       />
+      <ConfigTicker ticker={config.ticker}/>
     </GridRow>
   }
 

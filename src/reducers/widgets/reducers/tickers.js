@@ -9,12 +9,12 @@ import WidgetType from '@helpers/enum/WidgetType'
 
 import {
   addWidget,
-  renameWidget,
   removeWidget,
-  updateWidget
-} from '../../config/commons/widget'
+  updateWidgetConfig
+} from '../commons/config'
 
 const type = WidgetType.TICKER
+
 const defaultConfig = {
   name: 'ticker',
   type,
@@ -27,12 +27,10 @@ export default function (state = {}, action) {
   switch (action.type) {
   case ADD_WIDGET:
     return addWidget(state, action.payload, type, defaultConfig)
-  case RENAME_WIDGET:
-    return renameWidget(state, action.payload, type)
   case REMOVE_WIDGET:
     return removeWidget(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
-    return updateWidget(state, action.payload, type)
+    return updateWidgetConfig(state, action.payload, type)
   }
   return state
 }

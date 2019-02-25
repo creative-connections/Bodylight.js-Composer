@@ -9,10 +9,13 @@ import WidgetType from '@helpers/enum/WidgetType'
 import ArgumentType from '@helpers/enum/ArgumentType'
 
 import {
-  addWidget,
   renameWidget,
-  updateWidget
 } from '../commons/widget'
+
+import {
+  addWidget,
+  updateWidgetConfig
+} from '../../widgets/commons/config'
 
 const defaultState = {
   'GHH8IZOdQtm49DsQqvYerw': {
@@ -92,7 +95,7 @@ export default function (state = defaultState, action) {
   case RENAME_WIDGET:
     return renameWidget(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
-    return updateWidget(state, action.payload, type)
+    return updateWidgetConfig(state, action.payload, type)
   case REHYDRATE:
     return action.payload ? action.payload.config.actions : state
   }

@@ -41,6 +41,7 @@ export const getLabels = state => labelsSelectors.getAll(state.labels)
  * retucers and config reducers.
  */
 export const getTickers = state => tickersSelectors.getAll(state.tickers)
+export const getTicker = (state, id) => tickersSelectors.get(state.tickers, id)
 
 const getWidgetMemoized = memoize((state, id) => {
   let widget = null

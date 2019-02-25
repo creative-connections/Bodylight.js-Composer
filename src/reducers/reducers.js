@@ -86,6 +86,8 @@ export const getChartsForDropdown = state => widgetSelectors.getChartsForDropdow
 export const getLabelsForDropdown = state => widgetSelectors.getLabelsForDropdown(state.widgets)
 export const getTickersForDropdown = state => widgetSelectors.getTickersForDropdown(state.widgets)
 
+export const getTicker = (state, id) => widgetSelectors.getTicker(state.widgets, id)
+
 export const getAnimateWidgetId = (state, idAnimate, name) => widgetSelectors.getAnimateWidgetId(state.widgets, idAnimate, name)
 
 // application configuration
