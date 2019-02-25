@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { Input, Checkbox } from 'semantic-ui-react'
 
 import { updateConfig, renameModel } from '@actions'
 import { configGetModel } from '@reducers'
