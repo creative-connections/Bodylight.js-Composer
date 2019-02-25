@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 
 import { updateWidgetConfig } from '@actions'
 import { getTicker } from '@reducers'
 import GridRow from '../GridRow'
+
+import InputFloat from '@components/InputFloat'
 
 class ConfigModel extends Component {
   constructor(props) {
@@ -19,7 +21,7 @@ class ConfigModel extends Component {
     }
     this.props.updateWidgetConfig(
       this.props.config.id,
-      this.props.config.type, 
+      this.props.config.type,
       name,
       value
     )
@@ -35,6 +37,14 @@ class ConfigModel extends Component {
           value={config.name}
           onChange={this.handleOnChange}
         />
+      </GridRow>
+      <GridRow label='Interval (ms)'>
+        <InputFloat
+          name='interval'
+          value={config.interval}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
       </GridRow>
     </Fragment>
   }
