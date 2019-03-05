@@ -1,0 +1,33 @@
+language: node_js
+node_js:
+  - "node"
+
+cache:
+  - npm
+  - yarn
+
+branches:
+  only:
+    - master
+
+install: true
+script: true
+before_deploy:
+  - cd website
+  - npm install
+  - npm run build
+  - cd ..
+  - echo $DEPLOY_PATH > .env.prod
+  - npm install
+  - npm run prod
+  - mv build website/build/bodylight.js/composer
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local-dir: website/build/bodylight.js
+  repo: creative-connections/bodylight.js
+  target-branch: gh-pages
+  on:
+    branch: master

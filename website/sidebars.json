@@ -1,0 +1,11 @@
+{
+  "docs": {
+    "Getting started": [
+      "introduction"
+    ],
+    "Guides": [
+      "first_project"
+    ],
+    "API": ["api_model"]
+  }
+}
