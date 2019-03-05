@@ -33,6 +33,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     {doc: 'introduction', label: 'Docs'},
+    {href: 'https://github.com/creative-connections', label: 'GitHub'},
   ],
 
   /* path to images for header/footer */
