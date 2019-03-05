@@ -1,0 +1,6 @@
+langauge: node_js
+
+install:
+  - npm install --prod
+  - cd website
+  - npm install -- prod
