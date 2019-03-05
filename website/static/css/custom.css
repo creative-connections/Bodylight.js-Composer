@@ -1,0 +1,54 @@
+/* your custom css */
+
+.fullwidth {
+  width: 100%;
+}
+
+h2 {
+  margin-top: 1.5em;
+}
+
+.imageAlignTop .blockImage {
+    max-width: 160px;
+    height: 80px;
+    display:flex;
+}
+
+.titlevideo {
+  height: 400px;
+  width: 700px;
+}
+
+.titleimg {
+  width: 40%;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+  .titlevideo {
+    width: 100%;
+  }
+
+  .titleimg {
+    width: 100%;
+  }
+
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+  .titlevideo {
+    width: 100%;
+  }
+  
+  .titleimg {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
