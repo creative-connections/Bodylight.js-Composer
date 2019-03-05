@@ -14,7 +14,7 @@
     "url": "git+ssh://git@gitlab.com/kofrlab/bodylight.js.composer.git"
   },
   "author": "",
-  "license": "UNLICENSED",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://gitlab.com/kofrlab/bodylight.js.composer/issues"
   },
