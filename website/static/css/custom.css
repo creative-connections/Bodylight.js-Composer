@@ -23,6 +23,10 @@ h2 {
   width: 40%;
 }
 
+a {
+  color: #f6a713;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
   .titlevideo {
     width: 100%;
@@ -41,7 +45,7 @@ h2 {
   .titlevideo {
     width: 100%;
   }
-  
+
   .titleimg {
     width: 100%;
   }

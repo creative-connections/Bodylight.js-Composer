@@ -1,7 +1,8 @@
 {
   "docs": {
     "Getting started": [
-      "introduction"
+      "introduction",
+      "mo_compilation"
     ],
     "Guides": [
       "first_project"

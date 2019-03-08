@@ -14,6 +14,9 @@
       "introduction": {
         "title": "Introduction"
       },
+      "mo_compilation": {
+        "title": "Compiling Modelica"
+      },
       "plan": {
         "title": "plan"
       },
