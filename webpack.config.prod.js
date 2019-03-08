@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = (env, argv) => {
   return {
@@ -92,9 +92,6 @@ module.exports = (env, argv) => {
         silent: false
       }),
       new CleanWebpackPlugin(['build/*.js']),
-      new CopyWebpackPlugin([
-        { from: 'dist/images', to: 'images' }
-      ]),
       new webpack.DefinePlugin({
         '__BUILD_DATE__': JSON.stringify((new Date()).getTime()),
       })
