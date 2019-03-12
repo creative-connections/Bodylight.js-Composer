@@ -28,6 +28,6 @@ deploy:
   github-token: $GITHUB_TOKEN
   local-dir: website/build/bodylight.js
   repo: creative-connections/creative-connections.github.io
-  target-branch: gh-pages
+  target-branch: master
   on:
     branch: master
