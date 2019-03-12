@@ -13,8 +13,8 @@
 const siteConfig = {
   title: 'Bodylight.js', // Title for your website.
   tagline: 'Simulators for the modern web',
-  url: 'https://creative-connections.github.io/', // Your website URL
-  baseUrl: '/bodylight.js/', // Base URL for your project */
+  url: 'http://bodylight.physiome.cz/', // Your website URL
+  baseUrl: '/', // Base URL for your project */
   /*
    * For github.io type URLs, you would set the url and baseUrl like:
    *   url: 'https://facebook.github.io',
