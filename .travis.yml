@@ -27,7 +27,7 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   local-dir: website/build/bodylight.js
-  repo: creative-connections/bodylight.js
+  repo: creative-connections/creative-connections.github.io
   target-branch: gh-pages
   on:
     branch: master
