@@ -46,7 +46,9 @@ const siteConfig = {
     primaryColor: '#4a4a4a',
     secondaryColor: '#f6a713',
   },
-  
+
+  cname: "bodylight.physiome.cz",
+
   gaTrackingId: "UA-68541769-3",
 
   /* Custom fonts for website */
