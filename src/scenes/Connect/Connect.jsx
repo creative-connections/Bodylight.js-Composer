@@ -17,8 +17,6 @@ import ConfigAction from './components/ConfigAction'
 import ConfigChart from './components/ConfigChart'
 import ConfigLabel from './components/ConfigLabel'
 
-import WidgetMenu from '@components/WidgetMenu'
-
 class Connect extends Component {
   renderSelectedWidget(selectedWidget) {
     if (selectedWidget !== null) {
@@ -51,28 +49,10 @@ class Connect extends Component {
   render() {
     const selectedWidget = this.props.selectedWidget
 
-    if (this.props.sidebar) {
-      return <Fragment>
-        <div className="connect-sidebar">
-          {this.renderSelectedWidget(selectedWidget)}
-        </div>
-      </Fragment>
-    }
-
     return <Fragment>
-      <div id='topBar' className='header'>
-        <span>{selectedWidget && selectedWidget.name}</span>
+      <div className="connect-sidebar">
+        {this.renderSelectedWidget(selectedWidget)}
       </div>
-      <Grid padded centered className='leftShadow topPadded'>
-        <Grid.Row centered style={{ paddingTop: 0, paddingBottom: 0 }}>
-          <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
-            {this.renderSelectedWidget(selectedWidget)}
-          </Grid.Column>
-          <Grid.Column id='widget-menu' style={{ width: '15%' }}>
-            <WidgetMenu/>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
     </Fragment>
   }
 }

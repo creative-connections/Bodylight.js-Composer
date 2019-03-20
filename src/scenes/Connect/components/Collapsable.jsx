@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 
-class WidgetMenu extends Component {
+class Collapsable extends Component {
   constructor (props) {
     super(props)
 
@@ -30,4 +30,4 @@ class WidgetMenu extends Component {
   }
 }
 
-export default WidgetMenu
+export default Collapsable
