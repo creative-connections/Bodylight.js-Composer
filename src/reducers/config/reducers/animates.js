@@ -16,7 +16,7 @@ import {
 } from '../commons/widget'
 
 import update from 'immutability-helper'
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 
 const defaultConfig = {
   id: null,

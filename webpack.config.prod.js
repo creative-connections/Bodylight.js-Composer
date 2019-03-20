@@ -59,6 +59,7 @@ module.exports = (env, argv) => {
         '@components': path.resolve(__dirname, 'src/components/'),
         '@scenes': path.resolve(__dirname, 'src/scenes/'),
         '@helpers': path.resolve(__dirname, 'src/helpers/'),
+        '@enum': path.resolve(__dirname, 'src/helpers/enum/'),
         '@actions': path.resolve(__dirname, 'src/actions/'),
         '@exceptions': path.resolve(__dirname, 'src/exceptions/'),
         '@runtime': path.resolve(__dirname, 'src/runtime/'),

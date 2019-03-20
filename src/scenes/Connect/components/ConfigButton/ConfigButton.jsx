@@ -6,7 +6,7 @@ import { Input, Checkbox } from 'semantic-ui-react'
 import { configGetButton } from '@reducers'
 import { updateConfig, renameButton, removeButton } from '@actions'
 
-import ButtonMode from '@helpers/enum/ButtonMode'
+import ButtonMode from '@enum/ButtonMode'
 import GridRow from '../GridRow'
 import ComplexAttribute from '../ComplexAttribute'
 

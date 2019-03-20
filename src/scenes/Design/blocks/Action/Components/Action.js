@@ -7,7 +7,7 @@ import {
   destroy,
   handleClick
 } from '../../commons/Components'
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 import history from '@helpers/BrowserHistory'
 import { addAction } from '@actions'
 import configureStore from '@src/configureStore'

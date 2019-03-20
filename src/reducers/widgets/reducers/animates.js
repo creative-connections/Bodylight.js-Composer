@@ -11,7 +11,7 @@ import {
   removeWidget
 } from '../commons/widget.js'
 
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 import update from 'immutability-helper'
 import memoize from 'memoize-one'
 

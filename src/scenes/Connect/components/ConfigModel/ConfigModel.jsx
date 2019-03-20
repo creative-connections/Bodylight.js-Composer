@@ -6,7 +6,7 @@ import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-
 import { updateConfig, renameModel } from '@actions'
 import { configGetModel } from '@reducers'
 import ModelInfo from './ModelInfo'
-import ModelMode from '@helpers/enum/ModelMode'
+import ModelMode from '@enum/ModelMode'
 import InputFloat from '@components/InputFloat'
 import GridRow from '../GridRow'
 

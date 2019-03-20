@@ -1,6 +1,6 @@
 import configureStore, { observeStore } from '@src/configureStore'
 import AnimateRuntime from '@runtime/AnimateRuntime'
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 import { configGetAnimate, getSelectedWidget, getAnimateWidgetId } from '@reducers'
 import { removeAnimate, selectWidget, addAnimate } from '@actions'
 import { ANIMATE, ANIMATE_ID } from '../types.js'

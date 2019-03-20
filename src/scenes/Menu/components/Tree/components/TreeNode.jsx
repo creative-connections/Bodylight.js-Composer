@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Icon } from 'semantic-ui-react'
 
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 
 class TreeNode extends Component {
   constructor(props) {

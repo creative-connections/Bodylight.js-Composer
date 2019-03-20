@@ -12,7 +12,7 @@ import {
   getTogglesForDropdown,
   getChartsForDropdown
 } from '@reducers'
-import ArgumentType from '@helpers/enum/ArgumentType'
+import ArgumentType from '@enum/ArgumentType'
 
 import update from 'immutability-helper'
 

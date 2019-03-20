@@ -39,8 +39,8 @@ import oneshotPause from './templates/model/oneshot/pause'
 import oneshotSetValue from './templates/model/oneshot/setValue'
 import oneshotUpdateValueListeners from './templates/model/oneshot/updateValueListeners'
 
-import WidgetType from '@helpers/enum/WidgetType'
-import ProviderType from '@helpers/enum/ProviderType'
+import WidgetType from '@enum/WidgetType'
+import ProviderType from '@enum/ProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'

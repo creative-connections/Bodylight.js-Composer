@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid, Menu } from 'semantic-ui-react'
 
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 import { getSelectedWidget } from '@reducers'
 
 import ConfigModel from './components/ConfigModel'

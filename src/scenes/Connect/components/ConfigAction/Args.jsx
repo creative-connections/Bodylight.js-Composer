@@ -3,7 +3,7 @@ import { Dropdown, Input } from 'semantic-ui-react'
 
 import ButtonLink from '@components/ButtonLink'
 import memoize from 'memoize-one'
-import ArgumentType from '@helpers/enum/ArgumentType'
+import ArgumentType from '@enum/ArgumentType'
 import update from 'immutability-helper'
 
 class Args extends Component {
