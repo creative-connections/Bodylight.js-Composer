@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Input } from 'semantic-ui-react'
-import GridRow from '@scenes/Connect/components/GridRow'
+import GridRow from '@components/GridRow'
 import ButtonLink from '@components/ButtonLink'
 import FunctionEditor from '@components/FunctionEditor'
 import Items from './Items'

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import GridRow from '@scenes/Connect/components/GridRow'
+import GridRow from '@components/GridRow'
 import InputFloat from '@components/InputFloat'
 
 const Margin = ({ name, config = {}, onChange }) => {

@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 import { Dropdown, Checkbox } from 'semantic-ui-react'
 
-import GridRow from '../../GridRow'
-import ComplexAttribute from '../../ComplexAttribute'
-import Collapsable from '../../Collapsable'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
+import Collapsable from '@components/Collapsable'
 import InputFloat from '@components/InputFloat'
 import Events from '../../Events'
 

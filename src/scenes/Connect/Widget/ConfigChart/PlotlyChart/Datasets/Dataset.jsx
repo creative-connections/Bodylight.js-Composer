@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Input, Checkbox, Dropdown } from 'semantic-ui-react'
 
-import ComplexAttribute from '../../../ComplexAttribute'
-import GridRow from '../../../GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
+import GridRow from '@components/GridRow'
 import ButtonLink from '@components/ButtonLink'
 import FunctionEditor from '@components/FunctionEditor'
 

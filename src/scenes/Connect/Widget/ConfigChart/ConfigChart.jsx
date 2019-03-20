@@ -5,7 +5,7 @@ import { Input, Dropdown } from 'semantic-ui-react'
 import { configGetChart } from '@reducers'
 import { updateConfig, renameChart, removeChart } from '@actions/actions'
 
-import GridRow from '../GridRow'
+import GridRow from '@components/GridRow'
 import PlotlyChart from './PlotlyChart'
 import Chartjs from './Chartjs'
 import Gamblegram from './Gamblegram'

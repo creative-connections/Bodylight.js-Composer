@@ -6,7 +6,7 @@ import { Input } from 'semantic-ui-react'
 import { configGetAction } from '@reducers'
 import { updateConfig, renameAction } from '@actions'
 
-import GridRow from '../GridRow'
+import GridRow from '@components/GridRow'
 import FunctionEditor from '@components/FunctionEditor'
 import Args from './Args'
 

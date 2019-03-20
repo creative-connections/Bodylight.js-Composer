@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import GridRow from '../GridRow'
+import GridRow from '@components/GridRow'
 import ButtonLink from '@components/ButtonLink'
 
 import AnimateInfo from './components/AnimateInfo'

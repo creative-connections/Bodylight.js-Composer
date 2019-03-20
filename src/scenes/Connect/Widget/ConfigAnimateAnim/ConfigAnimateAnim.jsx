@@ -12,8 +12,8 @@ import AnimateAnimMode from '@helpers/AnimateAnimMode'
 import { configGetAnimateAnim } from '@reducers'
 import { updateConfig } from '@actions'
 
-import GridRow from '../GridRow'
-import ComplexAttribute from '../ComplexAttribute'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
 
 class ConfigAnimateAnim extends Component {
   constructor(props) {

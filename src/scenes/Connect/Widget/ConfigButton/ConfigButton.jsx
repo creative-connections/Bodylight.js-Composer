@@ -7,8 +7,8 @@ import { configGetButton } from '@reducers'
 import { updateConfig, renameButton, removeButton } from '@actions'
 
 import ButtonMode from '@enum/ButtonMode'
-import GridRow from '../GridRow'
-import ComplexAttribute from '../ComplexAttribute'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
 
 import Events from '../Events'
 

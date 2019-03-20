@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
 
-import GridRow from '../../../GridRow'
-import Collapsable from '../../../Collapsable'
+import GridRow from '@components/GridRow'
+import Collapsable from '@components/Collapsable'
 import ButtonLink from '@components/ButtonLink'
 import generateID from '@helpers/generateID'
 import update from 'immutability-helper'

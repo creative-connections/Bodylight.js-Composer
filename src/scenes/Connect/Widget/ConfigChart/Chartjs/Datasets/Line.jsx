@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Dropdown, Checkbox } from 'semantic-ui-react'
 
-import GridRow from '../../../GridRow'
+import GridRow from '@components/GridRow'
 import update from 'immutability-helper'
 import InputFloat from '@components/InputFloat'
 

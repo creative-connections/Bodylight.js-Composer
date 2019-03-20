@@ -8,7 +8,7 @@ import { configGetModel } from '@reducers'
 import ModelInfo from './ModelInfo'
 import ModelMode from '@enum/ModelMode'
 import InputFloat from '@components/InputFloat'
-import GridRow from '../GridRow'
+import GridRow from '@components/GridRow'
 
 class ConfigModel extends Component {
   constructor(props) {

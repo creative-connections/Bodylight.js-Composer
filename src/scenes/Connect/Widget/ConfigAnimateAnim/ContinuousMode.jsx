@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 
 import { Checkbox } from 'semantic-ui-react'
-import GridRow from '../GridRow'
-import ComplexAttribute from '../ComplexAttribute'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
 
 const ContinuousMode = props => {
   const config = props.config

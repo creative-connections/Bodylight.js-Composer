@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 
-import GridRow from '../../GridRow'
-import ComplexAttribute from '../../ComplexAttribute'
-import Collapsable from '../../Collapsable'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
+import Collapsable from '@components/Collapsable'
 import Events from '../../Events'
 
 import Datasets from './Datasets'

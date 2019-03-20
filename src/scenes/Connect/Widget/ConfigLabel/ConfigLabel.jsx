@@ -7,8 +7,8 @@ import { updateConfig, renameLabel } from '@actions/actions'
 
 import ButtonLink from '@components/ButtonLink'
 
-import GridRow from '../GridRow'
-import ComplexAttribute from '../ComplexAttribute'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
 import Events from '../Events'
 
 class ConfigRange extends Component {

@@ -6,8 +6,8 @@ import { Input } from 'semantic-ui-react'
 import { configGetToggle } from '@reducers'
 import { updateConfig, renameToggle } from '@actions'
 
-import GridRow from '../GridRow'
-import ComplexAttribute from '../ComplexAttribute'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
 import Events from '../Events'
 
 class ConfigToggle extends Component {

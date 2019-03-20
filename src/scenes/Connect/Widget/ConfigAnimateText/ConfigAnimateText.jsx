@@ -7,8 +7,8 @@ import { Header, Grid, Divider } from 'semantic-ui-react'
 import { configGetAnimateText } from '@reducers'
 import { updateConfig } from '@actions/actions'
 
-import GridRow from '../GridRow'
-import ComplexAttribute from '../ComplexAttribute'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
 
 class ConfigAnimateText extends Component {
   constructor(props) {

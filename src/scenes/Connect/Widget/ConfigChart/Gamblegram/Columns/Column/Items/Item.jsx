@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Input, Checkbox } from 'semantic-ui-react'
-import GridRow from '@scenes/Connect/components/GridRow'
-import ComplexAttribute from '@scenes/Connect/components/ComplexAttribute'
+import GridRow from '@components/GridRow'
+import ComplexAttribute from '@components/ComplexAttribute'
 import FunctionEditor from '@components/FunctionEditor'
 import ButtonLink from '@components/ButtonLink'
 
