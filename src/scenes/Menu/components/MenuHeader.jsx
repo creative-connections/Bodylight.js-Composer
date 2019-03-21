@@ -62,7 +62,6 @@ class MenuHeader extends Component {
             <Dropdown.Divider />
 
             <Dropdown.Item onClick={this.handleExport}>Export</Dropdown.Item>
-            <ItemRedirect to="export/quick" onClick={this.redirect}>Quick export</ItemRedirect>
           </Dropdown.Menu>
         </Dropdown>
       </Fragment>
