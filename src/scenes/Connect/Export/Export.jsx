@@ -32,7 +32,7 @@ class Export extends Component {
     const builder = new Builder()
     builder.setMinify(minify)
     builder.setExportPerformanceBlock(this.props.export.performance)
-    builder.setBundleDependendencies(this.props.export.bundleDependencies)
+    builder.setBundleDependencies(this.props.export.bundleDependencies)
     return new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
   }
 
