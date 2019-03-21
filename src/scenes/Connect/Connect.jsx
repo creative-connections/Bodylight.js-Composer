@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Grid, Menu } from 'semantic-ui-react'
 
 import WidgetType from '@enum/WidgetType'
-import { getSelectedWidget } from '@reducers'
+import { getSelectedWidget, getSidebarType } from '@reducers'
+
+import SidebarType from '@enum/SidebarType'
 
 import ConfigModel from './Widget/ConfigModel'
 import ConfigAnimate from './Widget/ConfigAnimate'
@@ -16,6 +17,7 @@ import ConfigToggle from './Widget/ConfigToggle'
 import ConfigAction from './Widget/ConfigAction'
 import ConfigChart from './Widget/ConfigChart'
 import ConfigLabel from './Widget/ConfigLabel'
+import Export from './Export'
 
 class Connect extends Component {
   renderSelectedWidget(selectedWidget) {
@@ -48,10 +50,12 @@ class Connect extends Component {
 
   render() {
     const selectedWidget = this.props.selectedWidget
+    const sidebar = this.props.sidebarType
 
     return <Fragment>
       <div className="connect-sidebar">
-        {this.renderSelectedWidget(selectedWidget)}
+        {sidebar === SidebarType.WIDGET && this.renderSelectedWidget(selectedWidget)}
+        {sidebar === SidebarType.EXPORT && <Export/>}
       </div>
     </Fragment>
   }
@@ -59,6 +63,7 @@ class Connect extends Component {
 
 export default connect(
   state => ({
+    sidebarType: getSidebarType(state),
     selectedWidget: getSelectedWidget(state)
   }),
   dispatch => bindActionCreators({}, dispatch)
