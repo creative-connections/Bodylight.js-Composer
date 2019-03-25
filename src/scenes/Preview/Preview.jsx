@@ -12,9 +12,16 @@ class Preview extends Component {
   componentDidMount () {
     window.setTimeout(() => {
       new Promise(resolve => {
-        const builder = new Builder(false, true)
-        this.src = builder.build()
-        resolve()
+        const builder = new Builder()
+        builder.setMinify(false)
+        builder.setExportPerformanceBlock(true)
+        builder.build().then(html => {
+          this.src = html
+          resolve()
+        }).catch(error => {
+          // TODO: handle me
+          console.error(error)
+        })
       }).then(() => {
         this.forceUpdate()
       })
