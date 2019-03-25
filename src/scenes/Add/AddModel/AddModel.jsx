@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 
+import WidgetMenu from '@components/WidgetMenu'
+
 import Uploader from './Uploader'
 import Updater from './Updater'
 

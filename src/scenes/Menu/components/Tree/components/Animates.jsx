@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TreeNode from './TreeNode'
 import memoize from 'fast-memoize'
-import WidgetType from '@enum/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 
 class Animates extends Component {
   constructor(props) {

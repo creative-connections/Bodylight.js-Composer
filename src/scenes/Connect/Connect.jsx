@@ -1,23 +1,23 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Grid, Menu } from 'semantic-ui-react'
 
-import WidgetType from '@enum/WidgetType'
-import { getSelectedWidget, getSidebarType } from '@reducers'
+import WidgetType from '@helpers/enum/WidgetType'
+import { getSelectedWidget } from '@reducers'
 
-import SidebarType from '@enum/SidebarType'
+import ConfigModel from './components/ConfigModel'
+import ConfigAnimate from './components/ConfigAnimate'
+import ConfigAnimateAnim from './components/ConfigAnimateAnim'
+import ConfigAnimateText from './components/ConfigAnimateText'
+import ConfigRange from './components/ConfigRange'
+import ConfigButton from './components/ConfigButton'
+import ConfigToggle from './components/ConfigToggle'
+import ConfigAction from './components/ConfigAction'
+import ConfigChart from './components/ConfigChart'
+import ConfigLabel from './components/ConfigLabel'
 
-import ConfigModel from './Widget/ConfigModel'
-import ConfigAnimate from './Widget/ConfigAnimate'
-import ConfigAnimateAnim from './Widget/ConfigAnimateAnim'
-import ConfigAnimateText from './Widget/ConfigAnimateText'
-import ConfigRange from './Widget/ConfigRange'
-import ConfigButton from './Widget/ConfigButton'
-import ConfigToggle from './Widget/ConfigToggle'
-import ConfigAction from './Widget/ConfigAction'
-import ConfigChart from './Widget/ConfigChart'
-import ConfigLabel from './Widget/ConfigLabel'
-import Export from './Export'
+import WidgetMenu from '@components/WidgetMenu'
 
 class Connect extends Component {
   renderSelectedWidget(selectedWidget) {
@@ -50,20 +50,35 @@ class Connect extends Component {
 
   render() {
     const selectedWidget = this.props.selectedWidget
-    const sidebar = this.props.sidebarType
+
+    if (this.props.sidebar) {
+      return <Fragment>
+        <div className="connect-sidebar">
+          {this.renderSelectedWidget(selectedWidget)}
+        </div>
+      </Fragment>
+    }
 
     return <Fragment>
-      <div className="connect-sidebar">
-        {sidebar === SidebarType.WIDGET && this.renderSelectedWidget(selectedWidget)}
-        {sidebar === SidebarType.EXPORT && <Export/>}
+      <div id='topBar' className='header'>
+        <span>{selectedWidget && selectedWidget.name}</span>
       </div>
+      <Grid padded centered className='leftShadow topPadded'>
+        <Grid.Row centered style={{ paddingTop: 0, paddingBottom: 0 }}>
+          <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
+            {this.renderSelectedWidget(selectedWidget)}
+          </Grid.Column>
+          <Grid.Column id='widget-menu' style={{ width: '15%' }}>
+            <WidgetMenu/>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Fragment>
   }
 }
 
 export default connect(
   state => ({
-    sidebarType: getSidebarType(state),
     selectedWidget: getSelectedWidget(state)
   }),
   dispatch => bindActionCreators({}, dispatch)
