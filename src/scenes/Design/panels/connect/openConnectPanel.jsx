@@ -50,7 +50,7 @@ export default {
           <Router>
             <Route
               path={`${process.env.PATH}/`}
-              render={(props) => { return <Connect sidebar={true} {...props} /> }}
+              render={(props) => { return <Connect {...props} /> }}
             />
           </Router>
         </PersistGate>

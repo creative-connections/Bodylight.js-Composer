@@ -8,7 +8,6 @@ import Design from '@scenes/Design'
 import AddModel from '@scenes/Add/AddModel'
 import Save from '@scenes/Project/Save'
 import Open from '@scenes/Project/Open'
-import Export from '@scenes/Project/Export'
 
 class DisplayContainer extends Component {
   constructor (props) {
@@ -28,8 +27,6 @@ class DisplayContainer extends Component {
         <Route path={`${process.env.PATH}/add/model`} component={AddModel} />
         <Route path={`${process.env.PATH}/save`} component={Save} />
         <Route path={`${process.env.PATH}/open`} component={Open} />
-        <Route path={`${process.env.PATH}/export`} component={Export} />
-        <Route path={`${process.env.PATH}/export/:option`} component={Export} />
       </div>
     </Fragment>
   }

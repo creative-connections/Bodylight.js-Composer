@@ -9,8 +9,8 @@ import {
 } from '@actions/types'
 import { REHYDRATE } from 'redux-persist'
 
-import WidgetType from '@helpers/enum/WidgetType'
-import ButtonMode from '@helpers/enum/ButtonMode'
+import WidgetType from '@enum/WidgetType'
+import ButtonMode from '@enum/ButtonMode'
 import {
   addWidgetAction,
   removeWidgetAction,

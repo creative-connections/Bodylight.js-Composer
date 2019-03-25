@@ -1,5 +1,5 @@
 import update from 'immutability-helper'
-import ArgumentType from '@helpers/enum/ArgumentType'
+import ArgumentType from '@enum/ArgumentType'
 
 export default (action) => {
   let args = ''
