@@ -9,7 +9,7 @@ import {
 } from '@actions/types'
 import { REHYDRATE } from 'redux-persist'
 
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 import {
   addWidgetAction,
   removeWidgetAction,

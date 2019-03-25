@@ -7,7 +7,7 @@ import Items from './components/Items'
 import { withRouter } from 'react-router-dom'
 import { getWidgetsForTree, getSelectedWidget } from '@reducers'
 import { selectWidget } from '@actions'
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 
 class Tree extends Component {
   constructor(props) {

@@ -5,8 +5,8 @@ import {
 } from '@actions/types'
 import { REHYDRATE } from 'redux-persist'
 
-import WidgetType from '@helpers/enum/WidgetType'
-import ArgumentType from '@helpers/enum/ArgumentType'
+import WidgetType from '@enum/WidgetType'
+import ArgumentType from '@enum/ArgumentType'
 
 import {
   addWidget,

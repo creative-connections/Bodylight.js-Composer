@@ -5,7 +5,7 @@ import {
 } from '@actions/types'
 import { REHYDRATE } from 'redux-persist'
 
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 import update from 'immutability-helper'
 
 import { updateWidget, removeWidget } from '../commons/widget'

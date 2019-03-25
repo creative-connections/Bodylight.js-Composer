@@ -7,7 +7,7 @@ import {
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
-import WidgetType from '@helpers/enum/WidgetType'
+import WidgetType from '@enum/WidgetType'
 
 export const addChart = (id) => ({
   type: ADD_WIDGET,
