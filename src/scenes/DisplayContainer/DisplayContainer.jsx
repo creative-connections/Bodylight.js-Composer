@@ -8,7 +8,6 @@ import Design from '@scenes/Design'
 import AddModel from '@scenes/Add/AddModel'
 import Save from '@scenes/Project/Save'
 import Open from '@scenes/Project/Open'
-import Export from '@scenes/Project/Export'
 
 class DisplayContainer extends Component {
   constructor (props) {

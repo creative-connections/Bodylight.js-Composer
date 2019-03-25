@@ -86,6 +86,10 @@ module.exports = (env, argv) => {
         title: 'Composer - Bodylight.js',
         template: './src/template.hbs'
       }),
+      new CopyWebpackPlugin([
+        { from: 'node_modules/plotly.js/dist/plotly.min.js', to: 'lib/' },
+        { from: 'lib/createjs-2015.11.26.min.js', to: 'lib/' },
+      ]),
       new Dotenv({
         path: './.env.prod',
         safe: true,

@@ -28,28 +28,34 @@ class Export extends Component {
     this.handleUpdateExportOption = this.handleUpdateExportOption.bind(this)
   }
 
-  build(minify) {
-    const builder = new Builder()
-    builder.setMinify(minify)
-    builder.setExportPerformanceBlock(this.props.export.performance)
-    builder.setBundleDependencies(this.props.export.bundleDependencies)
-    return new Blob([builder.build()], { type: 'text/html;charset=utf-8' })
+  finishExport(html) {
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' })
+    const filename = `${this.props.export.name}.html`
+    saveAs(blob, filename)
+    toast.success(`Project exported as ${filename}`)
+    this.setState({ pending: false })
   }
 
   export() {
-    let html = ''
+    const builder = new Builder()
+    builder.setMinify(this.state.minify)
+    builder.setExportPerformanceBlock(this.props.export.performance)
+    builder.setBundleDependencies(this.props.export.bundleDependencies)
 
-    try {
-      html = this.build(this.state.minify && true)
-    } catch (err) {
-      toast.error(`Could not export project: ${err}, disabling optimizations`)
-      html = this.build(false)
-    }
-
-    const filename = `${this.props.export.name}.html`
-    saveAs(html, filename)
-    toast.success(`Project exported as ${filename}`)
-    this.setState({ pending: false })
+    builder.build().then(html => {
+      this.finishExport(html)
+    }).catch(error => {
+      console.error(error)
+      toast.error(`Could not export project: ${error}, disabling optimizations`)
+      builder.setMinify(false)
+      builder.build().then(html => {
+        this.finishExport(html)
+      }).catch(error => {
+        toast.error(`Could not export project: ${error}`)
+        console.error(error)
+        this.setState({ pending: false })
+      })
+    })
   }
 
   handleExport() {

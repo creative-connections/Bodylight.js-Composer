@@ -210,44 +210,72 @@ class Builder {
     return `</html>`
   }
 
-  build() {
-    const append = this.append.bind(this)
-    this.clearSrc()
+  fetchDependency(url) {
+    return new Promise(resolve => {
+      fetch(url, {mode: 'cors'}).then(response => {
+        resolve(response.text())
+      })
+    }).catch(error => {
+      console.log('There has been a problem with your fetch operation: ', error.message)
+    })
+  }
 
-    append(this.head())
-
-    append(SpinnerHtml())
-
-    // append editor created html and css
-    append(`<div id='spinner-blur'>`)
-    append(getEditorHtml())
-    append(`</div>`)
-    append(`<style>${this.getCss()}</style>`)
-
-    /*
-     * TODO: refactor this out and conditionally
-     * CreateJS for AnimateRuntime
-     */
-    append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
-    // PlotlyChart
-    append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
-    // Chart.js (bundled with moment.js)
-    append('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>')
-
-    let js = this.buildJS()
-    if (this.buildMinified) {
-      js = this.minify(js)
+  getDependencies() {
+    if (this.bundleDependencies) {
+      return new Promise(resolve => {
+        Promise.all([
+          this.fetchDependency('lib/createjs-2015.11.26.min.js'),
+          this.fetchDependency('lib/plotly.min.js'),
+        ]).then(results => {
+          resolve(`<script>${results.join(' ')}</script>`)
+        })
+      })
+    } else {
+      return new Promise(resolve => {
+        let html = ''
+        html += '<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>'
+        html += '<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>'
+        resolve(html)
+      })
     }
+  }
 
-    append('<script>')
-    append(js)
-    append('</script>')
+  build() {
+    return new Promise((resolve, reject) => {
 
-    append(getPerformanceHtml(this.exportPerformanceBlock))
+      const append = this.append.bind(this)
+      this.clearSrc()
 
-    append(this.tail())
+      append(this.head())
 
-    return this.src
+      append(SpinnerHtml())
+
+      // append editor created html and css
+      append(`<div id='spinner-blur'>`)
+      append(getEditorHtml())
+      append(`</div>`)
+      append(`<style>${this.getCss()}</style>`)
+
+
+      this.getDependencies().then(dependencies => {
+        append(dependencies)
+
+        let js = this.buildJS()
+        if (this.buildMinified) {
+          js = this.minify(js)
+        }
+
+        append('<script>')
+        append(js)
+        append('</script>')
+
+        append(getPerformanceHtml(this.exportPerformanceBlock))
+
+        append(this.tail())
+
+        resolve(this.src)
+      })
+    })
   }
 
   buildJS() {
