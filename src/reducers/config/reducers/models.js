@@ -13,9 +13,9 @@ import {
 
 import memoize from 'memoize-one'
 import update from 'immutability-helper'
-import WidgetType from '@enum/WidgetType'
-import ModelMode from '@enum/ModelMode'
-import ProviderType from '@enum/ProviderType'
+import WidgetType from '@helpers/enum/WidgetType'
+import ModelMode from '@helpers/enum/ModelMode'
+import ProviderType from '@helpers/enum/ProviderType'
 
 const defaultConfig = {
   mode: ModelMode.CONTINUOUS,
