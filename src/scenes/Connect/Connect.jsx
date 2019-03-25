@@ -17,7 +17,10 @@ import ConfigToggle from './Widget/ConfigToggle'
 import ConfigAction from './Widget/ConfigAction'
 import ConfigChart from './Widget/ConfigChart'
 import ConfigLabel from './Widget/ConfigLabel'
+
 import Export from './Export'
+import Save from './Save'
+import Open from './Open'
 
 class Connect extends Component {
   renderSelectedWidget(selectedWidget) {
@@ -56,6 +59,8 @@ class Connect extends Component {
       <div className="connect-sidebar">
         {sidebar === SidebarType.WIDGET && this.renderSelectedWidget(selectedWidget)}
         {sidebar === SidebarType.EXPORT && <Export/>}
+        {sidebar === SidebarType.SAVE_PROJECT && <Save/>}
+        {sidebar === SidebarType.OPEN_PROJECT && <Open/>}
       </div>
     </Fragment>
   }

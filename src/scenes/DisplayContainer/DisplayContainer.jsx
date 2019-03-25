@@ -6,8 +6,6 @@ import { getApplicationKey } from '@reducers'
 import Preview from '@scenes/Preview'
 import Design from '@scenes/Design'
 import AddModel from '@scenes/Add/AddModel'
-import Save from '@scenes/Project/Save'
-import Open from '@scenes/Project/Open'
 
 class DisplayContainer extends Component {
   constructor (props) {
@@ -25,8 +23,6 @@ class DisplayContainer extends Component {
         <Route exact path={`${process.env.PATH}/`} render={this.getDesignKey} />
         <Route path={`${process.env.PATH}/preview`} component={Preview} />
         <Route path={`${process.env.PATH}/add/model`} component={AddModel} />
-        <Route path={`${process.env.PATH}/save`} component={Save} />
-        <Route path={`${process.env.PATH}/open`} component={Open} />
       </div>
     </Fragment>
   }

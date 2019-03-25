@@ -2,13 +2,14 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
-import { Redirect, withRouter } from 'react-router-dom'
-import { Grid, Menu } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 
 import { loadStore } from '@src/configureStore'
 
 import DropZone from '@components/DropZone'
 import BusySignal from '@components/BusySignal'
+
+import GridRow from '@components/GridRow'
 
 class Open extends Component {
   constructor(props) {
@@ -45,23 +46,17 @@ class Open extends Component {
 
   render() {
     return <Fragment>
-      <div id='topBar' className='header'>
-      </div>
-      <Grid padded centered className='leftShadow topPadded'>
-        <Grid.Row centered padded='horizontally' className='notPadded'>
-          <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
-            <BusySignal busy={this.state.pending} />
-            <DropZone display={true}
-              className='dropzone'
-              onDropAccepted={this.fileUploaded}
-              onDropRejected={this.fileRejected}
-              description='Project file .bjp'
-              accept=''
-              imgSrc={``}
-            />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <GridRow label='Open Project file (.bjp)'>
+        <BusySignal busy={this.state.pending} />
+        <DropZone display={true}
+          className='dropzone'
+          onDropAccepted={this.fileUploaded}
+          onDropRejected={this.fileRejected}
+          description='Project file .bjp'
+          accept=''
+          imgSrc={``}
+        />
+      </GridRow>
     </Fragment>
   }
 }
