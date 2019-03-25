@@ -39,8 +39,8 @@ import oneshotPause from './templates/model/oneshot/pause'
 import oneshotSetValue from './templates/model/oneshot/setValue'
 import oneshotUpdateValueListeners from './templates/model/oneshot/updateValueListeners'
 
-import WidgetType from '@enum/WidgetType'
-import ProviderType from '@enum/ProviderType'
+import WidgetType from '@helpers/enum/WidgetType'
+import ProviderType from '@helpers/enum/ProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
@@ -107,20 +107,14 @@ import Terser from 'terser'
 import appendAPI from './templates/api'
 
 class Builder {
-  constructor () {
-    this.clearSrc()
-  }
-
-  setMinify(minify = false) {
+  constructor(
+    minify = false,
+    exportPerformanceBlock = false
+  ) {
     this.buildMinified = minify
-  }
-
-  setExportPerformanceBlock (exportPerformanceBlock = false) {
     this.exportPerformanceBlock = exportPerformanceBlock
-  }
-
-  setBundleDependencies (bundleDependencies = false) {
-    this.bundleDependencies = bundleDependencies
+    this.clearSrc()
+    console.log(`Building (minified: ${minify}, exportPerformanceBlock: ${exportPerformanceBlock})`)
   }
 
   clearSrc() {
@@ -210,72 +204,44 @@ class Builder {
     return `</html>`
   }
 
-  fetchDependency(url) {
-    return new Promise(resolve => {
-      fetch(url, {mode: 'cors'}).then(response => {
-        resolve(response.text())
-      })
-    }).catch(error => {
-      console.log('There has been a problem with your fetch operation: ', error.message)
-    })
-  }
-
-  getDependencies() {
-    if (this.bundleDependencies) {
-      return new Promise(resolve => {
-        Promise.all([
-          this.fetchDependency('lib/createjs-2015.11.26.min.js'),
-          this.fetchDependency('lib/plotly.min.js'),
-        ]).then(results => {
-          resolve(`<script>${results.join(' ')}</script>`)
-        })
-      })
-    } else {
-      return new Promise(resolve => {
-        let html = ''
-        html += '<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>'
-        html += '<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>'
-        resolve(html)
-      })
-    }
-  }
-
   build() {
-    return new Promise((resolve, reject) => {
+    const append = this.append.bind(this)
+    this.clearSrc()
 
-      const append = this.append.bind(this)
-      this.clearSrc()
+    append(this.head())
 
-      append(this.head())
+    append(SpinnerHtml())
 
-      append(SpinnerHtml())
+    // append editor created html and css
+    append(`<div id='spinner-blur'>`)
+    append(getEditorHtml())
+    append(`</div>`)
+    append(`<style>${this.getCss()}</style>`)
 
-      // append editor created html and css
-      append(`<div id='spinner-blur'>`)
-      append(getEditorHtml())
-      append(`</div>`)
-      append(`<style>${this.getCss()}</style>`)
+    /*
+     * TODO: refactor this out and conditionally
+     * CreateJS for AnimateRuntime
+     */
+    append('<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>')
+    // PlotlyChart
+    append('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>')
+    // Chart.js (bundled with moment.js)
+    append('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>')
 
+    let js = this.buildJS()
+    if (this.buildMinified) {
+      js = this.minify(js)
+    }
 
-      this.getDependencies().then(dependencies => {
-        append(dependencies)
+    append('<script>')
+    append(js)
+    append('</script>')
 
-        let js = this.buildJS()
-        if (this.buildMinified) {
-          js = this.minify(js)
-        }
+    append(getPerformanceHtml(this.exportPerformanceBlock))
 
-        append('<script>')
-        append(js)
-        append('</script>')
+    append(this.tail())
 
-        append(getPerformanceHtml(this.exportPerformanceBlock))
-
-        append(this.tail())
-
-        resolve(this.src)
-      })
-    })
+    return this.src
   }
 
   buildJS() {

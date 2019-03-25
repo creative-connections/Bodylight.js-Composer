@@ -7,7 +7,7 @@ import {
   destroy,
   handleClick
 } from '../../commons/Components'
-import WidgetType from '@enum/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import history from '@helpers/BrowserHistory'
 
 export default (editor) => {

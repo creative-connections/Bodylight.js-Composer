@@ -5,7 +5,7 @@ import {
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
-import WidgetType from '@enum/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 
 export const addModel = (name, js, hash, modelDescription) => {
   return {

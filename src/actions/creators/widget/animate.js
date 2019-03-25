@@ -8,7 +8,7 @@ import {
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
-import WidgetType from '@enum/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 
 const getAnims = (components, parent) => {
   const anims = {}

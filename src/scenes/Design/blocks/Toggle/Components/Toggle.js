@@ -9,7 +9,7 @@ import {
   destroy,
   handleClick
 } from '../../commons/Components'
-import WidgetType from '@enum/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 
 export default (editor) => {
   const components = editor.DomComponents

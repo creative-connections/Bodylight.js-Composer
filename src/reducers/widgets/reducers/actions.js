@@ -1,7 +1,7 @@
 import { ADD_WIDGET, RENAME_WIDGET } from '@actions/types'
 import { addWidget, getWidget, renameWidget } from '../commons/widget.js'
 
-import WidgetType from '@enum/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import memoize from 'memoize-one'
 
 const defaultState = {

@@ -9,7 +9,7 @@ import {
   renameWidget
 } from '../commons/widget.js'
 
-import WidgetType from '@enum/WidgetType'
+import WidgetType from '@helpers/enum/WidgetType'
 import memoize from 'memoize-one'
 import update from 'immutability-helper'
 

@@ -57,7 +57,6 @@ module.exports = (env, argv) => {
         '@components': path.resolve(__dirname, 'src/components/'),
         '@scenes': path.resolve(__dirname, 'src/scenes/'),
         '@helpers': path.resolve(__dirname, 'src/helpers/'),
-        '@enum': path.resolve(__dirname, 'src/helpers/enum/'),
         '@actions': path.resolve(__dirname, 'src/actions/'),
         '@exceptions': path.resolve(__dirname, 'src/exceptions/'),
         '@runtime': path.resolve(__dirname, 'src/runtime/'),
@@ -85,10 +84,6 @@ module.exports = (env, argv) => {
         title: 'Composer - Bodylight.js',
         template: './src/template.hbs'
       }),
-      new CopyWebpackPlugin([
-        { from: 'node_modules/plotly.js/dist/plotly.min.js', to: 'lib/' },
-        { from: 'lib/createjs-2015.11.26.min.js', to: 'lib/' },
-      ]),
       new Dotenv(),
       new webpack.DefinePlugin({
         '__BUILD_DATE__': JSON.stringify((new Date()).getTime()),

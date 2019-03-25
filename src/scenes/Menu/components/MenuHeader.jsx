@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Dropdown } from 'semantic-ui-react'
-import { newProject, openSidebarExport } from '@actions/actions'
+import { newProject } from '@actions/actions'
 import { withRouter } from 'react-router-dom'
 
 class ItemRedirect extends Component {
@@ -27,16 +27,10 @@ class MenuHeader extends Component {
     super(props)
     this.handleNew = this.handleNew.bind(this)
     this.redirect = this.redirect.bind(this)
-    this.handleExport = this.handleExport.bind(this)
   }
 
   handleNew () {
     this.props.newProject()
-    this.redirect('')
-  }
-
-  handleExport () {
-    this.props.openSidebarExport()
     this.redirect('')
   }
 
@@ -61,7 +55,8 @@ class MenuHeader extends Component {
 
             <Dropdown.Divider />
 
-            <Dropdown.Item onClick={this.handleExport}>Export</Dropdown.Item>
+            <ItemRedirect to="export" onClick={this.redirect}>Export</ItemRedirect>
+            <ItemRedirect to="export/quick" onClick={this.redirect}>Quick export</ItemRedirect>
           </Dropdown.Menu>
         </Dropdown>
       </Fragment>
@@ -73,7 +68,6 @@ export default connect(
   state => ({
   }),
   dispatch => bindActionCreators({
-    newProject,
-    openSidebarExport
+    newProject
   }, dispatch)
 )(withRouter(MenuHeader))
