@@ -24,7 +24,7 @@ import Open from './Open'
 
 class Connect extends Component {
   renderSelectedWidget(selectedWidget) {
-    if (selectedWidget !== null) {
+    if (selectedWidget != null) {
       switch (selectedWidget.type) {
       case WidgetType.MODEL:
         return <ConfigModel model={selectedWidget} />
