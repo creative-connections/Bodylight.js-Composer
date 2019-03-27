@@ -63,7 +63,7 @@ class Uploader extends Component {
 
   render() {
     return <Fragment>
-      <Grid.Column style={{ marginTop: '2em', width: '85%' }}>
+      <Grid.Column>
         <BusySignal busy={this.state.pending} />
         <DropZone display={true}
           className='side-dropzone'
@@ -71,7 +71,6 @@ class Uploader extends Component {
           onDropRejected={this.fileRejected}
           description='HTML5 Canvas .js from Animate CC'
           accept='application/javascript, text/javascript, application/x-javascript'
-          imgSrc={`${process.env.PATH}/images/an.png`}
         />
       </Grid.Column>
     </Fragment>
