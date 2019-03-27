@@ -5,7 +5,7 @@ import { Input } from 'semantic-ui-react'
 
 import { updateWidgetConfig } from '@actions'
 import { getTicker } from '@reducers'
-import GridRow from '../GridRow'
+import GridRow from '@components/GridRow'
 
 import InputFloat from '@components/InputFloat'
 

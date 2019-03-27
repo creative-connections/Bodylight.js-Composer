@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 
-import GridRow from '../GridRow'
+import GridRow from '@components/GridRow'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getTickersForDropdown, } from '@reducers'
