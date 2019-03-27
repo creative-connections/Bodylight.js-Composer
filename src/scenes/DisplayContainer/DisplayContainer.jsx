@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-import { getApplicationKey } from '@reducers'
+import { getApplicationKey, getPreview } from '@reducers'
 
 import Preview from '@scenes/Preview'
 import Design from '@scenes/Design'
@@ -20,8 +20,8 @@ class DisplayContainer extends Component {
   render () {
     return <Fragment>
       <div id='DisplayContainer'>
-        <Route exact path={`${process.env.PATH}/`} render={this.getDesignKey} />
-        <Route path={`${process.env.PATH}/preview`} component={Preview} />
+        {this.props.preview === false && this.getDesignKey()}
+        {this.props.preview && <Preview/>}
         <Route path={`${process.env.PATH}/add/model`} component={AddModel} />
       </div>
     </Fragment>
@@ -29,5 +29,8 @@ class DisplayContainer extends Component {
 }
 
 export default connect(
-  state => ({ appkey: getApplicationKey(state) })
+  state => ({
+    appkey: getApplicationKey(state),
+    preview: getPreview(state),
+  })
 )(DisplayContainer)
