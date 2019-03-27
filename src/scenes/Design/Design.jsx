@@ -169,11 +169,13 @@ class Design extends Component {
     actionBlock(editor)
 
     editor.render()
-    editor.Panels.getButton('views', 'open-blocks').set('active', true)
 
-    this.unsubscribeSelectedWidget = observeStore(state => state.widgets.app.selected, () => {
+    this.unsubscribeSelectedWidget = observeStore(state => state.widgets.app, () => {
       editor.Panels.getButton('views', 'open-connect').set('active', true)
     })
+
+    this.unsubscribeSidebar = observeStore(state => state.sidebar, () => {
+      editor.Panels.getButton('views', 'open-connect').set('active', true) }, true)
 
     editor.on('component:clone', model => {
       model.cloned = true
@@ -190,12 +192,15 @@ class Design extends Component {
       }
     })
 
+    editor.Panels.getButton('views', 'open-blocks').set('active', true)
+
     this.editor = editor
   }
 
   componentWillUnmount() {
     this.editor.destroy()
     this.unsubscribeSelectedWidget()
+    this.unsubscribeSidebar()
   }
 
   render() {
