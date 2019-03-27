@@ -1,14 +1,7 @@
 import { MODEL, MODEL_ID } from '../types.js'
 import {
-  handleChangeID,
-  init,
-  handleOnDrop,
-  getWidget,
-  destroy,
-  handleClick
+  init
 } from '../../commons/Components'
-import WidgetType from '@enum/WidgetType'
-import history from '@helpers/BrowserHistory'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -45,7 +38,6 @@ export default (editor) => {
       },
 
       handleOnDrop () {
-        history.push(`${process.env.PATH}/add/model`)
         this.remove()
       },
 

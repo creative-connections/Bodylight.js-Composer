@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
-import { Redirect } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
 
 import DropZone from '@components/DropZone'

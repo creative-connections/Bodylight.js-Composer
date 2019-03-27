@@ -1,14 +1,7 @@
 import { ACTION, ACTION_ID } from '../types.js'
 import {
-  handleChangeID,
   init,
-  handleOnDrop,
-  getWidget,
-  destroy,
-  handleClick
 } from '../../commons/Components'
-import WidgetType from '@enum/WidgetType'
-import history from '@helpers/BrowserHistory'
 import { addAction } from '@actions'
 import configureStore from '@src/configureStore'
 

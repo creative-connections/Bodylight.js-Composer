@@ -5,7 +5,7 @@
   "main": "dist/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development --history-api-fallback",
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "prod": "webpack -p --config ./webpack.config.prod.js --mode production"
   },
   "repository": {
@@ -85,8 +85,6 @@
     "react-modal": "^3.8.1",
     "react-redux": "^5.1.1",
     "react-resizable": "^1.7.5",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
     "react-spinners": "^0.4.8",
     "react-toastify": "^4.5.2",
     "reactstrap": "^6.5.0",

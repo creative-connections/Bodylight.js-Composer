@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
-import { withRouter } from 'react-router-dom'
 
 import { loadStore } from '@src/configureStore'
 
@@ -33,8 +32,6 @@ class Open extends Component {
     const reader = new FileReader()
     reader.onloadend = () => {
       loadStore(reader.result).then(() => {
-        // App is dead now, waiting for GC. Long live the App!
-        this.props.history.push(`${process.env.PATH}/`)
       }).catch((err) => {
         toast.error(`Could not load file: ${err.message}`)
         this.setState({ pending: false })
@@ -63,4 +60,4 @@ class Open extends Component {
 
 export default connect(null,
   dispatch => bindActionCreators({}, dispatch)
-)(withRouter(Open))
+)(Open)
