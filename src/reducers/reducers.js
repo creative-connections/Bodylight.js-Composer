@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import name, * as nameSelectors from './app/name'
+import preview, * as previewSelectors from './app/preview'
 import sidebar, * as sidebarSelectors from './app/sidebar'
 
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   name,
   sidebar,
   functionEditorConfig,
+  preview,
 
   application,
   editorStorage,
@@ -36,6 +38,7 @@ export default stateScrubberReducer
 
 export const getProjectName = state => nameSelectors.getProjectName(state.name)
 export const getSidebarType = state => sidebarSelectors.getSidebarType(state.sidebar)
+export const getPreview = state => previewSelectors.getPreview(state.preview)
 
 // export selectors with appropriate states
 export const getAnimates = state => widgetSelectors.getAnimates(state.widgets)

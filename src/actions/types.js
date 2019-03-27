@@ -31,3 +31,5 @@ export const UPDATE_EXPORT_OPTION = 'app/exportoption/UPDATE'
 export const LOAD_STORE = 'store/LOAD'
 
 export const SWITCH_SIDEBAR = 'app/sidebar/SWITCH'
+export const SHOW_PREVIEW = 'app/preview/SHOW'
+export const HIDE_PREVIEW = 'app/preview/HIDE'
