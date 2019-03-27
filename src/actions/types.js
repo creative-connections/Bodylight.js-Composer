@@ -25,6 +25,7 @@ export const FUNCTION_EDITOR_CONFIG_CHANGE = 'FUNCTION_EDITOR_CONFIG_CHANGE'
 
 export const ANIMATE_SET_FPS = 'app/Animate/SET_FPS'
 export const POPULATE_ANIMATE = 'widget/animate/POPULATE'
+export const POPULATE_MODEL = 'widget/model/POPULATE'
 
 export const UPDATE_EXPORT_OPTION = 'app/exportoption/UPDATE'
 
