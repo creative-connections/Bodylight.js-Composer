@@ -3,14 +3,21 @@ import {
 
   ADD_WIDGET_ACTION,
   REMOVE_WIDGET_ACTION,
-  UPDATE_WIDGET_ACTION
+  UPDATE_WIDGET_ACTION,
+
 } from '@actions/types'
 
 import uuid from 'uuid/v4'
 
+// TODO: remove updateConfig in config/widget reducer merge
 export const updateConfig = (widget, key, value) => ({
   type: UPDATE_WIDGET_CONFIG,
   payload: { widget, key, value }
+})
+
+export const updateWidgetConfig = (id, type, key, value) => ({
+  type: UPDATE_WIDGET_CONFIG,
+  payload: { widget: {id, type}, key, value }
 })
 
 export const widgetActionAdd = (widget) => {

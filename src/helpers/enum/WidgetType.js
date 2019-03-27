@@ -8,7 +8,8 @@ const WidgetType = {
   ACTION: 'ACTION',
   TOGGLE: 'TOGGLE',
   CHART: 'CHART',
-  LABEL: 'LABEL'
+  LABEL: 'LABEL',
+  TICKER: 'TICKER',
 }
 
 export default WidgetType

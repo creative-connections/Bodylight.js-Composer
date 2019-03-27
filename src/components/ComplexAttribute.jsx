@@ -104,7 +104,7 @@ class ComplexAttribute extends Component {
         value={this.props.attribute.function}
         onChange={this.props.onChange}
         typeof={this.props.attribute.typeof}
-        />
+      />
     </div>
   }
 
@@ -178,6 +178,17 @@ class ComplexAttribute extends Component {
   }
 
   toggleComplex(e) {
+
+    if (this.props.attribute.complex) {
+      this.props.onChange(e, {
+        name: `${this.props.name}.provider`,
+        value: null
+      })
+      this.props.onChange(e, {
+        name: `${this.props.name}.function`,
+        value: null
+      })
+    }
     this.props.onChange(e, {
       name: `${this.props.name}.complex`,
       value: !this.props.attribute.complex

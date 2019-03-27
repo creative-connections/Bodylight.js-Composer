@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { Input, Checkbox } from 'semantic-ui-react'
 
 import { updateConfig, renameModel } from '@actions'
 import { configGetModel } from '@reducers'
@@ -9,6 +9,9 @@ import ModelInfo from './ModelInfo'
 import ModelMode from '@enum/ModelMode'
 import InputFloat from '@components/InputFloat'
 import GridRow from '@components/GridRow'
+
+import ConfigTicker from '../ConfigTicker'
+import TickerList from '../ConfigTicker/TickerList'
 
 class ConfigModel extends Component {
   constructor(props) {
@@ -69,12 +72,12 @@ class ConfigModel extends Component {
   renderOneshot(config) {
     return <Fragment>
       <GridRow label=''>
-          <Checkbox
-            label='Recreate model on change'
-            name='destroyOnReset'
-            checked={config.destroyOnReset}
-            onClick={this.handleOnChange}
-          />
+        <Checkbox
+          label='Recreate model on change'
+          name='destroyOnReset'
+          checked={config.destroyOnReset}
+          onClick={this.handleOnChange}
+        />
       </GridRow>
 
       <GridRow label='Step length [time]'>
@@ -104,9 +107,14 @@ class ConfigModel extends Component {
     </Fragment>
   }
 
-  renderTicked() {
+  renderTicked(config) {
     return <GridRow>
-      <p>Not implemented yet</p>
+      <TickerList
+        name='ticker'
+        value={config.ticker}
+        onChange={this.handleOnChange}
+      />
+      <ConfigTicker ticker={config.ticker}/>
     </GridRow>
   }
 

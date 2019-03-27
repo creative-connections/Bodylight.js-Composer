@@ -7,9 +7,12 @@ import {
 import { REHYDRATE } from 'redux-persist'
 
 import {
-  updateWidget,
   renameWidget
 } from '../commons/widget'
+
+import {
+  updateWidgetConfig
+} from '../../widgets/commons/config'
 
 import memoize from 'memoize-one'
 import update from 'immutability-helper'
@@ -98,7 +101,7 @@ export default function (state = {}, action) {
   case UPDATE_WIDGET:
     return updateModel(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
-    return updateWidget(state, action.payload, type)
+    return updateWidgetConfig(state, action.payload, type)
   case REHYDRATE:
     return action.payload ? action.payload.config.models : state
   }

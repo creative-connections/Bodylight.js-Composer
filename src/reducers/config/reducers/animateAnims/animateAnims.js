@@ -8,7 +8,10 @@ import { REHYDRATE } from 'redux-persist'
 
 import WidgetType from '@enum/WidgetType'
 import update from 'immutability-helper'
-import { updateWidget, removeWidget } from '../../commons/widget'
+import {
+  removeWidget,
+  updateWidgetConfig
+} from '../../../widgets/commons/config'
 
 const type = WidgetType.ANIMATE_ANIM
 import defaultConfig from './config/default'
@@ -30,7 +33,7 @@ const updateAnimateAnim = (state, payload) => {
   if (state[payload.widget.id] === undefined) {
     state = addAnimateAnim(state, payload)
   }
-  state = updateWidget(state, payload, type)
+  state = updateWidgetConfig(state, payload, type)
   return state
 }
 
