@@ -6,28 +6,14 @@ import { showPreview, hidePreview, } from '@actions/actions'
 import { getPreview } from '@reducers'
 
 class ScreenSelector extends Component {
-  constructor (props) {
-    super(props)
-    this.handlePreview = this.handlePreview.bind(this)
-    this.handleDesign = this.handleDesign.bind(this)
-  }
-
-  handlePreview () {
-    this.props.showPreview()
-  }
-
-  handleDesign () {
-    this.props.hidePreview()
-  }
-
   render () {
     return <Fragment>
       <Menu.Item className='link'
         active={!this.props.preview}
-        onClick={this.handleDesign}>Design</Menu.Item>
+        onClick={this.props.hidePreview}>Design</Menu.Item>
       <Menu.Item className='link'
         active={this.props.preview}
-        onClick={this.handlePreview}>Preview</Menu.Item>
+        onClick={this.props.showPreview}>Preview</Menu.Item>
     </Fragment>
   }
 }
@@ -39,4 +25,5 @@ export default connect(
   dispatch => bindActionCreators({
     showPreview,
     hidePreview
-  }, dispatch))(ScreenSelector)
+  }, dispatch)
+)(ScreenSelector)
