@@ -8,9 +8,6 @@
       "api_model": {
         "title": "Model"
       },
-      "first_project": {
-        "title": "first_project"
-      },
       "introduction": {
         "title": "Introduction"
       },
@@ -19,6 +16,12 @@
       },
       "plan": {
         "title": "plan"
+      },
+      "simple_project_1": {
+        "title": "Creating a simple project"
+      },
+      "simple_project_2": {
+        "title": "Layouting"
       },
       "technology": {
         "title": "Technology"
@@ -30,7 +33,7 @@
     },
     "categories": {
       "Getting started": "Getting started",
-      "Guides": "Guides",
+      "Simple project": "Simple project",
       "API": "API"
     }
   },
