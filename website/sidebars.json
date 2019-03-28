@@ -4,8 +4,9 @@
       "introduction",
       "mo_compilation"
     ],
-    "Guides": [
-      "first_project"
+    "Simple project": [
+      "simple_project_1",
+      "simple_project_2"
     ],
     "API": ["api_model"]
   }
