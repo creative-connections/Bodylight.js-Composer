@@ -408,4 +408,20 @@ export default class PlotlyChart extends PlotlyBase {
       Plotly.restyle(this.plotly, replace, indexes.replace)
     }
   }
+
+  snapshot(id, changeColor = true) {
+    if (this.plotly.data[id] == null) {
+      return
+    }
+
+    const trace = this.plotly.data[id]
+    const duplicate = Object.assign({}, trace)
+    if (changeColor) {
+      duplicate.line = Object.assign({}, trace.line)
+      duplicate.line.color = null
+    }
+    Plotly.addTraces(this.plotly, [
+      duplicate
+    ])
+  }
 }
