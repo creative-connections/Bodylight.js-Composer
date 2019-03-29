@@ -32,6 +32,9 @@ Start by downloading [the model](examples/simple_project/Lissajous.zip), this fi
 
 Drag&Drop the Model Widget anywhere to the main composer window.
 
-<video loop controls><source src="img/simple_project/dndmodel.webm" type="video/webm"></video>
+<video loop controls>
+  <source src="img/simple_project/dndmodel.webm" type="video/webm">
+  <source src="img/simple_project/dndmodel.mp4" type="video/mp4">
+</video>
 
 And then upload the model .zip file in the displayed drop area.
