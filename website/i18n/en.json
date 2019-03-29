@@ -21,7 +21,10 @@
         "title": "Creating a simple project"
       },
       "simple_project_2": {
-        "title": "Adding and visualising the model"
+        "title": "Adding the model"
+      },
+      "simple_project_3": {
+        "title": "Visualising the model"
       },
       "technology": {
         "title": "Technology"
