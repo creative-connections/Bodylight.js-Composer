@@ -1,6 +1,6 @@
 ---
 id: simple_project_2
-title: Adding and visualising the model
+title: Adding the model
 ---
 
 Firstly we should look at our model, it is fairly straight-forward since the only outputs we need are sinus
@@ -38,3 +38,7 @@ Drag&Drop the Model Widget anywhere to the main composer window.
 </video>
 
 And then upload the model .zip file in the displayed drop area.
+
+You should see the model variables and parameters in the right Connect panel.
+
+![Model Parameters](img/simple_project/modelparameters.png "Model Parameters")
