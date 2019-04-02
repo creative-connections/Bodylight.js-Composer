@@ -12,14 +12,14 @@ title: Visualisation
 
 2. resize - drag column container
 
-<video loop controls width="100%">
+<video loop controls>
   <source src="../img/simple_project/resizecontainer.webm" type="video/webm">
   <source src="../img/simple_project/resizecontainer.mp4" type="video/mp4">
 </video>
 
 3. add column widget
 
-<video loop controls width="100%">
+<video loop controls>
   <source src="../img/simple_project/addcolumn.webm" type="video/webm">
   <source src="../img/simple_project/addcolumn.mp4" type="video/mp4">
 </video>
@@ -41,7 +41,7 @@ title: Visualisation
 
 click preview, you should have a working cosinus chart
 
-<video loop controls width="100%">
+<video loop controls>
   <source src="../img/simple_project/cosinus.webm" type="video/webm">
   <source src="../img/simple_project/cosinus.mp4" type="video/mp4">
 </video>
@@ -54,38 +54,12 @@ a. add dataset limit - calc reasonably
   <source src="../img/simple_project/maximumsamples.mp4" type="video/mp4">
 </video>
 
-<video loop controls width="100%">
+<video loop controls>
   <source src="../img/simple_project/cosinuslimit.webm" type="video/webm">
   <source src="../img/simple_project/cosinuslimit.mp4" type="video/mp4">
 </video>
 
 
-7. add range for cosinus frequency
+[project file](../examples/simple_project/simple_project_2.bjp)
 
-gif
-
-preview
-
-8. add range for cosinus shift
-
-gif
-
-preview
-
-9. add label for cosinus frequency, add label for sinus frequency
-
-gif
-
-## simple project 4 - advanced charts
-
-1. add chart to right column
-
-2. setup dataset X/Y
-
-3. configure axes
-
-list of axis configuration options
-
-4. add red target lines
-X line
-Y line
+<iframe class='fullwidth' height="450" src="../examples/simple_project/simple_project_2.html"></iframe>
