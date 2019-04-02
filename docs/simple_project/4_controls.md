@@ -30,18 +30,3 @@ title: Controls
 [project file](../examples/simple_project/simple_project_3.bjp)
 
 <iframe class='fullwidth' height="450" src="../examples/simple_project/simple_project_3.html"></iframe>
-
-
-## simple project 4 - advanced charts
-
-1. add chart to right column
-
-2. setup dataset X/Y
-
-3. configure axes
-
-list of axis configuration options
-
-4. add red target lines
-X line
-Y line
