@@ -60,14 +60,25 @@ class ConfigModel extends Component {
           <input />
         </InputFloat>
       </GridRow>
-      <GridRow label='Stop time'>
+
+      <GridRow>
+        <Checkbox
+          label='Stop time'
+          name='stopAtStopTime'
+          checked={config.stopAtStopTime === true}
+          onClick={this.handleOnChange}
+        />
+      </GridRow>
+
+      { config.stopAtStopTime && <GridRow label='Stop time'>
         <InputFloat
           name='stopTime'
           value={config.stopTime}
           onChange={this.handleOnChange}>
           <input />
         </InputFloat>
-      </GridRow>
+      </GridRow> }
+
       <GridRow label='Ticks per second'>
         {this.renderTps(config)}
       </GridRow>

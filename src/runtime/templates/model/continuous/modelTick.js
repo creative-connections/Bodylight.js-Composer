@@ -15,7 +15,7 @@ export default function modelTick() {
   this.currentStep = parseFloat(parseFloat(this.currentStep + this.config.stepSize).toPrecision(8))
   this.outputValues.update()
 
-  if (this.currentStep > this.config.stopTime) {
+  if (this.config.stopAtStopTime === true && this.currentStep > this.config.stopTime) {
     this.pause()
   }
 
