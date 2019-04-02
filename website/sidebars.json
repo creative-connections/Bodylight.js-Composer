@@ -5,9 +5,9 @@
       "mo_compilation"
     ],
     "Simple project": [
-      "simple_project_1",
-      "simple_project_2",
-      "simple_project_3"
+      "simple_project/1_creating_a_simple_project",
+      "simple_project/2_adding_the_model",
+      "simple_project/3_visualisation"
     ],
     "API": ["api_model"]
   }

@@ -1,5 +1,5 @@
 ---
-id: simple_project_2
+id: 2_adding_the_model
 title: Adding the model
 ---
 
@@ -26,19 +26,19 @@ equation
 end Lissajous;
 ```
 
-Start by downloading [the model](examples/simple_project/Lissajous.zip), this file contains compiled code which the Composer can run. More information about the compilation process can be found in [compiling Modelica](mo_compilation/).
+Start by downloading [the model](../examples/simple_project/Lissajous.zip), this file contains compiled code which the Composer can run. More information about the compilation process can be found in [compiling Modelica](../mo_compilation/).
 
 ## Adding the model
 
 Drag&Drop the Model Widget anywhere to the main composer window.
 
 <video loop controls>
-  <source src="img/simple_project/dndmodel.webm" type="video/webm">
-  <source src="img/simple_project/dndmodel.mp4" type="video/mp4">
+  <source src="../img/simple_project/dndmodel.webm" type="video/webm">
+  <source src="../img/simple_project/dndmodel.mp4" type="video/mp4">
 </video>
 
 And then upload the model .zip file in the displayed drop area.
 
 You should see the model variables and parameters in the right Connect panel.
 
-![Model Parameters](img/simple_project/modelparameters.png "Model Parameters")
+![Model Parameters](../img/simple_project/modelparameters.png "Model Parameters")
