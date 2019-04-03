@@ -1,5 +1,6 @@
 {
   "name": "introduction_2",
+  "sidebar": "widget",
   "functionEditorConfig": {
     "mode": "javascript",
     "theme": "tomorrow",
@@ -159,7 +160,7 @@
       }
     },
     "app": {
-      "selected": "F5jlu-9xSfyyhKj3lOgX_w"
+      "selected": "VMjcZi4JSMebCv5r2WWaaw"
     }
   },
   "config": {
@@ -796,6 +797,7 @@
           "xanchor": "left",
           "yanchor": "auto"
         },
+        "fps": 20,
         "plot_bgcolor": "#FFFFFF00",
         "paper_bgcolor": "#FFFFFF00",
         "events": [
@@ -1045,6 +1047,7 @@
           "xanchor": "left",
           "yanchor": "auto"
         },
+        "fps": 20,
         "plot_bgcolor": "#FFFFFF00",
         "paper_bgcolor": "#FFFFFF00",
         "events": [
@@ -1095,7 +1098,7 @@
             },
             "maxSamples": {
               "typeof": "number",
-              "value": "78",
+              "value": "159",
               "complex": false,
               "provider": null,
               "array": false,
