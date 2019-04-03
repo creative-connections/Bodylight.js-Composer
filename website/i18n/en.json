@@ -17,14 +17,20 @@
       "plan": {
         "title": "plan"
       },
-      "simple_project_1": {
+      "simple_project/1_creating_a_simple_project": {
         "title": "Creating a simple project"
       },
-      "simple_project_2": {
+      "simple_project/2_adding_the_model": {
         "title": "Adding the model"
       },
-      "simple_project_3": {
-        "title": "Visualising the model"
+      "simple_project/3_visualisation": {
+        "title": "Visualisation"
+      },
+      "simple_project/4_controls": {
+        "title": "Controls"
+      },
+      "simple_project/5_events_and_actions": {
+        "title": "Events and Actions"
       },
       "technology": {
         "title": "Technology"
