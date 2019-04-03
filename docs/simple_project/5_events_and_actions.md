@@ -35,7 +35,7 @@ title: Events and Actions
 
 <br/>
 * the button restsarts the model but
-* mr. Wrong Wrongington Wrongstein &ndash; an action to reset chart must be added.
+* mr. Wrong Wrongstein Wrongington &ndash; an action to reset chart must be added.
 
 ### Create action - clear chart
 * Drag the action widget from the Blocks palette to the canvas.
@@ -64,3 +64,8 @@ connect with button
   <source src="../img/simple_project/connectaction.webm" type="video/webm">
   <source src="../img/simple_project/connectaction.mp4" type="video/mp4">
 </video>
+
+
+The project in the current stage may be downloaded [here](../examples/simple_project/simple_project_4.bjp) and the simulator is:
+
+<iframe class='fullwidth' height="450" src="../examples/simple_project/simple_project_4.html"></iframe>
