@@ -25,6 +25,7 @@ const defaultConfig = {
   startTime: 0.0,
   stopAtStopTime: false,
   stopTime: 60.0,
+  tolerance: 0.000005,
 
   destroyOnReset: false,
 

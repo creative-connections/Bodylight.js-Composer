@@ -172,6 +172,14 @@ class ConfigModel extends Component {
       { config.mode === ModelMode.CONTINUOUS && this.renderContinuous(config)}
       { config.mode === ModelMode.ONESHOT && this.renderOneshot(config)}
       { config.mode === ModelMode.TICKED && this.renderTicked(config)}
+      <GridRow label='Tolerance'>
+        <InputFloat
+          name='tolerance'
+          value={config.tolerance}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow>
     </Fragment>
   }
 }
