@@ -36,7 +36,7 @@ title: Visualisation
 
 * Select one of the columns by clicking into it.
 * Open the Style Manager by clicking its icon on the bar in the upper right corner.
-* Expand the Flex bookmark TODO: name "bookmark proberly"
+* Expand the Flex tab.
 * Set the Flex basis to 50%.
 * Repeat all of the steps for the other column also.
 * Each of the two collumns should now span equaly over half of the Column container component.
@@ -51,7 +51,7 @@ title: Visualisation
 ### Add dataset for the cosinus to left chart.
 * Select the new Chart widget on the canvas.
 * Name it "Cosinus" in the "Name" text box in the right column.
-* Choose "Line chart -- Plot.ly" in the  "Chart type" selector.
+* Choose "Line chart &ndash; Plot.ly" in the  "Chart type" selector.
 * Expand the "Datasets" tab.
 * Click "Add dataset".
 * Expand the "Dataset" sub tab.
@@ -64,7 +64,7 @@ title: Visualisation
   <source src="../img/simple_project/cosinusconfig.mp4" type="video/mp4">
 </video>
 
-click preview, you should have a working cosinus chart
+* Click preview in the left menu. You should have a working cosinus chart.
 
 <video loop controls>
   <source src="../img/simple_project/cosinus.webm" type="video/webm">
@@ -72,7 +72,8 @@ click preview, you should have a working cosinus chart
 </video>
 
 
-#### Add dataset limit - calc reasonably
+### Set maximum samples for the chart
+* Set "Maximum samples" to 200 in the cosinus dataset tab. When the limit is reached in the plot, the curve starts to slide to the left. -1 mens there is no limit.
 
 <video loop controls>
   <source src="../img/simple_project/maximumsamples.webm" type="video/webm">
@@ -83,8 +84,8 @@ click preview, you should have a working cosinus chart
   <source src="../img/simple_project/cosinuslimit.webm" type="video/webm">
   <source src="../img/simple_project/cosinuslimit.mp4" type="video/mp4">
 </video>
+<br/>
 
-
-[project file](../examples/simple_project/simple_project_2.bjp)
+The project in this stage may be downloaded [here](../examples/simple_project/simple_project_2.bjp) and the simulator is:
 
 <iframe class='fullwidth' height="450" src="../examples/simple_project/simple_project_2.html"></iframe>
