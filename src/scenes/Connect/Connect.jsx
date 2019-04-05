@@ -27,7 +27,7 @@ class Connect extends Component {
     if (selectedWidget != null) {
       switch (selectedWidget.type) {
       case WidgetType.MODEL:
-        return <ConfigModel model={selectedWidget} />
+        return <ConfigModel widget={selectedWidget} />
       case WidgetType.ANIMATE:
         return <ConfigAnimate widget={selectedWidget} />
       case WidgetType.ANIMATE_ANIM:

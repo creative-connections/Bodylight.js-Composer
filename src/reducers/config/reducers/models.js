@@ -11,6 +11,7 @@ import {
 } from '../commons/widget'
 
 import {
+  addWidget,
   updateWidgetConfig
 } from '../../widgets/commons/config'
 
@@ -28,7 +29,7 @@ const defaultConfig = {
   startTime: 0.0,
   stopAtStopTime: false,
   stopTime: 60.0,
-  tolerance: 0.000005,
+  tolerance: 0.000001,
 
   destroyOnReset: false,
 
@@ -97,7 +98,8 @@ const type = WidgetType.MODEL
 export default function (state = {}, action) {
   switch (action.type) {
   case ADD_WIDGET:
-    return addModel(state, action.payload, type, defaultConfig)
+    return addWidget(state, action.payload, type, defaultConfig)
+    //return addModel(state, action.payload, type, defaultConfig)
   case RENAME_WIDGET:
     return renameWidget(state, action.payload, type)
   case UPDATE_WIDGET:

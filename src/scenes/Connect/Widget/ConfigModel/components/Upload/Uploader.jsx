@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
-import { Grid } from 'semantic-ui-react'
 
 import DropZone from '@components/DropZone'
 import BusySignal from '@components/BusySignal'
 import unzipAndValidate from './unzipAndValidate'
 import parseModelDescription from './parseModelDescription'
 import generateHash from '@helpers/generateHash'
+
+import { populateModel } from '@actions'
 
 class Uploader extends Component {
   constructor(props) {
@@ -34,7 +36,7 @@ class Uploader extends Component {
       modelDescription = parseModelDescription(modelDescription)
       generateHash(js).then(hash => {
         this.setState({ pending: false })
-        this.props.onUpload(name, js, hash, modelDescription)
+        this.props.populateModel(name, js, hash, modelDescription)
       })
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`
@@ -46,19 +48,18 @@ class Uploader extends Component {
 
   render() {
     return <Fragment>
-      <Grid.Column>
-        <BusySignal busy={this.state.pending} />
-        <DropZone display={true}
-          className='dropzone'
-          onDropAccepted={this.fileUploaded}
-          onDropRejected={this.fileRejected}
-          description='.zip file from the Bodylight.js compiler'
-          accept='application/zip, application/x-zip, application/x-zip-compressed, multipart/x-zip, application/zip-compressed'
-          imgSrc={`${process.env.PATH}/images/wafmi.png`}
-        />
-      </Grid.Column>
+      <BusySignal busy={this.state.pending} />
+      <DropZone display={true}
+        className='dropzone'
+        onDropAccepted={this.fileUploaded}
+        onDropRejected={this.fileRejected}
+        description='.zip file from the Bodylight.js compiler'
+        accept='application/zip, application/x-zip, application/x-zip-compressed, multipart/x-zip, application/zip-compressed'
+      />
     </Fragment>
   }
 }
 
-export default connect(null, null)(Uploader)
+export default connect(null,
+  dispatch => bindActionCreators({ populateModel }, dispatch)
+)(Uploader)

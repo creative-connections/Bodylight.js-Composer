@@ -13,6 +13,8 @@ import GridRow from '@components/GridRow'
 import ConfigTicker from '../ConfigTicker'
 import TickerList from '../ConfigTicker/TickerList'
 
+import Upload from './components/Upload'
+
 class ConfigModel extends Component {
   constructor(props) {
     super(props)
@@ -137,7 +139,15 @@ class ConfigModel extends Component {
     </GridRow>
   }
 
+  renderUpload() {
+    return <Upload model={this.props.widget}/>
+  }
+
   render() {
+    if (this.props.widget.populated === false || this.state.upgrade) {
+      return this.renderUpload()
+    }
+
     const config = this.props.config
 
     return <Fragment>
@@ -194,7 +204,7 @@ class ConfigModel extends Component {
 
 export default connect(
   (state, props) => ({
-    config: configGetModel(state, props.model.id)
+    config: configGetModel(state, props.widget.id)
   }),
   dispatch => bindActionCreators({
     updateConfig,

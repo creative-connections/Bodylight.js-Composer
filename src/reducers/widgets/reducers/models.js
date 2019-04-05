@@ -17,7 +17,8 @@ const addModel = (state, payload, type) => {
   if (type !== payload.type) { return state }
   const model = {
     id: payload.id,
-    name: payload.name,
+    name: 'empty model',
+    populated: false,
     type: payload.type
   }
   return update(state, { [payload.id]: {$set: model} })
@@ -27,10 +28,10 @@ const type = WidgetType.MODEL
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case ADD_WIDGET:
-      return addModel(state, action.payload, type)
-    case RENAME_WIDGET:
-      return renameWidget(state, action.payload, type)
+  case ADD_WIDGET:
+    return addModel(state, action.payload, type)
+  case RENAME_WIDGET:
+    return renameWidget(state, action.payload, type)
   }
   return state
 }

@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux'
 import { populateModel } from '@actions'
 import GridRow from '@components/GridRow'
 
+import Uploader from './Uploader'
+
 class Upload extends Component {
   constructor(props) {
     super(props)
@@ -31,6 +33,7 @@ class Upload extends Component {
   render() {
     return <Fragment>
       <GridRow label='Upload model'>
+        <Uploader/>
       </GridRow>
     </Fragment>
   }
