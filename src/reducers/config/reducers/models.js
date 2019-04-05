@@ -122,22 +122,26 @@ const generateProviderID = (type, id, parent) => {
 const getProvidersForDropdownMemoized = memoize(state => {
   const options = []
   Object.entries(state).forEach(([modelID, model]) => {
-    Object.entries(model.parameters).forEach(([parameterID, parameter]) => {
-      const ID = generateProviderID(ProviderType.MODEL_PARAMETER, parameterID, modelID)
-      options.push({
-        id: parameterID,
-        text: `${model.name}: ${parameter.name}`,
-        value: ID
+    if (model.parameters) {
+      Object.entries(model.parameters).forEach(([parameterID, parameter]) => {
+        const ID = generateProviderID(ProviderType.MODEL_PARAMETER, parameterID, modelID)
+        options.push({
+          id: parameterID,
+          text: `${model.name}: ${parameter.name}`,
+          value: ID
+        })
       })
-    })
-    Object.entries(model.variables).forEach(([variableID, variable]) => {
-      const ID = generateProviderID(ProviderType.MODEL_VARIABLE, variableID, modelID)
-      options.push({
-        id: variableID,
-        text: `${model.name}: ${variable.name}`,
-        value: ID
+    }
+    if (model.variables) {
+      Object.entries(model.variables).forEach(([variableID, variable]) => {
+        const ID = generateProviderID(ProviderType.MODEL_VARIABLE, variableID, modelID)
+        options.push({
+          id: variableID,
+          text: `${model.name}: ${variable.name}`,
+          value: ID
+        })
       })
-    })
+    }
   })
   return options
 })
