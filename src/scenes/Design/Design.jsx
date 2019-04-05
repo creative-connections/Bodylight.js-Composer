@@ -60,6 +60,15 @@ class Design extends Component {
         'gjs-blocks-basic'
       ],
 
+      keymaps: {
+        defaults: {
+          'core:component-delete': {
+            keys: '',
+            handler: 'core:component-delete'
+          }
+        }
+      },
+
       pluginsOpts: {
         'gjs-blocks-basic': {
           blocks: ['text', 'link', 'image', 'video', 'map']
