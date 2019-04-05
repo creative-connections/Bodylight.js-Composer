@@ -16,19 +16,10 @@ export const addModel = (id = null) => ({
   }
 })
 
-export const populateModel = (name, js, hash, modelDescription) => {
-  return {
-    type: POPULATE_MODEL,
-    payload: {
-      id: generateID(),
-      type: WidgetType.MODEL,
-      js,
-      hash,
-      name,
-      modelDescription
-    }
-  }
-}
+export const populateModel = (id, name, js, hash, modelDescription) => ({
+  type: POPULATE_MODEL,
+  payload: { id, type: WidgetType.MODEL, js, hash, name, modelDescription }
+})
 
 export const updateModel = (id, name, js, hash, modelDescription) => {
   return {

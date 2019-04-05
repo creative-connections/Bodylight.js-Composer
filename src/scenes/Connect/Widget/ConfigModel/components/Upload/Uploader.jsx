@@ -36,7 +36,7 @@ class Uploader extends Component {
       modelDescription = parseModelDescription(modelDescription)
       generateHash(js).then(hash => {
         this.setState({ pending: false })
-        this.props.populateModel(name, js, hash, modelDescription)
+        this.props.populateModel(this.props.model.id, name, js, hash, modelDescription)
       })
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`

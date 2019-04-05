@@ -33,7 +33,7 @@ class Upload extends Component {
   render() {
     return <Fragment>
       <GridRow label='Upload model'>
-        <Uploader/>
+        <Uploader model={this.props.model}/>
       </GridRow>
     </Fragment>
   }

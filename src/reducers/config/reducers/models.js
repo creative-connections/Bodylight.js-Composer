@@ -2,6 +2,7 @@ import {
   ADD_WIDGET,
   RENAME_WIDGET,
   UPDATE_WIDGET,
+  POPULATE_MODEL,
   UPDATE_WIDGET_CONFIG
 } from '@actions/types'
 import { REHYDRATE } from 'redux-persist'
@@ -45,30 +46,28 @@ const defaultConfig = {
   variables: null,
   description: null,
   generationDateAndTime: null,
-  generationTool: null
+  generationTool: null,
+
+  populated: false
 }
 
-const addModel = (state, payload, type, defaultConfig) => {
-  if (type !== payload.type) { return state }
-  defaultConfig = update(defaultConfig, {
-    id: { $set: payload.id },
-    name: { $set: payload.name },
-    originalName: { $set: payload.name },
-    js: { $set: payload.js },
-    hash: { $set: payload.hash },
-    guid: { $set: payload.modelDescription.guid },
-    identifier: { $set: payload.modelDescription.modelIdentifier },
-    modelName: { $set: payload.modelDescription.modelName },
-    variables: { $set: payload.modelDescription.variables },
-    parameters: { $set: payload.modelDescription.parameters },
-    arrays: { $set: payload.modelDescription.arrays },
-    description: { $set: payload.modelDescription.description },
-    generationDateAndTime: { $set: payload.modelDescription.generationDateAndTime },
-    generationTool: { $set: payload.modelDescription.generationTool }
-  })
+const populateModel = (id, state, payload) => {
   return update(state, {
-    [payload.id]: { $set: defaultConfig }
-  })
+    [payload.id]: {
+      name: { $set: payload.name },
+      originalName: { $set: payload.name },
+      js: { $set: payload.js },
+      hash: { $set: payload.hash },
+      guid: { $set: payload.modelDescription.guid },
+      identifier: { $set: payload.modelDescription.modelIdentifier },
+      modelName: { $set: payload.modelDescription.modelName },
+      variables: { $set: payload.modelDescription.variables },
+      parameters: { $set: payload.modelDescription.parameters },
+      arrays: { $set: payload.modelDescription.arrays },
+      description: { $set: payload.modelDescription.description },
+      generationDateAndTime: { $set: payload.modelDescription.generationDateAndTime },
+      generationTool: { $set: payload.modelDescription.generationTool }
+    }} )
 }
 
 const updateModel = (state, payload, type) => {
@@ -99,7 +98,8 @@ export default function (state = {}, action) {
   switch (action.type) {
   case ADD_WIDGET:
     return addWidget(state, action.payload, type, defaultConfig)
-    //return addModel(state, action.payload, type, defaultConfig)
+  case POPULATE_MODEL:
+    return populateModel(id, state, action.payload)
   case RENAME_WIDGET:
     return renameWidget(state, action.payload, type)
   case UPDATE_WIDGET:
