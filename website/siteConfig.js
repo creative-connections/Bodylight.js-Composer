@@ -81,6 +81,8 @@ const siteConfig = {
   // No .html extensions for paths.
   cleanUrl: true,
 
+  docsSideNavCollapsible: true,
+
   /*
    * Show documentation's last contributor's name.
    * enableUpdateBy: true,

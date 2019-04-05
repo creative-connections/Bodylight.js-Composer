@@ -4,6 +4,20 @@ export default class Label extends Widget {
   constructor (configuration) {
     super(configuration, 'label')
     this.component.htmlFor = this.for
+
+    this.handleOnClick = this.handleOnClick.bind(this)
+    this.triggerClick = this.triggerClick.bind(this)
+    this.component.addEventListener('click', this.triggerClick)
+  }
+
+  triggerClick () {
+    this.dispatchEvent(new Event('click'))
+  }
+
+  handleOnClick () {
+    if (this.target.provider !== null) {
+      this.target.provider.setValue(this.target.reference, this.onClick.value)
+    }
   }
 
   generateSetters () {
@@ -21,6 +35,11 @@ export default class Label extends Widget {
           return
         }
         this.component.hidden = !this.visible.function(this.visible.value)
+      },
+      onClick: () => {
+        if (this.onClick.function !== null) {
+          this.onClick.value = this.onClick.function(this.onClick.value)
+        }
       },
       label: () => {
         const label = this.label

@@ -39,7 +39,7 @@ const defaultConfig = {
     function: null
   },
 
-  events: [],
+  events: ['click'],
   actions: {},
 
   attributes: [
@@ -61,6 +61,16 @@ const defaultConfig = {
   visible: {
     typeof: 'boolean',
     value: true,
+    complex: false,
+    provider: null,
+    array: false,
+    indexes: null,
+    function: null
+  },
+  
+  onClick: {
+    typeof: 'number',
+    value: 1,
     complex: false,
     provider: null,
     array: false,

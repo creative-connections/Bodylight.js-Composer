@@ -63,6 +63,25 @@ class ConfigModel extends Component {
           <input />
         </InputFloat>
       </GridRow>
+
+      <GridRow>
+        <Checkbox
+          label='Stop time'
+          name='stopAtStopTime'
+          checked={config.stopAtStopTime === true}
+          onClick={this.handleOnChange}
+        />
+      </GridRow>
+
+      { config.stopAtStopTime && <GridRow label='Stop time'>
+        <InputFloat
+          name='stopTime'
+          value={config.stopTime}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow> }
+
       <GridRow label='Ticks per second'>
         {this.renderTps(config)}
       </GridRow>
@@ -161,6 +180,14 @@ class ConfigModel extends Component {
       { config.mode === ModelMode.CONTINUOUS && this.renderContinuous(config)}
       { config.mode === ModelMode.ONESHOT && this.renderOneshot(config)}
       { config.mode === ModelMode.TICKED && this.renderTicked(config)}
+      <GridRow label='Tolerance'>
+        <InputFloat
+          name='tolerance'
+          value={config.tolerance}
+          onChange={this.handleOnChange}>
+          <input />
+        </InputFloat>
+      </GridRow>
     </Fragment>
   }
 }

@@ -66,7 +66,7 @@ export default class PlotlyChart extends PlotlyBase {
   }
 
   initTraces() {
-    this.indexes = []
+    this.indexes = {}
     const data = []
     let index = 0
     Object.entries(this.datasets).forEach(([id, dataset]) => {
@@ -213,6 +213,33 @@ export default class PlotlyChart extends PlotlyBase {
   clear() {
     this.plotly = null
     this.initPlotly()
+  }
+
+  getIdFromIndex(index) {
+    let id = null
+    Object.entries(this.indexes).forEach((entry) => {
+      if (entry[1] === index) {
+        id = entry[0]
+      }
+    })
+    return id
+  }
+
+  clearBuffer(id) {
+    this.buffer[id] = { current: null, x: null, y: null }
+    this.oneshotBuffer[id] = { x: null, y: null }
+  }
+
+  clearTrace(index) {
+    const id = this.getIdFromIndex(index)
+    if (id != null) {
+      this.clearBuffer(id)
+    }
+    Plotly.restyle(this.plotly, {x:[[]], y:[[]]}, [index])
+  }
+
+  deleteTrace(index) {
+    Plotly.deleteTraces(this.plotly, index)
   }
 
   setValues(attribute, values, time) {
@@ -407,5 +434,21 @@ export default class PlotlyChart extends PlotlyBase {
     if (indexes.replace.length > 0) {
       Plotly.restyle(this.plotly, replace, indexes.replace)
     }
+  }
+
+  snapshot(id, changeColor = true) {
+    if (this.plotly.data[id] == null) {
+      return
+    }
+
+    const trace = this.plotly.data[id]
+    const duplicate = Object.assign({}, trace)
+    if (changeColor) {
+      duplicate.line = Object.assign({}, trace.line)
+      duplicate.line.color = null
+    }
+    Plotly.addTraces(this.plotly, [
+      duplicate
+    ])
   }
 }

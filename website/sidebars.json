@@ -4,8 +4,12 @@
       "introduction",
       "mo_compilation"
     ],
-    "Guides": [
-      "first_project"
+    "Simple project": [
+      "simple_project/1_creating_a_simple_project",
+      "simple_project/2_adding_the_model",
+      "simple_project/3_visualisation",
+      "simple_project/4_controls",
+      "simple_project/5_events_and_actions"
     ],
     "API": ["api_model"]
   }
