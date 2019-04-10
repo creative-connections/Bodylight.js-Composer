@@ -24,8 +24,9 @@ export default function play() {
     this.currentStep = parseFloat(parseFloat(this.currentStep + this.config.stepSize).toPrecision(8))
     this.outputValues.update()
   }
+  
+  this.perf.stop(this.config.id, 'play')
 
   this.batch = { values, time }
   this.updateValueListeners()
-  this.perf.stop(this.config.id, 'play')
 }
