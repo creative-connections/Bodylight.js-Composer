@@ -13,12 +13,13 @@ export default function setup() {
 
   this.fmi2ExitInitializationMode(this.inst)
 
+  this.perf.stop(this.config.id, 'initialization')
+  
   this.outputValues.update()
   this.updateInitialValueListeners()
 
   this.modelTickInterval = null
 
   this.modelIsSetup = true
-  
-  this.perf.stop(this.config.id, 'initialization')
+
 }
