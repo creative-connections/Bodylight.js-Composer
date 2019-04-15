@@ -28,6 +28,7 @@ const defaultConfig = {
   tolerance: 0.000005,
 
   destroyOnReset: false,
+  resetInputsOnTerminate: true,
 
   id: null,
   name: null,

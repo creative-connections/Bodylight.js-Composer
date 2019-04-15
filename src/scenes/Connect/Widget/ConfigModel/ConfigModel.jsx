@@ -82,19 +82,25 @@ class ConfigModel extends Component {
       <GridRow label='Ticks per second'>
         {this.renderTps(config)}
       </GridRow>
-    </Fragment>
-  }
-
-  renderOneshot(config) {
-    return <Fragment>
       <GridRow label=''>
         <Checkbox
-          label='Recreate model on change'
+          label='Reset input values on model termination'
+          name='resetInputsOnTerminate'
+          checked={config.resetInputsOnTerminate}
+          onClick={this.handleOnChange}
+        />
+        <Checkbox
+          label='Recreate model on reset (slow)' 
           name='destroyOnReset'
           checked={config.destroyOnReset}
           onClick={this.handleOnChange}
         />
       </GridRow>
+    </Fragment>
+  }
+
+  renderOneshot(config) {
+    return <Fragment>
 
       <GridRow label='Step length [time]'>
         <InputFloat
