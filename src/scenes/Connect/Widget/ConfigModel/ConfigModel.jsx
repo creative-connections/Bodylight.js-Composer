@@ -82,20 +82,6 @@ class ConfigModel extends Component {
       <GridRow label='Ticks per second'>
         {this.renderTps(config)}
       </GridRow>
-      <GridRow label=''>
-        <Checkbox
-          label='Reset input values on model termination'
-          name='resetInputsOnTerminate'
-          checked={config.resetInputsOnTerminate}
-          onClick={this.handleOnChange}
-        />
-        <Checkbox
-          label='Recreate model on reset (slow)' 
-          name='destroyOnReset'
-          checked={config.destroyOnReset}
-          onClick={this.handleOnChange}
-        />
-      </GridRow>
     </Fragment>
   }
 
@@ -185,6 +171,20 @@ class ConfigModel extends Component {
           onChange={this.handleOnChange}>
           <input />
         </InputFloat>
+      </GridRow>
+      <GridRow label=''>
+        <Checkbox
+          label='Reset input values on model termination'
+          name='resetInputsOnTerminate'
+          checked={config.resetInputsOnTerminate}
+          onClick={this.handleOnChange}
+        />
+        <Checkbox
+          label='Recreate model on reset (slow)'
+          name='destroyOnReset'
+          checked={config.destroyOnReset}
+          onClick={this.handleOnChange}
+        />
       </GridRow>
     </Fragment>
   }
