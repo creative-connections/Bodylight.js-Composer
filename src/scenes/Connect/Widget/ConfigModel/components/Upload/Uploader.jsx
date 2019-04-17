@@ -9,7 +9,7 @@ import unzipAndValidate from './unzipAndValidate'
 import parseModelDescription from './parseModelDescription'
 import generateHash from '@helpers/generateHash'
 
-import { populateModel } from '@actions'
+import { populateModel, updateModel } from '@actions'
 
 class Uploader extends Component {
   constructor(props) {
@@ -36,7 +36,13 @@ class Uploader extends Component {
       modelDescription = parseModelDescription(modelDescription)
       generateHash(js).then(hash => {
         this.setState({ pending: false })
-        this.props.populateModel(this.props.model.id, name, js, hash, modelDescription)
+        if (this.props.model.populated === true) {
+          this.props.updateModel(this.props.model.id, name, js, hash, modelDescription)
+        }
+        else {
+          this.props.populateModel(this.props.model.id, name, js, hash, modelDescription)
+        }
+        this.props.onUpdate()
       })
     }).catch((err) => {
       const msg = `Error while extracting zip file: ${err.message}`
@@ -61,5 +67,5 @@ class Uploader extends Component {
 }
 
 export default connect(null,
-  dispatch => bindActionCreators({ populateModel }, dispatch)
+  dispatch => bindActionCreators({ populateModel, updateModel }, dispatch)
 )(Uploader)

@@ -20,8 +20,9 @@ class ConfigModel extends Component {
   constructor(props) {
     super(props)
     this.state = { upgrade: false }
-    
+
     this.handleOnChange = this.handleOnChange.bind(this)
+    this.handleUpgrade = this.handleUpgrade.bind(this)
     this.renameModel = this.renameModel.bind(this)
     this.handleUpgradeClick = this.handleUpgradeClick.bind(this)
   }
@@ -136,7 +137,11 @@ class ConfigModel extends Component {
   }
 
   renderUpload() {
-    return <Upload model={this.props.widget}/>
+    return <Upload model={this.props.widget} onUpdate={this.handleUpgrade}/>
+  }
+
+  handleUpgrade() {
+    this.setState({ upgrade: false })
   }
 
   handleUpgradeClick() {

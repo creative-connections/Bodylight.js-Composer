@@ -10,30 +10,13 @@ import Uploader from './Uploader'
 class Upload extends Component {
   constructor(props) {
     super(props)
-    this.defaultState = {
-      uploader: true,
-      updater: false,
-      uploaded: null
-    }
-
     this.state = this.defaultState
-    this.handleUpload = this.handleUpload.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
-  }
-
-  handleUpdate(success = false) {
-    if (!success) {
-      this.setState(this.defaultState)
-    }
-  }
-
-  handleUpload() {
   }
 
   render() {
     return <Fragment>
       <GridRow label='Upload model'>
-        <Uploader model={this.props.model}/>
+        <Uploader model={this.props.model} onUpdate={this.props.onUpdate}/>
       </GridRow>
     </Fragment>
   }

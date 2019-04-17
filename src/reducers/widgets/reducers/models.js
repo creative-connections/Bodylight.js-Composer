@@ -2,6 +2,7 @@ import {
   ADD_WIDGET,
   RENAME_WIDGET,
   POPULATE_MODEL,
+  UPDATE_WIDGET
 } from '@actions/types'
 
 import {
@@ -32,6 +33,14 @@ const populateModel = (state, payload) => {
   }})
 }
 
+const updateModel = (state, payload) => {
+  if (type !== payload.type) { return state }
+
+  return update(state, { [payload.id]: {
+    populated: {$set: true}
+  }})
+}
+
 const type = WidgetType.MODEL
 
 export default function (state = {}, action) {
@@ -40,6 +49,8 @@ export default function (state = {}, action) {
     return addModel(state, action.payload, type)
   case POPULATE_MODEL:
     return populateModel(state, action.payload)
+  case UPDATE_WIDGET:
+    return updateModel(state, action.payload, type)
   case RENAME_WIDGET:
     return renameWidget(state, action.payload, type)
   }

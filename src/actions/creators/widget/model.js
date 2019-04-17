@@ -24,14 +24,7 @@ export const populateModel = (id, name, js, hash, modelDescription) => ({
 export const updateModel = (id, name, js, hash, modelDescription) => {
   return {
     type: UPDATE_WIDGET,
-    payload: {
-      id,
-      type: WidgetType.MODEL,
-      js,
-      hash,
-      name,
-      modelDescription
-    }
+    payload: { id, type: WidgetType.MODEL, js, hash, name, modelDescription }
   }
 }
 
