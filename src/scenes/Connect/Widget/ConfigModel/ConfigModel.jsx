@@ -14,23 +14,27 @@ import ConfigTicker from '../ConfigTicker'
 import TickerList from '../ConfigTicker/TickerList'
 
 import Upload from './components/Upload'
+import ButtonLink from '@components/ButtonLink'
 
 class ConfigModel extends Component {
   constructor(props) {
     super(props)
+    this.state = { upgrade: false }
+    
     this.handleOnChange = this.handleOnChange.bind(this)
     this.renameModel = this.renameModel.bind(this)
+    this.handleUpgradeClick = this.handleUpgradeClick.bind(this)
   }
 
   handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
-    this.props.updateConfig(this.props.model, name, value)
+    this.props.updateConfig(this.props.widget, name, value)
   }
 
   renameModel(e, { value }) {
-    this.props.renameModel(this.props.model, value)
+    this.props.renameModel(this.props.widget, value)
   }
 
   renderTps(config) {
@@ -135,6 +139,10 @@ class ConfigModel extends Component {
     return <Upload model={this.props.widget}/>
   }
 
+  handleUpgradeClick() {
+    this.setState({ upgrade: true })
+  }
+
   render() {
     if (this.props.widget.populated === false || this.state.upgrade) {
       return this.renderUpload()
@@ -143,11 +151,10 @@ class ConfigModel extends Component {
     const config = this.props.config
 
     return <Fragment>
-      <ModelInfo config={config}/>
       <GridRow label='Name'>
         <Input
           name='name'
-          value={this.props.model.name}
+          value={this.props.widget.name}
           onChange={this.renameModel}
         />
       </GridRow>
@@ -204,6 +211,12 @@ class ConfigModel extends Component {
           onClick={this.handleOnChange}
         />
       </GridRow>
+
+      <GridRow border label='Actions'>
+        <ButtonLink onClick={this.handleUpgradeClick}>Upgrade model</ButtonLink>
+      </GridRow>
+
+      <ModelInfo config={config}/>
     </Fragment>
   }
 }
