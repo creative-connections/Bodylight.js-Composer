@@ -52,7 +52,7 @@ const defaultConfig = {
   populated: false
 }
 
-const populateModel = (id, state, payload) => {
+const populateModel = (state, payload) => {
   return update(state, {
     [payload.id]: {
       name: { $set: payload.name },
@@ -67,7 +67,8 @@ const populateModel = (id, state, payload) => {
       arrays: { $set: payload.modelDescription.arrays },
       description: { $set: payload.modelDescription.description },
       generationDateAndTime: { $set: payload.modelDescription.generationDateAndTime },
-      generationTool: { $set: payload.modelDescription.generationTool }
+      generationTool: { $set: payload.modelDescription.generationTool },
+      populated: { $set: true }
     }} )
 }
 
@@ -100,7 +101,7 @@ export default function (state = {}, action) {
   case ADD_WIDGET:
     return addWidget(state, action.payload, type, defaultConfig)
   case POPULATE_MODEL:
-    return populateModel(id, state, action.payload)
+    return populateModel(state, action.payload)
   case RENAME_WIDGET:
     return renameWidget(state, action.payload, type)
   case UPDATE_WIDGET:

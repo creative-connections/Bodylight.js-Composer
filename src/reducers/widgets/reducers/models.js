@@ -19,7 +19,8 @@ const addModel = (state, payload, type) => {
   const model = {
     id: payload.id,
     name: 'empty model',
-    type: payload.type
+    type: payload.type,
+    populated: false
   }
   return update(state, { [payload.id]: {$set: model} })
 }
@@ -27,6 +28,7 @@ const addModel = (state, payload, type) => {
 const populateModel = (state, payload) => {
   return update(state, { [payload.id]: {
     name: {$set: payload.name},
+    populated: {$set: true}
   }})
 }
 
