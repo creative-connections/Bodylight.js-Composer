@@ -4,7 +4,7 @@ export default function reset(play = true, resetInputValues = false, destroyOnRe
   // reset or recreate the model instance
   if (destroyOnReset != null ? destroyOnReset : this.config.destroyOnReset) {
     this.fmi2FreeInstance(this.inst)
-    this.init()
+    this.instantiate()
   } else {
     this.fmi2Reset(this.inst)
   }
@@ -12,7 +12,7 @@ export default function reset(play = true, resetInputValues = false, destroyOnRe
   if (resetInputValues) {
     this.lastInputValues = {}
   }
-
+  
   this.setup()
 
   if (play) {
