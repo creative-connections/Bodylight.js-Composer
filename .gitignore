@@ -79,3 +79,5 @@ typings/
 
 .build_cache/
 # End of https://www.gitignore.io/api/node
+
+.vscode

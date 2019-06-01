@@ -13,7 +13,8 @@
     ],
     "Physiological application": [
       "pvloops/1_pressure_volume_cardiac_simulator",
-      "pvloops/2_creating_the_layout"
+      "pvloops/2_creating_the_layout",
+      "pvloops/3_adding_the_heart"
     ],
     "API": ["api_model"]
   }
