@@ -29,6 +29,9 @@
       "pvloops/4_heart_beat": {
         "title": "Heart Beat"
       },
+      "pvloops/5_controls": {
+        "title": "Controls"
+      },
       "simple_project/1_creating_a_simple_project": {
         "title": "Creating a simple project"
       },
