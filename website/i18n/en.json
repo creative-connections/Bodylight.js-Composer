@@ -32,6 +32,9 @@
       "pvloops/5_controls": {
         "title": "Controls"
       },
+      "pvloops/6_phases": {
+        "title": "Phases"
+      },
       "simple_project/1_creating_a_simple_project": {
         "title": "Creating a simple project"
       },

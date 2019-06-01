@@ -16,7 +16,8 @@
       "pvloops/2_creating_the_layout",
       "pvloops/3_adding_the_heart",
       "pvloops/4_heart_beat",
-      "pvloops/5_controls"
+      "pvloops/5_controls",
+      "pvloops/6_phases"
     ],
     "API": ["api_model"]
   }
