@@ -20,6 +20,12 @@
       "pvloops/1_pressure_volume_cardiac_simulator": {
         "title": "Pressure volume cardiac simulator"
       },
+      "pvloops/10_buttons": {
+        "title": "Buttons"
+      },
+      "pvloops/11_finishing_touches": {
+        "title": "Finishing touches"
+      },
       "pvloops/2_creating_the_layout": {
         "title": "Creating the layout"
       },
@@ -37,6 +43,12 @@
       },
       "pvloops/7_pressure_volume_chart": {
         "title": "Pressure volume chart"
+      },
+      "pvloops/8_rolling_charts": {
+        "title": "Rolling charts"
+      },
+      "pvloops/9_custom_actions": {
+        "title": "Custom actions"
       },
       "simple_project/1_creating_a_simple_project": {
         "title": "Creating a simple project"

@@ -18,7 +18,11 @@
       "pvloops/4_heart_beat",
       "pvloops/5_controls",
       "pvloops/6_phases",
-      "pvloops/7_pressure_volume_chart"
+      "pvloops/7_pressure_volume_chart",
+      "pvloops/8_rolling_charts",
+      "pvloops/9_custom_actions",
+      "pvloops/10_buttons",
+      "pvloops/11_finishing_touches"
     ],
     "API": ["api_model"]
   }
