@@ -3,7 +3,7 @@ id: 3_adding_the_heart
 title: Adding the heart
 ---
 
-For this part you will need the <a href="../examples/pvloops/Heart.js" download>Heart.js file</a>
+For this part you will need the <a href="../examples/pvloops/Heart.js" download>Heart.js file</a> and the <a href="../examples/pvloops/CardiovascularModelBodylightCardiovascularBodyLight_CardioVascular.zip" download>Model file</a>.
 
 <iframe src="https://www.youtube-nocookie.com/embed/Huofn7gwGm0" frameBorder="0" width="100%" height="400px" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
