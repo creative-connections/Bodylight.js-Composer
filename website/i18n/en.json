@@ -35,6 +35,9 @@
       "pvloops/6_phases": {
         "title": "Phases"
       },
+      "pvloops/7_pressure_volume_chart": {
+        "title": "Pressure volume chart"
+      },
       "simple_project/1_creating_a_simple_project": {
         "title": "Creating a simple project"
       },

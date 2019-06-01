@@ -17,7 +17,8 @@
       "pvloops/3_adding_the_heart",
       "pvloops/4_heart_beat",
       "pvloops/5_controls",
-      "pvloops/6_phases"
+      "pvloops/6_phases",
+      "pvloops/7_pressure_volume_chart"
     ],
     "API": ["api_model"]
   }
