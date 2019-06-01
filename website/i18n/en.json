@@ -17,6 +17,12 @@
       "plan": {
         "title": "plan"
       },
+      "pvloops/1_pressure_volume_cardiac_simulator": {
+        "title": "Pressure volume cardiac simulator"
+      },
+      "pvloops/2_creating_the_layout": {
+        "title": "Creating the layout"
+      },
       "simple_project/1_creating_a_simple_project": {
         "title": "Creating a simple project"
       },
@@ -43,6 +49,7 @@
     "categories": {
       "Getting started": "Getting started",
       "Simple project": "Simple project",
+      "Physiological application": "Physiological application",
       "API": "API"
     }
   },

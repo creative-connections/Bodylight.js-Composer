@@ -11,6 +11,10 @@
       "simple_project/4_controls",
       "simple_project/5_events_and_actions"
     ],
+    "Physiological application": [
+      "pvloops/1_pressure_volume_cardiac_simulator",
+      "pvloops/2_creating_the_layout"
+    ],
     "API": ["api_model"]
   }
 }

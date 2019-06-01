@@ -42,7 +42,10 @@ const defaultConfig = {
   variables: null,
   description: null,
   generationDateAndTime: null,
-  generationTool: null
+  generationTool: null,
+
+  events: ['start', 'stop'],
+  actions: {},
 }
 
 const addModel = (state, payload, type, defaultConfig) => {
