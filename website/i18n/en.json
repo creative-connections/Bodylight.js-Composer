@@ -8,6 +8,9 @@
       "api_model": {
         "title": "Model"
       },
+      "api_plotly_chart": {
+        "title": "Plotly chart"
+      },
       "introduction": {
         "title": "Introduction"
       },
