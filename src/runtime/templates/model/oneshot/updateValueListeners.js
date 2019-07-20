@@ -1,5 +1,8 @@
 export default function updateValueListeners() {
   this.valueListeners.forEach(listener => {
+    if (listener.enabled === false) {
+      return
+    }
     if (listener.index !== null) {
       listener.target.setValues(
         listener.attribute,

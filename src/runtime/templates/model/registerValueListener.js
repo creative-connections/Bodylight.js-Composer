@@ -12,6 +12,7 @@ export default function registerValueListener(listener, name, attribute, immedia
     attribute,
     indicies: null,
     index,
+    enabled: true,
     immediate
   })
 

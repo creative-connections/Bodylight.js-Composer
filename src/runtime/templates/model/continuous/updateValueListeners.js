@@ -3,6 +3,9 @@ export default function updateValueListeners(immediate) {
     if (listener.immediate !== immediate) {
       return
     }
+    if (listener.enabled === false) {
+      return
+    }
     if (listener.index !== null) {
       listener.target.setValue(
         listener.attribute,
