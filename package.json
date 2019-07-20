@@ -72,7 +72,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "localforage": "^1.7.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "memoize-one": "^4.0.3",
     "moment": "^2.23.0",
     "normalize-scss": "^7.0.1",
