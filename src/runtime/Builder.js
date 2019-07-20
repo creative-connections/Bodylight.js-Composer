@@ -18,6 +18,8 @@ import registerValueListener from './templates/model/registerValueListener'
 import registerArrayListener from './templates/model/registerArrayListener'
 import registerInitialValueListener from './templates/model/registerInitialValueListener'
 import registerValueSetter from './templates/model/registerValueSetter'
+import disableListener from './templates/model/disableListener'
+import enableListener from './templates/model/enableListener'
 import updateInitialValueListeners from './templates/model/updateInitialValueListeners'
 import getReferenceFromName from './templates/model/getReferenceFromName'
 import setInitialValues from './templates/model/setInitialValues'
@@ -147,6 +149,8 @@ class Builder {
     append('functions.registerValueListener = ' + tpl(registerValueListener))
     append('functions.registerArrayListener = ' + tpl(registerArrayListener))
     append('functions.registerInitialValueListener = ' + tpl(registerInitialValueListener))
+    append('functions.disableListener = ' + tpl(disableListener))
+    append('functions.enableListener = ' + tpl(enableListener))
     append('functions.updateInitialValueListeners = ' + tpl(updateInitialValueListeners))
     append('functions.registerValueSetter = ' + tpl(registerValueSetter))
     append('functions.getReferenceFromName = ' + tpl(getReferenceFromName))

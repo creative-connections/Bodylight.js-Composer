@@ -41,6 +41,9 @@ export default function createModelRuntime(Model, config, functions) {
       model.updateValueByName = functions.updateValueByName.bind(model)
       model.getValueByName = functions.getValueByName.bind(model)
 
+      model.disableListener = functions.disableListener.bind(model)
+      model.enableListener = functions.enableListener.bind(model)
+
       model.getReferenceFromName = functions.getReferenceFromName.bind(model)
       model.setSpeed = functions.setSpeed.bind(model)
 

@@ -25,6 +25,7 @@ export default function registerArrayListener(listener, names, attribute, immedi
     attribute,
     indicies,
     index: null,
+    enabled: true,
     immediate
   })
 
