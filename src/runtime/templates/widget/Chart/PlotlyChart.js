@@ -14,26 +14,29 @@ export default class PlotlyChart extends PlotlyBase {
     })
 
     this.oneshotBufferUpdateTraces = this.oneshotBufferUpdateTraces.bind(this)
-
     this.tick = this.tick.bind(this)
     window.setInterval(this.tick, 1000/this.fps)
   }
 
   setValueProvider(attribute, id, target) {
     const attr = this.parseAttribute(attribute)
+    const dataset = this.datasets[attr.dataset]
 
     if (attr && attr.dataset) {
-      const dataset = this.datasets[attr.dataset]
       const axis = dataset[attr.axis]
-
       // in case of an array variable we need to register an array listener
       if (axis.array) {
         target.registerArrayListener(this, axis.indexes, attribute, true)
       } else {
         target.registerValueListener(this, id, attribute, true)
       }
+      axis.actualProvider = target
+      axis.attribute = attribute
     } else {
-      super.setValueProvider(attribute, id, target)
+      target.registerValueListener(attribute, id, attribute)
+      target.registerInitialValueListener(attribute, id, attribute)
+      dataset[attr.type].actualProvider = target
+      dataset[attr.type].attribute = attribute
     }
   }
 
@@ -210,11 +213,6 @@ export default class PlotlyChart extends PlotlyBase {
     this.setValues(attribute, array, time)
   }
 
-  clear() {
-    this.plotly = null
-    this.initPlotly()
-  }
-
   getIdFromIndex(index) {
     let id = null
     Object.entries(this.indexes).forEach((entry) => {
@@ -238,8 +236,86 @@ export default class PlotlyChart extends PlotlyBase {
     Plotly.restyle(this.plotly, {x:[[]], y:[[]]}, [index])
   }
 
+  clear() {
+    this.plotly = null
+    this.initPlotly()
+  }
+
+  enableTrace(id) {
+    const dataset = this.datasets[id]
+    const enableListener = attr => {
+      if (attr.actualProvider != null && attr.actualProvider['enableListener'] != null) {
+        const provider = attr.actualProvider
+        provider.enableListener(this, attr.attribute)
+      }
+    }
+
+    enableListener(dataset.x)
+    enableListener(dataset.y)
+    enableListener(dataset.maxSamples)
+  }
+
+  disableTrace(id) {
+    const dataset = this.datasets[id]
+
+    const disableListener = attr => {
+      if (attr.actualProvider != null && attr.actualProvider['disableListener'] != null) {
+        const provider = attr.actualProvider
+        provider.disableListener(this, attr.attribute)
+      }
+    }
+
+    disableListener(dataset.x)
+    disableListener(dataset.y)
+    disableListener(dataset.maxSamples)
+  }
+
+
+  enableTraceUpdates(index) {
+    const id = this.getIdFromIndex(index)
+    this.enableTrace(id)
+  }
+
+  disableTraceUpdates(index) {
+    const id = this.getIdFromIndex(index)
+    this.disableTrace(id)
+  }
+
   deleteTrace(index) {
+    const id = this.getIdFromIndex(index)
+    if (id) {
+      this.indexes[id] = null
+      this.disableTrace(id)
+    }
+
     Plotly.deleteTraces(this.plotly, index)
+  }
+
+  deleteLastTrace() {
+    if (this.plotly.data.length > 0) {
+      this.deleteTrace(this.plotly.data.length - 1)
+    }
+  }
+
+  duplicateTrace(index, randomizeColor = true) {
+    if (this.plotly.data[index] == null) {
+      console.warn(`Can not duplicate trace, no such index ${index}`)
+      return
+    }
+
+    const trace = this.plotly.data[index]
+    const duplicated = Object.assign({}, trace)
+
+    if (randomizeColor) {
+      duplicated.line = Object.assign({}, trace.line)
+      duplicated.line.color = null
+    }
+
+    Plotly.addTraces(this.plotly, [duplicated])
+  }
+
+  getTraces() {
+    return this.plotly.data
   }
 
   setValues(attribute, values, time) {
@@ -436,19 +512,4 @@ export default class PlotlyChart extends PlotlyBase {
     }
   }
 
-  snapshot(id, changeColor = true) {
-    if (this.plotly.data[id] == null) {
-      return
-    }
-
-    const trace = this.plotly.data[id]
-    const duplicate = Object.assign({}, trace)
-    if (changeColor) {
-      duplicate.line = Object.assign({}, trace.line)
-      duplicate.line.color = null
-    }
-    Plotly.addTraces(this.plotly, [
-      duplicate
-    ])
-  }
 }
