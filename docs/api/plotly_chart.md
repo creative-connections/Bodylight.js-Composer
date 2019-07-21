@@ -10,6 +10,15 @@ chart.clear()
 
 Removes all traces from the chart, until the next update.
 
+## setTraceVisibility()
+```javascript
+chart.setTraceVisibility(index, visible)
+```
+Shows or hides a trace in the chart. Trace continues to be updated.
+
+1. `index`[number][3] sequential index of the trace, indexed from 0.
+1. `visible`[boolean][4] `false` hides the trace, `true` displays the trace.
+
 ## enableTraceUpdates()
 ```javascript
 chart.enableTraceUpdates(index)

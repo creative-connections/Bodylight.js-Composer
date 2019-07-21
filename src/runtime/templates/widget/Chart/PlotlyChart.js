@@ -270,6 +270,9 @@ export default class PlotlyChart extends PlotlyBase {
     disableListener(dataset.maxSamples)
   }
 
+  setTraceVisibility(index, visible) {
+    Plotly.restyle(this.plotly, {visible}, [index])
+  }
 
   enableTraceUpdates(index) {
     const id = this.getIdFromIndex(index)
