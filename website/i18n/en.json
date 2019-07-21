@@ -11,6 +11,9 @@
       "api/plotly_chart": {
         "title": "Plotly chart"
       },
+      "api/range": {
+        "title": "Range"
+      },
       "api/toggle": {
         "title": "Toggle"
       },

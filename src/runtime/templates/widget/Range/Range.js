@@ -13,6 +13,10 @@ export default class Range extends Widget {
     this.addValueProvider('target', this.target.provider)
   }
 
+  getValue() {
+    return this.target.value
+  }
+
   handleOnChange () {
     let value = this.component.value
     if (this.target.function !== null) {

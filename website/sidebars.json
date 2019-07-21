@@ -27,6 +27,7 @@
     "API": [
       "api/model",
       "api/plotly_chart",
+      "api/range",
       "api/toggle"
     ]
   }
