@@ -1,5 +1,5 @@
 ---
-id: api_model
+id: model
 title: Model
 ---
 

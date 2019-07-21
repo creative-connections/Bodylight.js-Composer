@@ -5,11 +5,14 @@
     "previous": "Previous",
     "tagline": "Simulators for the modern web",
     "docs": {
-      "api_model": {
+      "api/model": {
         "title": "Model"
       },
-      "api_plotly_chart": {
+      "api/plotly_chart": {
         "title": "Plotly chart"
+      },
+      "api/toggle": {
+        "title": "Toggle"
       },
       "introduction": {
         "title": "Introduction"

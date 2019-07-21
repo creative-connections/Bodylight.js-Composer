@@ -24,6 +24,10 @@
       "pvloops/10_buttons",
       "pvloops/11_finishing_touches"
     ],
-    "API": ["api_model", "api_plotly_chart"]
+    "API": [
+      "api/model",
+      "api/plotly_chart",
+      "api/toggle"
+    ]
   }
 }

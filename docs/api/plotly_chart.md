@@ -1,5 +1,5 @@
 ---
-id: api_plotly_chart
+id: plotly_chart
 title: Plotly chart
 ---
 

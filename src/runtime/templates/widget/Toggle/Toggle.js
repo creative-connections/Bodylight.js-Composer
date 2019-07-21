@@ -7,7 +7,15 @@ export default class Toggle extends Widget {
     this.handleOnChange = this.handleOnChange.bind(this)
     this.component.addEventListener('change', this.handleOnChange)
 
+    if (this.target.value != null) {
+      this.component.checked = this.target.value
+    }
+
     this.addValueProvider('target', this.target.provider)
+  }
+
+  getValue() {
+    return this.component.checked
   }
 
   handleOnChange () {

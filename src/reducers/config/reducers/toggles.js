@@ -26,12 +26,13 @@ import {
 const defaultConfig = {
   name: 'unnamed',
   target: {
-    value: null,
+    value: false,
     provider: null,
+    complex: true,
     array: false,
     indexes: null,
     function: null,
-    typeof: false
+    typeof: 'boolean'
   },
 
   events: [
