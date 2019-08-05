@@ -43,7 +43,7 @@ const migrateState = state => {
   return new Promise(resolve => {
     const torun = getMigrationsToRun(migrations, state)
     torun.forEach(record => {
-      console.log(`Migrating to ${record.version}`)
+      console.log(`Running migration ${record.version}`)
       state = record.migration(state)
     })
     resolve(state)
