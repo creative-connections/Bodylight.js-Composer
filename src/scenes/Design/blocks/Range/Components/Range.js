@@ -43,9 +43,11 @@ export default (editor) => {
         init.bind(this)(editor)
 
         const widget = this.getWidget()
-        observeStore(state => state.config.ranges[widget.id].vertical, () => {
-          this.onRender()
-        }, true, 'editor')
+        if (widget != null) {
+          observeStore(state => state.config.ranges[widget.id].vertical, () => {
+            this.onRender()
+          }, true, 'editor')
+        }
       },
 
       handleOnDrop() {
