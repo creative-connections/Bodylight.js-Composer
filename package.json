@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development --history-api-fallback",
-    "prod": "webpack -p --config ./webpack.config.prod.js --mode production"
+    "prod": "webpack -p --config ./webpack.config.prod.js --mode production",
+    "add-migration": "source src/migrations/add-migration.sh"
   },
   "repository": {
     "type": "git",
