@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import configureStore, { observeStore } from '@src/configureStore'
+import configureStore, { observeStore, storeInvalidateGroup } from '@src/configureStore'
 
 import 'grapesjs/dist/css/grapes.min.css'
 import grapesjs from 'grapesjs'
@@ -180,9 +180,9 @@ class Design extends Component {
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
 
-    this.unsubscribeSelectedWidget = observeStore(state => state.widgets.app.selected, () => {
+    observeStore(state => state.widgets.app.selected, () => {
       editor.Panels.getButton('views', 'open-connect').set('active', true)
-    })
+    }, false, 'editor')
 
     editor.on('component:clone', model => {
       model.cloned = true
@@ -204,7 +204,7 @@ class Design extends Component {
 
   componentWillUnmount() {
     this.editor.destroy()
-    this.unsubscribeSelectedWidget()
+    storeInvalidateGroup('editor')
   }
 
   render() {

@@ -105,7 +105,9 @@ const getStore = (storeReplaceCallback = null) => {
 
 export default getStore
 
-export const observeStore = (select = null, onChange, ignoreFirst = false) => {
+const invalidationGroups = {}
+
+export const observeStore = (select = null, onChange, ignoreFirst = false, group = null) => {
   const { store } = getStore()
   let currentState = null
 
@@ -125,5 +127,22 @@ export const observeStore = (select = null, onChange, ignoreFirst = false) => {
 
   const unsubscribe = store.subscribe(handleChange)
   handleChange()
+
+  if (group != null) {
+    if (invalidationGroups[group] == null) {
+      invalidationGroups[group] = []
+    }
+    invalidationGroups[group].push(unsubscribe)
+  }
+
   return unsubscribe
+}
+
+export const storeInvalidateGroup = group => {
+  if (group != null && invalidationGroups[group] != null) {
+    invalidationGroups[group].forEach(unsubscribe => {
+      unsubscribe()
+    })
+    invalidationGroups[group] = []
+  }
 }
