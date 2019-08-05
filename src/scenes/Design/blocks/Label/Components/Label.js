@@ -41,29 +41,25 @@ export default (editor) => {
 
       render: function () {
         defaultType.view.prototype.render.apply(this, arguments)
-        let innerHTML = 'Loading...'
 
-        let label
-        if ((label = this.getWidget()) != null) {
-          innerHTML = `${label.name}`
+        if (this.subscribed !== true) {
+          const widget = this.getWidget()
+          if (widget != null) {
+            observeStore(state => state.config.labels[widget.id].label.value, () => {
+              this.onRender()
+            }, true, 'editor')
+            observeStore(state => state.config.labels[widget.id].name, () => {
+              this.onRender()
+            }, true, 'editor')
+            this.subscribed = true
+          }
         }
 
-        this.el.innerHTML = innerHTML
         return this
       },
 
       init() {
         init.bind(this)(editor)
-
-        const widget = this.getWidget()
-        if (widget != null) {
-          observeStore(state => state.config.labels[widget.id].label.value, () => {
-            this.onRender()
-          }, true, 'editor')
-          observeStore(state => state.config.labels[widget.id].name, () => {
-            this.onRender()
-          }, true, 'editor')
-        }
       },
 
       handleOnDrop() {
@@ -79,9 +75,13 @@ export default (editor) => {
       },
 
       onRender() {
+        defaultType.view.prototype.onRender.apply(this, arguments)
+        
         const widget = this.getWidget()
         if (widget != null) {
           this.el.innerHTML = widget.label.complex ? widget.name : widget.label.value
+        } else {
+          this.el.innerHTML = "Loading..."
         }
       },
 
