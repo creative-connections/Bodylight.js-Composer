@@ -56,12 +56,14 @@ export default (editor) => {
         init.bind(this)(editor)
 
         const widget = this.getWidget()
-        observeStore(state => state.config.labels[widget.id].label.value, () => {
-          this.onRender()
-        }, true, 'editor')
-        observeStore(state => state.config.labels[widget.id].name, () => {
-          this.onRender()
-        }, true, 'editor')
+        if (widget != null) {
+          observeStore(state => state.config.labels[widget.id].label.value, () => {
+            this.onRender()
+          }, true, 'editor')
+          observeStore(state => state.config.labels[widget.id].name, () => {
+            this.onRender()
+          }, true, 'editor')
+        }
       },
 
       handleOnDrop() {
