@@ -41,13 +41,6 @@ export default (editor) => {
 
       init() {
         init.bind(this)(editor)
-
-        const widget = this.getWidget()
-        if (widget != null) {
-          observeStore(state => state.config.ranges[widget.id].vertical, () => {
-            this.onRender()
-          }, true, 'editor')
-        }
       },
 
       handleOnDrop() {
@@ -62,7 +55,24 @@ export default (editor) => {
         handleChangeID(this, event, WidgetType.RANGE)
       },
 
+      render: function () {
+        defaultType.view.prototype.render.apply(this, arguments)
+
+        if (this.subscribed !== true) {
+          const widget = this.getWidget()
+          if (widget != null) {
+            observeStore(state => state.config.ranges[widget.id].vertical, () => {
+              this.onRender()
+            }, true, 'editor')
+            this.subscribed = true
+          }
+        }
+
+        return this
+      },
+
       onRender() {
+        defaultType.view.prototype.onRender.apply(this, arguments)
         const widget = this.getWidget()
         if (widget != null) {
           const vertical = widget.vertical.value
