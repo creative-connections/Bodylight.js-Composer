@@ -10,8 +10,6 @@ import { ToastContainer } from 'react-toastify'
 import DisplayContainer from '@scenes/DisplayContainer'
 import Menu from '@scenes/Menu'
 
-import { Container } from 'semantic-ui-react'
-
 import configureStore from './configureStore'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -24,7 +22,8 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <ToastContainer position="bottom-right" closeOnClick draggable pauseOnHover pauseOnVisibilityChange />
+        <ToastContainer position="bottom-right"
+          closeOnClick draggable pauseOnHover pauseOnVisibilityChange />
         <Menu/>
         <div style={{ marginLeft: 250 + 'px' }} >
           <DisplayContainer location={this.props.location}/>
@@ -47,11 +46,6 @@ function render({ store, persistor }) {
   )
 }
 
-render(
-  configureStore(
-    () => {
-      console.log('callback, store changed')
-      render(configureStore())
-    }
-  )
-)
+render(configureStore(() => {
+  render(configureStore()) // callback used for triggering re-render on store load
+}))
