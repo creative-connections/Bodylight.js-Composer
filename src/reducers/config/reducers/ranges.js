@@ -25,14 +25,13 @@ import {
 
 const defaultConfig = {
   name: 'unnamed',
-  vertical: false,
 
   target: {
     value: null,
     provider: null,
     array: false,
     indexes: null,
-    function: null,
+    'function': null,
     typeof: 'number'
   },
 
@@ -42,6 +41,16 @@ const defaultConfig = {
 
   actions: {
 
+  },
+
+  vertical: {
+    typeof: 'boolean',
+    value: false,
+    complex: false,
+    provider: null,
+    array: false,
+    indexes: null,
+    'function': null
   },
 
   attributes: [
