@@ -42,7 +42,6 @@ export default (editor) => {
         init.bind(this)(editor)
       },
 
-
       handleOnDrop() {
         handleOnDrop.bind(this)(configGetRange, addRange)
       },
@@ -53,6 +52,14 @@ export default (editor) => {
 
       handleChangeID(event) {
         handleChangeID(this, event, WidgetType.RANGE)
+      },
+
+      onRender() {
+        const vertical = this.getWidget().vertical.value
+        if (vertical) {
+          this.el.style['-webkit-appearance'] = 'slider-vertical'
+          this.el.setAttribute('orient', 'vertical')
+        }
       },
 
       destroy() {
