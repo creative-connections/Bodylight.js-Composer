@@ -34,9 +34,6 @@ export default function (state) {
         }
       }
     })
-
-
-
   })
 
   state = update(state, { version: {$set: '2019-08-05T22:59:27+00:00'} })
