@@ -4,6 +4,7 @@ import { createLogger } from 'redux-logger'
 import localForage from 'localforage'
 import reducers from './reducers'
 import { loadStore as loadStoreAction } from '@actions'
+import migrations from './migrations'
 
 let store
 let persistor
@@ -22,12 +23,39 @@ const createMiddleware = () => {
   return middleware
 }
 
+const migrateState = state => {
+  if (state == null) {
+    return Promise.resolve(state)
+  }
+
+  // returns migrations to be performed for the current store version
+  const getMigrationsToRun = (migrations, state) => {
+    const torun = []
+    const currentVersion = Date.parse(state.version)
+    migrations.forEach(record => {
+      if (isNaN(currentVersion) || currentVersion < record.version) {
+        torun.push(record)
+      }
+    })
+    return torun
+  }
+
+  return new Promise(resolve => {
+    const torun = getMigrationsToRun(migrations, state)
+    torun.forEach(record => {
+      console.log(`Running migration ${record.version}`)
+      state = record.migration(state)
+    })
+    resolve(state)
+  })
+}
+
 const createNewStore = (initialState = undefined) => {
   const persistConfig = {
     key: 'root',
     storage: localForage,
     throttle: '512', // ms
-    //throttle: '0', // ms
+    migrate: migrateState,
   }
   store = createStore(
     persistReducer(persistConfig, reducers),
@@ -38,43 +66,40 @@ const createNewStore = (initialState = undefined) => {
   store.dispatch(loadStoreAction(store.getState()))
 }
 
-const loadState = (state) => {
-  createNewStore(state)
-  callbacks.forEach(callback => {
-    callback()
+const purgePersistor = () => {
+  return new Promise((resolve) => {
+    if (!persistor) {
+      return resolve()
+    }
+    persistor.purge().then(resolve)
   })
 }
 
-export const loadStore = (json) => {
-  return new Promise((resolve, reject) => {
-    let state
-
-    try {
-      state = JSON.parse(json)
-    } catch (err) {
-      return reject(err)
-    }
-
-    if (!persistor) {
-      return resolve(loadState(state))
-    }
-    persistor.purge().then(() => {
-      return resolve(loadState(state))
-    }).catch(() => {
-      return resolve(loadState(state))
-    })
+const loadState = state => {
+  return purgePersistor().then(() => {
+    createNewStore(state)
+    callbacks.forEach(callback => { callback() })
   })
+}
+
+/**
+ * Loads store from file.
+ * @param  json JSON encoded file (.bjp)
+ */
+export const loadStore = json => {
+  return Promise.resolve(json)
+    .then(JSON.parse)
+    .then(migrateState)
+    .then(loadState)
 }
 
 const getStore = (storeReplaceCallback = null) => {
   if (storeReplaceCallback) {
     callbacks.push(storeReplaceCallback)
   }
-
   if (!store) {
     createNewStore()
   }
-
   return { store, persistor }
 }
 
