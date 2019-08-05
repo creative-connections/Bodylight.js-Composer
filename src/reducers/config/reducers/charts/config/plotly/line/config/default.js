@@ -1,13 +1,21 @@
-import xaxis from './xaxis'
-import yaxis from './yaxis'
+import axis from './axis'
 import margin from './margin'
 import legend from './legend'
 
 export default {
   name: 'unnamed',
   library: 'plotly',
-  xaxis,
-  yaxis,
+
+  xaxes: {
+    0: { position: 0, name: 'xaxis', axis },
+    lenght: 1
+  },
+
+  yaxes: {
+    0: { position: 0, name: 'yaxis', axis},
+    length: 1
+  },
+
   margin,
   legend,
 
