@@ -66,6 +66,14 @@ class ConfigRange extends Component {
           onChange={this.handleOnChange}
         />
       </GridRow>
+      <GridRow label='Vertical'>
+        <ComplexAttribute
+          name='vertical'
+          label='Range is vertical'
+          attribute={config.vertical}
+          onChange={this.handleOnChange}
+        />
+      </GridRow>
       <GridRow label='Enabled'>
         <ComplexAttribute
           name='enabled'

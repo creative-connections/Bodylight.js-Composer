@@ -25,6 +25,7 @@ import {
 
 const defaultConfig = {
   name: 'unnamed',
+  vertical: false,
 
   target: {
     value: null,
