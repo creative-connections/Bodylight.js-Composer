@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import name, * as nameSelectors from './app/name'
 import sidebar, * as sidebarSelectors from './app/sidebar'
+import version from './app/version'
 
 import functionEditorConfig, * as functionEditorConfigSelectors from './app/functionEditorConfig'
 import editorStorage, * as editorStorageSelectors from './editor/editorStorage'
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   name,
   sidebar,
   functionEditorConfig,
+  version,
 
   application,
   editorStorage,
