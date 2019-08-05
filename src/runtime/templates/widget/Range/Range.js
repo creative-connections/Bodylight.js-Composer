@@ -6,6 +6,11 @@ export default class Range extends Widget {
 
     this.component.step = (this.component.max - this.component.min) / 1000
 
+    if (configuration.vertical.value) {
+      this.component.setAttribute('orient', 'vertical')
+      this.component.style['-webkit-appearance'] = 'slider-vertical'
+    }
+
     // register change handler
     this.handleOnChange = this.handleOnChange.bind(this)
     this.component.addEventListener('input', this.handleOnChange)
