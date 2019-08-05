@@ -10,6 +10,7 @@ import {
   handleClick
 } from '../../commons/Components'
 import WidgetType from '@enum/WidgetType'
+import { observeStore } from '@src/configureStore'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -46,6 +47,16 @@ export default (editor) => {
 
       init() {
         init.bind(this)(editor)
+
+        const widget = this.getWidget()
+        if (widget != null) {
+          observeStore(state => state.config.buttons[widget.id].label.value, () => {
+            this.onRender()
+          }, true, 'editor')
+          observeStore(state => state.config.buttons[widget.id].name, () => {
+            this.onRender()
+          }, true, 'editor')
+        }
       },
 
       handleOnDrop() {
@@ -62,6 +73,13 @@ export default (editor) => {
         }
         this.el.innerHTML = innerHTML
         return this
+      },
+
+      onRender() {
+        const widget = this.getWidget()
+        if (widget != null) {
+          this.el.innerHTML = widget.label.complex ? widget.name : widget.label.value
+        }
       },
 
       handleClick() {
