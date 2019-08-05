@@ -10,6 +10,7 @@ import {
   handleClick
 } from '../../commons/Components'
 import WidgetType from '@enum/WidgetType'
+import { observeStore } from '@src/configureStore'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -40,6 +41,11 @@ export default (editor) => {
 
       init() {
         init.bind(this)(editor)
+
+        const widget = this.getWidget()
+        observeStore(state => state.config.ranges[widget.id].vertical, () => {
+          this.onRender()
+        }, true, 'editor')
       },
 
       handleOnDrop() {
@@ -55,10 +61,16 @@ export default (editor) => {
       },
 
       onRender() {
-        const vertical = this.getWidget().vertical.value
-        if (vertical) {
-          this.el.style['-webkit-appearance'] = 'slider-vertical'
-          this.el.setAttribute('orient', 'vertical')
+        const widget = this.getWidget()
+        if (widget != null) {
+          const vertical = widget.vertical.value
+          if (vertical) {
+            this.el.style['-webkit-appearance'] = 'slider-vertical'
+            this.el.setAttribute('orient', 'vertical')
+          } else {
+            this.el.style['-webkit-appearance'] = 'slider-horizontal'
+            this.el.setAttribute('orient', 'horizontal')
+          }
         }
       },
 
