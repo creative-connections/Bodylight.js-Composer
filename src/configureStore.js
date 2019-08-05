@@ -4,6 +4,7 @@ import { createLogger } from 'redux-logger'
 import localForage from 'localforage'
 import reducers from './reducers'
 import { loadStore as loadStoreAction } from '@actions'
+import migrations from './migrations'
 
 let store
 let persistor
@@ -22,11 +23,36 @@ const createMiddleware = () => {
   return middleware
 }
 
+const migrate = state => {
+  // returns migrations to be performed for the current store version
+  const getMigrationsToRun = (migrations, version) => {
+    const torun = []
+    const currentVersion = Date.parse(version)
+    migrations.forEach(record => {
+      if (isNaN(currentVersion) || currentVersion < record.version) {
+        torun.push(record)
+      }
+    })
+    return torun
+  }
+
+  return new Promise((resolve, reject) => {
+    const torun = getMigrationsToRun(migrations, state.version)
+    torun.forEach(record => {
+      console.log(record)
+      console.log(`Migrating to ${record.version}`)
+      state = record.migration(state)
+    })
+    resolve(state)
+  })
+}
+
 const createNewStore = (initialState = undefined) => {
   const persistConfig = {
     key: 'root',
     storage: localForage,
     throttle: '512', // ms
+    migrate,
     //throttle: '0', // ms
   }
   store = createStore(
