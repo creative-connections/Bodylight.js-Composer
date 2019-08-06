@@ -8,7 +8,7 @@ export default {
 
   xaxes: {
     0: { position: 0, name: 'xaxis', axis },
-    lenght: 1
+    length: 1
   },
 
   yaxes: {
