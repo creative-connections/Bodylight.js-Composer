@@ -13,7 +13,7 @@ export default function (state) {
 
     let xaxes = {
       0: { position: 0, name: 'xaxis', axis: null},
-      lenght: 1
+      length: 1
     }
     let yaxes = {
       0: { position: 0, name: 'yaxis', axis: null},
