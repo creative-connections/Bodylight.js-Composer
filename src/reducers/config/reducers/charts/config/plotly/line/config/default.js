@@ -6,13 +6,13 @@ export default {
   name: 'unnamed',
   library: 'plotly',
 
-  xaxes: [
-    { position: 0, name: 'xaxis', axis },
-  ],
-
-  yaxes: [
-    { position: 0, name: 'yaxis', axis},
-  ],
+  xaxes: {
+    xaxis: axis
+  },
+  
+  yaxes: {
+    yaxis: axis
+  },
 
   margin,
   legend,

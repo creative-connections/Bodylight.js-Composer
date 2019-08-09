@@ -8,19 +8,8 @@ import update from 'immutability-helper'
 export default function (state) {
   Object.entries(state.config.charts).forEach(([id]) => {
     const chart = state.config.charts[id]
-    const xaxis = chart.xaxis
-    const yaxis = chart.yaxis
-
-    var xaxes = [
-      { position: 0, name: 'xaxis', axis: null },
-    ]
-
-    var yaxes = [
-      { position: 0, name: 'yaxis', axis: null },
-    ]
-
-    xaxes = update(xaxes, { 0: { axis: {$set: xaxis} } })
-    yaxes = update(yaxes, { 0: { axis: {$set: yaxis} } })
+    const xaxes = { xaxis: chart.xaxis }
+    const yaxes = { yaxis: chart.yaxis }
 
     state = update(state, {
       config: {
