@@ -11,14 +11,13 @@ export default function (state) {
     const xaxis = chart.xaxis
     const yaxis = chart.yaxis
 
-    let xaxes = {
-      0: { position: 0, name: 'xaxis', axis: null},
-      length: 1
-    }
-    let yaxes = {
-      0: { position: 0, name: 'yaxis', axis: null},
-      length: 1
-    }
+    var xaxes = [
+      { position: 0, name: 'xaxis', axis: null },
+    ]
+
+    var yaxes = [
+      { position: 0, name: 'yaxis', axis: null },
+    ]
 
     xaxes = update(xaxes, { 0: { axis: {$set: xaxis} } })
     yaxes = update(yaxes, { 0: { axis: {$set: yaxis} } })
