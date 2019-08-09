@@ -9,6 +9,9 @@ import toAST from 'to-ast'
 
 import Range from './Range'
 
+/**
+ * DEPRECATED in favour of ./Axes
+ */
 class Axis extends Component {
   constructor(props) {
     super(props)
@@ -28,6 +31,7 @@ class Axis extends Component {
     this.handleEditorChange = this.handleEditorChange.bind(this)
   }
 
+  // DEPRECATED in favour of ./Axes
   handleChange(e, { name, value }) {
     let config = update(this.props.config, {
       [name]: { $set: value }
@@ -38,6 +42,7 @@ class Axis extends Component {
     })
   }
 
+  // DEPRECATED in favour of ./Axes
   handleEditorChange(e, { value }) {
     const fn = Function(`return ${value}`)()
     const config = fn()
@@ -47,6 +52,7 @@ class Axis extends Component {
     })
   }
 
+  // DEPRECATED in favour of ./Axes
   getConfigString() {
     const string = escodegen.generate(
       toAST(this.props.config), { format: { quotes: 'double' } }
@@ -54,6 +60,7 @@ class Axis extends Component {
     return `() => (${string})`
   }
 
+  // DEPRECATED in favour of ./Axes
   render() {
     const config = this.getConfigString()
 
