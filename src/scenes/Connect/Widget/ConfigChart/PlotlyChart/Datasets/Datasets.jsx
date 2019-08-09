@@ -29,6 +29,7 @@ class Datasets extends Component {
         <Collapsable title={dataset.name} className='secondary' collapsed={true} key={id} >
           <Dataset
             name={`${this.props.name}.${id}`}
+            chart={this.props.chart}
             config={dataset}
             onChange={this.props.onChange}
             onRemove={this.remove}

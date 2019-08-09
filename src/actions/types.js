@@ -31,3 +31,8 @@ export const UPDATE_EXPORT_OPTION = 'app/exportoption/UPDATE'
 export const LOAD_STORE = 'store/LOAD'
 
 export const SWITCH_SIDEBAR = 'app/sidebar/SWITCH'
+
+/**
+ * Widget specific actions start here, consider spliting into separate files in the future.
+ */
+export const PLOTLY_ADD_AXIS = 'plotly/axis/ADD'

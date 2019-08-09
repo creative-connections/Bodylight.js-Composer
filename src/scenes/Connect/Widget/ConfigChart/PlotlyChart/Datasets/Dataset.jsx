@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Input, Checkbox, Dropdown } from 'semantic-ui-react'
 
 import ComplexAttribute from '@components/ComplexAttribute'
@@ -7,6 +9,8 @@ import ButtonLink from '@components/ButtonLink'
 import FunctionEditor from '@components/FunctionEditor'
 
 import Line from './Line'
+
+import { plotlyAddAxis } from '@actions'
 
 class Dataset extends Component {
   constructor(props) {
@@ -32,6 +36,9 @@ class Dataset extends Component {
     this.state = {
       options: { mode, fill }
     }
+
+    this.addXAxis = this.addXAxis.bind(this)
+    this.addYAxis = this.addYAxis.bind(this)
   }
 
   upgradeConfig() {
@@ -50,6 +57,14 @@ class Dataset extends Component {
       })
       return true
     }
+  }
+
+  addXAxis() {
+    this.props.plotlyAddAxis(this.props.chart.id, 'x')
+  }
+
+  addYAxis() {
+    this.props.plotlyAddAxis(this.props.chart.id, 'y')
   }
 
   render() {
@@ -73,7 +88,7 @@ class Dataset extends Component {
         <ButtonLink name={config.id} onClick={this.props.onRemove}>remove dataset</ButtonLink>
       </GridRow>
 
-      <GridRow border label='y axis'>
+      <GridRow border label='Y axis'>
         { config.y.time === false &&
           <ComplexAttribute complex array
             name={`${name}.y`}
@@ -88,8 +103,11 @@ class Dataset extends Component {
           onChange={this.props.onChange}
         />
       </GridRow>
+      <GridRow>
+        <ButtonLink onClick={this.addYAxis}>Add another Y axis</ButtonLink>
+      </GridRow>
 
-      <GridRow border label='x axis'>
+      <GridRow border label='X axis'>
         { config.x.time === false &&
           <ComplexAttribute complex array
             name={`${name}.x`}
@@ -104,6 +122,10 @@ class Dataset extends Component {
           onChange={this.props.onChange}
         />
       </GridRow>
+      <GridRow>
+        <ButtonLink onClick={this.addXAxis}>Add another X axis</ButtonLink>
+      </GridRow>
+
       <GridRow border label='Maximum samples'>
         <ComplexAttribute
           name={`${name}.maxSamples`}
@@ -164,5 +186,7 @@ class Dataset extends Component {
     </Fragment>
   }
 }
-
-export default Dataset
+export default connect(
+  null,
+  dispatch => bindActionCreators({ plotlyAddAxis }, dispatch)
+)(Dataset)

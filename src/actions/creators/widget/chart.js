@@ -4,6 +4,7 @@ import {
   REMOVE_WIDGET,
   ADD_WIDGET_OPTION,
   REMOVE_WIDGET_OPTION,
+  PLOTLY_ADD_AXIS
 } from '@actions/types'
 
 import generateID from '@helpers/generateID'
@@ -35,4 +36,9 @@ export const chartAddOption = (widget, option, params = null) => ({
 export const chartRemoveOption = (widget, option, id, params = null) => ({
   type: REMOVE_WIDGET_OPTION,
   payload: { widget, option, id, params }
+})
+
+export const plotlyAddAxis = (id, axis) => ({
+  type: PLOTLY_ADD_AXIS,
+  payload: { id, axis }
 })
