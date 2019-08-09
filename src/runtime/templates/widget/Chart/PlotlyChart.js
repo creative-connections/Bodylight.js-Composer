@@ -113,8 +113,8 @@ export default class PlotlyChart extends PlotlyBase {
       const images = this.initImages()
 
       const layout = {
-        xaxis: this.xaxis,
-        yaxis: this.yaxis,
+        xaxis: this.xaxes.xaxis,
+        yaxis: this.yaxes.yaxis,
         margin: this.margin,
         legend: this.legend,
 
