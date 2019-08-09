@@ -10,7 +10,7 @@ import Datasets from './Datasets'
 import Shapes from '../components/Plotly/Shapes'
 import Images from '../components/Plotly/Images'
 import Annotations from '../components/Plotly/Annotations'
-import Axis from '../components/Plotly/Axis'
+import Axes from '../components/Plotly/Axes'
 import Margin from '../components/Plotly/Margin'
 import Legend from '../components/Plotly/Legend'
 
@@ -33,13 +33,8 @@ const PlotlyChart = props => {
     </Collapsable>
 
     <Collapsable title='Axes' className='primary' collapsed={true}>
-      <Collapsable title='X Axis' className='secondary' collapsed={true}>
-        <Axis name='xaxis' chart={chart} config={config.xaxis} onChange={props.onChange}/>
-      </Collapsable>
-
-      <Collapsable title='Y Axis' className='secondary' collapsed={true}>
-        <Axis name='yaxis' chart={chart} config={config.yaxis} onChange={props.onChange}/>
-      </Collapsable>
+      <Axes name='xaxes' chart={chart} config={config.xaxes} onChange={props.onChange}/>
+      <Axes name='yaxes' chart={chart} config={config.yaxes} onChange={props.onChange}/>
     </Collapsable>
 
     <Collapsable title='Shapes' className='primary' collapsed={true}>
@@ -73,7 +68,6 @@ const PlotlyChart = props => {
     </GridRow>
 
     <Events widget={props.chart} config={config} />
-
   </Fragment>
 }
 
