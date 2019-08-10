@@ -162,7 +162,7 @@ const plotlyAddAxis = (state, payload) => {
       .map(([id]) => Number(id.replace(/\D/g,'')))
       .sort((a,b) => a > b)
     if (axes.length === 1) {
-      return `${root}1`
+      return `${root}2`
     }
     const next = axes[axes.length - 1] + 1
     return `${root}${next}`
