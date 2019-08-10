@@ -169,8 +169,13 @@ const plotlyAddAxis = (state, payload) => {
   }
 
   const name = getNextAxisName(state[chart][axes], root)
+  // update axes list with duplicated axis
   state = update(state, {
     [chart]: { [axes]: { [name]: { $set: data } } }
+  })
+  // update dataset to the new axis
+  state = update(state, {
+    [chart]: { datasets: { [dataset]: { [root]: {$set: name } } } }
   })
 
   return state
