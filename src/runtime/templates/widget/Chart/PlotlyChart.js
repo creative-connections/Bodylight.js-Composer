@@ -72,6 +72,11 @@ export default class PlotlyChart extends PlotlyBase {
     this.indexes = {}
     const data = []
     let index = 0
+
+    const getAxisId = name => {
+      return `${name.substring(0, 1)}${name.replace(/\D/g, '')}`
+    }
+
     Object.entries(this.datasets).forEach(([id, dataset]) => {
       this.indexes[id] = index
       // create buffer for XY plots
@@ -79,7 +84,9 @@ export default class PlotlyChart extends PlotlyBase {
       this.oneshotBuffer[id] = { x: null, y: null }
       data[index] = {
         x: [],
+        xaxis: getAxisId(dataset.xaxis),
         y: [],
+        yaxis: getAxisId(dataset.yaxis),
         type: 'scatter',
         mode: dataset.mode,
         name: dataset.name,
@@ -112,9 +119,7 @@ export default class PlotlyChart extends PlotlyBase {
       const annotations = this.initAnnotations()
       const images = this.initImages()
 
-      const layout = {
-        xaxis: this.xaxes.xaxis,
-        yaxis: this.yaxes.yaxis,
+      let layout = {
         margin: this.margin,
         legend: this.legend,
 
@@ -125,6 +130,10 @@ export default class PlotlyChart extends PlotlyBase {
         annotations,
         images
       }
+
+      layout = Object.assign(layout, this.xaxes)
+      layout = Object.assign(layout, this.yaxes)
+
       const config = {
         'displayModeBar': false,
         'responsive': true
