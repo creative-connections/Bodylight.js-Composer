@@ -33,7 +33,7 @@ const migrateState = state => {
     const torun = []
     const currentVersion = Date.parse(state.version)
     migrations.forEach(record => {
-      if (isNaN(currentVersion) || currentVersion < record.version) {
+      if (isNaN(currentVersion) || currentVersion < Date.parse(record.version)) {
         torun.push(record)
       }
     })
