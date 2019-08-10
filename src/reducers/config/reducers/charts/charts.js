@@ -8,7 +8,8 @@ import {
   UPDATE_WIDGET_ACTION,
   ADD_WIDGET_OPTION,
   REMOVE_WIDGET_OPTION,
-  LOAD_STORE
+  LOAD_STORE,
+  PLOTLY_ADD_AXIS
 } from '@actions/types'
 import { REHYDRATE } from 'redux-persist'
 
@@ -120,9 +121,32 @@ const rehydrate = (oldstate, newstate) => {
     }
     charts[id] = chart
   })
-
-
   return charts
+}
+
+const plotlyAddAxis = (state, payload) => {
+  const id = payload.id
+  const axes = payload.axis === 'x' ? 'xaxes' : 'yaxes'
+  const root = payload.axis === 'x' ? 'xaxis' : 'yaxis'
+  const data = { ...state[id][axes][payload.copyFrom] }
+
+  const getNextAxisName = (container, root) => {
+    const axes = Object.entries(container)
+      .map(([id]) => Number(id.replace(/\D/g,'')))
+      .sort((a,b) => a > b)
+    if (axes.length === 1) {
+      return `${root}1`
+    }
+    const next = axes[axes.length - 1] + 1
+    return `${root}${next}`
+  }
+
+  const name = getNextAxisName(state[id][axes], root)
+  state = update(state, {
+    [id]: { [axes]: { [name]: { $set: data } } }
+  })
+
+  return state
 }
 
 export default function (state = {}, action) {
@@ -145,6 +169,8 @@ export default function (state = {}, action) {
     return removeWidgetAction(state, action.payload, type)
   case UPDATE_WIDGET_ACTION:
     return updateWidgetAction(state, action.payload, type)
+  case PLOTLY_ADD_AXIS:
+    return plotlyAddAxis(state, action.payload)
   case REHYDRATE:
   case LOAD_STORE:
     if (action != null && action.payload != null) {
