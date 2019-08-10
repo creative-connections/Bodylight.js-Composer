@@ -28,6 +28,7 @@ class Datasets extends Component {
       out.push(
         <Collapsable title={dataset.name} className='secondary' collapsed={true} key={id} >
           <Dataset
+            id={id}
             name={`${this.props.name}.${id}`}
             chart={this.props.chart}
             config={dataset}
