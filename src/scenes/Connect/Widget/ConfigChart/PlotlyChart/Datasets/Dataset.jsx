@@ -41,24 +41,6 @@ class Dataset extends Component {
     this.addYAxis = this.addYAxis.bind(this)
   }
 
-  upgradeConfig() {
-    const config = this.props.config
-    const name = this.props.name
-    if (config.offset == null) {
-      this.props.onChange(null, {
-        name: `${name}.offset`,
-        value: {
-          typeof: 'number',
-          value: 0,
-          complex: false,
-          provider: null,
-          'function': 'value => value'
-        }
-      })
-      return true
-    }
-  }
-
   addXAxis() {
     this.props.plotlyAddAxis(this.props.chart.id, 'x')
   }
@@ -68,10 +50,6 @@ class Dataset extends Component {
   }
 
   render() {
-    // HACK FIXME: upgrade checking
-    if (this.upgradeConfig()) {
-      return 'upgrading configuration'
-    }
     const config = this.props.config
     const name = this.props.name
     return <Fragment>
