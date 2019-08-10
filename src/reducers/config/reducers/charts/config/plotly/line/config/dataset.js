@@ -5,6 +5,8 @@ export default {
   fill: 'none',
   other: '() => ({})',
   showlegend: true,
+  xaxis: 'xaxis',
+  yaxis: 'yaxis',
   offset: {
     typeof: 'number',
     value: 0,
