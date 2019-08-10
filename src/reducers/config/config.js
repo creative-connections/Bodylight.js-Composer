@@ -53,6 +53,9 @@ export const configGetLabel = (state, id) => labelsSelectors.get(state.labels, i
 export const configGetAllActions = state => actionsSelectors.getAll(state.actions)
 export const configGetAction = (state, id) => actionsSelectors.get(state.actions, id)
 
+export const getAllChartAxesForDropdown = (state, id) =>
+  chartsSelectors.getAllChartAxesForDropdown(state.charts, id)
+
 const getProvidersForDropdownMemoized = memoize(state => {
   const options = [{ id: 'none', text: 'none', value: null }]
   return options.concat(

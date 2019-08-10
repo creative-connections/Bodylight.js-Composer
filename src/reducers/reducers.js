@@ -75,6 +75,7 @@ export const configGetLabel = (state, id) => configSelectors.configGetLabel(stat
 
 export const getProvidersForDropdown = state => configSelectors.getProvidersForDropdown(state.config)
 export const getArrayProvidersFromProvider = (state, provider) => configSelectors.getArrayProvidersFromProvider(state.config, provider)
+export const getAllChartAxesForDropdown = (state, id) => configSelectors.getAllChartAxesForDropdown(state.config, id)
 
 export const getEditorStorage = state => editorStorageSelectors.getEditorStorage(state.editorStorage)
 

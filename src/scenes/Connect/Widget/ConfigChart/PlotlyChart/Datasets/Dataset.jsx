@@ -11,6 +11,7 @@ import FunctionEditor from '@components/FunctionEditor'
 import Line from './Line'
 
 import { plotlyAddAxis } from '@actions'
+import { getAllChartAxesForDropdown } from '@reducers'
 
 class Dataset extends Component {
   constructor(props) {
@@ -42,11 +43,11 @@ class Dataset extends Component {
   }
 
   addXAxis() {
-    this.props.plotlyAddAxis(this.props.chart.id, 'x', 'xaxis')
+    this.props.plotlyAddAxis(this.props.chart.id, this.props.name, 'x', 'xaxis')
   }
 
   addYAxis() {
-    this.props.plotlyAddAxis(this.props.chart.id, 'y', 'yaxis')
+    this.props.plotlyAddAxis(this.props.chart.id, this.props.name, 'y', 'yaxis')
   }
 
   render() {
@@ -165,6 +166,8 @@ class Dataset extends Component {
   }
 }
 export default connect(
-  null,
+  (state, props) => ({
+    axes: getAllChartAxesForDropdown(state, props.chart.id)
+  }),
   dispatch => bindActionCreators({ plotlyAddAxis }, dispatch)
 )(Dataset)
