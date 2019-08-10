@@ -42,11 +42,11 @@ class Dataset extends Component {
   }
 
   addXAxis() {
-    this.props.plotlyAddAxis(this.props.chart.id, 'x')
+    this.props.plotlyAddAxis(this.props.chart.id, 'x', 'xaxis')
   }
 
   addYAxis() {
-    this.props.plotlyAddAxis(this.props.chart.id, 'y')
+    this.props.plotlyAddAxis(this.props.chart.id, 'y', 'yaxis')
   }
 
   render() {
