@@ -15,6 +15,7 @@ import { REHYDRATE } from 'redux-persist'
 
 import WidgetType from '@enum/WidgetType'
 import update from 'immutability-helper'
+import memoize from 'fast-memoize'
 
 import {
   addWidgetAction,
@@ -124,11 +125,37 @@ const rehydrate = (oldstate, newstate) => {
   return charts
 }
 
+export const getAxesForDropdown = (state, id) => {
+  const axes = {
+    xaxes: [],
+    yaxes: []
+  }
+
+  Object.entries(state[id].xaxes).forEach(([id, axis]) => {
+    axes.xaxes.push({
+      key: id,
+      text: axis.title === '' ? id : axis.title,
+      value: id
+    })
+  })
+
+  Object.entries(state[id].yaxes).forEach(([id, axis]) => {
+    axes.yaxes.push({
+      key: id,
+      text: axis.title === '' ? id : axis.title,
+      value: id
+    })
+  })
+
+  return axes
+}
+
 const plotlyAddAxis = (state, payload) => {
-  const id = payload.id
+  const chart = payload.chart
+  const dataset = payload.dataset
   const axes = payload.axis === 'x' ? 'xaxes' : 'yaxes'
   const root = payload.axis === 'x' ? 'xaxis' : 'yaxis'
-  const data = { ...state[id][axes][payload.copyFrom] }
+  const data = { ...state[chart][axes][payload.copyFrom] }
 
   const getNextAxisName = (container, root) => {
     const axes = Object.entries(container)
@@ -141,9 +168,9 @@ const plotlyAddAxis = (state, payload) => {
     return `${root}${next}`
   }
 
-  const name = getNextAxisName(state[id][axes], root)
+  const name = getNextAxisName(state[chart][axes], root)
   state = update(state, {
-    [id]: { [axes]: { [name]: { $set: data } } }
+    [chart]: { [axes]: { [name]: { $set: data } } }
   })
 
   return state
@@ -182,3 +209,4 @@ export default function (state = {}, action) {
 
 export const getAll = state => state
 export const get = (state, id) => state[id]
+export const getAllChartAxesForDropdown = memoize(getAxesForDropdown)

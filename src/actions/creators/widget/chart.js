@@ -38,7 +38,7 @@ export const chartRemoveOption = (widget, option, id, params = null) => ({
   payload: { widget, option, id, params }
 })
 
-export const plotlyAddAxis = (id, axis, copyFrom) => ({
+export const plotlyAddAxis = (chart, dataset, axis, copyFrom) => ({
   type: PLOTLY_ADD_AXIS,
-  payload: { id, axis, copyFrom }
+  payload: { chart, dataset, axis, copyFrom }
 })
