@@ -83,6 +83,13 @@ class Dataset extends Component {
         />
       </GridRow>
       <GridRow>
+        <span>Y Axis</span>
+        <Dropdown
+          name={`${name}.yaxis`}
+          value={config.yaxis}
+          onChange={this.props.onChange}
+          options={this.props.axes.yaxes}
+        />
         <ButtonLink onClick={this.addYAxis}>Add another Y axis</ButtonLink>
       </GridRow>
 
@@ -102,6 +109,13 @@ class Dataset extends Component {
         />
       </GridRow>
       <GridRow>
+        <span>X Axis</span>
+        <Dropdown
+          name={`${name}.xaxis`}
+          value={config.xaxis}
+          onChange={this.props.onChange}
+          options={this.props.axes.xaxes}
+        />
         <ButtonLink onClick={this.addXAxis}>Add another X axis</ButtonLink>
       </GridRow>
 
