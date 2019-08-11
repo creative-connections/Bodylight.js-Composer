@@ -17,6 +17,7 @@ import ConfigToggle from './Widget/ConfigToggle'
 import ConfigAction from './Widget/ConfigAction'
 import ConfigChart from './Widget/ConfigChart'
 import ConfigLabel from './Widget/ConfigLabel'
+import ConfigCss from './Widget/ConfigCss'
 import Export from './Export'
 
 class Connect extends Component {
@@ -43,6 +44,8 @@ class Connect extends Component {
         return <ConfigLabel label={selectedWidget} />
       case WidgetType.ACTION:
         return <ConfigAction action={selectedWidget} />
+      case WidgetType.CSS:
+        return <ConfigCss widget={selectedWidget} />
       }
     }
     return null
