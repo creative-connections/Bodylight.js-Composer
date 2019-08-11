@@ -4,7 +4,7 @@ import { Container, Menu } from 'semantic-ui-react'
 
 import MenuHeader from './components/MenuHeader'
 import ScreenSelector from './components/ScreenSelector'
-import Tree from './components/Tree'
+import Tree from '@scenes/Tree'
 
 const AppMenu = () => {
   return <Fragment>
