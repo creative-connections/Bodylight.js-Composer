@@ -115,6 +115,14 @@ class Tree extends Component {
           filter={this.state.filter}
           collapsed={false}
           onClick={this.onClick}/>
+        <Items
+          name='Css'
+          items={this.props.widgets.csss}
+          type={WidgetType.CSS}
+          selected={this.props.selected}
+          filter={this.state.filter}
+          collapsed={false}
+          onClick={this.onClick}/>
       </Segment>
     </Fragment>
   }

@@ -48,6 +48,9 @@ class TreeNode extends Component {
     if (this.props.type === WidgetType.LABEL) {
       return 'pencil alternate'
     }
+    if (this.props.type === WidgetType.CSS) {
+      return 'code'
+    }
   }
 
   onIconClick() {
