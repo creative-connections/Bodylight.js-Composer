@@ -1,5 +1,5 @@
 import { ACTION, ACTION_ID } from '../types.js'
-import { init, } from '../../commons/Components'
+import { init } from '../../commons/Components'
 import { addAction } from '@actions'
 import configureStore from '@src/configureStore'
 

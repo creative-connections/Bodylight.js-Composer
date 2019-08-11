@@ -1,5 +1,7 @@
 import { CSS, CSS_ID } from '../types.js'
-import { init, } from '../../commons/Components'
+import { init } from '../../commons/Components'
+import { addCss } from '@actions'
+import configureStore from '@src/configureStore'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -36,6 +38,9 @@ export default (editor) => {
       },
 
       handleOnDrop () {
+        const store = configureStore().store
+        store.dispatch(addCss())
+        editor.Panels.getButton('views', 'open-connect').set('active', true)
         this.remove()
       },
 
