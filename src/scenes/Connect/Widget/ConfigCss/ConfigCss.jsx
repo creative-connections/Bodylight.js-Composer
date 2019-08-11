@@ -11,7 +11,6 @@ class ConfigCss extends Component {
   constructor(props) {
     super(props)
     this.handleOnChange = this.handleOnChange.bind(this)
-    this.rename = this.rename.bind(this)
   }
 
   handleOnChange(e, { name, value, checked }) {
