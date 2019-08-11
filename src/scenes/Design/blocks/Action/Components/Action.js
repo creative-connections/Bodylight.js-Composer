@@ -50,6 +50,7 @@ export default (editor) => {
         const store = configureStore().store
         store.dispatch(addAction())
         editor.Panels.getButton('views', 'open-connect').set('active', true)
+        this.remove()
       },
 
       destroy () {},
