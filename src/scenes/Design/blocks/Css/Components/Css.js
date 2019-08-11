@@ -1,6 +1,6 @@
-import { ACTION, ACTION_ID } from '../types.js'
+import { CSS, CSS_ID } from '../types.js'
 import { init } from '../../commons/Components'
-import { addAction } from '@actions'
+import { addCss } from '@actions'
 import configureStore from '@src/configureStore'
 
 export default (editor) => {
@@ -8,7 +8,7 @@ export default (editor) => {
   const defaultType = components.getType('default')
   const defaultModel = defaultType.model
 
-  components.addType(ACTION, {
+  components.addType(CSS, {
     model: defaultModel.extend({
       defaults: Object.assign({}, defaultModel.prototype.defaults, {
         draggable: '*',
@@ -17,8 +17,8 @@ export default (editor) => {
         attributes: {},
         classes: [],
         traits: [{
-          type: ACTION_ID,
-          label: 'Action widget',
+          type: CSS_ID,
+          label: 'Css widget',
           name: 'id'
         }],
         resizable: true
@@ -39,7 +39,7 @@ export default (editor) => {
 
       handleOnDrop () {
         const store = configureStore().store
-        store.dispatch(addAction())
+        store.dispatch(addCss())
         editor.Panels.getButton('views', 'open-connect').set('active', true)
         this.remove()
       },

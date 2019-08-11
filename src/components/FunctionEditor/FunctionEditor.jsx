@@ -70,7 +70,8 @@ class FunctionEditor extends Component {
   }
 
   handleEditorChange(e, { value }) {
-    const result = Validator.validate(value, this.props.typeof)
+    // TODO FIXME: validation could become expensive, test and possibly buffer changes
+    const result = Validator.validate(value, this.props.typeof, this.props.language)
     this.setState({
       validation: result
     })
@@ -101,41 +102,41 @@ class FunctionEditor extends Component {
   render() {
     if (this.state.displayEditor === true) {
       return (
-        <Modal isOpen={this.state.displayEditor} onRequestClose={this.handleCancel} style={modalStyle} >
+        <Modal isOpen={this.state.displayEditor} style={modalStyle} >
+          <div style={{width: '100%', ...this.props.style}}>
+            <Transition transitionOnMount={true} animation='fade' duration={200} visible={true}>
+              <Segment style={{
+                padding: '0',
+                marginTop: '1em',
+                marginBottom: '1em',
+                width: '50vw',
+              }}>
 
-        <div style={{width: '100%', ...this.props.style}}>
-          <Transition transitionOnMount={true} animation='fade' duration={200} visible={true}>
-            <Segment style={{
-              padding: '0',
-              marginTop: '1em',
-              marginBottom: '1em',
-              width: '50vw',
-            }}>
+                <Editor
+                  key={this.state.key}
+                  name={this.props.key}
+                  value={this.props.value}
+                  onChange={this.handleEditorChange}
+                  language={this.props.language}
+                />
 
-              <Editor
-                key={this.state.key}
-                name={this.props.key}
-                value={this.props.value}
-                onChange={this.handleEditorChange}
-              />
+                <EditorMenu
+                  onSettingsClick={this.toggleSettings}
+                  onSave={this.handleSave}
+                  onCancel={this.handleCancel}
+                  displaySettings={this.state.displaySettings}
+                  validation={this.state.validation}
+                />
 
-              <EditorMenu
-                onSettingsClick={this.toggleSettings}
-                onSave={this.handleSave}
-                onCancel={this.handleCancel}
-                displaySettings={this.state.displaySettings}
-                validation={this.state.validation}
-              />
-
-              <Transition animation='fade' duration={200} visible={this.state.displaySettings}>
-                <div>
-                  <EditorSettings/>
-                </div>
-              </Transition>
-            </Segment>
-          </Transition>
-        </div>
-      </Modal>
+                <Transition animation='fade' duration={200} visible={this.state.displaySettings}>
+                  <div>
+                    <EditorSettings/>
+                  </div>
+                </Transition>
+              </Segment>
+            </Transition>
+          </div>
+        </Modal>
       )
     }
 

@@ -1,5 +1,6 @@
 import toAST from 'to-ast'
 import escodegen from 'escodegen'
+import beautify from 'js-beautify'
 
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
@@ -56,6 +57,8 @@ import appendModels from './builders/widgets/models/models'
 import buildModelConfig from './builders/widgets/models/config'
 
 import buildActionConfig from './builders/widgets/Action/config'
+
+import buildCustomCss from './builders/widgets/Css/config'
 
 import appendAnimates from './builders/widgets/animates/animates'
 
@@ -199,11 +202,12 @@ class Builder {
   }
 
   getCss() {
-    return `
+    return beautify.css(`
       ${getEditorCss()}
+      ${buildCustomCss()}
       ${getPerformanceCss(this.exportPerformanceBlock)}
       ${SpinnerCss()}
-    `
+    `)
   }
 
   head() {

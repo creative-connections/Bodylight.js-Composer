@@ -17,7 +17,7 @@ import rangeBlock from './blocks/Range'
 import toggleBlock from './blocks/Toggle'
 import chartBlock from './blocks/Chart'
 import labelBlock from './blocks/Label'
-
+import cssBlock from './blocks/Css'
 import modelBlock from './blocks/Model'
 import actionBlock from './blocks/Action'
 
@@ -176,6 +176,7 @@ class Design extends Component {
     labelBlock(editor)
     modelBlock(editor)
     actionBlock(editor)
+    cssBlock(editor)
 
     editor.render()
     editor.Panels.getButton('views', 'open-blocks').set('active', true)
