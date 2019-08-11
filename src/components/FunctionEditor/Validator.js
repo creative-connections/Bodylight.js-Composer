@@ -49,15 +49,15 @@ const run = (code, type) => {
 }
 
 class Validator {
-  static validate (code, type) {
+  static validate (code, type, language = 'javascript') {
     let result = {
       error: false,
       message: null,
-      parsed: null
+      parsed: ''
     }
 
     try {
-      result.parsed = Parser.parse(code)
+      result.parsed = Parser.parse(code, language)
     } catch (e) {
       result.error = true
       result.message = `Syntax error: ${e.message}`
@@ -68,17 +68,6 @@ class Validator {
     if (type === false) {
       return result
     }
-
-    /*
-     * TEMP FIXME: add API methods mockups
-     * try {
-     * run(result.parsed, type)
-     * } catch (e) {
-     * result.error = true
-     * result.message = `Runtime error: ${e.message}`
-     * return result
-     * }
-     */
 
     return result
   }

@@ -5,6 +5,8 @@ import AceEditor from 'react-ace'
 import { getFunctionEditorConfig } from '@reducers'
 
 import 'brace/mode/javascript'
+import 'brace/mode/css'
+
 import 'brace/keybinding/emacs'
 import 'brace/keybinding/vim'
 
@@ -98,6 +100,7 @@ class Editor extends Component {
 
   render () {
     const config = this.props.functionEditorConfig
+    const language = this.props.language == null ? 'javascript' : this.props.language
 
     let keyboardHandler = null
     if (config.keyboardHandler !== 'default') {
@@ -105,7 +108,7 @@ class Editor extends Component {
     }
 
     return <AceEditor
-      mode={config.mode}
+      mode={language}
       theme={config.theme}
       keyboardHandler={keyboardHandler}
       fontSize={config.fontSize}

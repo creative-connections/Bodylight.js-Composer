@@ -33,7 +33,8 @@ class ConfigCss extends Component {
       </GridRow>
       <GridRow label='Css'>
         <FunctionEditor
-          name={'css'}
+          name='css'
+          language='css'
           value={config.css}
           onChange={this.handleOnChange}
           typeof={false}
