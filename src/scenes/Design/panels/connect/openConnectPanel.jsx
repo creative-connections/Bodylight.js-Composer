@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
@@ -47,12 +46,7 @@ export default {
     ReactDOM.render(
       <Provider store={store} key={generateID()}>
         <PersistGate loading={null} persistor={persistor}>
-          <Router>
-            <Route
-              path={`${process.env.PATH}/`}
-              render={(props) => { return <Connect {...props} /> }}
-            />
-          </Router>
+          <Connect/>
         </PersistGate>
       </Provider>,
       this.$div[0]

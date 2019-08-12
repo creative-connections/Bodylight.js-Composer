@@ -1,14 +1,9 @@
 import { MODEL, MODEL_ID } from '../types.js'
-import {
-  handleChangeID,
-  init,
-  handleOnDrop,
-  getWidget,
-  destroy,
-  handleClick
-} from '../../commons/Components'
-import WidgetType from '@enum/WidgetType'
-import history from '@helpers/BrowserHistory'
+import { init } from '../../commons/Components'
+import { addModel } from '@actions'
+import { configGetModel } from '@reducers'
+
+import { handleOnDrop } from '../../commons/Components'
 
 export default (editor) => {
   const components = editor.DomComponents
@@ -45,7 +40,7 @@ export default (editor) => {
       },
 
       handleOnDrop () {
-        history.push(`${process.env.PATH}/add/model`)
+        handleOnDrop.bind(this)(configGetModel, addModel)
         this.remove()
       },
 

@@ -17,11 +17,14 @@ import {
 } from '../commons/actions'
 
 import {
-  addWidget,
   renameWidget,
-  removeWidget,
-  updateWidget
 } from '../commons/widget'
+
+import {
+  addWidget,
+  removeWidget,
+  updateWidgetConfig
+} from '../../widgets/commons/config'
 
 const defaultConfig = {
   name: 'unnamed',
@@ -89,7 +92,7 @@ export default function (state = {}, action) {
   case REMOVE_WIDGET:
     return removeWidget(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
-    return updateWidget(state, action.payload, type)
+    return updateWidgetConfig(state, action.payload, type)
   case ADD_WIDGET_ACTION:
     return addWidgetAction(state, action.payload, type)
   case REMOVE_WIDGET_ACTION:

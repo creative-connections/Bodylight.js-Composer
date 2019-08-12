@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route } from 'react-router-dom'
-import history from '@helpers/BrowserHistory'
 
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -37,9 +35,7 @@ function render({ store, persistor }) {
   ReactDOM.render(
     <Provider store={store} key={generateID()}>
       <PersistGate loading={null} persistor={persistor}>
-        <Router history={history}>
-          <Route path={`${process.env.PATH}/`} component={App} />
-        </Router>
+        <App/>
       </PersistGate>
     </Provider>,
     document.getElementById('app')

@@ -15,9 +15,8 @@ const locateJs = (zip) => {
       file = f
     }
   })
-
   if (!file) {
-    throw Error("Zip file does not contain the 'modelDescription.xml' file ")
+    throw Error("Zip file does not contain the '.js' file ")
   }
   return file
 }

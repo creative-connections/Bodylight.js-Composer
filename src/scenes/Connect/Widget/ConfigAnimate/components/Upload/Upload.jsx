@@ -7,6 +7,7 @@ import Uploader from './Uploader'
 import Updater from './Updater'
 
 import { populateAnimate } from '@actions'
+import GridRow from '@components/GridRow'
 
 class Upload extends Component {
   constructor(props) {
@@ -42,20 +43,14 @@ class Upload extends Component {
   }
 
   render() {
-    return <Fragment>
-      <div id='topBar' className='header'/>
-      <Grid padded centered className='leftShadow topPadded'>
-        <Grid.Row centered padded='horizontally' className='notPadded'>
+    return <GridRow label='Upload Animate'>
+      { this.state.uploader &&
+        <Uploader onUpload={this.handleUpload} />}
 
-          {this.state.uploader &&
-            <Uploader onUpload={this.handleUpload} />}
-
-          {this.state.updater &&
-            <Updater id={this.props.animate.id}
-              onUpdate={this.handleUpdate} upload={this.state.uploaded}/>}
-        </Grid.Row>
-      </Grid>
-    </Fragment>
+      {this.state.updater &&
+        <Updater id={this.props.animate.id}
+          onUpdate={this.handleUpdate} upload={this.state.uploaded}/>}
+    </GridRow>
   }
 }
 

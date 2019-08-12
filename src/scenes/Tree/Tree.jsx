@@ -4,9 +4,8 @@ import { bindActionCreators } from 'redux'
 import { Segment, Divider, Menu, Input } from 'semantic-ui-react'
 import Animates from './components/Animates'
 import Items from './components/Items'
-import { withRouter } from 'react-router-dom'
 import { getWidgetsForTree, getSelectedWidget } from '@reducers'
-import { selectWidget } from '@actions'
+import { selectWidget, hidePreview } from '@actions'
 import WidgetType from '@enum/WidgetType'
 
 class Tree extends Component {
@@ -46,7 +45,8 @@ class Tree extends Component {
     const id = e.currentTarget.dataset.id
     const selected = (this.props.selected && this.props.selected.id) || null
     if (id === selected) {
-      this.props.history.push(`${process.env.PATH}/`)
+      // double click in preview hides preview
+      this.props.hidePreview()
     } else {
       this.props.selectWidget(id)
     }
@@ -134,6 +134,7 @@ export default connect(
     selected: getSelectedWidget(state)
   }),
   dispatch => bindActionCreators({
-    selectWidget
+    selectWidget,
+    hidePreview
   }, dispatch)
-)(withRouter(Tree))
+)(Tree)

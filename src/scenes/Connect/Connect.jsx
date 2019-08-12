@@ -19,13 +19,15 @@ import ConfigChart from './Widget/ConfigChart'
 import ConfigLabel from './Widget/ConfigLabel'
 import ConfigCss from './Widget/ConfigCss'
 import Export from './Export'
+import Save from './Save'
+import Open from './Open'
 
 class Connect extends Component {
   renderSelectedWidget(selectedWidget) {
-    if (selectedWidget !== null) {
+    if (selectedWidget != null) {
       switch (selectedWidget.type) {
       case WidgetType.MODEL:
-        return <ConfigModel model={selectedWidget} />
+        return <ConfigModel widget={selectedWidget} />
       case WidgetType.ANIMATE:
         return <ConfigAnimate widget={selectedWidget} />
       case WidgetType.ANIMATE_ANIM:
@@ -59,6 +61,8 @@ class Connect extends Component {
       <div className="connect-sidebar">
         {sidebar === SidebarType.WIDGET && this.renderSelectedWidget(selectedWidget)}
         {sidebar === SidebarType.EXPORT && <Export/>}
+        {sidebar === SidebarType.SAVE_PROJECT && <Save/>}
+        {sidebar === SidebarType.OPEN_PROJECT && <Open/>}
       </div>
     </Fragment>
   }

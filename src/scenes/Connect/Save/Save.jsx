@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Grid, Input, Button } from 'semantic-ui-react'
+import { Input, Button } from 'semantic-ui-react'
 import { getProjectName } from '@reducers'
 import { renameProject } from '@actions'
 import update from 'immutability-helper'
 import configureStore from '@src/configureStore'
 import { saveAs } from 'file-saver'
+
+import GridRow from '@components/GridRow'
 
 class Save extends Component {
   constructor (props) {
@@ -33,20 +35,10 @@ class Save extends Component {
 
   render () {
     return <Fragment>
-      <div id='topBar' className='header'> </div>
-
-      <Grid padded centered className='leftShadow topPadded'>
-        <Grid.Row centered style={{ paddingTop: 0, paddingBottom: 0 }}>
-          <Grid.Column style={{ marginTop: '2em', width: '100%' }}>
-            <Input
-              name="name"
-              value={this.props.name}
-              onChange={this.renameProject}
-            />
-            <Button onClick={this.handleSave}>Save</Button>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <GridRow label='Filename'>
+        <Input name="name" value={this.props.name} onChange={this.renameProject} />
+        <Button onClick={this.handleSave}>Save</Button>
+      </GridRow>
     </Fragment>
   }
 }
