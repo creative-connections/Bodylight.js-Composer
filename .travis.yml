@@ -21,15 +21,16 @@ matrix:
 before_install:
     - eval "${MATRIX_EVAL}"
 
-script:
+install:
+  - npm install
   - cd website
   - npm install
-  - npm run build
-  - cd ..
-  - echo $DEPLOY_PATH > .env.prod
-  - npm install
+
+script:
   - npm run prod
-  
+  - cd website
+  - npm run build
+
 before_deploy:
   - mv build website/build/bodylight.js/composer
 
