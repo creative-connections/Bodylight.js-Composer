@@ -6,7 +6,6 @@ import grapesjs from 'grapesjs'
 
 import gjsPresetWebsite from 'grapesjs-preset-webpage'
 import gjsBlocksBasic from 'grapesjs-blocks-basic'
-import gjsBlocksFlexbox from 'grapesjs-blocks-flexbox'
 import gjsReduxStorage from './storage/redux'
 
 import gjsBlocksFlexblocks from './blocks/Flexblocks/'
