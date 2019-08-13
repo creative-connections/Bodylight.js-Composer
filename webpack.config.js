@@ -21,9 +21,6 @@ module.exports = (env, argv) => {
             'style-loader',
             {
               loader: 'css-loader',
-              options: {
-                minimize: false
-              }
             },
             'sass-loader'
           ]
