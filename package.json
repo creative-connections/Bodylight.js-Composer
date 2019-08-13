@@ -96,7 +96,7 @@
     "semantic-ui-react": "^0.83.0",
     "slugid": "^2.0.0",
     "string-similarity": "^3.0.0",
-    "terser": "^3.17.0",
+    "terser": "^4.1.4",
     "to-ast": "^1.0.0",
     "uuid": "^3.3.2",
     "webfontloader": "^1.6.28"
