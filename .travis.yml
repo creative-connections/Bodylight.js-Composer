@@ -25,11 +25,13 @@ install:
   - npm install
   - cd website
   - npm install
+  - cd ..
 
 script:
   - npm run prod
   - cd website
   - npm run build
+  - cd ..
 
 before_deploy:
   - mv build website/build/bodylight.js/composer
