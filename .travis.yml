@@ -6,10 +6,6 @@ cache:
   - npm
   - yarn
 
-branches:
-  only:
-    - master
-
 matrix:
   include:
     - os: linux
