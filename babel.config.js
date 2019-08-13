@@ -3,6 +3,8 @@ module.exports = function (api) {
     ["@babel/preset-react"],
     [
       "@babel/preset-env", {
+        "useBuiltIns": "usage",
+        "corejs": 3,
         "targets": {
           "browsers": [
             "last 2 chrome versions",
