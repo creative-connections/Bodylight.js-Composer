@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://gitlab.com/kofrlab/bodylight.js.composer/issues"
   },
-  "homepage": "http://patf-biokyb.lf1.cuni.cz/~davidp/bodylight-js-composer/",
+  "homepage": "http://bodylight.physiome.cz",
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.4.0",
