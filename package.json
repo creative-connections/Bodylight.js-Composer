@@ -42,7 +42,7 @@
     "plotly.js": "^1.49.1",
     "redux-devtools": "^3.5.0",
     "sass-loader": "^7.2.0",
-    "style-loader": "^0.23.1",
+    "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^1.2.3",
     "url-loader": "^1.1.2",
     "webpack": "^4.29.6",
