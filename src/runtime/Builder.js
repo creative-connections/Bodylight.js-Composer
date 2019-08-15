@@ -113,6 +113,14 @@ import appendAPI from './templates/api'
 class Builder {
   constructor () {
     this.clearSrc()
+
+    this.widgets = this.buildWidgets()
+  }
+
+  buildWidgets () {
+    return [
+      range()
+    ]
   }
 
   setMinify(minify = false) {
@@ -352,7 +360,7 @@ class Builder {
     // append widget classes
     append(tpl(Widget))
 
-    append(range())
+    this.widgets.forEach(({ script }) => append(script))
 
     append(tpl(AnimateAnimControlled))
     append(tpl(initAnimateAnimsControlled))
