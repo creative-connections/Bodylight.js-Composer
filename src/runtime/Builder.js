@@ -4,6 +4,7 @@ import beautify from 'js-beautify'
 
 import range from './builders/widgets/Range/build'
 import button from './builders/widgets/Button/build'
+import toggle from './builders/widgets/Toggle/build'
 
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
@@ -50,7 +51,6 @@ import ProviderType from '@enum/ProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
-import buildToggleConfig from './builders/widgets/Toggle/config'
 import buildChartConfig from './builders/widgets/Chart/config'
 import buildLabelConfig from './builders/widgets/Label/config'
 
@@ -83,12 +83,10 @@ import PlotlyChart from './templates/widget/Chart/PlotlyChart'
 import Gamblegram from './templates/widget/Chart/Gamblegram'
 import initCharts from './templates/widget/Chart/init'
 
-import Toggle from './templates/widget/Toggle'
 import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import initAnimateAnimsContinuous from './templates/widget/AnimateAnimContinuous/init'
 import initAnimateTexts from './templates/widget/AnimateText/init'
 import initAnimatePlays from './templates/widget/AnimatePlay/init'
-import initToggles from './templates/widget/Toggle/init'
 import initLabels from './templates/widget/Label/init'
 
 import animateFps from './builders/application/animateFps'
@@ -118,7 +116,8 @@ class Builder {
   buildWidgets () {
     return [
       range(),
-      button()
+      button(),
+      toggle(),
     ]
   }
 
@@ -334,7 +333,6 @@ class Builder {
     append('config.widgets = {}')
     append(`config.widgets.animateAnims = ${tpl(buildAnimateAnimConfig())}`)
     append(`config.widgets.animateTexts = ${tpl(buildAnimateTextConfig())}`)
-    append(`config.widgets.toggles = ${tpl(buildToggleConfig())}`)
     append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
     append(`config.widgets.labels = ${tpl(buildLabelConfig())}`)
 
@@ -373,10 +371,6 @@ class Builder {
 
     append(tpl(Label))
     append(tpl(initLabels))
-
-
-    append(tpl(Toggle))
-    append(tpl(initToggles))
 
     append(tpl(PlotlyBase))
     append(tpl(PlotlyChart))
