@@ -7,6 +7,7 @@ import button from './builders/widgets/Button/build'
 import toggle from './builders/widgets/Toggle/build'
 import animateText from './builders/widgets/AnimateText/build'
 import css from './builders/widgets/Css/build'
+import label from './builders/widgets/Label/build'
 
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
@@ -53,7 +54,6 @@ import ProviderType from '@enum/ProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildChartConfig from './builders/widgets/Chart/config'
-import buildLabelConfig from './builders/widgets/Label/config'
 
 import appendModels from './builders/widgets/Model/models'
 import buildModelConfig from './builders/widgets/Model/config'
@@ -74,7 +74,6 @@ import Widget from './templates/widget/Widget'
 
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
 import AnimateAnimContinuous from './templates/widget/AnimateAnimContinuous'
-import Label from './templates/widget/Label'
 
 import PlotlyBase from './templates/widget/Chart/PlotlyBase'
 import PlotlyChart from './templates/widget/Chart/PlotlyChart'
@@ -84,7 +83,6 @@ import initCharts from './templates/widget/Chart/init'
 import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import initAnimateAnimsContinuous from './templates/widget/AnimateAnimContinuous/init'
 import initAnimatePlays from './templates/widget/AnimatePlay/init'
-import initLabels from './templates/widget/Label/init'
 
 import animateFps from './builders/application/animateFps'
 
@@ -116,7 +114,8 @@ class Builder {
       button(),
       toggle(),
       animateText(),
-      css()
+      css(),
+      label()
     ]
   }
 
@@ -335,7 +334,6 @@ class Builder {
     append('config.widgets = {}')
     append(`config.widgets.animateAnims = ${tpl(buildAnimateAnimConfig())}`)
     append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
-    append(`config.widgets.labels = ${tpl(buildLabelConfig())}`)
 
 
     /*
@@ -368,8 +366,6 @@ class Builder {
 
     append(tpl(initAnimatePlays))
 
-    append(tpl(Label))
-    append(tpl(initLabels))
 
     append(tpl(PlotlyBase))
     append(tpl(PlotlyChart))
