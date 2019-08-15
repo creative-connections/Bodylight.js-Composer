@@ -9,6 +9,7 @@ import animateText from './builders/widgets/AnimateText/build'
 import css from './builders/widgets/Css/build'
 import label from './builders/widgets/Label/build'
 import perf from './builders/widgets/Performance/build'
+import animateAnim from './builders/widgets/AnimateAnim/build'
 
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
@@ -53,7 +54,6 @@ import oneshotUpdateValueListeners from './templates/model/oneshot/updateValueLi
 import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
 
-import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildChartConfig from './builders/widgets/Chart/config'
 
 import appendModels from './builders/widgets/Model/models'
@@ -73,16 +73,12 @@ import resolveValueProviders from './templates/resolveValueProviders'
 
 import Widget from './templates/widget/Widget'
 
-import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
-import AnimateAnimContinuous from './templates/widget/AnimateAnimContinuous'
 
 import PlotlyBase from './templates/widget/Chart/PlotlyBase'
 import PlotlyChart from './templates/widget/Chart/PlotlyChart'
 import Gamblegram from './templates/widget/Chart/Gamblegram'
 import initCharts from './templates/widget/Chart/init'
 
-import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
-import initAnimateAnimsContinuous from './templates/widget/AnimateAnimContinuous/init'
 import initAnimatePlays from './templates/widget/AnimatePlay/init'
 
 import animateFps from './builders/application/animateFps'
@@ -108,6 +104,7 @@ class Builder {
       button(),
       toggle(),
       animateText(),
+      animateAnim(),
       css(),
       label(),
       perf(this.exportPerformanceBlock)
@@ -319,7 +316,6 @@ class Builder {
     append(`config.actions = ${tpl(buildActionConfig())}`)
 
     append('config.widgets = {}')
-    append(`config.widgets.animateAnims = ${tpl(buildAnimateAnimConfig())}`)
     append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
 
 
@@ -344,11 +340,6 @@ class Builder {
 
     this.widgets.forEach(({ script }) => append(script))
 
-    append(tpl(AnimateAnimControlled))
-    append(tpl(initAnimateAnimsControlled))
-
-    append(tpl(AnimateAnimContinuous))
-    append(tpl(initAnimateAnimsContinuous))
 
 
     append(tpl(initAnimatePlays))
