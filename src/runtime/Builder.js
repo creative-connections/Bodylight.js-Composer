@@ -8,8 +8,10 @@ import toggle from './builders/widgets/Toggle/build'
 import animateText from './builders/widgets/AnimateText/build'
 import css from './builders/widgets/Css/build'
 import label from './builders/widgets/Label/build'
-import perf from './builders/widgets/Performance/build'
 import animateAnim from './builders/widgets/AnimateAnim/build'
+
+import perf from './builders/widgets/Performance/build'
+import spinner from './builders/widgets/Spinner/build'
 
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
@@ -83,10 +85,6 @@ import initAnimatePlays from './templates/widget/AnimatePlay/init'
 
 import animateFps from './builders/application/animateFps'
 
-import SpinnerHtml from './templates/widget/Spinner/html'
-import SpinnerCss from './templates/widget/Spinner/css'
-import Spinner from './templates/widget/Spinner'
-
 import Terser from 'terser'
 
 // API
@@ -107,7 +105,8 @@ class Builder {
       animateAnim(),
       css(),
       label(),
-      perf(this.exportPerformanceBlock)
+      perf(this.exportPerformanceBlock),
+      spinner()
     ]
   }
 
@@ -203,7 +202,6 @@ class Builder {
     return beautify.css(`
       ${CSS}
       ${getEditorCss()}
-      ${SpinnerCss()}
     `)
   }
 
@@ -255,8 +253,6 @@ class Builder {
 
       append(this.head())
 
-      append(SpinnerHtml())
-
       // append editor created html and css
       append(`<div id='spinner-blur'>`)
       append(getEditorHtml())
@@ -305,9 +301,6 @@ class Builder {
     // create animate runtime definitions in animates
     append('const animates = {}')
     appendAnimates(append, tpl)
-
-    append(tpl(Spinner))
-    append(`const spinner = new Spinner()`)
 
     // create config object
     append('const config = {}')
