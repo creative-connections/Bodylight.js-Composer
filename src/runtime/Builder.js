@@ -5,6 +5,7 @@ import beautify from 'js-beautify'
 import range from './builders/widgets/Range/build'
 import button from './builders/widgets/Button/build'
 import toggle from './builders/widgets/Toggle/build'
+import animateText from './builders/widgets/AnimateText/build'
 
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
@@ -50,7 +51,6 @@ import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
-import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
 import buildChartConfig from './builders/widgets/Chart/config'
 import buildLabelConfig from './builders/widgets/Label/config'
 
@@ -75,7 +75,6 @@ import Widget from './templates/widget/Widget'
 
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
 import AnimateAnimContinuous from './templates/widget/AnimateAnimContinuous'
-import AnimateText from './templates/widget/AnimateText'
 import Label from './templates/widget/Label'
 
 import PlotlyBase from './templates/widget/Chart/PlotlyBase'
@@ -85,7 +84,6 @@ import initCharts from './templates/widget/Chart/init'
 
 import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled/init'
 import initAnimateAnimsContinuous from './templates/widget/AnimateAnimContinuous/init'
-import initAnimateTexts from './templates/widget/AnimateText/init'
 import initAnimatePlays from './templates/widget/AnimatePlay/init'
 import initLabels from './templates/widget/Label/init'
 
@@ -118,6 +116,7 @@ class Builder {
       range(),
       button(),
       toggle(),
+      animateText()
     ]
   }
 
@@ -332,7 +331,6 @@ class Builder {
 
     append('config.widgets = {}')
     append(`config.widgets.animateAnims = ${tpl(buildAnimateAnimConfig())}`)
-    append(`config.widgets.animateTexts = ${tpl(buildAnimateTextConfig())}`)
     append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
     append(`config.widgets.labels = ${tpl(buildLabelConfig())}`)
 
@@ -364,8 +362,6 @@ class Builder {
     append(tpl(AnimateAnimContinuous))
     append(tpl(initAnimateAnimsContinuous))
 
-    append(tpl(AnimateText))
-    append(tpl(initAnimateTexts))
 
     append(tpl(initAnimatePlays))
 
