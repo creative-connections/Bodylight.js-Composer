@@ -1,7 +1,5 @@
-export default function css (output = true) {
-  if (!output) {
-    return ''
-  }
+export default function css (enabled) {
+  if (!enabled) { return '' }
 
   return `
     #performance {

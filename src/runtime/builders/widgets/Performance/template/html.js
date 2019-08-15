@@ -1,7 +1,5 @@
-export default function html (output = true) {
-  if (!output) {
-    return ''
-  }
+export default function html (enabled) {
+  if (!enabled) { return '' }
   return `
     <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
     <div id="performance">

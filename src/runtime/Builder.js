@@ -8,6 +8,7 @@ import toggle from './builders/widgets/Toggle/build'
 import animateText from './builders/widgets/AnimateText/build'
 import css from './builders/widgets/Css/build'
 import label from './builders/widgets/Label/build'
+import perf from './builders/widgets/Performance/build'
 
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
@@ -86,12 +87,6 @@ import initAnimatePlays from './templates/widget/AnimatePlay/init'
 
 import animateFps from './builders/application/animateFps'
 
-import getPerformanceCss from './templates/widget/Performance/css'
-import getPerformanceHtml from './templates/widget/Performance/html'
-import PerformanceOn from './templates/widget/Performance/PerformanceOn'
-import PerformanceOff from './templates/widget/Performance/PerformanceOff'
-import PerformanceWindow from './templates/widget/Performance/PerformanceWindow'
-
 import SpinnerHtml from './templates/widget/Spinner/html'
 import SpinnerCss from './templates/widget/Spinner/css'
 import Spinner from './templates/widget/Spinner'
@@ -105,7 +100,6 @@ class Builder {
   constructor () {
     this.clearSrc()
 
-    this.widgets = this.buildWidgets()
   }
 
   buildWidgets () {
@@ -115,7 +109,8 @@ class Builder {
       toggle(),
       animateText(),
       css(),
-      label()
+      label(),
+      perf(this.exportPerformanceBlock)
     ]
   }
 
@@ -211,7 +206,6 @@ class Builder {
     return beautify.css(`
       ${CSS}
       ${getEditorCss()}
-      ${getPerformanceCss(this.exportPerformanceBlock)}
       ${SpinnerCss()}
     `)
   }
@@ -257,6 +251,8 @@ class Builder {
   build() {
     return new Promise((resolve, reject) => {
 
+      this.widgets = this.buildWidgets()
+
       const append = this.append.bind(this)
       this.clearSrc()
 
@@ -285,8 +281,6 @@ class Builder {
         append(js)
         append('</script>')
 
-        append(getPerformanceHtml(this.exportPerformanceBlock))
-
         append(this.tail())
 
         resolve(this.src)
@@ -314,15 +308,6 @@ class Builder {
     // create animate runtime definitions in animates
     append('const animates = {}')
     appendAnimates(append, tpl)
-
-    if (this.exportPerformanceBlock) {
-      append(tpl(PerformanceOn))
-      append(tpl(PerformanceWindow))
-      append(`const performanceWindow = new PerformanceWindow()`)
-    } else {
-      append(tpl(PerformanceOff))
-    }
-    append(`const perf = new Performance()`)
 
     append(tpl(Spinner))
     append(`const spinner = new Spinner()`)
