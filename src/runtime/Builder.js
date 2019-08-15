@@ -53,14 +53,14 @@ import buildToggleConfig from './builders/widgets/Toggle/config'
 import buildChartConfig from './builders/widgets/Chart/config'
 import buildLabelConfig from './builders/widgets/Label/config'
 
-import appendModels from './builders/widgets/models/models'
-import buildModelConfig from './builders/widgets/models/config'
+import appendModels from './builders/widgets/Model/models'
+import buildModelConfig from './builders/widgets/Model/config'
 
 import buildActionConfig from './builders/widgets/Action/config'
 
 import buildCustomCss from './builders/widgets/Css/config'
 
-import appendAnimates from './builders/widgets/animates/animates'
+import appendAnimates from './builders/widgets/Animate/animates'
 
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
