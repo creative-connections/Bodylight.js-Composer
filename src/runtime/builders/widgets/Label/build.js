@@ -10,7 +10,8 @@ export default () => {
     ${generateTemplate(Label)}
     ${generateTemplate(init)}
   `
+  const html = ''
   const css = ''
 
-  return { script, css }
+  return { script, html, css }
 }

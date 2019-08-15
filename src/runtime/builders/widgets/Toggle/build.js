@@ -10,7 +10,8 @@ export default () => {
     ${generateTemplate(Toggle)}
     ${generateTemplate(init)}
   `
+  const html = ''
   const css = ''
 
-  return { script, css }
+  return { script, html, css }
 }

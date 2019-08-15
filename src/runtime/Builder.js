@@ -268,8 +268,10 @@ class Builder {
       append(`<div id='spinner-blur'>`)
       append(getEditorHtml())
       append(`</div>`)
+
       append(`<style>${this.getCss()}</style>`)
 
+      this.widgets.forEach(({ html }) => append(html))
 
       this.getDependencies().then(dependencies => {
         append(dependencies)
