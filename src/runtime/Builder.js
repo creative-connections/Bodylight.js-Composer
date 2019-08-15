@@ -6,6 +6,7 @@ import range from './builders/widgets/Range/build'
 import button from './builders/widgets/Button/build'
 import toggle from './builders/widgets/Toggle/build'
 import animateText from './builders/widgets/AnimateText/build'
+import css from './builders/widgets/Css/build'
 
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
@@ -58,8 +59,6 @@ import appendModels from './builders/widgets/Model/models'
 import buildModelConfig from './builders/widgets/Model/config'
 
 import buildActionConfig from './builders/widgets/Action/config'
-
-import buildCustomCss from './builders/widgets/Css/config'
 
 import appendAnimates from './builders/widgets/Animate/animates'
 
@@ -116,7 +115,8 @@ class Builder {
       range(),
       button(),
       toggle(),
-      animateText()
+      animateText(),
+      css()
     ]
   }
 
@@ -206,9 +206,12 @@ class Builder {
   }
 
   getCss() {
+    let CSS = ''
+    this.widgets.forEach(({ css }) => CSS = CSS + css)
+
     return beautify.css(`
+      ${CSS}
       ${getEditorCss()}
-      ${buildCustomCss()}
       ${getPerformanceCss(this.exportPerformanceBlock)}
       ${SpinnerCss()}
     `)
