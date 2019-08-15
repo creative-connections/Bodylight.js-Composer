@@ -2,6 +2,8 @@ import toAST from 'to-ast'
 import escodegen from 'escodegen'
 import beautify from 'js-beautify'
 
+import range from './builders/widgets/Range/build'
+
 import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
 import createAnimateRuntime from './templates/createAnimateRuntime'
@@ -47,7 +49,6 @@ import ProviderType from '@enum/ProviderType'
 
 import buildAnimateAnimConfig from './builders/widgets/AnimateAnim/config'
 import buildAnimateTextConfig from './builders/widgets/AnimateText/config'
-import buildRangeConfig from './builders/widgets/Range/config'
 import buildButtonConfig from './builders/widgets/Button/config'
 import buildToggleConfig from './builders/widgets/Toggle/config'
 import buildChartConfig from './builders/widgets/Chart/config'
@@ -75,7 +76,6 @@ import Widget from './templates/widget/Widget'
 import AnimateAnimControlled from './templates/widget/AnimateAnimControlled'
 import AnimateAnimContinuous from './templates/widget/AnimateAnimContinuous'
 import AnimateText from './templates/widget/AnimateText'
-import Range from './templates/widget/Range'
 import Label from './templates/widget/Label'
 
 import PlotlyBase from './templates/widget/Chart/PlotlyBase'
@@ -89,7 +89,6 @@ import initAnimateAnimsControlled from './templates/widget/AnimateAnimControlled
 import initAnimateAnimsContinuous from './templates/widget/AnimateAnimContinuous/init'
 import initAnimateTexts from './templates/widget/AnimateText/init'
 import initAnimatePlays from './templates/widget/AnimatePlay/init'
-import initRanges from './templates/widget/Range/init'
 import initButtons from './templates/widget/Button/init'
 import initToggles from './templates/widget/Toggle/init'
 import initLabels from './templates/widget/Label/init'
@@ -328,11 +327,11 @@ class Builder {
     append('config.widgets = {}')
     append(`config.widgets.animateAnims = ${tpl(buildAnimateAnimConfig())}`)
     append(`config.widgets.animateTexts = ${tpl(buildAnimateTextConfig())}`)
-    append(`config.widgets.ranges = ${tpl(buildRangeConfig())}`)
     append(`config.widgets.buttons = ${tpl(buildButtonConfig())}`)
     append(`config.widgets.toggles = ${tpl(buildToggleConfig())}`)
     append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
     append(`config.widgets.labels = ${tpl(buildLabelConfig())}`)
+
 
     /*
      * create model functions
@@ -353,6 +352,8 @@ class Builder {
     // append widget classes
     append(tpl(Widget))
 
+    append(range())
+
     append(tpl(AnimateAnimControlled))
     append(tpl(initAnimateAnimsControlled))
 
@@ -363,9 +364,6 @@ class Builder {
     append(tpl(initAnimateTexts))
 
     append(tpl(initAnimatePlays))
-
-    append(tpl(Range))
-    append(tpl(initRanges))
 
     append(tpl(Label))
     append(tpl(initLabels))
