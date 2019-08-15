@@ -36,6 +36,10 @@ export const getToggles = state => togglesSelectors.getAll(state.toggles)
 export const getCharts = state => chartsSelectors.getAll(state.charts)
 export const getLabels = state => labelsSelectors.getAll(state.labels)
 
+/*
+ * This returns the complete configuration object, as per the new strategy of unifying widget
+ * retucers and config reducers.
+ */
 export const getCsss = state => csssSelectors.getAll(state.csss)
 export const getCss = state => csssSelectors.get(state.csss)
 

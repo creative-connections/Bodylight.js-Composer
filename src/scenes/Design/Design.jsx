@@ -6,7 +6,6 @@ import grapesjs from 'grapesjs'
 
 import gjsPresetWebsite from 'grapesjs-preset-webpage'
 import gjsBlocksBasic from 'grapesjs-blocks-basic'
-import gjsBlocksFlexbox from 'grapesjs-blocks-flexbox'
 import gjsReduxStorage from './storage/redux'
 
 import gjsBlocksFlexblocks from './blocks/Flexblocks/'
@@ -179,11 +178,14 @@ class Design extends Component {
     cssBlock(editor)
 
     editor.render()
-    editor.Panels.getButton('views', 'open-blocks').set('active', true)
 
     observeStore(state => state.widgets.app.selected, () => {
       editor.Panels.getButton('views', 'open-connect').set('active', true)
     }, false, 'editor')
+
+    this.unsubscribeSidebar = observeStore(state => state.sidebar, () => {
+      editor.Panels.getButton('views', 'open-connect').set('active', true)
+    }, true, 'editor')
 
     editor.on('component:clone', model => {
       model.cloned = true
@@ -199,6 +201,8 @@ class Design extends Component {
         editor.Panels.getButton('views', 'open-sm').set('active', true)
       }
     })
+
+    editor.Panels.getButton('views', 'open-blocks').set('active', true)
 
     this.editor = editor
   }

@@ -24,11 +24,14 @@ import {
 } from '../../commons/actions'
 
 import {
-  addWidget,
   renameWidget,
-  removeWidget,
-  updateWidget
 } from '../../commons/widget'
+
+import {
+  addWidget,
+  removeWidget,
+  updateWidgetConfig
+} from '../../../widgets/commons/config'
 
 import defaultConfig from './config/default'
 
@@ -61,7 +64,7 @@ const updateChart = (state, payload, type) => {
   if (payload.key === 'library') {
     return changeLibrary(state, payload)
   }
-  return updateWidget(state, payload, type)
+  return updateWidgetConfig(state, payload, type)
 }
 
 import plotlyAddOption from './config/plotly/line/addOption'

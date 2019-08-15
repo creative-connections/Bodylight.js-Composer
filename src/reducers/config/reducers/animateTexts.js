@@ -8,7 +8,10 @@ import { REHYDRATE } from 'redux-persist'
 import WidgetType from '@enum/WidgetType'
 import update from 'immutability-helper'
 
-import { updateWidget, removeWidget } from '../commons/widget'
+import {
+  removeWidget,
+  updateWidgetConfig
+} from '../../widgets/commons/config'
 
 const defaultConfig = {
   name: null,
@@ -23,7 +26,7 @@ const defaultConfig = {
     provider: null,
     array: false,
     indexes: null,
-    function: null,
+    'function': null,
     typeof: 'string'
   },
   visible: {
@@ -32,7 +35,7 @@ const defaultConfig = {
     provider: null,
     array: false,
     indexes: null,
-    function: null,
+    'function': null,
     typeof: 'boolean'
   }
 }
@@ -56,7 +59,7 @@ const updateAnimateText = (state, payload) => {
   if (state[payload.widget.id] === undefined) {
     state = addAnimateText(state, payload)
   }
-  state = updateWidget(state, payload, type)
+  state = updateWidgetConfig(state, payload, type)
   return state
 }
 

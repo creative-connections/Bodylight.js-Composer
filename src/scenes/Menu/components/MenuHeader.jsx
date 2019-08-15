@@ -2,46 +2,36 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Dropdown } from 'semantic-ui-react'
-import { newProject, openSidebarExport } from '@actions/actions'
-import { withRouter } from 'react-router-dom'
-
-class ItemRedirect extends Component {
-  constructor (props) {
-    super(props)
-    this.handleOnClick = this.handleOnClick.bind(this)
-  }
-
-  handleOnClick () {
-    this.props.onClick(this.props.to)
-  }
-
-  render () {
-    return <Dropdown.Item onClick={this.handleOnClick}>
-      {this.props.children}
-    </Dropdown.Item>
-  }
-}
+import {
+  newProject,
+  openSidebarExport,
+  openSidebarSaveProject,
+  openSidebarOpenProject
+} from '@actions/actions'
 
 class MenuHeader extends Component {
   constructor (props) {
     super(props)
     this.handleNew = this.handleNew.bind(this)
-    this.redirect = this.redirect.bind(this)
     this.handleExport = this.handleExport.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+    this.handleOpen = this.handleOpen.bind(this)
   }
 
   handleNew () {
     this.props.newProject()
-    this.redirect('')
   }
 
   handleExport () {
     this.props.openSidebarExport()
-    this.redirect('')
   }
 
-  redirect (to) {
-    this.props.history.push(`${process.env.PATH}/${to}`)
+  handleSave () {
+    this.props.openSidebarSaveProject()
+  }
+
+  handleOpen () {
+    this.props.openSidebarOpenProject()
   }
 
   render () {
@@ -49,18 +39,11 @@ class MenuHeader extends Component {
       <Fragment>
         <Dropdown item text='File'>
           <Dropdown.Menu style={{ minWidth: 15 + 'em' }}>
-
             <Dropdown.Item onClick={this.handleNew}>New</Dropdown.Item>
-
-            <ItemRedirect to="open" onClick={this.redirect}>Open</ItemRedirect>
-
+            <Dropdown.Item onClick={this.handleOpen}>Open</Dropdown.Item>
             <Dropdown.Divider />
-
-            <ItemRedirect to="save" onClick={this.redirect}>Save</ItemRedirect>
-            <ItemRedirect to="save/as" onClick={this.redirect}>Save as...</ItemRedirect>
-
+            <Dropdown.Item onClick={this.handleSave}>Save</Dropdown.Item>
             <Dropdown.Divider />
-
             <Dropdown.Item onClick={this.handleExport}>Export</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -69,11 +52,9 @@ class MenuHeader extends Component {
   }
 }
 
-export default connect(
-  state => ({
-  }),
-  dispatch => bindActionCreators({
-    newProject,
-    openSidebarExport
-  }, dispatch)
-)(withRouter(MenuHeader))
+export default connect(null, dispatch => bindActionCreators({
+  newProject,
+  openSidebarExport,
+  openSidebarSaveProject,
+  openSidebarOpenProject
+}, dispatch))(MenuHeader)

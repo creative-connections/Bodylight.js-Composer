@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Input, Divider, Checkbox, Header, Grid, Transition } from 'semantic-ui-react'
+import { Input, Checkbox } from 'semantic-ui-react'
 
 import { updateConfig, renameModel } from '@actions'
 import { configGetModel } from '@reducers'
@@ -10,22 +10,29 @@ import ModelMode from '@enum/ModelMode'
 import InputFloat from '@components/InputFloat'
 import GridRow from '@components/GridRow'
 
+import Upload from './components/Upload'
+import ButtonLink from '@components/ButtonLink'
+
 class ConfigModel extends Component {
   constructor(props) {
     super(props)
+    this.state = { upgrade: false }
+
     this.handleOnChange = this.handleOnChange.bind(this)
+    this.handleUpgrade = this.handleUpgrade.bind(this)
     this.renameModel = this.renameModel.bind(this)
+    this.handleUpgradeClick = this.handleUpgradeClick.bind(this)
   }
 
   handleOnChange(e, { name, value, checked }) {
     if (typeof checked !== 'undefined' && name !== 'mode') {
       value = checked
     }
-    this.props.updateConfig(this.props.model, name, value)
+    this.props.updateConfig(this.props.widget, name, value)
   }
 
   renameModel(e, { value }) {
-    this.props.renameModel(this.props.model, value)
+    this.props.renameModel(this.props.widget, value)
   }
 
   renderTps(config) {
@@ -121,15 +128,30 @@ class ConfigModel extends Component {
     </GridRow>
   }
 
+  renderUpload() {
+    return <Upload model={this.props.widget} onUpdate={this.handleUpgrade}/>
+  }
+
+  handleUpgrade() {
+    this.setState({ upgrade: false })
+  }
+
+  handleUpgradeClick() {
+    this.setState({ upgrade: true })
+  }
+
   render() {
+    if (this.props.widget.populated === false || this.state.upgrade) {
+      return this.renderUpload()
+    }
+
     const config = this.props.config
 
     return <Fragment>
-      <ModelInfo config={config}/>
       <GridRow label='Name'>
         <Input
           name='name'
-          value={this.props.model.name}
+          value={this.props.widget.name}
           onChange={this.renameModel}
         />
       </GridRow>
@@ -186,13 +208,19 @@ class ConfigModel extends Component {
           onClick={this.handleOnChange}
         />
       </GridRow>
+
+      <GridRow border label='Actions'>
+        <ButtonLink onClick={this.handleUpgradeClick}>Upgrade model</ButtonLink>
+      </GridRow>
+
+      <ModelInfo config={config}/>
     </Fragment>
   }
 }
 
 export default connect(
   (state, props) => ({
-    config: configGetModel(state, props.model.id)
+    config: configGetModel(state, props.widget.id)
   }),
   dispatch => bindActionCreators({
     updateConfig,

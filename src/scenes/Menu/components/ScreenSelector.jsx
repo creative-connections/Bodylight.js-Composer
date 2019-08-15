@@ -1,28 +1,29 @@
 import React, { Component, Fragment } from 'react'
-import { NavLink } from 'react-router-dom'
-
 import { Menu } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { showPreview, hidePreview, } from '@actions/actions'
+import { getPreview } from '@reducers'
 
 class ScreenSelector extends Component {
-  constructor (props) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick () {
-    this.forceUpdate()
-  }
-
   render () {
     return <Fragment>
-      <NavLink to={`${process.env.PATH}/`} exact activeClassName="active" onClick={this.handleClick}>
-        <Menu.Item className='link'>Design</Menu.Item>
-      </NavLink>
-      <NavLink to={`${process.env.PATH}/preview`} activeClassName="active" onClick={this.handleClick}>
-        <Menu.Item className='link'>Preview</Menu.Item>
-      </NavLink>
+      <Menu.Item className='link'
+        active={!this.props.preview}
+        onClick={this.props.hidePreview}>Design</Menu.Item>
+      <Menu.Item className='link'
+        active={this.props.preview}
+        onClick={this.props.showPreview}>Preview</Menu.Item>
     </Fragment>
   }
 }
 
-export default ScreenSelector
+export default connect(
+  state => ({
+    preview: getPreview(state),
+  }),
+  dispatch => bindActionCreators({
+    showPreview,
+    hidePreview
+  }, dispatch)
+)(ScreenSelector)

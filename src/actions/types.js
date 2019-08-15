@@ -25,12 +25,16 @@ export const FUNCTION_EDITOR_CONFIG_CHANGE = 'FUNCTION_EDITOR_CONFIG_CHANGE'
 
 export const ANIMATE_SET_FPS = 'app/Animate/SET_FPS'
 export const POPULATE_ANIMATE = 'widget/animate/POPULATE'
+export const POPULATE_MODEL = 'widget/model/POPULATE'
 
 export const UPDATE_EXPORT_OPTION = 'app/exportoption/UPDATE'
 
 export const LOAD_STORE = 'store/LOAD'
 
 export const SWITCH_SIDEBAR = 'app/sidebar/SWITCH'
+
+export const SHOW_PREVIEW = 'app/preview/SHOW'
+export const HIDE_PREVIEW = 'app/preview/HIDE'
 
 /**
  * Widget specific actions start here, consider spliting into separate files in the future.

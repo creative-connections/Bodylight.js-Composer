@@ -1,9 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = (env, argv) => {
@@ -24,9 +23,6 @@ module.exports = (env, argv) => {
             'style-loader',
             {
               loader: 'css-loader',
-              options: {
-                minimize: false
-              }
             },
             'sass-loader'
           ]
@@ -90,13 +86,9 @@ module.exports = (env, argv) => {
         { from: 'node_modules/plotly.js/dist/plotly.min.js', to: 'lib/' },
         { from: 'lib/createjs-2015.11.26.min.js', to: 'lib/' },
       ]),
-      new Dotenv({
-        path: './.env.prod',
-        safe: true,
-        systemvars: false,
-        silent: false
+      new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns: ['build/*.js']
       }),
-      new CleanWebpackPlugin(['build/*.js']),
       new webpack.DefinePlugin({
         '__BUILD_DATE__': JSON.stringify((new Date()).getTime()),
       })

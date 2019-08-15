@@ -9,11 +9,11 @@ import {
   removeWidget,
   getWidgetsForDropdown,
   getWidget,
-} from '../commons/widget.js'
+} from '../commons/widget'
 
 import {
-  updateWidget
-} from '@reducers/config/commons/widget'
+  updateWidgetConfig
+} from '../commons/config'
 
 import WidgetType from '@enum/WidgetType'
 import memoize from 'memoize-one'
@@ -27,7 +27,7 @@ export default function (state = {}, action) {
   case REMOVE_WIDGET:
     return removeWidget(state, action.payload, type)
   case UPDATE_WIDGET_CONFIG:
-    return updateWidget(state, action.payload, type)
+    return updateWidgetConfig(state, action.payload, type)
   }
   return state
 }

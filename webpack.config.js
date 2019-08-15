@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (env, argv) => {
@@ -22,9 +21,6 @@ module.exports = (env, argv) => {
             'style-loader',
             {
               loader: 'css-loader',
-              options: {
-                minimize: false
-              }
             },
             'sass-loader'
           ]
@@ -89,7 +85,6 @@ module.exports = (env, argv) => {
         { from: 'node_modules/plotly.js/dist/plotly.min.js', to: 'lib/' },
         { from: 'lib/createjs-2015.11.26.min.js', to: 'lib/' },
       ]),
-      new Dotenv(),
       new webpack.DefinePlugin({
         '__BUILD_DATE__': JSON.stringify((new Date()).getTime()),
       })

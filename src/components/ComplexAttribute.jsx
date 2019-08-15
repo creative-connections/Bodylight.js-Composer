@@ -104,7 +104,7 @@ class ComplexAttribute extends Component {
         value={this.props.attribute.function}
         onChange={this.props.onChange}
         typeof={this.props.attribute.typeof}
-        />
+      />
     </div>
   }
 

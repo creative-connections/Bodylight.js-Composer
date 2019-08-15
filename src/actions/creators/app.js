@@ -3,7 +3,9 @@ import {
   SELECT_WIDGET,
   RENAME_PROJECT,
   UPDATE_EXPORT_OPTION,
-  LOAD_STORE
+  LOAD_STORE,
+  SHOW_PREVIEW,
+  HIDE_PREVIEW
 } from '@actions/types'
 
 export const selectWidget = id => ({
@@ -29,4 +31,14 @@ export const updateExportOption = (name, value) => ({
 export const loadStore = state => ({
   type: LOAD_STORE,
   payload: state
+})
+
+export const showPreview = () => ({
+  type: SHOW_PREVIEW,
+  payload: null
+})
+
+export const hidePreview = () => ({
+  type: HIDE_PREVIEW,
+  payload: null
 })
