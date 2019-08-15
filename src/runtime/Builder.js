@@ -5,10 +5,11 @@ import beautify from 'js-beautify'
 import range from './builders/widgets/Range/build'
 import button from './builders/widgets/Button/build'
 import toggle from './builders/widgets/Toggle/build'
-import animateText from './builders/widgets/AnimateText/build'
 import css from './builders/widgets/Css/build'
 import label from './builders/widgets/Label/build'
 import animateAnim from './builders/widgets/AnimateAnim/build'
+import animatePlay from './builders/widgets/AnimatePlay/build'
+import animateText from './builders/widgets/AnimateText/build'
 
 import perf from './builders/widgets/Performance/build'
 import spinner from './builders/widgets/Spinner/build'
@@ -81,8 +82,6 @@ import PlotlyChart from './templates/widget/Chart/PlotlyChart'
 import Gamblegram from './templates/widget/Chart/Gamblegram'
 import initCharts from './templates/widget/Chart/init'
 
-import initAnimatePlays from './templates/widget/AnimatePlay/init'
-
 import animateFps from './builders/application/animateFps'
 
 import Terser from 'terser'
@@ -101,8 +100,9 @@ class Builder {
       range(),
       button(),
       toggle(),
-      animateText(),
       animateAnim(),
+      animatePlay(),
+      animateText(),
       css(),
       label(),
       perf(this.exportPerformanceBlock),
@@ -332,11 +332,6 @@ class Builder {
     append(tpl(Widget))
 
     this.widgets.forEach(({ script }) => append(script))
-
-
-
-    append(tpl(initAnimatePlays))
-
 
     append(tpl(PlotlyBase))
     append(tpl(PlotlyChart))
