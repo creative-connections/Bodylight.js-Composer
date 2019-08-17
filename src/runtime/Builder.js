@@ -165,9 +165,7 @@ class Builder {
 
   build() {
     return new Promise((resolve, reject) => {
-
       this.imports = this.buildImports()
-
       const append = this.append.bind(this)
       this.clearSrc()
 
@@ -177,11 +175,9 @@ class Builder {
       append(`<div id='spinner-blur'>`)
       append(getEditorHtml())
       append(`</div>`)
-
       append(`<style>${this.getCss()}</style>`)
 
       this.imports.forEach(({ html }) => append(html))
-
       this.getDependencies().then(dependencies => {
         append(dependencies)
 
@@ -193,9 +189,7 @@ class Builder {
         append('<script>')
         append(js)
         append('</script>')
-
         append(this.tail())
-
         resolve(this.src)
       })
     })
@@ -203,22 +197,15 @@ class Builder {
 
   buildJS() {
     let js = ''
-
     const append = code => {
       js = js + '\n' + code
     }
     const tpl = this.tpl.bind(this)
 
-    // wrap our context in a init function so that we don't namespace collide
     append('const bodylightJS = () => {')
 
     append('const widgets = []')
-
-
-    // create config object
     append('const config = { widgets: {} }')
-
-    // append enums for used types
     append(`const WidgetType = ${tpl(WidgetType)}`)
     append(`const ProviderType = ${tpl(ProviderType)}`)
 
@@ -227,7 +214,6 @@ class Builder {
     append('}')
 
     append(`document.addEventListener('DOMContentLoaded', bodylightJS())`)
-
     return js
   }
 }
