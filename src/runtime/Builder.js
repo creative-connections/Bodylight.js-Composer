@@ -14,6 +14,7 @@ import animatePlay from './builders/widgets/AnimatePlay/build'
 import animateText from './builders/widgets/AnimateText/build'
 import chart from './builders/widgets/Chart/build'
 import model from './builders/widgets/Model/build'
+import widget from './builders/widgets/Widget/build'
 
 import perf from './builders/widgets/Performance/build'
 import spinner from './builders/widgets/Spinner/build'
@@ -68,8 +69,6 @@ import initWidgets from './templates/initWidgets'
 import initValueProviders from './templates/initValueProviders'
 import resolveValueProviders from './templates/resolveValueProviders'
 
-import Widget from './templates/widget/Widget'
-
 import animateFps from './builders/application/animateFps'
 
 import Terser from 'terser'
@@ -85,6 +84,7 @@ class Builder {
 
   buildWidgets () {
     return [
+      widget(),
       action(),
       animate(),
       animateAnim(),
@@ -305,9 +305,6 @@ class Builder {
 
     // append class AnimateRuntime
     append(tpl(AnimateRuntime))
-
-    // append widget classes
-    append(tpl(Widget))
 
     this.widgets.forEach(({ script }) => append(script))
 
