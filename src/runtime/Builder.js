@@ -1,6 +1,7 @@
 import toAST from 'to-ast'
 import escodegen from 'escodegen'
 import beautify from 'js-beautify'
+import Terser from 'terser'
 
 import animate from './builders/widgets/Animate/build'
 import action from './builders/widgets/Action/build'
@@ -21,6 +22,7 @@ import widget from './builders/widgets/Widget/build'
 import api from './builders/api/build'
 
 import animateFps from './builders/application/animateFps/build'
+import initAnimates from './builders/application/initAnimates/build'
 
 
 import init from './templates/init'
@@ -31,12 +33,10 @@ import ProviderType from '@enum/ProviderType'
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
 
-import initAnimates from './templates/initAnimates'
 import initWidgets from './templates/initWidgets'
 import initValueProviders from './templates/initValueProviders'
 import resolveValueProviders from './templates/resolveValueProviders'
 
-import Terser from 'terser'
 
 class Builder {
   constructor () {
@@ -63,7 +63,8 @@ class Builder {
 
       api(),
 
-      animateFps()
+      animateFps(),
+      initAnimates()
     ]
   }
 
@@ -227,7 +228,6 @@ class Builder {
 
     append(tpl(initValueProviders))
     append(tpl(initWidgets))
-    append(tpl(initAnimates))
     append(tpl(resolveValueProviders))
 
     append(tpl(init))
