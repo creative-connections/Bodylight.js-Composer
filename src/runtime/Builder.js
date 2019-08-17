@@ -61,8 +61,6 @@ import oneshotUpdateValueListeners from './templates/model/oneshot/updateValueLi
 import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
 
-import appendModels from './builders/widgets/Model/models'
-
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
 
@@ -289,9 +287,6 @@ class Builder {
 
     append('const widgets = []')
 
-    // create model runtime definitions in models
-    append('const models = {}')
-    appendModels(append, tpl)
 
     // create config object
     append('const config = { widgets: {} }')
