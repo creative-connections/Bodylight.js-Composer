@@ -16,6 +16,8 @@ import chart from './builders/widgets/Chart/build'
 import model from './builders/widgets/Model/build'
 import widget from './builders/widgets/Widget/build'
 
+import api from './builders/api/build'
+
 import perf from './builders/widgets/Performance/build'
 import spinner from './builders/widgets/Spinner/build'
 
@@ -36,8 +38,6 @@ import animateFps from './builders/application/animateFps'
 
 import Terser from 'terser'
 
-// API
-import appendAPI from './templates/api'
 
 class Builder {
   constructor () {
@@ -61,6 +61,7 @@ class Builder {
       spinner(),
       toggle(),
       model(),
+      api()
     ]
   }
 
@@ -229,9 +230,6 @@ class Builder {
     append(tpl(resolveValueProviders))
 
     append(tpl(init))
-
-    // API
-    appendAPI(append, tpl)
 
     // initialize everything
     append('init()')

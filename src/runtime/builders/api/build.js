@@ -1,4 +1,5 @@
 /* global models, widgets */
+import generateTemplate from '@runtime/builders/generateTemplate'
 
 function getModelByID(id) {
   if (models[id]) { return models[id] }
@@ -45,13 +46,20 @@ function getModelByName(name) {
   return found
 }
 
-export default function api(append, tpl) {
-  append(tpl(getModelByID))
-  append(tpl(getModelByName))
-  append(tpl(getAnimateAnimByID))
-  append(tpl(getAnimateTextByID))
-  append(tpl(getButtonByID))
-  append(tpl(getRangeByID))
-  append(tpl(getToggleByID))
-  append(tpl(getChartByID))
+
+export default () => {
+  const script = `
+  ${generateTemplate(getModelByID)}
+  ${generateTemplate(getModelByName)}
+  ${generateTemplate(getAnimateAnimByID)}
+  ${generateTemplate(getAnimateTextByID)}
+  ${generateTemplate(getButtonByID)}
+  ${generateTemplate(getRangeByID)}
+  ${generateTemplate(getToggleByID)}
+  ${generateTemplate(getChartByID)}
+  `
+  const html = ''
+  const css = ''
+
+  return { script, html, css }
 }
