@@ -3,6 +3,7 @@ import escodegen from 'escodegen'
 import beautify from 'js-beautify'
 
 import animate from './builders/widgets/Animate/build'
+import action from './builders/widgets/Action/build'
 import range from './builders/widgets/Range/build'
 import button from './builders/widgets/Button/build'
 import toggle from './builders/widgets/Toggle/build'
@@ -62,8 +63,6 @@ import ProviderType from '@enum/ProviderType'
 import appendModels from './builders/widgets/Model/models'
 import buildModelConfig from './builders/widgets/Model/config'
 
-import buildActionConfig from './builders/widgets/Action/config'
-
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
 
@@ -89,6 +88,7 @@ class Builder {
 
   buildWidgets () {
     return [
+      action(),
       animate(),
       animateAnim(),
       animatePlay(),
@@ -292,12 +292,9 @@ class Builder {
     append('const models = {}')
     appendModels(append, tpl)
 
-
     // create config object
     append('const config = {}')
     append(`config.models = ${tpl(buildModelConfig())}`)
-
-    append(`config.actions = ${tpl(buildActionConfig())}`)
 
     append('config.widgets = {}')
 
