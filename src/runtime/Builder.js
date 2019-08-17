@@ -10,6 +10,7 @@ import label from './builders/widgets/Label/build'
 import animateAnim from './builders/widgets/AnimateAnim/build'
 import animatePlay from './builders/widgets/AnimatePlay/build'
 import animateText from './builders/widgets/AnimateText/build'
+import chart from './builders/widgets/Chart/build'
 
 import perf from './builders/widgets/Performance/build'
 import spinner from './builders/widgets/Spinner/build'
@@ -57,8 +58,6 @@ import oneshotUpdateValueListeners from './templates/model/oneshot/updateValueLi
 import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
 
-import buildChartConfig from './builders/widgets/Chart/config'
-
 import appendModels from './builders/widgets/Model/models'
 import buildModelConfig from './builders/widgets/Model/config'
 
@@ -76,12 +75,6 @@ import resolveValueProviders from './templates/resolveValueProviders'
 
 import Widget from './templates/widget/Widget'
 
-
-import PlotlyBase from './templates/widget/Chart/PlotlyBase'
-import PlotlyChart from './templates/widget/Chart/PlotlyChart'
-import Gamblegram from './templates/widget/Chart/Gamblegram'
-import initCharts from './templates/widget/Chart/init'
-
 import animateFps from './builders/application/animateFps'
 
 import Terser from 'terser'
@@ -97,16 +90,17 @@ class Builder {
 
   buildWidgets () {
     return [
-      range(),
-      button(),
-      toggle(),
       animateAnim(),
       animatePlay(),
       animateText(),
+      button(),
+      chart(),
       css(),
       label(),
       perf(this.exportPerformanceBlock),
-      spinner()
+      range(),
+      spinner(),
+      toggle()
     ]
   }
 
@@ -309,8 +303,6 @@ class Builder {
     append(`config.actions = ${tpl(buildActionConfig())}`)
 
     append('config.widgets = {}')
-    append(`config.widgets.charts = ${tpl(buildChartConfig())}`)
-
 
     /*
      * create model functions
@@ -332,11 +324,6 @@ class Builder {
     append(tpl(Widget))
 
     this.widgets.forEach(({ script }) => append(script))
-
-    append(tpl(PlotlyBase))
-    append(tpl(PlotlyChart))
-    append(tpl(Gamblegram))
-    append(tpl(initCharts))
 
     append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))
