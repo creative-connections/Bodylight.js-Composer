@@ -13,6 +13,7 @@ import animateAnim from './builders/widgets/AnimateAnim/build'
 import animatePlay from './builders/widgets/AnimatePlay/build'
 import animateText from './builders/widgets/AnimateText/build'
 import chart from './builders/widgets/Chart/build'
+import model from './builders/widgets/Model/build'
 
 import perf from './builders/widgets/Performance/build'
 import spinner from './builders/widgets/Spinner/build'
@@ -61,7 +62,6 @@ import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
 
 import appendModels from './builders/widgets/Model/models'
-import buildModelConfig from './builders/widgets/Model/config'
 
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
@@ -100,7 +100,8 @@ class Builder {
       perf(this.exportPerformanceBlock),
       range(),
       spinner(),
-      toggle()
+      toggle(),
+      model(),
     ]
   }
 
@@ -293,10 +294,7 @@ class Builder {
     appendModels(append, tpl)
 
     // create config object
-    append('const config = {}')
-    append(`config.models = ${tpl(buildModelConfig())}`)
-
-    append('config.widgets = {}')
+    append('const config = { widgets: {} }')
 
     /*
      * create model functions
