@@ -1,5 +1,5 @@
 import configureStore from '@src/configureStore'
-import AnimateRuntime from '@runtime/AnimateRuntime'
+import AnimateRuntime from '@runtime/builders/widgets/Animate/AnimateRuntime'
 import generateTemplate from '../generateTemplate'
 import { configGetAllAnimates } from '@reducers'
 

@@ -19,11 +19,7 @@ import widget from './builders/widgets/Widget/build'
 import perf from './builders/widgets/Performance/build'
 import spinner from './builders/widgets/Spinner/build'
 
-import AnimateRuntime from './AnimateRuntime'
-import createAnimateRuntime from './templates/createAnimateRuntime'
-
 import init from './templates/init'
-
 
 import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
@@ -224,12 +220,8 @@ class Builder {
 
     append(`const animateFps = ${animateFps()}`)
 
-    // append class AnimateRuntime
-    append(tpl(AnimateRuntime))
 
     this.widgets.forEach(({ script }) => append(script))
-
-    append(tpl(createAnimateRuntime))
 
     append(tpl(initValueProviders))
     append(tpl(initWidgets))
