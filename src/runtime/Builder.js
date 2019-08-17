@@ -23,7 +23,7 @@ import api from './builders/api/build'
 
 import animateFps from './builders/application/animateFps/build'
 import initAnimates from './builders/application/initAnimates/build'
-
+import resolveValueProviders from './builders/application/resolveValueProviders/build'
 
 import init from './templates/init'
 
@@ -35,7 +35,6 @@ import getEditorCss from './builders/editor/css'
 
 import initWidgets from './templates/initWidgets'
 import initValueProviders from './templates/initValueProviders'
-import resolveValueProviders from './templates/resolveValueProviders'
 
 
 class Builder {
@@ -64,7 +63,8 @@ class Builder {
       api(),
 
       animateFps(),
-      initAnimates()
+      initAnimates(),
+      resolveValueProviders(),
     ]
   }
 
