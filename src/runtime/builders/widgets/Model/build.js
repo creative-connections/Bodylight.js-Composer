@@ -2,6 +2,7 @@ import generateTemplate from '../generateTemplate'
 
 import configuration from './configuration'
 import models from './models'
+import createModelRuntime from './createModelRuntime'
 
 export default () => {
   const script = `
@@ -9,6 +10,8 @@ export default () => {
 
     const models = {}
     ${models()}
+
+    ${generateTemplate(createModelRuntime)}
   `
   const html = ''
   const css = ''

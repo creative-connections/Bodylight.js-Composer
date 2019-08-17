@@ -18,7 +18,6 @@ import model from './builders/widgets/Model/build'
 import perf from './builders/widgets/Performance/build'
 import spinner from './builders/widgets/Spinner/build'
 
-import createModelRuntime from './templates/createModelRuntime'
 import AnimateRuntime from './AnimateRuntime'
 import createAnimateRuntime from './templates/createAnimateRuntime'
 
@@ -312,7 +311,6 @@ class Builder {
 
     this.widgets.forEach(({ script }) => append(script))
 
-    append(tpl(createModelRuntime))
     append(tpl(createAnimateRuntime))
 
     append(tpl(initValueProviders))
