@@ -1,6 +1,6 @@
 import configureStore from '@src/configureStore'
 import AnimateRuntime from '@runtime/builders/widgets/Animate/AnimateRuntime'
-import generateTemplate from '../generateTemplate'
+import generateTemplate from '@runtime/builders/generateTemplate'
 import { configGetAllAnimates } from '@reducers'
 
 export default () => {

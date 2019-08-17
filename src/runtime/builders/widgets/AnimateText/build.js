@@ -1,4 +1,4 @@
-import generateTemplate from '../generateTemplate'
+import generateTemplate from '@runtime/builders/generateTemplate'
 
 import configuration from './configuration'
 import AnimateText from './template/AnimateText'

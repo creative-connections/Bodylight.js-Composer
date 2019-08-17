@@ -1,4 +1,4 @@
-import generateTemplate from '../generateTemplate'
+import generateTemplate from '@runtime/builders/generateTemplate'
 
 import CSS from './template/css'
 import HTML from './template/html'
