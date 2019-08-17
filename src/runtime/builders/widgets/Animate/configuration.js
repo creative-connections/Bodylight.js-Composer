@@ -16,7 +16,5 @@ export default () => {
     };`
   })
 
-  console.log(out)
-
   return out
 }
