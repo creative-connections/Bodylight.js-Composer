@@ -25,6 +25,7 @@ import animateFps from './builders/application/animateFps/build'
 import initAnimates from './builders/application/initAnimates/build'
 import resolveValueProviders from './builders/application/resolveValueProviders/build'
 import init from './builders/application/init/build'
+import initWidgets from './builders/application/initWidgets/build'
 
 import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
@@ -32,7 +33,6 @@ import ProviderType from '@enum/ProviderType'
 import getEditorHtml from './builders/editor/html'
 import getEditorCss from './builders/editor/css'
 
-import initWidgets from './templates/initWidgets'
 import initValueProviders from './templates/initValueProviders'
 
 
@@ -64,6 +64,7 @@ class Builder {
       animateFps(),
       initAnimates(),
       resolveValueProviders(),
+      initWidgets(),
       init(),
     ]
   }
@@ -225,7 +226,6 @@ class Builder {
     this.imports.forEach(({ script }) => append(script))
 
     append(tpl(initValueProviders))
-    append(tpl(initWidgets))
 
 
     append('}')
