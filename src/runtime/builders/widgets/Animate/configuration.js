@@ -1,17 +1,22 @@
 import configureStore from '@src/configureStore'
 import AnimateRuntime from '@runtime/AnimateRuntime'
-import {
-  configGetAllAnimates
-} from '@reducers'
+import generateTemplate from '../generateTemplate'
+import { configGetAllAnimates } from '@reducers'
 
-export default (append, tpl) => {
+export default () => {
   const animates = configGetAllAnimates(configureStore().store.getState())
+
+  let out = ''
 
   Object.entries(animates).forEach(([id, animate]) => {
     let source = AnimateRuntime.functionalizeSource(animate.js)
-    append(`animates['${id}'] = {
-      source: ${tpl(source)},
+    out = out + `animates['${id}'] = {
+      source: ${generateTemplate(source)},
       root: '${animate.originalName}'
-    }`)
+    };`
   })
+
+  console.log(out)
+
+  return out
 }
