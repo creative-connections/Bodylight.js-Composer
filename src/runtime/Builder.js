@@ -24,8 +24,7 @@ import api from './builders/api/build'
 import animateFps from './builders/application/animateFps/build'
 import initAnimates from './builders/application/initAnimates/build'
 import resolveValueProviders from './builders/application/resolveValueProviders/build'
-
-import init from './templates/init'
+import init from './builders/application/init/build'
 
 import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
@@ -65,6 +64,7 @@ class Builder {
       animateFps(),
       initAnimates(),
       resolveValueProviders(),
+      init(),
     ]
   }
 
@@ -222,18 +222,11 @@ class Builder {
     append(`const WidgetType = ${tpl(WidgetType)}`)
     append(`const ProviderType = ${tpl(ProviderType)}`)
 
-
-
     this.imports.forEach(({ script }) => append(script))
 
     append(tpl(initValueProviders))
     append(tpl(initWidgets))
-    append(tpl(resolveValueProviders))
 
-    append(tpl(init))
-
-    // initialize everything
-    append('init()')
 
     append('}')
 
