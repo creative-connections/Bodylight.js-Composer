@@ -24,39 +24,6 @@ import createAnimateRuntime from './templates/createAnimateRuntime'
 
 import init from './templates/init'
 
-import cwrapFunctions from './templates/model/cwrapFunctions'
-import consoleLogger from './templates/model/consoleLogger'
-import gettersAndSetters from './templates/model/gettersAndSetters'
-import modelInit from './templates/model/init'
-import modelTick from './templates/model/continuous/modelTick'
-import stageTick from './templates/model/continuous/stageTick'
-import OutputValues from './templates/model/OutputValues'
-import registerValueListener from './templates/model/registerValueListener'
-import registerArrayListener from './templates/model/registerArrayListener'
-import registerInitialValueListener from './templates/model/registerInitialValueListener'
-import registerValueSetter from './templates/model/registerValueSetter'
-import disableListener from './templates/model/disableListener'
-import enableListener from './templates/model/enableListener'
-import updateInitialValueListeners from './templates/model/updateInitialValueListeners'
-import getReferenceFromName from './templates/model/getReferenceFromName'
-import setInitialValues from './templates/model/setInitialValues'
-import setInitialValueByName from './templates/model/setInitialValueByName'
-import updateValueByName from './templates/model/updateValueByName'
-import getValueByName from './templates/model/getValueByName'
-import setSpeed from './templates/model/api/setSpeed'
-
-import instantiate from './templates/model/instantiate'
-import setup from './templates/model/setup'
-import reset from './templates/model/reset'
-
-import continuousPlay from './templates/model/continuous/play'
-import continuousPause from './templates/model/continuous/pause'
-import continuousSetValue from './templates/model/continuous/setValue'
-import continuousUpdateValueListeners from './templates/model/continuous/updateValueListeners'
-import oneshotPlay from './templates/model/oneshot/play'
-import oneshotPause from './templates/model/oneshot/pause'
-import oneshotSetValue from './templates/model/oneshot/setValue'
-import oneshotUpdateValueListeners from './templates/model/oneshot/updateValueListeners'
 
 import WidgetType from '@enum/WidgetType'
 import ProviderType from '@enum/ProviderType'
@@ -79,7 +46,6 @@ import appendAPI from './templates/api'
 class Builder {
   constructor () {
     this.clearSrc()
-
   }
 
   buildWidgets () {
@@ -125,44 +91,6 @@ class Builder {
   tpl(template) {
     const ast = toAST(template)
     return escodegen.generate(ast)
-  }
-
-  appendFunctions(append, tpl) {
-    append('functions.cwrapFunctions = ' + tpl(cwrapFunctions))
-    append('functions.consoleLogger = ' + tpl(consoleLogger))
-    append('functions.gettersAndSetters = ' + tpl(gettersAndSetters))
-    append('functions.init = ' + tpl(modelInit))
-    append('functions.instantiate = ' + tpl(instantiate))
-    append('functions.setup = ' + tpl(setup))
-    append('functions.reset = ' + tpl(reset))
-    append('functions.registerValueListener = ' + tpl(registerValueListener))
-    append('functions.registerArrayListener = ' + tpl(registerArrayListener))
-    append('functions.registerInitialValueListener = ' + tpl(registerInitialValueListener))
-    append('functions.disableListener = ' + tpl(disableListener))
-    append('functions.enableListener = ' + tpl(enableListener))
-    append('functions.updateInitialValueListeners = ' + tpl(updateInitialValueListeners))
-    append('functions.registerValueSetter = ' + tpl(registerValueSetter))
-    append('functions.getReferenceFromName = ' + tpl(getReferenceFromName))
-    append('functions.setInitialValues = ' + tpl(setInitialValues))
-    append('functions.setInitialValueByName = ' + tpl(setInitialValueByName))
-    append('functions.updateValueByName = ' + tpl(updateValueByName))
-    append('functions.getValueByName = ' + tpl(getValueByName))
-    append('functions.OutputValues = ' + tpl(OutputValues))
-    append('functions.setSpeed = ' + tpl(setSpeed))
-
-    append('functions.continuous = {}')
-    append('functions.continuous.play = ' + tpl(continuousPlay))
-    append('functions.continuous.pause = ' + tpl(continuousPause))
-    append('functions.continuous.setValue = ' + tpl(continuousSetValue))
-    append('functions.continuous.modelTick = ' + tpl(modelTick))
-    append('functions.continuous.stageTick = ' + tpl(stageTick))
-    append('functions.continuous.updateValueListeners = ' + tpl(continuousUpdateValueListeners))
-
-    append('functions.oneshot = {}')
-    append('functions.oneshot.play = ' + tpl(oneshotPlay))
-    append('functions.oneshot.pause = ' + tpl(oneshotPause))
-    append('functions.oneshot.setValue = ' + tpl(oneshotSetValue))
-    append('functions.oneshot.updateValueListeners = ' + tpl(oneshotUpdateValueListeners))
   }
 
   minify(js) {
@@ -289,13 +217,6 @@ class Builder {
 
     // create config object
     append('const config = { widgets: {} }')
-
-    /*
-     * create model functions
-     * TODO: refactor to config.models[model].functions with overrides
-     */
-    append('const functions = {}')
-    this.appendFunctions(append, tpl)
 
     // append enums for used types
     append(`const WidgetType = ${tpl(WidgetType)}`)
