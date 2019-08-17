@@ -13,13 +13,15 @@ import animateAnim from './builders/widgets/AnimateAnim/build'
 import animatePlay from './builders/widgets/AnimatePlay/build'
 import animateText from './builders/widgets/AnimateText/build'
 import chart from './builders/widgets/Chart/build'
+import perf from './builders/widgets/Performance/build'
+import spinner from './builders/widgets/Spinner/build'
 import model from './builders/widgets/Model/build'
 import widget from './builders/widgets/Widget/build'
 
 import api from './builders/api/build'
 
-import perf from './builders/widgets/Performance/build'
-import spinner from './builders/widgets/Spinner/build'
+import animateFps from './builders/application/animateFps/build'
+
 
 import init from './templates/init'
 
@@ -34,17 +36,14 @@ import initWidgets from './templates/initWidgets'
 import initValueProviders from './templates/initValueProviders'
 import resolveValueProviders from './templates/resolveValueProviders'
 
-import animateFps from './builders/application/animateFps'
-
 import Terser from 'terser'
-
 
 class Builder {
   constructor () {
     this.clearSrc()
   }
 
-  buildWidgets () {
+  buildImports () {
     return [
       widget(),
       action(),
@@ -61,7 +60,10 @@ class Builder {
       spinner(),
       toggle(),
       model(),
-      api()
+
+      api(),
+
+      animateFps()
     ]
   }
 
@@ -114,7 +116,7 @@ class Builder {
 
   getCss() {
     let CSS = ''
-    this.widgets.forEach(({ css }) => CSS = CSS + css)
+    this.imports.forEach(({ css }) => CSS = CSS + css)
 
     return beautify.css(`
       ${CSS}
@@ -163,7 +165,7 @@ class Builder {
   build() {
     return new Promise((resolve, reject) => {
 
-      this.widgets = this.buildWidgets()
+      this.imports = this.buildImports()
 
       const append = this.append.bind(this)
       this.clearSrc()
@@ -177,7 +179,7 @@ class Builder {
 
       append(`<style>${this.getCss()}</style>`)
 
-      this.widgets.forEach(({ html }) => append(html))
+      this.imports.forEach(({ html }) => append(html))
 
       this.getDependencies().then(dependencies => {
         append(dependencies)
@@ -219,10 +221,9 @@ class Builder {
     append(`const WidgetType = ${tpl(WidgetType)}`)
     append(`const ProviderType = ${tpl(ProviderType)}`)
 
-    append(`const animateFps = ${animateFps()}`)
 
 
-    this.widgets.forEach(({ script }) => append(script))
+    this.imports.forEach(({ script }) => append(script))
 
     append(tpl(initValueProviders))
     append(tpl(initWidgets))
