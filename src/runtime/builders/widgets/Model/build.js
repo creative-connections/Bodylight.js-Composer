@@ -38,51 +38,54 @@ import oneshotPause from './template/oneshot/pause'
 import oneshotSetValue from './template/oneshot/setValue'
 import oneshotUpdateValueListeners from './template/oneshot/updateValueListeners'
 
+const getFunctions = () => {
+  const functions = {}
+  functions.cwrapFunctions = cwrapFunctions
+  functions.consoleLogger = consoleLogger
+  functions.gettersAndSetters = gettersAndSetters
+  functions.init = modelInit
+  functions.instantiate = instantiate
+  functions.setup = setup
+  functions.reset = reset
+  functions.registerValueListener = registerValueListener
+  functions.registerArrayListener = registerArrayListener
+  functions.registerInitialValueListener = registerInitialValueListener
+  functions.disableListener = disableListener
+  functions.enableListener = enableListener
+  functions.updateInitialValueListeners = updateInitialValueListeners
+  functions.registerValueSetter = registerValueSetter
+  functions.getReferenceFromName = getReferenceFromName
+  functions.setInitialValues = setInitialValues
+  functions.setInitialValueByName = setInitialValueByName
+  functions.updateValueByName = updateValueByName
+  functions.getValueByName = getValueByName
+  functions.OutputValues = OutputValues
+  functions.setSpeed = setSpeed
+
+  functions.continuous = {}
+  functions.continuous.play = continuousPlay
+  functions.continuous.pause = continuousPause
+  functions.continuous.setValue = continuousSetValue
+  functions.continuous.modelTick = modelTick
+  functions.continuous.stageTick = stageTick
+  functions.continuous.updateValueListeners = continuousUpdateValueListeners
+
+  functions.oneshot = {}
+  functions.oneshot.play = oneshotPlay
+  functions.oneshot.pause = oneshotPause
+  functions.oneshot.setValue = oneshotSetValue
+  functions.oneshot.updateValueListeners = oneshotUpdateValueListeners
+  return functions
+}
+
 export default () => {
+
   const script = `
     config.models = ${generateTemplate(configuration())}
-
     const models = {}
     ${models()}
-
     ${generateTemplate(createModelRuntime)}
-
-    functions = {}
-    functions.cwrapFunctions = ${generateTemplate(cwrapFunctions)}
-    functions.consoleLogger = ${generateTemplate(consoleLogger)}
-    functions.gettersAndSetters = ${generateTemplate(gettersAndSetters)}
-    functions.init = ${generateTemplate(modelInit)}
-    functions.instantiate = ${generateTemplate(instantiate)}
-    functions.setup = ${generateTemplate(setup)}
-    functions.reset = ${generateTemplate(reset)}
-    functions.registerValueListener = ${generateTemplate(registerValueListener)}
-    functions.registerArrayListener = ${generateTemplate(registerArrayListener)}
-    functions.registerInitialValueListener = ${generateTemplate(registerInitialValueListener)}
-    functions.disableListener = ${generateTemplate(disableListener)}
-    functions.enableListener = ${generateTemplate(enableListener)}
-    functions.updateInitialValueListeners = ${generateTemplate(updateInitialValueListeners)}
-    functions.registerValueSetter = ${generateTemplate(registerValueSetter)}
-    functions.getReferenceFromName = ${generateTemplate(getReferenceFromName)}
-    functions.setInitialValues = ${generateTemplate(setInitialValues)}
-    functions.setInitialValueByName = ${generateTemplate(setInitialValueByName)}
-    functions.updateValueByName = ${generateTemplate(updateValueByName)}
-    functions.getValueByName = ${generateTemplate(getValueByName)}
-    functions.OutputValues = ${generateTemplate(OutputValues)}
-    functions.setSpeed = ${generateTemplate(setSpeed)}
-
-    functions.continuous = {}
-    functions.continuous.play = ${generateTemplate(continuousPlay)}
-    functions.continuous.pause = ${generateTemplate(continuousPause)}
-    functions.continuous.setValue = ${generateTemplate(continuousSetValue)}
-    functions.continuous.modelTick = ${generateTemplate(modelTick)}
-    functions.continuous.stageTick = ${generateTemplate(stageTick)}
-    functions.continuous.updateValueListeners = ${generateTemplate(continuousUpdateValueListeners)}
-
-    functions.oneshot = {}
-    functions.oneshot.play = ${generateTemplate(oneshotPlay)}
-    functions.oneshot.pause = ${generateTemplate(oneshotPause)}
-    functions.oneshot.setValue = ${generateTemplate(oneshotSetValue)}
-    functions.oneshot.updateValueListeners = ${generateTemplate(oneshotUpdateValueListeners)}
+    const functions = ${generateTemplate(getFunctions())}
   `
   const html = ''
   const css = ''
