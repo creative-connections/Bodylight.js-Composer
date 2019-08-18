@@ -1,5 +1,5 @@
 import configureStore, { observeStore } from '@src/configureStore'
-import AnimateRuntime from '@runtime/AnimateRuntime'
+import AnimateRuntime from '@runtime/builders/widgets/Animate/AnimateRuntime'
 import WidgetType from '@enum/WidgetType'
 import { configGetAnimate, getSelectedWidget, getAnimateWidgetId } from '@reducers'
 import { removeAnimate, selectWidget, addAnimate } from '@actions'

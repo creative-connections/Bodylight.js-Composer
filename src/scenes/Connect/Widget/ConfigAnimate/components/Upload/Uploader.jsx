@@ -9,7 +9,7 @@ import BusySignal from '@components/BusySignal'
 
 import { addAnimate } from '@actions'
 
-import Runtime from '@runtime/AnimateRuntime'
+import AnimateRuntime from '@runtime/builders/widgets/Animate/AnimateRuntime'
 import preprocess from './preprocess'
 import generateHash from '@helpers/generateHash'
 
@@ -33,10 +33,10 @@ class Uploader extends Component {
     reader.onloadend = () => {
       preprocess(reader.result).then(preprocessed => {
         const rootComponent = file.name.replace(/\.[^/.]+$/, '')
-        const runnable = Runtime.functionalizeSource(preprocessed)
+        const runnable = AnimateRuntime.functionalizeSource(preprocessed)
         const js = preprocessed
 
-        Runtime.getComponentNames(runnable, rootComponent).then(components => {
+        AnimateRuntime.getComponentNames(runnable, rootComponent).then(components => {
           generateHash(js).then(hash => {
             this.setState({ pending: false })
             this.props.onUpload(js, hash, rootComponent, components)

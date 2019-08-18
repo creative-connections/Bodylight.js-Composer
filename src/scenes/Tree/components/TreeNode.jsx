@@ -51,6 +51,9 @@ class TreeNode extends Component {
     if (this.props.type === WidgetType.CSS) {
       return 'code'
     }
+    if (this.props.type === WidgetType.JAVASCRIPT) {
+      return 'code'
+    }
   }
 
   onIconClick() {

@@ -6,18 +6,18 @@ import {
 import generateID from '@helpers/generateID'
 import WidgetType from '@enum/WidgetType'
 
-export const addCss = () => ({
+export const addJavascript = () => ({
   type: ADD_WIDGET,
   payload: {
     id: generateID(),
-    type: WidgetType.CSS
+    type: WidgetType.JAVASCRIPT
   }
 })
 
-export const renameCss = (css, name) => ({
+export const renameJavascript = (javascript, name) => ({
   type: RENAME_WIDGET,
   payload: {
-    widget: css,
+    widget: javascript,
     name
   }
 })

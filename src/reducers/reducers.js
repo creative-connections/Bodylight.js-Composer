@@ -54,6 +54,8 @@ export const getLabels = state => widgetSelectors.getLabels(state.widgets)
 
 export const getCsss = state => widgetSelectors.getCsss(state.widgets)
 export const getCss = state => widgetSelectors.getCss(state.widgets)
+export const getJavascripts = state => widgetSelectors.getJavascripts(state.widgets)
+export const getJavascript = state => widgetSelectors.getJavascript(state.widgets)
 
 export const getSelectedWidget = state => widgetSelectors.getSelectedWidget(state.widgets)
 export const getWidgetsForTree = state => widgetSelectors.getWidgetsForTree(state.widgets)

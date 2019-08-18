@@ -18,6 +18,7 @@ import ConfigAction from './Widget/ConfigAction'
 import ConfigChart from './Widget/ConfigChart'
 import ConfigLabel from './Widget/ConfigLabel'
 import ConfigCss from './Widget/ConfigCss'
+import ConfigJavascript from './Widget/ConfigJavascript'
 import Export from './Export'
 import Save from './Save'
 import Open from './Open'
@@ -48,6 +49,8 @@ class Connect extends Component {
         return <ConfigAction action={selectedWidget} />
       case WidgetType.CSS:
         return <ConfigCss widget={selectedWidget} />
+      case WidgetType.JAVASCRIPT:
+        return <ConfigJavascript widget={selectedWidget} />
       }
     }
     return null

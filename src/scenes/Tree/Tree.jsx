@@ -123,6 +123,14 @@ class Tree extends Component {
           filter={this.state.filter}
           collapsed={false}
           onClick={this.onClick}/>
+        <Items
+          name='Javascript'
+          items={this.props.widgets.javascripts}
+          type={WidgetType.JAVASCRIPT}
+          selected={this.props.selected}
+          filter={this.state.filter}
+          collapsed={false}
+          onClick={this.onClick}/>
       </Segment>
     </Fragment>
   }
