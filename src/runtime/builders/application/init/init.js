@@ -4,6 +4,7 @@
 /* global models */
 /* global animateFps */
 /* global spinner */
+/* global javascript */
 
 function init() {
   createjs.Ticker.framerate = animateFps
@@ -16,8 +17,12 @@ function init() {
       initWidgets()
     ]).then(() => {
       resolveValueProviders()
-      Object.entries(models).forEach(([id, model]) => model.init())
-      Object.entries(widgets).forEach(([id, widget]) => widget.updateComponent())
+      Object.entries(models).forEach(([, model]) => model.init())
+
+      javascript.onBeforeModelRun.forEach(fn => fn())
+
+      Object.entries(models).forEach(([, model]) => model.play())
+      Object.entries(widgets).forEach(([, widget]) => widget.updateComponent())
       spinner.hide()
     })
   })

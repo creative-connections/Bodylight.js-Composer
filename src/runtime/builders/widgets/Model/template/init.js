@@ -3,5 +3,4 @@ export default function init() {
 
   this.instantiate()
   this.setup()
-  this.play()
 }

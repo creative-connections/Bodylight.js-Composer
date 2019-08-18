@@ -18,6 +18,7 @@ import perf from './builders/widgets/Performance/build'
 import spinner from './builders/widgets/Spinner/build'
 import model from './builders/widgets/Model/build'
 import widget from './builders/widgets/Widget/build'
+import javascript from './builders/widgets/Javascript/build'
 
 import api from './builders/api/build'
 
@@ -56,6 +57,7 @@ class Builder {
       spinner(),
       toggle(),
       model(),
+      javascript(),
 
       api(),
 
