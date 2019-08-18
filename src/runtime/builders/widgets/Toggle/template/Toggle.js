@@ -32,11 +32,17 @@ export default class Toggle extends Widget {
       this.dispatchEvent(new Event('toggleOff'))
     }
     this.dispatchEvent(new Event('change'))
+    this.target.debounce = true
   }
 
   generateSetters () {
     this.setters = {
       target: () => {
+        if (this.target.debounce === true) {
+          console.log('debounce')
+          this.target.debounce = false
+          return
+        }
         if (this.target.value != this.component.checked) {
           this.component.checked = this.target.value
           this.handleOnChange()
