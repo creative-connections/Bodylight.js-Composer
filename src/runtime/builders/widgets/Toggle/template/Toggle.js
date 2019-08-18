@@ -19,7 +19,7 @@ export default class Toggle extends Widget {
   }
 
   handleOnChange () {
-    this.dispatchEvent(new Event('change'))
+    if (this.constructed == null) { return }
     if (this.component.checked) {
       if (this.target.provider !== null) {
         this.target.provider.setValue(this.target.reference, this.onToggleOn.value)
@@ -31,10 +31,17 @@ export default class Toggle extends Widget {
       }
       this.dispatchEvent(new Event('toggleOff'))
     }
+    this.dispatchEvent(new Event('change'))
   }
 
   generateSetters () {
     this.setters = {
+      target: () => {
+        if (this.target.value != this.component.checked) {
+          this.component.checked = this.target.value
+          this.handleOnChange()
+        }
+      },
       enabled: () => {
         if (this.enabled.function === null) {
           this.component.disabled = !this.enabled.value
@@ -66,6 +73,7 @@ export default class Toggle extends Widget {
     if (attribute === 'target') {
       this.target.reference = target.registerValueSetter(this, id, attribute)
       this.target.provider = target
+      target.registerValueListener(this, id, attribute)
       return
     }
     super.setValueProvider(attribute, id, target)

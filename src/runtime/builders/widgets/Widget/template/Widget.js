@@ -2,6 +2,7 @@ export default class Widget {
   constructor(configuration, typeIdentifier) {
     Object.assign(this, configuration)
     this.typeIdentifier = typeIdentifier
+    this.listeners = {}
 
     console.log(`Widget (${this.typeIdentifier}) instance ${this.name}`)
 
@@ -17,7 +18,6 @@ export default class Widget {
     this.updateComponent()
 
     // EventTarget listeners
-    this.listeners = {}
     this.loadEventListeners()
 
     this.constructed = true
