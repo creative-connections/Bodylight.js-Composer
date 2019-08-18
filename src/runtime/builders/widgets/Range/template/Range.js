@@ -18,7 +18,7 @@ export default class Range extends Widget {
     this.addValueProvider('target', this.target.provider)
   }
 
-  getValue(temp1, temp2) {
+  getValue() {
     return this.target.value
   }
 
