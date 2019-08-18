@@ -11,6 +11,7 @@ import toggles, * as togglesSelectors from './reducers/toggles'
 import charts, * as chartsSelectors from './reducers/charts'
 import labels, * as labelsSelectors from './reducers/labels'
 import csss, * as csssSelectors from './reducers/csss'
+import javascripts, * as javascriptSelectors from './reducers/javascripts'
 
 import memoize from 'memoize-one'
 
@@ -24,6 +25,7 @@ export default combineReducers({
   charts,
   labels,
   csss,
+  javascripts,
   app
 })
 
@@ -42,6 +44,8 @@ export const getLabels = state => labelsSelectors.getAll(state.labels)
  */
 export const getCsss = state => csssSelectors.getAll(state.csss)
 export const getCss = state => csssSelectors.get(state.csss)
+export const getJavascripts = state => javascriptSelectors.getAll(state.javascripts)
+export const getJavascript = state => javascriptSelectors.get(state.javascripts)
 
 const getWidgetMemoized = memoize((state, id) => {
   let widget = null
@@ -54,6 +58,7 @@ const getWidgetMemoized = memoize((state, id) => {
   if ((widget = chartsSelectors.get(state.charts, id)) !== null) { return widget }
   if ((widget = labelsSelectors.get(state.labels, id)) !== null) { return widget }
   if ((widget = csssSelectors.get(state.csss, id)) !== null) { return widget }
+  if ((widget = javascriptSelectors.get(state.javascripts, id)) !== null) { return widget }
   return widget
 })
 
@@ -77,6 +82,7 @@ const getWidgetsForTreeMemoized = memoize(state => {
   widgets.charts = chartsSelectors.getAll(state.charts)
   widgets.labels = labelsSelectors.getAll(state.labels)
   widgets.csss = labelsSelectors.getAll(state.csss)
+  widgets.javascripts = labelsSelectors.getAll(state.javascripts)
   return widgets
 })
 
@@ -93,5 +99,6 @@ export const getTogglesForDropdown = state => togglesSelectors.getForDropdown(st
 export const getChartsForDropdown = state => chartsSelectors.getForDropdown(state.charts)
 export const getLabelsForDropdown = state => labelsSelectors.getForDropdown(state.labels)
 export const getCsssForDropdown = state => csssSelectors.getForDropdown(state.csss)
+export const getJavascriptsForDropdown = state => javascriptSelectors.getForDropdown(state.javascripts)
 
 export const getAnimateWidgetId = (state, idAnimate, name) => animatesSelectors.getAnimateWidgetId(state.animates, idAnimate, name)
