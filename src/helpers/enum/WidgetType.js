@@ -9,7 +9,8 @@ const WidgetType = {
   TOGGLE: 'TOGGLE',
   CHART: 'CHART',
   LABEL: 'LABEL',
-  CSS: 'CSS'
+  CSS: 'CSS',
+  JAVASCRIPT: 'JAVASCRIPT'
 }
 
 export default WidgetType
