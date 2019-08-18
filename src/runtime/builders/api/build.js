@@ -46,11 +46,25 @@ function getModelByName(name) {
   return found
 }
 
+function getWidgetByName(name) {
+  let found = null
+  Object.entries(widgets).forEach(([, widget]) => {
+    if (widget.name === name) {
+      if (found !== null) {
+        console.warn(`Multiple widgets named ${name}, returning last`)
+      }
+      found = widget
+    }
+  })
+  return found
+}
+
 
 export default () => {
   const script = `
   ${generateTemplate(getModelByID)}
   ${generateTemplate(getModelByName)}
+  ${generateTemplate(getWidgetByName)}
   ${generateTemplate(getAnimateAnimByID)}
   ${generateTemplate(getAnimateTextByID)}
   ${generateTemplate(getButtonByID)}
