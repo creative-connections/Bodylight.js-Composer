@@ -211,7 +211,10 @@ class Builder {
     append(`const WidgetType = ${tpl(WidgetType)}`)
     append(`const ProviderType = ${tpl(ProviderType)}`)
 
-    this.imports.forEach(({ script }) => append(script))
+    this.imports.forEach(({ script }) => {
+      append(script)
+      append(';')
+    })
 
     append('}')
 

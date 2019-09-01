@@ -7,7 +7,7 @@ export default () => {
 
   let out = ''
   Object.entries(models).forEach(([id, config]) => {
-    out = out + `models["${id}"] = ${config.js}`
+    out = out + `;models["${id}"] = ${config.js}`
   })
   return out
 }
