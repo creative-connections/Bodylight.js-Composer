@@ -33,10 +33,12 @@ export default class PlotlyChart extends PlotlyBase {
       axis.actualProvider = target
       axis.attribute = attribute
     } else {
-      target.registerValueListener(attribute, id, attribute)
-      target.registerInitialValueListener(attribute, id, attribute)
-      dataset[attr.type].actualProvider = target
-      dataset[attr.type].attribute = attribute
+      target.registerValueListener(this, id, attribute)
+      target.registerInitialValueListener(this, id, attribute)
+      if (attr.dataset) {
+        dataset[attr.type].actualProvider = target
+        dataset[attr.type].attribute = attribute
+      }
     }
   }
 
