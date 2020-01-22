@@ -1,44 +1,8 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "parser": "babel-eslint",
+  "extends": "./node_modules/aurelia-tools/.eslintrc.json",
   "parserOptions": {
-    "ecmaVersion": 10,
-    "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "legacyDecorators": true
     }
-  },
-  "settings": {
-    "react": {
-      "pragma": "React",
-      "version": "16.0"
-    }
-  },
-  "env" : {
-    "browser": true,
-    "node": false
-  },
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "no-undef": 0,
-    "no-path-concat": 0,
-    "react/prop-types": 0,
-    "no-new-func": 0,
-    "no-debugger": "warn",
-    "no-console": "warn",
-    "no-template-curly-in-string": "warn",
-	"no-tabs": "error",
-	"semi": ["error", "never"],
-	"multiline-comment-style": ["error", "starred-block"],
-	"max-len": ["error", {
-		"code": 100,
-		"comments": 100
-	}],
-	"indent": ["error", 2]
   }
 }
