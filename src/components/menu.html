@@ -1,9 +1,15 @@
 <template>
-  <button class="w3-button" click.delegate="new()"><i class="fa fa-file"></i> New &nbsp;&nbsp;</button>
-  <button class="w3-button" click.delegate="open()"><i class="fa fa-folder-open"></i> Open &nbsp;</button>
-  <div class="w3-card-2 w3-white" show.bind="opendialog"  dragover.delegate="drag()" drop.delegate="drop($event)"
+  <button class="w3-button" click.delegate="new()"><i class="fa fa-file"></i> New &nbsp;&nbsp;&nbsp;&nbsp;</button>
+
+  <button class="w3-button" click.delegate="open()"><i class="fa fa-folder-open"></i> Open &nbsp;&nbsp;</button>
+
+  <div show.bind="opendialog"
+
+       dragenter.delegate="drag($event)"
+       dragover.delegate="drag($event)"
+       drop.delegate="drop($event)"
        style="position:absolute;z-index:5;border:4px dashed #aaa;;margin-top:-4px;margin-left:8px"
-       class="w3-padding w3-round-large w3-light-grey w3-card-24" class.bind="isDragging ? 'w3-blue':''">
+       class.bind="isDragging ? 'w3-padding w3-round-large w3-blue w3-card-24':'w3-padding w3-round-large w3-white w3-card-24'">
 
         <br/>
         <input type="file" change.trigger="dragNdrop($event)">
@@ -11,7 +17,9 @@
         <br/>
 
   </div>
-  <button class="w3-button" click.delegate="save()"><i class="fa fa-save"></i> Save &nbsp;</button>
+
+  <button class="w3-button" click.delegate="save()"><i class="fa fa-save"></i> Save &nbsp;&nbsp;&nbsp;&nbsp;</button>
+
   <button class="w3-button" click.delegate="export()"><i class="fa fa-download"></i> Export <sub class="w3-tiny">HTML</sub></button>
 
   <button class="w3-button" click.delegate="preview()"><i class="fa fa-eye"></i> Preview &nbsp;</button>

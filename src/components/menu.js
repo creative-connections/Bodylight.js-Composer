@@ -15,7 +15,7 @@ export class Menu {
   }
 
   open() {
-    this.opendialog = true;
+    this.opendialog = ! this.opendialog;
   }
 
   dragNdrop(event) {
@@ -37,12 +37,16 @@ export class Menu {
     window.editor1.setComponents(JSON.parse(event.target.result));
   }
 
-  drag() {
+  drag(event) {
+    console.log('drag', event);
     const self = this;
     self.isDragging = true;
+    event.preventDefault();
   }
 
+
   drop(event) {
+    console.log('drop', event);
     const self = this;
     self.isDragging = false;
     self.dragNdrop(event);

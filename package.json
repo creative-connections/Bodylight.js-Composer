@@ -8,8 +8,10 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@babel/preset-react": "^7.8.3",
     "aurelia-animator-css": "^1.0.4",
     "aurelia-bootstrapper": "^2.3.2",
+    "core-js": "^3.6.4",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
     "grapesjs": "^0.15.10",
