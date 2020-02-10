@@ -67,11 +67,13 @@ export class Menu {
       //let FileSaver = new
       let content = `<html>
 <head>
+<meta charset="utf-8">
 <style>
 ${this.api.editor.getCss()}
 </style>
+<script type="text/javascript">${this.api.bundlefilecontent}</script>
 </head>
-<body>
+<body aurelia-app="mainwebcomponent">
 ${this.api.editor.getHtml()}       
 </body>
 </html>`;

@@ -8,7 +8,7 @@ const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plu
 const { ProvidePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 // config helpers:
 const ensureArray = (config) => config && (Array.isArray(config) ? config : [config]) || [];
@@ -16,7 +16,7 @@ const when = (condition, config, negativeConfig) =>
   condition ? ensureArray(config) : ensureArray(negativeConfig);
 
 // primary config:
-const title = 'Bodylight Composer v2.0';
+const title = 'Bodylight v2.0';
 const outDir = path.resolve(__dirname, project.platform.output);
 const srcDir = path.resolve(__dirname, 'src');
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
@@ -127,7 +127,7 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
         use: extractCss ? [{
           loader: MiniCssExtractPlugin.loader
         },
-        'css-loader'
+          'css-loader'
         ] : ['style-loader', ...cssRules]
       },
       {
@@ -149,14 +149,15 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
       // load these fonts normally, as files:
       { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' },
       { test: /environment\.json$/i, use: [
-        {loader: "app-settings-loader", options: {env: production ? 'production' : 'development' }},
-      ]},
+          {loader: "app-settings-loader", options: {env: production ? 'production' : 'development' }},
+        ]},
     ]
   },
   plugins: [
     ...when(!tests, new DuplicatePackageCheckerPlugin()),
     new AureliaPlugin({
-      dist: 'es2015'
+      dist: 'es2015',
+      aureliaApp: 'mainwebcomponents'
     }),
     new ProvidePlugin({
       'Promise': ['promise-polyfill', 'default']
