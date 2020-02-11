@@ -33,8 +33,11 @@ export class Menu {
 
   handleFileLoad(event) {
     //if (this) window.that = this;
-    console.log('handle editor1', window.editor1);
-    window.editor1.setComponents(JSON.parse(event.target.result));
+    //console.log('handle editor1', window.editor1);
+    let data = JSON.parse(event.target.result);
+    console.log('handlefile data:', data);
+    window.editor1.setComponents(data.components);
+    window.editor1.setStyle(data.style);
   }
 
   drag(event) {
@@ -56,7 +59,9 @@ export class Menu {
     if (filename) {
       if (!filename.endsWith('.bjp')) filename = filename.concat('.bjp');
       //let FileSaver = new
-      let blob = new Blob([JSON.stringify(this.api.editor.getComponents())], {type: 'application/json;charset=utf-8'});
+      let blob = new Blob([
+        JSON.stringify({components: this.api.editor.getComponents(), style: this.api.editor.getStyle() })],
+      {type: 'application/json;charset=utf-8'});
       saveAs(blob, filename);
     }
   }
