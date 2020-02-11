@@ -22,7 +22,12 @@ export function configure(aurelia) {
     .feature(PLATFORM.moduleName('resources/index'))
     //use this routine to register component as web component
     .globalResources(PLATFORM.moduleName('components/range.html'))
-    .globalResources(PLATFORM.moduleName('components/receptacle.html'));
+    .globalResources(PLATFORM.moduleName('components/receptacle.html'))
+    .globalResources(PLATFORM.moduleName('components/wrapper.html'))
+    .globalResources(PLATFORM.moduleName('components/bind2previous'))
+    .globalResources(PLATFORM.moduleName('parts/rangerecept.html'));
+
+
   //    .globalResources(PLATFORM.moduleName('components/animate'))
   //    .globalResources(PLATFORM.moduleName('components/fmi'))
   //    .globalResources(PLATFORM.moduleName('components/action'))

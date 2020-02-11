@@ -3,10 +3,31 @@ import * as grapesjs from 'grapesjs/dist/grapes.min.js';
 import {} from 'grapesjs-preset-webpage';
 import {Bodylightapi} from './bodylightapi';
 import {inject} from 'aurelia-framework';
+
+function getseqid(){
+  console.log('getseqid',window.seqid);
+  window.seqid++;
+  return 'id'+window.seqid;
+}
+function getprevid1(){
+  console.log('getprevid1',window.seqid);
+  let a = window.seqid-1;
+  console.log('getprevid1 a',a);
+  return 'id'+a;
+}
+function getprevid2(){
+  console.log('getprevid2',window.seqid);
+  let a = window.seqid-2;
+  console.log('getprevid2 a',a);
+  return 'id'+a;
+}
+
+
 @inject(Bodylightapi)
 export class Grapesjsns {
   constructor(api) {
     this.api = api;
+    window.seqid = 1;
   }
 
   attached() {
@@ -73,9 +94,13 @@ export class Grapesjsns {
       { isComponent: el=> el.tagName === 'BDL-RANGE',
         model: {defaults: {
           tagName: 'bdl-range',
-          attributes: {min: 0, max: 100, default: 0, step:1},
-          traits: ['min', 'max', 'default','step']
-        }},
+          attributes: {min: 0, max: 100, default: 0, step: 1, 'slidevalue.two-way': 'myvalue'},
+          traits: ['min', 'max', 'default', 'step', 'slidevalue.two-way']
+        },
+        init: function() {
+          this.set('attributes', {  id: getseqid()});
+        }
+        },
         view: {
           tagName: 'bdl-range',
           onRender() {
@@ -93,14 +118,17 @@ export class Grapesjsns {
       content: '<bdl-range> This is Range3</bdl-range>',
       category: 'Basic'
     });
-
+    //this.ids = 1;
     /* receptacle */
     this.api.editor.DomComponents.addType('bdl-receptacle',
       { isComponent: el=> el.tagName === 'BDL-RECEPTACLE',
         model: {defaults: {
           tagName: 'bdl-receptacle',
-          attributes: {hx: 50, hy: 50, px: 20, py: 20, ly: 10},
+          attributes: {hx: 50, hy: 50, px: 20, py: 20, ly: 10, 'ly.two-way': 'myvalue'},
           traits: ['hx', 'hy', 'px', 'py', 'ly']
+        },
+        init: function() {
+          this.set('attributes', { id: getseqid() });
         }},
         view: {
           tagName: 'bdl-receptacle',
@@ -112,12 +140,34 @@ export class Grapesjsns {
           }
         }
       });
-
     this.api.editor.BlockManager.add('bdl-receptacle', {
       label: 'Receptacle',
       content: '<bdl-receptacle>Receptacle</bdl-receptacle>',
       category: 'Basic'
     });
+
+    //binds 2 previous blocks - by id's
+    this.api.editor.BlockManager.add('bind2previous', {
+      label: 'Bind 2 previous',
+      content: '<bdl-bind2previous></bdl-bind2previous>',
+      category: 'Basic'
+    });
+
+    this.api.editor.DomComponents.addType('bind2previous',
+      { isComponent: el=> el.tagName === 'BDL-BIND2PREVIOUS',
+        model: {defaults: {
+          tagName: 'bdl-bind2previous',
+          attributes: {fromid: getprevid2(), toid: getprevid1()},
+          traits: ['fromid', 'toid']
+        }}});
+
+    this.api.editor.DomComponents.addType('bdl-animate',
+      { isComponent: el=> el.tagName === 'BDL-ANIMATE',
+        model: {defaults: {
+          tagName: 'bdl-animate',
+          attributes: {min: 0, max: 100, current: 0},
+          traits: ['min', 'max', 'current']
+        }}});
 
     this.api.editor.BlockManager.add('bdl-animate', {
       label: 'Animate',

@@ -35,13 +35,13 @@ export class Menu {
     //if (this) window.that = this;
     //console.log('handle editor1', window.editor1);
     let data = JSON.parse(event.target.result);
-    console.log('handlefile data:', data);
+    //console.log('handlefile data:', data);
     window.editor1.setComponents(data.components);
     window.editor1.setStyle(data.style);
   }
 
   drag(event) {
-    console.log('drag', event);
+    //console.log('drag', event);
     const self = this;
     self.isDragging = true;
     event.preventDefault();
@@ -49,7 +49,7 @@ export class Menu {
 
 
   drop(event) {
-    console.log('drop', event);
+    //console.log('drop', event);
     const self = this;
     self.isDragging = false;
     self.dragNdrop(event);
