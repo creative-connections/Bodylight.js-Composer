@@ -1,5 +1,8 @@
 <template bindable="hx,hy,px,py,value">
   <svg width="${hx}" height="${hy}">
-  <path d="M 0 0 Q 0 ${py},${px} ${py}, ${hx} ${py}, ${hx} ${hy} L ${hx} ${ly}, 0 ${value}" stroke="black" fill="green" fill-opacity="0.5"/>
+    <clipPath id="cutleft">
+      <path d="M 0 0 Q 0 ${py},${px} ${py}, ${hx} ${py}, ${hx} ${hy} L ${hx} 0"/>
+    </clipPath>
+  <path d="M 0 0 Q 0 ${py},${px} ${py}, ${hx} ${py}, ${hx} ${hy} L ${hx} ${value}, 0 ${value}" stroke="black" fill="green" fill-opacity="0.5" clip-path="url(#cutleft)"/>
   </svg>
 </template>

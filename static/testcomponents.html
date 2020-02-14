@@ -12,7 +12,9 @@
 <h2>range with binding</h2>
   <bdl-range id="id1" min="0" max="100" step="2" default="50" slidevalue.two-way="myvalue"></bdl-range><!-- slidervalue.bind="${myvalue}" ly.bind="${myvalue}"-->
   <bdl-receptacle id="id2" hx="100" hy="100" px="50" py="50" ly.two-way="myvalue"></bdl-receptacle>
-  <i>value:${myvalue}</i>
+  <bdl-bind2previous fromid="id1" toid="id2"></bdl-bind2previous>
+  <bdl-bind2previous fromid="id1" toid="id3"></bdl-bind2previous>
+  <i>value:<input disabled id="id3"/></i>
 
 <h2>fmi</h2>
 <bdl-fmi></bdl-fmi>
@@ -25,13 +27,6 @@
 
 <h2>rangerecept</h2>
 <bdl-rangerecept></bdl-rangerecept>
-<script>
-  document.getElementById("id1").addEventListener("change", myfun1);
 
-  function myfun1(event){
-      console.log('event triggered',event);
-      document.getElementById("id2").ly=event.target.value;
-  }
-</script>
 </body>
 </html>

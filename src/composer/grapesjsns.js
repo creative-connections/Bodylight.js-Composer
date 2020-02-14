@@ -3,25 +3,9 @@ import * as grapesjs from 'grapesjs/dist/grapes.min.js';
 import {} from 'grapesjs-preset-webpage';
 import {Bodylightapi} from './bodylightapi';
 import {inject} from 'aurelia-framework';
-
-function getseqid(){
-  console.log('getseqid',window.seqid);
-  window.seqid++;
-  return 'id'+window.seqid;
-}
-function getprevid1(){
-  console.log('getprevid1',window.seqid);
-  let a = window.seqid-1;
-  console.log('getprevid1 a',a);
-  return 'id'+a;
-}
-function getprevid2(){
-  console.log('getprevid2',window.seqid);
-  let a = window.seqid-2;
-  console.log('getprevid2 a',a);
-  return 'id'+a;
-}
-
+import {Bdlrange} from './types/bdlrange';
+import {Bdlreceptacle} from './types/bdlreceptacle';
+import {Bdlbind2previous} from './types/bdlbind2previous';
 
 @inject(Bodylightapi)
 export class Grapesjsns {
@@ -89,133 +73,11 @@ export class Grapesjsns {
     this.api.editor.BlockManager.remove('map');
 
     /* adding custom element*/
-    /* range */
-    this.api.editor.DomComponents.addType('bdl-range',
-      { isComponent: el=> el.tagName === 'BDL-RANGE',
-        model: {defaults: {
-          tagName: 'bdl-range',
-          attributes: {min: 0, max: 100, default: 0, step: 1, 'slidevalue.two-way': 'myvalue'},
-          traits: ['min', 'max', 'default', 'step', 'slidevalue.two-way']
-        },
-        init: function() {
-          this.set('attributes', {  id: getseqid()});
-        }
-        },
-        view: {
-          tagName: 'bdl-range',
-          onRender() {
-            const attrs = this.model.getAttributes();
-            this.el.innerHTML = `<div>
-    <input type="range" min="${attrs.min}" max="${attrs.max}" disabled/>
-    <input type="number" min="${attrs.min}" max="${attrs.max}" value="${attrs.default}"/>
-</div>`;
-          }
-        }
-      });
+    Bdlrange.addToEditor(this.api.editor);
+    Bdlreceptacle.addToEditor(this.api.editor);
+    Bdlbind2previous.addToEditor(this.api.editor);
 
-    this.api.editor.BlockManager.add('bdl-range', {
-      label: 'Range',
-      content: '<bdl-range> This is Range3</bdl-range>',
-      category: 'Basic'
-    });
-    //this.ids = 1;
-    /* receptacle */
-    this.api.editor.DomComponents.addType('bdl-receptacle',
-      { isComponent: el=> el.tagName === 'BDL-RECEPTACLE',
-        model: {defaults: {
-          tagName: 'bdl-receptacle',
-          attributes: {hx: 50, hy: 50, px: 20, py: 20, ly: 10, 'ly.two-way': 'myvalue'},
-          traits: ['hx', 'hy', 'px', 'py', 'ly']
-        },
-        init: function() {
-          this.set('attributes', { id: getseqid() });
-        }},
-        view: {
-          tagName: 'bdl-receptacle',
-          onRender() {
-            //const attrs = this.model.getAttributes();
-            this.el.innerHTML = `<svg width="60" height="60">
-<path d="M 10 10 Q 10 30,30 30, 50 30, 50 50 L 50 20, 10 20" stroke="black" fill="green" fill-opacity="0.5"/>
-</svg>`;
-          }
-        }
-      });
-    this.api.editor.BlockManager.add('bdl-receptacle', {
-      label: 'Receptacle',
-      content: '<bdl-receptacle>Receptacle</bdl-receptacle>',
-      category: 'Basic'
-    });
-
-    //binds 2 previous blocks - by id's
-    this.api.editor.BlockManager.add('bind2previous', {
-      label: 'Bind 2 previous',
-      content: '<bdl-bind2previous></bdl-bind2previous>',
-      category: 'Basic'
-    });
-
-    this.api.editor.DomComponents.addType('bind2previous',
-      { isComponent: el=> el.tagName === 'BDL-BIND2PREVIOUS',
-        model: {defaults: {
-          tagName: 'bdl-bind2previous',
-          attributes: {fromid: getprevid2(), toid: getprevid1()},
-          traits: ['fromid', 'toid']
-        }}});
-
-    this.api.editor.DomComponents.addType('bdl-animate',
-      { isComponent: el=> el.tagName === 'BDL-ANIMATE',
-        model: {defaults: {
-          tagName: 'bdl-animate',
-          attributes: {min: 0, max: 100, current: 0},
-          traits: ['min', 'max', 'current']
-        }}});
-
-    this.api.editor.BlockManager.add('bdl-animate', {
-      label: 'Animate',
-      content: '<bdl-animate> This is Animate</bdl-animate>',
-      category: 'Basic'
-    });
-    this.api.editor.BlockManager.add('bdl-chart', {
-      label: 'Chart',
-      content: '<bdl-chart> This is Chart</bdl-chart>',
-      category: 'Basic'
-    });
-    this.api.editor.BlockManager.add('bdl-fmi', {
-      label: 'FMI Model',
-      content: '<bdl-fmi> This is FMI model</bdl-fmi>',
-      category: 'Basic'
-    });
-    this.api.editor.BlockManager.add('bdl-action', {
-      label: 'Action',
-      content: '<bdl-action> This is Action</bdl-action>',
-      category: 'Basic'
-    });
-
-    this.api.editor.DomComponents.addType('bdl-animate',
-      { isComponent: el=> el.tagName === 'BDL-ANIMATE',
-        model: {defaults: {
-          tagName: 'bdl-animate',
-          attributes: {min: 0, max: 100, current: 0},
-          traits: ['min', 'max', 'current']
-        }}});
-    this.api.editor.DomComponents.addType('bdl-chart',
-      { isComponent: el=> el.tagName === 'BDL-CHART',
-        model: {defaults: {
-          tagName: 'bdl-chart',
-          traits: ['x', 'y', 'legend']
-        }}});
-    this.api.editor.DomComponents.addType('bdl-fmi',
-      { isComponent: el=> el.tagName === 'BDL-FMI',
-        model: {defaults: {
-          tagName: 'bdl-fmi',
-          traits: ['min', 'max', 'current']
-        }}});
-    this.api.editor.DomComponents.addType('bdl-action',
-      { isComponent: el=> el.tagName === 'BDL-ACTION',
-        model: {defaults: {
-          tagName: 'bdl-action',
-          traits: ['min', 'max', 'current']
-        }}});
-
+    //others TBD
     let attr = document.createAttribute('aurelia-app');
     attr.value = 'mainwebcomponent';
     this.api.editor.Canvas.getBody().setAttributeNode(attr);
