@@ -7,14 +7,16 @@ export class Bodylightapi {
     this.editor = {}; //sharing editor
     this.bundlefile = 'app.bundle.js';
     this.httpclient = httpclient;
-    this.httpclient.fetch(this.bundlefile)
+  }
+
+  save(filename) {
+  }
+
+  getBundleFileContent(){
+    return this.httpclient.fetch(this.bundlefile)
       .then(response => response.text())
       .then(data => {
         this.bundlefilecontent = data;
       });
-  }
-
-  save(filename) {
-
   }
 }

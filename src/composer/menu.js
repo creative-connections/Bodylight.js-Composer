@@ -65,25 +65,28 @@ export class Menu {
       saveAs(blob, filename);
     }
   }
+
   export() {
     let filename = prompt('File name (*.html):', 'Application.html');
     if (filename) {
       if (!filename.endsWith('.html')) filename = filename.concat('.html');
       //let FileSaver = new
-      let content = `<html>
+      this.api.getBundleFileContent().then(data =>{
+        let content = `<html>
 <head>
 <meta charset="utf-8">
 <style>
 ${this.api.editor.getCss()}
 </style>
-<script type="text/javascript">${this.api.bundlefilecontent}</script>
+<script type="text/javascript">${data}</script>
 </head>
 <body aurelia-app="mainwebcomponent">
 ${this.api.editor.getHtml()}       
 </body>
 </html>`;
-      let blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
-      saveAs(blob, filename);
+        let blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
+        saveAs(blob, filename);
+      });
     }
   }
   preview() {

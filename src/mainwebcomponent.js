@@ -10,8 +10,7 @@ import 'regenerator-runtime/runtime';
 import { CustomElementRegistry } from 'aurelia-web-components';
 import {PLATFORM} from 'aurelia-pal';
 import * as environment from '../config/environment.json';
-//import environment from '../environment';
-//import '@babel/polyfill';
+
 
 export function configure(aurelia) {
   aurelia.use
@@ -23,14 +22,8 @@ export function configure(aurelia) {
     //use this routine to register component as web component
     .globalResources(PLATFORM.moduleName('components/range.html'))
     .globalResources(PLATFORM.moduleName('components/receptacle.html'))
-    .globalResources(PLATFORM.moduleName('components/wrapper.html'))
     .globalResources(PLATFORM.moduleName('components/bind2previous'))
-    .globalResources(PLATFORM.moduleName('parts/rangerecept.html'));
-
-
-  //    .globalResources(PLATFORM.moduleName('components/animate'))
-  //    .globalResources(PLATFORM.moduleName('components/fmi'))
-  //    .globalResources(PLATFORM.moduleName('components/action'))
+    .globalResources(PLATFORM.moduleName('components/fmi.html'));
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
 

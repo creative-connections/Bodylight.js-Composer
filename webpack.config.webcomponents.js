@@ -157,7 +157,7 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
     ...when(!tests, new DuplicatePackageCheckerPlugin()),
     new AureliaPlugin({
       dist: 'es2015',
-      aureliaApp: 'mainwebcomponents'
+      aureliaApp: 'mainwebcomponent'
     }),
     new ProvidePlugin({
       'Promise': ['promise-polyfill', 'default']

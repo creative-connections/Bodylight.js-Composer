@@ -6,6 +6,7 @@ import {inject} from 'aurelia-framework';
 import {Bdlrange} from './types/bdlrange';
 import {Bdlreceptacle} from './types/bdlreceptacle';
 import {Bdlbind2previous} from './types/bdlbind2previous';
+import {Bdlfmi} from './types/bdlfmi';
 
 @inject(Bodylightapi)
 export class Grapesjsns {
@@ -76,6 +77,7 @@ export class Grapesjsns {
     Bdlrange.addToEditor(this.api.editor);
     Bdlreceptacle.addToEditor(this.api.editor);
     Bdlbind2previous.addToEditor(this.api.editor);
+    Bdlfmi.addToEditor(this.api.editor);
 
     //others TBD
     let attr = document.createAttribute('aurelia-app');
