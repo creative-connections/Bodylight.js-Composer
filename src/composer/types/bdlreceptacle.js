@@ -24,7 +24,7 @@ export class Bdlreceptacle extends Bdltype {
     editor.BlockManager.add('bdl-receptacle', {
       label: 'Receptacle',
       content: '<bdl-receptacle>Receptacle</bdl-receptacle>', // hx="50" hy="50" px="20" py="20" value="10"
-      category: 'Basic'
+      category: 'Simulation'
     });
   }
 }

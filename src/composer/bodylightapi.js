@@ -17,6 +17,7 @@ export class Bodylightapi {
       .then(response => response.text())
       .then(data => {
         this.bundlefilecontent = data;
+        return data;
       });
   }
 }

@@ -30,7 +30,7 @@ export class Bdlrange extends Bdltype {
     editor.BlockManager.add('bdl-range', {
       label: 'Range',
       content: '<bdl-range> This is Range3</bdl-range>',
-      category: 'Basic'
+      category: 'Simulation'
     });
   }
 }

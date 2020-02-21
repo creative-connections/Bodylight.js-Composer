@@ -27,7 +27,7 @@ export class Bdlbind2previous extends Bdltype {
     editor.BlockManager.add('bind2previous', {
       label: 'Bind 2 previous',
       content: '<bdl-bind2previous>bind2previous</bdl-bind2previous>',
-      category: 'Basic'
+      category: 'Simulation'
     });
   }
 }

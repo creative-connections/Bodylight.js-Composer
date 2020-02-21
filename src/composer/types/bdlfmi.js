@@ -18,7 +18,7 @@ export class Bdlfmi extends Bdltype {
     editor.BlockManager.add('bdl-fmi', {
       label: 'FMI Model',
       content: '<bdl-fmi> This is FMI model</bdl-fmi>',
-      category: 'Basic'
+      category: 'Simulation'
     });
     editor.AssetManager.add('<bdl-fmi ...');
     editor.AssetManager.addType('fmi', {

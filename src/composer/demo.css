@@ -5,21 +5,6 @@ html {
   overflow: hidden;
 }
 
-#toast-container {
-  font-size: 13px;
-  font-weight: lighter;
-}
-
-#toast-container > div {
-  opacity: 0.95;
-}
-
-#toast-container > div,
-#toast-container > div:hover {
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  font-family: Helvetica, sans-serif;
-}
-
 /* LOGO VERSION */
 
 .gjs-pn-commands .gjs-pn-buttons,
@@ -152,4 +137,29 @@ html {
 }
 .gjs-clm-tags-btn {
   width: 24px;
+}
+
+/* fix #63 make 3 column block manager */
+/* block - 1/3 of width*/
+.gjs-block {
+  width:28%!important;
+}
+
+/* container - is 25% of all*/
+.gjs-pn-views-container {
+  width: 25% !important;
+}
+
+/* move option right not to override*/
+.gjs-pn-options {
+  right:25%!important;
+}
+
+/* buttons of block manager same width as panel */
+.gjs-pn-views {
+  width:25% !important;
+}
+/* canvas shorter 100-25=75% */
+.gjs-cv-canvas {
+  width:75% !important;
 }

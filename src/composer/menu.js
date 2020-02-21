@@ -71,25 +71,61 @@ export class Menu {
     if (filename) {
       if (!filename.endsWith('.html')) filename = filename.concat('.html');
       //let FileSaver = new
-      this.api.getBundleFileContent().then(data =>{
-        let content = `<html>
-<head>
-<meta charset="utf-8">
-<style>
-${this.api.editor.getCss()}
-</style>
-<script type="text/javascript">${data}</script>
-</head>
-<body aurelia-app="mainwebcomponent">
-${this.api.editor.getHtml()}       
-</body>
-</html>`;
+      this.api.getBundleFileContent().then(jsbundle =>{
+        console.log('file bundle:', jsbundle.substring(0, 100));
+        let content = this.htmlexport(jsbundle);
         let blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
         saveAs(blob, filename);
       });
     }
   }
+
+  htmlexport(jsbundle) {
+    let content = `<html>
+<head>
+<meta charset="utf-8">
+<style>
+${this.api.editor.getCss()}
+</style>
+<script type="module">${jsbundle}</script>
+</head>
+<body aurelia-app="mainwebcomponent">
+${this.api.editor.getHtml()}       
+</body>
+</html>`;
+    return content;
+  }
+  htmlcssscriptexport(jsbundle) {
+    return {html: this.api.editor.getHtml(), css: this.api.editor.getCss(), script: jsbundle};
+  }
+
   preview() {
-    this.api.editor.runCommand('preview');
+    this.api.getBundleFileContent().then(jsbundle => {
+      //let content = this.htmlexport(jsbundle);
+      let content2 = this.htmlcssscriptexport(jsbundle);
+      //create popup
+      this.popup = window.open('about:blank', 'BodylightPreview', 'width=800,height=600');
+      //in order to parse webcomponent, css,scripts,body needs to be loaded this way
+
+      //add css
+      let head = this.popup.document.getElementsByTagName('head')[0];
+      let s = this.popup.document.createElement('style');
+      s.setAttribute('type', 'text/css');
+      s.appendChild(this.popup.document.createTextNode(content2.css));
+      this.popup.console.log('adding css:', s);
+      head.appendChild(s);
+
+      //add script
+      let script = this.popup.document.createElement('script');
+      script.type = 'module';
+      script.innerHTML = content2.script;
+      this.popup.console.log('adding script', script);
+      head.appendChild(script);
+
+      //add html
+      this.popup.console.log('adding html', content2.html);
+      this.popup.document.body.setAttribute('aurelia-app', 'mainwebcomponent');
+      this.popup.document.body.innerHTML = content2.html;
+    });
   }
 }

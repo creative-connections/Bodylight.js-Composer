@@ -67,12 +67,12 @@ export class Fmi {
     //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2ExitInitializationMode();
   }
 
-  restart() {
+  instantiate() {
     // reset and instantiate
-    this.call(this.fmiReset);
+    //this.call(this.fmiReset);
     //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2Reset();
     //this.call(this.fmiInstantiate);
-    this.callbackptr = window['createFmi2CallbackFunctions'](this.consoleLogger)
+    this.callbackptr = window.createFmi2CallbackFunctions(this.consoleLogger)
     this.inst = window[this.fmiInstantiate](this.fmiName, this.cosimulation, this.guid, '', this.callbackptr, 0, 0);
     //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2Instantiate();
     // setup experiment
