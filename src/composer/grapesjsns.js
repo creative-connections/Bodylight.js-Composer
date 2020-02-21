@@ -49,6 +49,14 @@ export class Grapesjsns {
     });
     pno.removeButton('options', 'fullscreen');
     pno.removeButton('options', 'preview');
+    pno.removeButton('options', 'sw-visibility');
+    pno.addButton('options', {
+      id: 'visibility',
+      active: true, // active by default
+      className: 'fa fa-square',
+      command: 'sw-visibility', // Built-in command
+    });
+    //this.api.editor.runCommand('sw-visibility');
     //pno.removeButton('options', 'preview');
     this.api.editor.BlockManager.remove('video');
     this.api.editor.BlockManager.remove('map');
@@ -61,6 +69,8 @@ export class Grapesjsns {
 
     //load previous state -
     this.api.editor.load();
+    //enable border of components
+
     //others TBD
 
     //add aurelia-app attribute - seems not working
