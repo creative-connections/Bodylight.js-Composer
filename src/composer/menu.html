@@ -12,12 +12,8 @@
        drop.delegate="drop($event)"
        style="position:absolute;z-index:5;border:4px dashed #aaa;;margin-top:-4px;margin-left:8px"
        class.bind="isDragging ? 'w3-padding w3-round-large w3-blue w3-card-24':'w3-padding w3-round-large w3-white w3-card-24'">
-
-        <br/>
-        <input type="file" change.trigger="dragNdrop($event)">
-        <p>Drag your files here or click on this area</p>
-        <br/>
-
+    <p>Drag your files here or click on this area</p>
+        <input type="file" change.trigger="dragNdrop($event)"/>
   </div>
 
   <button class="w3-bar-item w3-button" click.delegate="save()"><i class="fa fa-save"></i> Save &nbsp;&nbsp;&nbsp;&nbsp;</button>
@@ -26,31 +22,41 @@
   <button class="w3-bar-item w3-button" click.delegate="preview2()" title="Preview in all browser including Firefox; using Blob"><i class="fa fa-eye"></i> Preview 2&nbsp;</button>
   <button class="w3-bar-item w3-button" click.delegate="openfmi()"><i class="fa fa-folder-open"></i> Upload FMI </button>
   <div show.bind="openfmidialog"
-
        dragenter.delegate="dragfmi($event)"
        dragover.delegate="dragfmi($event)"
        drop.delegate="dropfmi($event)"
        style="position:absolute;z-index:5;border:4px dashed #aaa;;margin-top:-4px;margin-left:8px"
        class.bind="isDragging ? 'w3-padding w3-round-large w3-blue w3-card-24':'w3-padding w3-round-large w3-white w3-card-24'">
-
-    <input type="file" change.trigger="dragNdropfmi($event)">
     <p>Drag your files here or click on this area</p>
-
+    <input type="file" change.trigger="dragNdropfmi($event)" />
   </div>
+    <button class="w3-bar-item w3-button" click.delegate="openanim()"><i class="fa fa-folder-open"></i> Upload Animate </button>
+    <div show.bind="openanimdialog"
+
+         dragenter.delegate="draganim($event)"
+         dragover.delegate="draganim($event)"
+         drop.delegate="dropanim($event)"
+         style="position:absolute;z-index:5;border:4px dashed #aaa;;margin-top:-4px;margin-left:8px"
+         class.bind="isDragging ? 'w3-padding w3-round-large w3-blue w3-card-24':'w3-padding w3-round-large w3-white w3-card-24'">
+
+      <input type="file" change.trigger="dragNdropanim($event)">
+      <p>Drag your files here or click on this area</p>
+
+    </div>
   </div>
   <div>
-    <fieldset>
+<div class="w3-border">
       <legend>Application Artefacts</legend>
       <ul class="w3-ul">
         <li><b>FMU models</b></li>
-        <ul class="w3-ul w3-hoverable w3-small">
-          <li repeat.for="fmi of fmis" class="w3-bar-item">${fmi.name}<span class="w3-right" click.delegate="removefmu(fmi)"><i class="fa fa-remove"></i></span></li>
+        <ul class="w3-ul w3-hoverable w3-tiny" style="text-overflow: ellipsis">
+          <li repeat.for="fmi of fmis" class="w3-bar-item" title.bind="fmi.name">${fmi.name}<span class="w3-right" click.delegate="removefmu(fmi)" title="delete"><i class="fa fa-remove"></i></span></li>
         </ul>
         <li><b>Complex Graphics</b></li>
-        <ul class="w3-ul w3-hoverable w3-small">
+        <ul class="w3-ul w3-hoverable w3-tiny">
           <li repeat.for="anim of anims">${anim.name}<span class="w3-right" click.delegate="removeanim(anim)"><i class="fa fa-remove"></i></span></li>
         </ul>
       </ul>
-    </fieldset>
+</div>
   </div>
 </template>

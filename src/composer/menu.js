@@ -36,7 +36,10 @@ export class Menu {
     window.editor1 = this.api.editor;
     //console.log('dragndrop() that', window.editor1);
     reader.onload = this.handleFileLoad;
-    reader.readAsText(event.target.files[0]);
+    console.log('dragndrop event',event)
+    let files = event.target.files || event.dataTransfer.files;
+    this.appname = files[0].name;
+    reader.readAsText(this.appname);
     this.opendialog = false;
     //event.preventDefault();
   }
@@ -65,33 +68,31 @@ export class Menu {
     event.preventDefault();
     self.dragNdrop(event);
   }
+
   dragNdropfmi(event) {
     //const self = this;
     //let fileName = URL.createObjectURL(event.target.files[0]);
     const reader = new FileReader();
     //console.log('dragndrop() this', this);
     //set global variable so it is operable from handleFileLoad
-    window.editor1 = this.api.editor;
+    window.menu1 = this;
     //console.log('dragndrop() that', window.editor1);
     reader.onload = this.handleFileLoadfmi;
-    reader.readAsText(event.target.files[0]);
+    let files = event.target.files || event.dataTransfer.files;
+    console.log(files);
+    this.fminame = files[0].name;
+    reader.readAsText(files[0]);
     this.openfmidialog = false;
     //event.preventDefault();
   }
 
   handleFileLoadfmi(event) {
-    //if (this) window.that = this;
-    //console.log('handle editor1', window.editor1);
     let data = event.target.result;
-    //console.log('handlefile data:', data);
-    this.fmis.push({name: event.target.files[0], definition: data});
-    //this.fminame = event.target.files[0];
-    //window.editor1.setComponents(data.components);
-    //window.editor1.setStyle(data.style);
+    //doesn't know this - goes via global menu1
+    window.menu1.fmis.push({name: window.menu1.fminame, definition: data});
   }
 
   dragfmi(event) {
-    //console.log('drag', event);
     const self = this;
     self.isDragging = true;
     event.preventDefault();
@@ -99,11 +100,42 @@ export class Menu {
 
 
   dropfmi(event) {
+    const self = this;
+    self.isDragging = false;
+    event.preventDefault();
+    self.dragNdropfmi(event);
+  }
+
+  dragNdropanim(event) {
+    const reader = new FileReader();
+    window.menu1 = this;
+    reader.onload = this.handleFileLoadanim;
+    let files = event.target.files || event.dataTransfer.files;
+    this.animname = files[0].name;
+    reader.readAsText(files[0]);
+    this.openfmidialog = false;
+  }
+
+  handleFileLoadanim(event) {
+    let data = event.target.result;
+    //doesn't know this - goes via global menu1
+    window.menu1.anims.push({name: window.menu1.animname, definition: data});
+  }
+
+  draganim(event) {
+    //console.log('drag', event);
+    const self = this;
+    self.isDragging = true;
+    event.preventDefault();
+  }
+
+
+  dropanim(event) {
     //console.log('drop', event);
     const self = this;
     self.isDragging = false;
     event.preventDefault();
-    self.dragNdrop(event);
+    self.dragNdropanim(event);
   }
 
 
