@@ -5,7 +5,7 @@ export class Bodylightapi {
 
   constructor(httpclient) {
     this.editor = {}; //sharing editor
-    this.bundlefile = 'app.bundle.js';
+    this.bundlefile = 'bodylight.bundle.js';
     this.httpclient = httpclient;
   }
 

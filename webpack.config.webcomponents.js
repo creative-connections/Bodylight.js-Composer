@@ -42,13 +42,13 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
   output: {
     path: outDir,
     publicPath: baseUrl,
-    filename: production ? '[name].bundle.js' : '[name].bundle.js',
-    sourceMapFilename: production ? '[name].bundle.map' : '[name].bundle.map',
-    chunkFilename: production ? '[name].[chunkhash].chunk.js' : '[name].[hash].chunk.js'
+    filename: production ? 'bodylight.bundle.js' : 'bodylight.bundle.js',
+    sourceMapFilename: production ? 'bodylight.bundle.map' : 'bodylight.bundle.map',
+    chunkFilename: production ? 'bodylight.[chunkhash].chunk.js' : 'bodylight.[hash].chunk.js'
   },
-  optimization:{
+  optimization: {
     //minimizer:[ new UglifyJsPlugin()],
-    minimize:true
+    minimize: true
   },
   /*optimization: {
     runtimeChunk: true,  // separates the runtime chunk, required for long term cacheability
@@ -144,8 +144,8 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
       },
       // embed small images and fonts as Data Urls and larger ones as files:
       { test: /\.(png|gif|jpg|cur)$/i, loader: 'url-loader', options: { limit: 8192 } },
-      { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },
-      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } },
+      { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 1000000, mimetype: 'application/font-woff2' } },
+      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 1000000, mimetype: 'application/font-woff' } },
       // load these fonts normally, as files:
       { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' },
       { test: /environment\.json$/i, use: [

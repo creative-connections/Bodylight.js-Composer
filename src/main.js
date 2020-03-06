@@ -17,5 +17,5 @@ export function configure(aurelia) {
 
   aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
   //to include other main modules in webpack bundle - just reference them bellow by PLATFORM.moduleName()
-  PLATFORM.moduleName('mainwebcomponent');
+  //PLATFORM.moduleName('mainwebcomponent');
 }

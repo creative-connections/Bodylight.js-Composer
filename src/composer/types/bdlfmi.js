@@ -6,18 +6,25 @@ export class Bdlfmi extends Bdltype {
       model: {
         defaults: {
           tagName: 'bdl-fmi',
-          traits: ['min', 'max', 'current']
-        },
-        init: function() {
-          console.log('init this:', this);
-          editor.runCommand('open-assets', {target: editor.getSelected()});
+          traits: ['src']
+        }},
+      view: {
+        tagName: 'bdl-fmi',
+        onRender() {
+          //const attrs = this.model.getAttributes();
+          this.el.innerHTML = '<button><i class="fa fa-play fa-stop fa-step-forward fa-refresh"> fmi </i></button>';
         }
+
+        /*init: function() {
+          console.log('init this:', this);
+          //editor.runCommand('open-assets', {target: editor.getSelected()});
+        }*/
       }
 
     });
     editor.BlockManager.add('bdl-fmi', {
-      label: 'FMI Model',
-      content: '<bdl-fmi> This is FMI model</bdl-fmi>',
+      label: 'FMI Controller',
+      content: '<bdl-fmi>FMI control</bdl-fmi>',
       category: 'Simulation'
     });
     editor.AssetManager.add('<bdl-fmi ...');
@@ -33,7 +40,7 @@ export class Bdlfmi extends Bdltype {
         // Check the base `template()` here:
         // https://github.com/artf/grapesjs/blob/dev/src/asset_manager/view/AssetView.js
         getPreview() {
-          return `<div style="text-align: center">${this.model.get('svgContent')}</div>`;
+          return `<div style="text-align: center">${this.model.get('fmiContent')}</div>`;
         },
         getInfo() {
           // You can use model's properties if you passed them:
@@ -44,7 +51,7 @@ export class Bdlfmi extends Bdltype {
           //  })
           //  ... then
           //  this.model.get('name');
-          return '<div>SVG description</div>';
+          return '<div>FMI controller</div>';
         }
       }
     });
