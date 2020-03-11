@@ -36,6 +36,8 @@ export class Grapesjsns {
       }
 
     });
+    //workaround for regenerated ids with -2 suffix from https://github.com/artf/grapesjs/issues/1875
+    this.api.editor.DomComponents.componentsById = {}
     //customize panels
     let pno = this.api.editor.Panels;
     //add Bodylight logo as button which triggers modal with link to github
@@ -64,6 +66,7 @@ export class Grapesjsns {
     //remove video and map from blocks
     this.api.editor.BlockManager.remove('video');
     this.api.editor.BlockManager.remove('map');
+    //adding grid item as table
     let gridItem =
       `<table class="grid-item-card">
         <tr>

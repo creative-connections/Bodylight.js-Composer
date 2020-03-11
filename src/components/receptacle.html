@@ -1,8 +1,9 @@
-<template bindable="hx,hy,px,py,value">
-  <svg width="${hx}" height="${hy}">
-    <clipPath id="cutleft">
-      <path d="M 0 0 Q 0 ${py},${px} ${py}, ${hx} ${py}, ${hx} ${hy} L ${hx} 0"/>
+<template bindable="hx,hy,px,py,value,id">
+  <svg width="${+hx*2}" height="${hy}">
+    <path  d="M 0 0 Q 0 ${py},${px} ${py}, ${hx} ${py}, ${hx} ${hy}, ${hx} ${py}, ${2*hx-px} ${py}, ${+hx*2} ${py}, ${+hx*2} 0" fill="none" stroke="black"></path>
+    <clipPath id="clip-${id}">
+      <path   d="M 0 0 Q 0 ${py},${px} ${py}, ${hx} ${py}, ${hx} ${hy}, ${hx} ${py},${2*hx-px} ${py}, ${+hx*2} ${py}, ${+hx*2} 0"></path>
     </clipPath>
-  <path d="M 0 0 Q 0 ${py},${px} ${py}, ${hx} ${py}, ${hx} ${hy} L ${hx} ${value}, 0 ${value}" stroke="black" fill="green" fill-opacity="0.5" clip-path="url(#cutleft)"/>
+    <path stroke="black" fill="green" fill-opacity="0.5" clip-path="url(#clip-${id})"  d="M 0 ${value} L ${2*hx} ${value}, ${2*hx} ${hy}, 0 ${hy}"></path>
   </svg>
 </template>

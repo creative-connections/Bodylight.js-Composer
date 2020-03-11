@@ -1,6 +1,7 @@
 import {saveAs} from 'file-saver';
 import {Bodylightapi} from './bodylightapi';
 import {inject} from 'aurelia-framework';
+import {JSZip} from 'jszip';
 @inject(Bodylightapi)
 
 export class Menu {
@@ -36,7 +37,7 @@ export class Menu {
     window.editor1 = this.api.editor;
     //console.log('dragndrop() that', window.editor1);
     reader.onload = this.handleFileLoad;
-    console.log('dragndrop event',event)
+    console.log('dragndrop event', event);
     let files = event.target.files || event.dataTransfer.files;
     this.appname = files[0].name;
     reader.readAsText(this.appname);
@@ -81,7 +82,8 @@ export class Menu {
     let files = event.target.files || event.dataTransfer.files;
     console.log(files);
     this.fminame = files[0].name;
-    reader.readAsText(files[0]);
+    //reader.readAsText(files[0]);
+    reader.readAsArrayBuffer(files[0]);
     this.openfmidialog = false;
     //event.preventDefault();
   }
@@ -89,7 +91,26 @@ export class Menu {
   handleFileLoadfmi(event) {
     let data = event.target.result;
     //doesn't know this - goes via global menu1
-    window.menu1.fmis.push({name: window.menu1.fminame, definition: data});
+    let zip = new JSZip();
+    zip.loadAsync(data).then( zdata => {
+      zip.forEach( (relativepath, file) => {
+        if (file.endsWith('.xml')) {
+          zip.file(file).async('text')
+            .then(content => {
+              let parser = new DOMParser();
+              this.api.fmidescription = parser.parseFromString(content,"text/xml");
+              console.log('fmidescription',this.api.fmidescription);
+            });
+        }
+        if (file.endsWith('.js')) {
+          zip.file(file).async('text')
+            .then(content => {
+              this.api.fmidefinition = content;
+              console.log('fmidefinition',this.api.fmidefinition);
+            });
+        }
+      });
+    });
   }
 
   dragfmi(event) {

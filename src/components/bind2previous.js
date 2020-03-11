@@ -16,9 +16,9 @@ export class Bind2previous {
   }
 
   attached(){
-    document.getElementById(this.fromid).addEventListener('change', this.handleValueChange);
+    document.getElementById(this.fromid).addEventListener('input', this.handleValueChange);
   }
   detached(){
-    document.getElementById(this.fromid).removeEventListener('change', this.handleValueChange);
+    document.getElementById(this.fromid).removeEventListener('input', this.handleValueChange);
   }
 }
