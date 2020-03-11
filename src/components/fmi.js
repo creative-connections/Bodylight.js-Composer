@@ -1,9 +1,9 @@
 import {bindable} from 'aurelia-framework';
 export class Fmi {
-  @bindable fmiName;
-  @bindable tolerance;
-  @bindable startTime;
-  @bindable guid;
+  @bindable fminame='N/A';
+  @bindable tolerance=0.001;
+  @bindable starttime=0;
+  @bindable guid='N/A';
 
   cosimulation=1;
 
@@ -17,28 +17,52 @@ export class Fmi {
   sGetreal = 'fmi2GetReal';
   sGetboolean = 'fmi2GetBoolean';
   sDostep = 'fmi2DoStep';
+  sCreateCallback='createFmi2CallbackFunctions';
 
-  constructor() {}
+  constructor() {
+    console.log('constructor fminame:', this.fminame);
+  }
 
   attached() {
     let separator = '_';
-    let prefix = this.fmiName;
+    let prefix = this.fminame;
+    console.log('attached fminame:', this.fminame);
     // OpenModelica exported function names
     if (typeof window._fmi2GetVersion === 'function') {
       prefix = '';
       separator = '';
     }
 
-    this.fmiReset = prefix + '.' + separator + prefix + separator + this.sReset;
-    this.fmiInstantiate = prefix + '.' + separator + prefix + separator + this.sInstantiate;
-    this.fmiSetup = prefix + '.' + separator + prefix + separator + this.sSetup;
-    this.fmiEnterInit = prefix + '.' + separator + prefix + separator + this.sEnterinit;
-    this.fmiExitInit = prefix + '.' + separator + prefix + separator + this.sExitinit;
-    this.fmiSetReal = prefix + '.' + separator + prefix + separator + this.sSetreal;
-    this.fmiGetReal = prefix + '.' + separator + prefix + separator + this.sGetreal;
-    this.fmiSetBoolean = prefix + '.' + separator + prefix + separator + this.sSetboolean;
-    this.fmiGetBoolean = prefix + '.' + separator + prefix + separator + this.sGetboolean;
-    this.fmiDoStep = prefix + '.' + separator + prefix + separator + this.sDostep;
+    //instantiate
+    // reset and instantiate
+    //this.call(this.fmiReset);
+    //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2Reset();
+    //this.call(this.fmiInstantiate);
+    console.log('instantiate, this:', this);
+    console.log('instantiate, this:', this.fmiCreateCallback);
+    //create instance
+    this.inst = new window[this.fminame];
+
+    //create function methods using emscripten recommended cwrap
+    this.fmiCreateCallback = this.inst.cwrap('createFmi2CallbackFunctions', 'number', ['number']);
+
+    this.fmiReset = this.inst.cwrap(prefix + separator + this.sReset, 'number', ['number']);
+    this.fmiInstantiate = this.inst.cwrap(prefix + separator + this.sInstantiate, 'number', ['string', 'number', 'string', 'string', 'number', 'number', 'number']);
+    this.fmiSetup = this.inst.cwrap(prefix + separator + this.sSetup, 'number', ['number', 'number', 'number', 'number', 'number', 'number']);
+    this.fmiEnterInit =  this.inst.cwrap(prefix + separator + this.sEnterinit, 'number', ['number']);
+    this.fmiExitInit = this.inst.cwrap(prefix + separator + this.sExitinit, 'number', ['number']);
+    this.fmiSetReal = this.inst.cwrap(prefix + separator + this.sSetreal, 'number', ['number', 'number', 'number', 'number']);
+    this.fmiGetReal = this.inst.cwrap(prefix + separator + this.sGetreal, 'number', ['number', 'number', 'number', 'number']);
+    this.fmiSetBoolean = this.inst.cwrap(prefix + separator + this.sSetboolean, 'number', ['number', 'number', 'number', 'number']);
+    this.fmiGetBoolean = this.inst.cwrap(prefix + separator + this.sGetboolean, 'number', ['number', 'number', 'number', 'number']);
+    this.fmiDoStep = this.inst.cwrap(prefix + separator + this.sDostep, 'number', ['number', 'number', 'number', 'number']);
+
+    this.fmiGetVersion = this.inst.cwrap(prefix + separator + 'fmi2GetVersion', 'string');
+    this.fmiGetTypesPlatform = this.inst.cwrap(prefix + separator + 'fmi2GetTypesPlatform', 'string');
+    this.fmi2FreeInstance = this.inst.cwrap(prefix + separator + 'fmi2FreeInstance', 'number', ['number']);
+    this.instantiated = false;
+    //
+    //this.instantiate();
   }
 
   call(method) {
@@ -68,17 +92,26 @@ export class Fmi {
   }
 
   instantiate() {
-    // reset and instantiate
-    //this.call(this.fmiReset);
-    //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2Reset();
-    //this.call(this.fmiInstantiate);
-    this.callbackptr = window.createFmi2CallbackFunctions(this.consoleLogger)
-    this.inst = window[this.fmiInstantiate](this.fmiName, this.cosimulation, this.guid, '', this.callbackptr, 0, 0);
-    //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2Instantiate();
-    // setup experiment
-    window[this.fmiSetup](this.inst, 1, this.tolerance || 0.000005, this.startTime, 0);
 
-    //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2SetupExperiment();
+
+    //this.fmiCreateCallback = this.ints.cwrap(this.fmiCreateCallback,'')
+    /*this.inst[this.fmiCreateCallback](this.consoleLogger).then( callbackptr=> {
+      this.callbackptr = callbackptr;
+      this.inst[this.fmiInstantiate](this.fminame, this.cosimulation, this.guid, '', this.callbackptr, 0, 0);
+      //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2Instantiate();
+      // setup experiment
+      this.inst[this.fmiSetup](this.inst, 1, this.tolerance || 0.000005, this.starttime, 0);
+      //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2SetupExperiment();
+
+    });*/
+    //console callback ptr
+    this.callbackptr = this.fmiCreateCallback(window.console);
+    //create instance of model simulation
+    this.fmiinst = this.fmiInstantiate(this.fminame, this.cosimulation, this.guid, '', this.callbackptr, 0, 0);
+    //setup experiment
+    this.fmiSetup(this.fmiinst, 1, this.tolerance, this.starttime, 0);
+    console.log('instantiated fmiinst',this.fmiinst);
+    this.instantiated = true;
   }
 
   simulate() {}
@@ -119,4 +152,16 @@ export class Fmi {
     //do step
     //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2DoStep();
   }
+
+  start() {
+    if (!this.instantiated) {
+      this.instantiate();
+    }
+  }
+
+  stop() {}
+
+  step() {}
+
+  reset() {}
 }
