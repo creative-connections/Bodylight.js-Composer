@@ -23,25 +23,22 @@ before_install:
 
 install:
   - npm install
-  - cd website
-  - npm install
-  - cd ..
 
 script:
-  - npm run prod
-  - cd website
-  - npm run build
-  - cd ..
+  - au buildcomp
+  - au build
+  - au test
 
-before_deploy:
-  - mv build website/build/bodylight.js/composer
+# 03/2020 tomask: commented deploy - need to analyze and assess compare with default gh-pages autodeploy
+#before_deploy:
+#  - mv dist website/build/bodylight.js/composer
 
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  local-dir: website/build/bodylight.js
-  repo: creative-connections/creative-connections.github.io
-  target-branch: master
-  on:
-    branch: master
+#deploy:
+#  provider: pages
+#  skip-cleanup: true
+#  github-token: $GITHUB_TOKEN
+#  local-dir: website/build/bodylight.js
+#  repo: creative-connections/creative-connections.github.io
+#  target-branch: master
+#  on:
+#    branch: master

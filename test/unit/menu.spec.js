@@ -21,9 +21,9 @@ describe('Stage Menu Component', () => {
   it('should render menu', done => {
     component.create(bootstrap).then(() => {
       let nameElement = document.getElementsByTagName('button')[0];
-      expect(nameElement.innerHTML).toContain('New');
+      expect(nameElement.innerHTML).toContain('Menu');
       nameElement = document.getElementsByTagName('button')[1];
-      expect(nameElement.innerHTML).toContain('Open');
+      expect(nameElement.innerHTML).toContain('New');
       done();
     }).catch(e => {
       fail(e);

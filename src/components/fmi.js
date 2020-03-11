@@ -161,7 +161,11 @@ export class Fmi {
 
   stop() {}
 
-  step() {}
+  step() {
+    if (!this.instantiated) {
+      this.instantiate();
+    }
+  }
 
   reset() {}
 }
