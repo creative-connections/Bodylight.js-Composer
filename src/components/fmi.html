@@ -4,8 +4,7 @@
   <require from="font-awesome/fonts/fontawesome-webfont.woff"></require>
   <require from="font-awesome/fonts/fontawesome-webfont.ttf"></require>
   <require from="font-awesome/fonts/fontawesome-webfont.woff2"></require>
-  <button class="w3-button" click.delegate="start()" title="Start simulation"><i class="fa fa-play"></i> &nbsp;</button>
-  <button class="w3-button" click.delegate="stop()" title="Stop simulation"><i class="fa fa-stop"></i> &nbsp;</button>
+  <button class="w3-button" click.delegate="startstop()" title="Start/Stop simulation"><i class.bind="animationstarted? 'fa fa-stop':'fa fa-play'"></i> &nbsp;</button>
   <button class="w3-button" click.delegate="step()" title="Do simulation step"><i class="fa fa-step-forward"></i> &nbsp;</button>
   <button class="w3-button" click.delegate="reset()" title="Reset simulation"><i class="fa fa-refresh"></i> &nbsp;</button>
   <span class="w3-tiny" title.bind="fminame" style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;">FMI: ${fminame}</span>

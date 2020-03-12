@@ -9,7 +9,9 @@ export class Fmi {
 
 
   cosimulation=1;
-  stepSize=0.1;
+  stepSize=0.01;
+  doingstep=false;
+  animationstarted=false;
 
   sReset='fmi2Reset';
   sInstantiate = 'fmi2Instantiate';
@@ -166,38 +168,53 @@ export class Fmi {
     //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2DoStep();
   }
 
-  start() {
-    if (!this.instantiated) {
-      this.instantiate();
-      this.initialize();
+  startstop() {
+    if (this.animationstarted) {
+      //stop animation
+      this.animationstarted = false;
+      cancelAnimationFrame(this.request);
+    } else {
+      this.animationstarted = true;
+      //animate using requestAnimationFrame
+      const performAnimation = () => {
+        this.request = requestAnimationFrame(performAnimation);
+        this.step();
+      };
+      requestAnimationFrame(performAnimation);
     }
   }
 
-  stop() {}
-
   step() {
-    if (!this.instantiated) {
-      this.instantiate();
-      this.initialize();
+    if (!this.doingstep) {
+      this.doingstep = true;
+      if (!this.instantiated) {
+        this.instantiate();
+        this.initialize();
+      }
+      //TODO now demo data, get real data from simulation
+      //console.log('step()1 fmiinst', this.fmiinst);
+      const res = this.fmiDoStep(this.fmiinst, this.stepTime, this.stepSize, 1);
+      console.log('step() res:', res);
+      if (res === 1 || res === 2) {
+        this.fmiReset(this.fmiinst);
+      }
+      //console.log('step()2');
+
+      this.mydata[0] = this.stepTime;
+      this.mydata[1] = this.getSingleReal(this.references[0]);
+      //console.log('step()3');
+
+      //create data
+      /*this.mydata[0]++;
+      this.mydata[1] = Math.random();*/
+      //create custom event
+      let event = new CustomEvent('fmidata', {detail: this.mydata});
+      //dispatch event - it should be listened by some other component
+      document.getElementById(this.id).dispatchEvent(event);
+      //console.log('step sending data via event',event);
+      this.stepTime = parseFloat(parseFloat(this.stepTime + this.stepSize).toPrecision(8));
+      this.doingstep = false;
     }
-    //TODO now demo data, get real data from simulation
-    this.stepTime = this.stepTime + this.stepSize;
-    //console.log('step()1 fmiinst', this.fmiinst);
-    this.fmiDoStep(this.fmiinst, this.stepTime, this.stepSize, 1);
-    //console.log('step()2');
-
-    this.mydata[0] = this.stepTime;
-    this.mydata[1] = this.getSingleReal(this.references[0]);
-    //console.log('step()3');
-
-    //create data
-    /*this.mydata[0]++;
-    this.mydata[1] = Math.random();*/
-    //create custom event
-    let event = new CustomEvent('fmidata', {detail: this.mydata});
-    //dispatch event - it should be listened by some other component
-    document.getElementById(this.id).dispatchEvent(event);
-    //console.log('step sending data via event',event);
   }
 
   reset() {}

@@ -5,13 +5,17 @@ import {bindable} from 'aurelia-framework';
 export class Dygraphchart {
   @bindable inputs;
   @bindable fromid;
+  @bindable maxdata=1000;
 
   constructor() {
     this.data = [[0, 0]];
     //this.data=[[1, 5], [2, 5], [3, 4.9], [4, 4.8], [5, 5.2]];
     //create lambda function which is added as listener later
     this.handleValueChange = e => {
+      //e.detail may not reallocate - using same buffer, thus slicing to append to data array
       this.data.push(e.detail.slice());
+      //shift - remove first element if data is too big
+      if (this.data.length > this.maxdata) this.data.shift();
       //console.log('Dygraphchar data', this.data);
       this.dygraph.updateOptions( { 'file': this.data } );
     };
