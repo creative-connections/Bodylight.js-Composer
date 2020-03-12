@@ -356,7 +356,7 @@
   <thead>
   <th><h2>range with binding</h2></th>
   <th><h2>fmi</h2></th>
-  <th><h2>animate</h2></th>
+  <th><h2>graph</h2></th>
   <th><h2>SVG</h2></th>
   </thead>
   <tbody>
@@ -372,26 +372,11 @@
     </td>
     <td>
 
-      <bdl-fmi fminame="MeursHemodynamics_Model_vanMeursHemodynamicsModel" tolerance="0.001" starttime="0" guid="{1cd90fb1-006b-4957-b1f2-012702efe021}"></bdl-fmi>
+      <bdl-fmi id="id4" fminame="MeursHemodynamics_Model_vanMeursHemodynamicsModel" tolerance="0.001" starttime="0" guid="{1cd90fb1-006b-4957-b1f2-012702efe021}"></bdl-fmi>
 
     </td>
     <td>
-
-      <bdl-animate></bdl-animate>
-    </td>
-    <td>
-
-
-      <svg width="100" height="100">
-        //        M 0 0 Q 0 50,50 50, 100 50, 100 100, 100 50, 150 50, 200 50, 200 0
-        <path  d="M 0 0 Q 0 50,25 50, 50 50, 50 100, 50 50, 75 50,100 50, 100 0" fill="none" stroke="black"></path>
-        <clipPath id="cutleft2">
-
-          <path  d="M 0 0 Q 0 50,25 50, 50 50, 50 100, 50 50, 75 50,100 50, 100 0"></path>
-        </clipPath>
-
-        <path stroke="black" fill="green" fill-opacity="0.5" clip-path="url(#cutleft2)"  d="M 0 10 L 100 10, 100 100, 0 100"></path>
-      </svg>
+      <bdl-dygraphchart width="600" height="300" fromid="id4" inputs="time,aorta pressure"></bdl-dygraphchart>
     </td>
   </tr>
   </tbody>

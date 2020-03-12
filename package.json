@@ -16,6 +16,7 @@
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
     "core-js": "^3.6.4",
+    "dygraphs": "^2.1.0",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
     "grapesjs": "^0.15.10",
