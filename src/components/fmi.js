@@ -1,7 +1,7 @@
 import {bindable} from 'aurelia-framework';
 export class Fmi {
   @bindable fminame='N/A';
-  @bindable tolerance=0.001;
+  @bindable tolerance=0.000001;
   @bindable starttime=0;
   @bindable guid='N/A';
   @bindable id;
@@ -12,6 +12,8 @@ export class Fmi {
   stepSize=0.01;
   doingstep=false;
   animationstarted=false;
+  measurefps=true;
+  fpstick=0;
 
   sReset='fmi2Reset';
   sInstantiate = 'fmi2Instantiate';
@@ -122,7 +124,7 @@ export class Fmi {
     this.consoleLoggerPtr = this.inst.addFunction(this.consoleLogger.bind(this), 'viiiiii');
     this.callbackptr = this.fmiCreateCallback(this.consoleLoggerPtr);
     //create instance of model simulation
-    this.fmiinst = this.fmiInstantiate(this.fminame, this.cosimulation, this.guid, '', this.callbackptr, 0, 1);
+    this.fmiinst = this.fmiInstantiate(this.fminame, this.cosimulation, this.guid, '', this.callbackptr, 0, 0); //last 1 debug, 0 nodebug
     //setup experiment
     this.fmiSetup(this.fmiinst, 1, this.tolerance, this.starttime, 0);
     console.log('instantiated fmiinst', this.fmiinst);
@@ -194,7 +196,7 @@ export class Fmi {
       //TODO now demo data, get real data from simulation
       //console.log('step()1 fmiinst', this.fmiinst);
       const res = this.fmiDoStep(this.fmiinst, this.stepTime, this.stepSize, 1);
-      console.log('step() res:', res);
+      //console.log('step() res:', res);
       if (res === 1 || res === 2) {
         this.fmiReset(this.fmiinst);
       }
@@ -213,11 +215,22 @@ export class Fmi {
       document.getElementById(this.id).dispatchEvent(event);
       //console.log('step sending data via event',event);
       this.stepTime = parseFloat(parseFloat(this.stepTime + this.stepSize).toPrecision(8));
+      if (this.measurefps) {
+        if (this.fpstick === 0) {this.startfpstime = Date.now(); console.log('measurefps');}
+        this.fpstick++;
+        if (this.fpstick >= 200) {
+          this.fps = 1000 * 200 / (Date.now() - this.startfpstime);
+          this.fpstick = 0;
+        }
+      }
       this.doingstep = false;
     }
   }
 
-  reset() {}
+  reset() {
+    this.fmiReset(this.fmiinst);
+    this.stepTime = 0;
+  }
 
   /* routines to alloc buffer for getting/setting from fmi*/
   createBuffer(arr) {

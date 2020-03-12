@@ -1,3 +1,9 @@
 <template bindable="width,height">
+  <div class="w3-container">
+    <span class="w3-small">
+      <i class="fa fa-download w3-border" title="download csv data" click.delegate="download()"></i>
+      <i class="fa fa-eye w3-border" title="preview csv data" click.delegate="preview()"></i>
+    </span>
   <div ref="dygraphcanvas" style="width:${width}px; height:${height}px;"></div>
+  </div>
 </template>

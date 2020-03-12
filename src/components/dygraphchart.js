@@ -1,11 +1,12 @@
 import Dygraph from 'dygraphs';
 import {bindable} from 'aurelia-framework';
+import {saveAs} from 'file-saver';
 
 
 export class Dygraphchart {
   @bindable inputs;
   @bindable fromid;
-  @bindable maxdata=1000;
+  @bindable maxdata=300;
 
   constructor() {
     this.data = [[0, 0]];
@@ -48,5 +49,22 @@ export class Dygraphchart {
 
   detached() {
     document.getElementById(this.fromid).removeEventListener('input', this.handleValueChange);
+  }
+
+  download() {
+    let filename = prompt('File name (*.csv):', 'data.csv');
+    if (filename) {
+      if (!filename.endsWith('.csv')) filename = filename.concat('.csv');
+      let content = this.inputs + '\n' + this.data.map(e => e.join(',')).join('\n');
+      let blob = new Blob([content], {type: 'text/csv;charset=utf-8;'});
+      saveAs(blob, filename);
+    }
+  }
+
+  preview() {
+    let content = this.inputs + '\n' + this.data.map(e => e.join(',')).join('\n');
+    let blob = new Blob([content], {type: 'text/csv;charset=utf-8;'});
+    let url = URL.createObjectURL(blob);
+    this.popup = window.open(url, 'BodylightPreview', 'width=800,height=600,menubar=no,status=no,titlebar=no,toolbar=no');
   }
 }
