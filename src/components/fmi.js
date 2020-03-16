@@ -1,7 +1,7 @@
 import {bindable} from 'aurelia-framework';
 export class Fmi {
   @bindable fminame='N/A';
-  @bindable tolerance=0.000001;
+  @bindable tolerance=0.001;//0.000030517578
   @bindable starttime=0;
   @bindable guid='N/A';
   @bindable id;
@@ -9,11 +9,14 @@ export class Fmi {
 
 
   cosimulation=1;
-  stepSize=0.01;
+  stepSize=0.01;//0.0078125;
+
+
   doingstep=false;
   animationstarted=false;
   measurefps=true;
   fpstick=0;
+  stepi=0;
 
   sReset='fmi2Reset';
   sInstantiate = 'fmi2Instantiate';
@@ -187,6 +190,7 @@ export class Fmi {
   }
 
   step() {
+    //primitive semaphore, only one instance can perform this call
     if (!this.doingstep) {
       this.doingstep = true;
       if (!this.instantiated) {
@@ -195,6 +199,7 @@ export class Fmi {
       }
       //TODO now demo data, get real data from simulation
       //console.log('step()1 fmiinst', this.fmiinst);
+      this.stepi++;
       const res = this.fmiDoStep(this.fmiinst, this.stepTime, this.stepSize, 1);
       //console.log('step() res:', res);
       if (res === 1 || res === 2) {
@@ -213,8 +218,17 @@ export class Fmi {
       let event = new CustomEvent('fmidata', {detail: this.mydata});
       //dispatch event - it should be listened by some other component
       document.getElementById(this.id).dispatchEvent(event);
+
       //console.log('step sending data via event',event);
-      this.stepTime = parseFloat(parseFloat(this.stepTime + this.stepSize).toPrecision(8));
+      //prevent FMU(MeursHemodynamics_Model_vanMeursHemodynamicsModel:1:) msg: CVODE: CVode failed with NONE:
+      //  Internal t = 19.4801 and h = 6.61693e-16 are such that t + h = t on the next step. The solver will continue anyway.
+      // but bring instability
+      //this.stepTime = parseFloat(parseFloat(this.stepTime + this.stepSize).toPrecision(12));
+
+      //this solves stability of common simulation, but warning above produced
+      this.stepTime = this.stepTime + this.stepSize;
+      //same as parsefloat
+      //this.stepTime=this.stepi * this.stepSize;
       if (this.measurefps) {
         if (this.fpstick === 0) {this.startfpstime = Date.now(); console.log('measurefps');}
         this.fpstick++;
