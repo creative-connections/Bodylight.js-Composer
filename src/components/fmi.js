@@ -158,21 +158,6 @@ export class Fmi {
     return this.fmiGetBoolean(this.fmiinst, query.byteOffset, count, output.byteOffset);
   }
 
-  setRealByName(name, value) {
-    //set param
-    //window[this.fmiSetReal](name, value);
-    //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2SetReal();
-  }
-
-  getRealByName() {
-    //get value
-    //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2GetReal();
-  }
-  stepsimulate() {
-    //do step
-    //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2DoStep();
-  }
-
   startstop() {
     if (this.animationstarted) {
       //stop animation
@@ -207,8 +192,9 @@ export class Fmi {
       }
       //console.log('step()2');
 
-      this.mydata[0] = this.stepTime;
-      this.mydata[1] = this.getSingleReal(this.references[0]);
+
+      this.mydata = this.getReals(this.references);
+      this.mydata.unshift(this.stepTime);
       //console.log('step()3');
 
       //create data
@@ -277,6 +263,21 @@ export class Fmi {
     return buffer;
   }
 
+  getReals(references) {
+    const queryBuffer = this.createAndFillBuffer(new Int32Array(references));
+    const query = this.viewBuffer(queryBuffer);
+    const outputBuffer = this.createBuffer(new Float64Array(references.length));
+    const output = this.viewBuffer(outputBuffer);
+
+    this.getReal(query, output, references.length);
+
+    const real = new Float64Array(output.buffer, output.byteOffset, references.length);
+
+    this.freeBuffer(queryBuffer);
+    this.freeBuffer(outputBuffer);
+    return real;
+  }
+
   getSingleReal(reference) {
     const queryBuffer = this.createAndFillBuffer(new Int32Array([reference]));
     const query = this.viewBuffer(queryBuffer);
@@ -290,5 +291,89 @@ export class Fmi {
     this.freeBuffer(queryBuffer);
     this.freeBuffer(outputBuffer);
     return real[0];
+  }
+
+  /**
+     * Adds a real value to setRealQueue
+     */
+  setSingleReal(reference, value) {
+    if (!this.setRealQueue) {
+      this.setRealQueue = {
+        references: [],
+        values: []
+      };
+    }
+    this.setRealQueue.references.push(reference);
+    this.setRealQueue.values.push(value);
+  }
+
+  flushRealQueue() {
+    if (this.setRealQueue) {
+      const referenceBuffer = this.createAndFillBuffer(new Int32Array(this.setRealQueue.references));
+      const references = this.viewBuffer(referenceBuffer);
+      const valueBuffer = this.createAndFillBuffer(new Float64Array(this.setRealQueue.values));
+      const values = this.viewBuffer(valueBuffer);
+
+      this.setReal(references, values, this.setRealQueue.references.length);
+      this.freeBuffer(referenceBuffer);
+      this.freeBuffer(valueBuffer);
+
+      this.setRealQueue = false;
+    }
+  }
+
+  flushBooleanQueue() {
+    if (this.setBooleanQueue) {
+      const referenceBuffer = this.createAndFillBuffer(new Int32Array(this.setBooleanQueue.references));
+      const references = this.viewBuffer(referenceBuffer);
+      const valueBuffer = this.createAndFillBuffer(new Int32Array(this.setBooleanQueue.values));
+      const values = this.viewBuffer(valueBuffer);
+
+      this.setBoolean(references, values, this.setBooleanQueue.references.length);
+      this.freeBuffer(referenceBuffer);
+      this.freeBuffer(valueBuffer);
+
+      this.setBooleanQueue = false;
+    }
+  }
+
+  /**
+     */
+  setSingleBoolean(reference, value) {
+    if (!this.setBooleanQueue) {
+      this.setBooleanQueue = {
+        references: [],
+        values: []
+      };
+    }
+    this.setBooleanQueue.references.push(reference);
+    this.setBooleanQueue.values.push(value);
+  }
+
+  /**
+     * Loads a single boolean value based on reference, this is a shorthand function.
+     * It is recommended to use Module.getBoolean with reusable mallocs.
+     */
+  getSingleBoolean(reference) {
+    const queryBuffer = this.createAndFillBuffer(new Int32Array([reference]));
+    const query = this.viewBuffer(queryBuffer);
+    const outputBuffer = this.createBuffer(new Int32Array(1));
+    const output = this.viewBuffer(outputBuffer);
+    this.getBoolean(query, output, 1);
+    const bool = new Int32Array(output.buffer, output.byteOffset, 1);
+    this.freeBuffer(queryBuffer);
+    this.freeBuffer(outputBuffer);
+    return bool[0];
+  }
+  getBooleans(references) {
+    const queryBuffer = this.createAndFillBuffer(new Int32Array(references));
+    const query = this.viewBuffer(queryBuffer);
+    const outputBuffer = this.createBuffer(new Int32Array(references.length));
+    const output = this.viewBuffer(outputBuffer);
+    this.getBoolean(query, output, references.length);
+    const bool = new Int32Array(output.buffer, output.byteOffset, references.length);
+    this.freeBuffer(queryBuffer);
+    this.freeBuffer(outputBuffer);
+    return bool;
   }
 }
