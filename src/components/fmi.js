@@ -1,16 +1,18 @@
 import {bindable} from 'aurelia-framework';
+
 export class Fmi {
   @bindable fminame='N/A';
   @bindable tolerance=0.001;//0.000030517578
   @bindable starttime=0;
   @bindable guid='N/A';
   @bindable id;
-  @bindable valuereferences='';
+  @bindable inputs;
+  @bindable otherinputs;
+  @bindable valuereferences;
 
 
   cosimulation=1;
   stepSize=0.01;//0.0078125;
-
 
   doingstep=false;
   animationstarted=false;
@@ -31,13 +33,47 @@ export class Fmi {
   sCreateCallback='createFmi2CallbackFunctions';
 
   constructor() {
-    //console.log('constructor fminame:', this.fminame);
+    //create lambda function which is added as listener later
+    this.changeinputs = [];
+    this.handleValueChange = e => {
+      //e.target; //triggered the event
+      let targetid = e.target.parent().parent().id;
+      let targetvalue = e.target.value;
+      this.changeinputs.push({id: targetid, value: targetvalue}); //detail will hold the value being changed
+      console.log('fmi handle value change', this.changeinputs);
+    };
+    this.handleDetailChange = e => {
+      //e.target; //triggered the event
+      //let targetid = e.target.parent().parent().id;
+      //let targetvalue = e.target.value;
+      this.changeinputs.push({valuereference: e.detail.valuereference, value: e.detail.value}); //detail will hold the value being changed
+      console.log('fmi handle value change', this.changeinputs);
+    };
   }
 
   attached() {
     this.mydata = [0, 0];
     //split references by ,
     this.references = this.valuereferences.split(',');
+
+    //parse inputs id,ref1;id2,ref2 ...
+    if (this.inputs) { //register DOM elements to listen to their 'change' event directly
+      let inputparts = this.inputs.split(';'); //splits groups delimited by ;
+      this.inputreferences = [];
+      for (let inputpart of inputparts) {
+        let myinputs = inputpart.split(','); //splits reference and id by ,
+        this.inputreferences[myinputs[0]] = myinputs[1]; //first is id second is reference
+        //register change event - the alteration is commited
+        document.getElementById(myinputs[0]).addEventListener('change', this.handleValueChange);
+      }
+    }
+
+    if (this.otherinputs) {
+      let otherinputtargets = this.otherinputs.split(',;');
+      for (let target of otherinputtargets) document.getElementById(target).addEventListener('fmiinput', this.handleDetailChange);
+    }
+
+    //set the fminame and JS WASM function references
     let separator = '_';
     let prefix = this.fminame;
     //console.log('attached fminame:', this.fminame);
@@ -47,19 +83,11 @@ export class Fmi {
       separator = '';
     }
 
-    //instantiate
-    // reset and instantiate
-    //this.call(this.fmiReset);
-    //MeursHemodynamics_Model_vanMeursHemodynamicsModel._MeursHemodynamics_Model_vanMeursHemodynamicsModel_fmi2Reset();
-    //this.call(this.fmiInstantiate);
-
-    //console.log('instantiate, this:', this.fmiCreateCallback);
     //create instance
     this.inst = new window[this.fminame];
-    console.log('instantiate, this.inst', this.inst);
+    //console.log('instantiate, this.inst', this.inst);
     //create function methods using emscripten recommended cwrap
     this.fmiCreateCallback = this.inst.cwrap('createFmi2CallbackFunctions', 'number', ['number']);
-
     this.fmiReset = this.inst.cwrap(prefix + separator + this.sReset, 'number', ['number']);
     this.fmiInstantiate = this.inst.cwrap(prefix + separator + this.sInstantiate, 'number', ['string', 'number', 'string', 'string', 'number', 'number', 'number']);
     this.fmiSetup = this.inst.cwrap(prefix + separator + this.sSetup, 'number', ['number', 'number', 'number', 'number', 'number', 'number']);
@@ -70,21 +98,12 @@ export class Fmi {
     this.fmiSetBoolean = this.inst.cwrap(prefix + separator + this.sSetboolean, 'number', ['number', 'number', 'number', 'number']);
     this.fmiGetBoolean = this.inst.cwrap(prefix + separator + this.sGetboolean, 'number', ['number', 'number', 'number', 'number']);
     this.fmiDoStep = this.inst.cwrap(prefix + separator + this.sDostep, 'number', ['number', 'number', 'number', 'number']);
-
     this.fmiGetVersion = this.inst.cwrap(prefix + separator + 'fmi2GetVersion', 'string');
     this.fmiGetTypesPlatform = this.inst.cwrap(prefix + separator + 'fmi2GetTypesPlatform', 'string');
     this.fmi2FreeInstance = this.inst.cwrap(prefix + separator + 'fmi2FreeInstance', 'number', ['number']);
     this.instantiated = false;
-    //
-    //this.instantiate();
   }
 
-  call(method) {
-    window[method]();
-  }
-  callargs(method, ...args) {
-    window[method](args);
-  }
   bind() {}
 
   detached() {}
@@ -185,36 +204,50 @@ export class Fmi {
       //TODO now demo data, get real data from simulation
       //console.log('step()1 fmiinst', this.fmiinst);
       this.stepi++;
+
+      //changeinputs
+      if (this.changeinputs.length > 0) {
+        while (this.changeinputs.length > 0) {
+          let myinputs = this.changeinputs.shift(); //remove first item
+          //set real - reference is in - one input one reference
+          //for (let reference of this.inputs[myinputs.id])
+
+          //sets individual values - if id is in input, then reference is taken from inputs definition
+          if (myinputs.id) this.setSingleReal(this.inputs[myinputs.id], myinputs.value);
+          // if reference is in input, then it is set directly
+          else if (myinputs.valuereference) this.setSingleReal(myinputs.valuereference, myinputs.value);
+        }
+        //flush all in one call to fmi
+        this.flushRealQueue();
+      }
+      //dostep
       const res = this.fmiDoStep(this.fmiinst, this.stepTime, this.stepSize, 1);
       //console.log('step() res:', res);
       if (res === 1 || res === 2) {
         this.fmiReset(this.fmiinst);
       }
-      //console.log('step()2');
 
-
+      //distribute simulation data to listeners
       this.mydata = this.getReals(this.references);
-      this.mydata.unshift(this.stepTime);
-      //console.log('step()3');
-
-      //create data
-      /*this.mydata[0]++;
-      this.mydata[1] = Math.random();*/
+      //console.log('step mydata', this.mydata);
+      //add time to data
+      //this.mydata2 = [this.stepTime];
+      //this.mydata3 = this.mydata2.concat(this.mydata);
       //create custom event
-      let event = new CustomEvent('fmidata', {detail: this.mydata});
+      let event = new CustomEvent('fmidata', {detail: {time: this.stepTime, data: this.mydata}});
       //dispatch event - it should be listened by some other component
       document.getElementById(this.id).dispatchEvent(event);
 
-      //console.log('step sending data via event',event);
       //prevent FMU(MeursHemodynamics_Model_vanMeursHemodynamicsModel:1:) msg: CVODE: CVode failed with NONE:
       //  Internal t = 19.4801 and h = 6.61693e-16 are such that t + h = t on the next step. The solver will continue anyway.
-      // but bring instability
+      // but bring weird simulation instability
       //this.stepTime = parseFloat(parseFloat(this.stepTime + this.stepSize).toPrecision(12));
 
       //this solves stability of common simulation, but warning above produced
       this.stepTime = this.stepTime + this.stepSize;
       //same as parsefloat
       //this.stepTime=this.stepi * this.stepSize;
+      console.log('step measurefps:', this.measurefps);
       if (this.measurefps) {
         if (this.fpstick === 0) {this.startfpstime = Date.now(); console.log('measurefps');}
         this.fpstick++;

@@ -1,5 +1,6 @@
-<template bindable="min,max,default,step,value">
+<template bindable="min,max,default,step,value,title">
   <div class="slidecontainer">
+    <label>${title}</label>
     <input type="range" min="${min}" max="${max}" value.bind="value" value="${default}" step="${step}"/>
     <input type="number" min="${min}" max="${max}" value.bind="value" value="${default}" step="${step}"/>
   </div>

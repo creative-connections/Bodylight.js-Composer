@@ -1,0 +1,19 @@
+<template bindable="sirka,vyska,width,height">
+    <svg version="1.1" id="kadinka" xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
+         viewBox="0 0 210.36 258" xml:space="preserve" width="${width}" height="${height}">
+        <g id="kadinka" style="transform:scaleX(${sirka/100})">
+            <g id="kadinkaUvnitr" clip-path="url(#SVGID_2_)">
+                <defs>
+                    <path id="SVGID_1_" d="M192.18 251.11h-173c-8.94 0-16.18-7.24-16.18-16.18V21.29c0-8.94 7.24-16.18 16.18-16.18h173c8.94 0 16.18 7.24 16.18 16.18v213.64c0 8.94-7.24 16.18-16.18 16.18z"/></defs>
+                <clipPath id="SVGID_2_">
+                    <use xlink:href="#SVGID_1_" overflow="hidden"/>
+                </clipPath>
+                <path id="kadinkaPozadi" fill="#d4ecf8" d="M3 13.11h205.36v238H3z"/>
+                <path id="kadinkaTekutina" fill=color d="M3 13.11h205.36v238H3z" style="transform:matrix(1,0,0,${vyska/100},0,${251-vyska*0.25})"/>
+            </g>
+            <path id="kadinkaTah" d="M208.36 4.29v230.64c0 8.94-7.24 16.18-16.18 16.18h-173c-8.94 0-16.18-7.24-16.18-16.18V4.29" fill="none" stroke="#000000" stroke-miterlimit="10"/>
+        </g>
+    </svg>
+
+</template>

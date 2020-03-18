@@ -9,6 +9,6 @@
   <button class="w3-button" click.delegate="step()" title="Do simulation step"><i class="fa fa-step-forward"></i> &nbsp;</button>
   <button class="w3-button" click.delegate="reset()" title="Reset simulation"><i class="fa fa-refresh"></i> &nbsp;</button>
   <span class="w3-tiny" title.bind="fminame" style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;">FMI: ${fminame}</span>
-  <span class="w3-tiny"><input class="w3-check" type="checkbox" value.bind="measurefps"/><i show.bind="measurefps">FPS:${fps}</i></span>
+  <span class="w3-tiny"><input class="w3-check w3-tiny" type="checkbox" checked.bind="measurefps"/><i show.bind="measurefps">FPS:${fps}</i></span>
 
 </template>

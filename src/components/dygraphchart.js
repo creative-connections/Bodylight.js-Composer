@@ -9,12 +9,17 @@ export class Dygraphchart {
   @bindable maxdata=300;
 
   constructor() {
-    this.data = [[0, 0]];
+    this.data = [[0, 0, 0]];
     //this.data=[[1, 5], [2, 5], [3, 4.9], [4, 4.8], [5, 5.2]];
+
     //create lambda function which is added as listener later
     this.handleValueChange = e => {
-      //e.detail may not reallocate - using same buffer, thus slicing to append to data array
-      this.data.push(e.detail.slice());
+
+      let datapoint = [e.detail.time];
+      //e.detail do not reallocate - using same buffer, thus slicing to append to data array
+      let edata = e.detail.data.slice();
+      for (let i = 0; i < edata.length; i++) datapoint.push(edata[i]);
+      this.data.push(datapoint);
       //shift - remove first element if data is too big
       if (this.data.length > this.maxdata) this.data.shift();
       //console.log('Dygraphchar data', this.data);
