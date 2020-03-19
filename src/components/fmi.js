@@ -10,7 +10,6 @@ export class Fmi {
   @bindable otherinputs;
   @bindable valuereferences;
 
-
   cosimulation=1;
   stepSize=0.01;//0.0078125;
 
@@ -247,9 +246,9 @@ export class Fmi {
       this.stepTime = this.stepTime + this.stepSize;
       //same as parsefloat
       //this.stepTime=this.stepi * this.stepSize;
-      console.log('step measurefps:', this.measurefps);
+      //console.log('step measurefps:', this.measurefps);
       if (this.measurefps) {
-        if (this.fpstick === 0) {this.startfpstime = Date.now(); console.log('measurefps');}
+        if (this.fpstick === 0) {this.startfpstime = Date.now(); }
         this.fpstick++;
         if (this.fpstick >= 200) {
           this.fps = 1000 * 200 / (Date.now() - this.startfpstime);

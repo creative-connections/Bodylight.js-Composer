@@ -1,0 +1,9 @@
+<template bindable="sirka,sirkamin,sirkamax,vyska,vyskamin,vyskamax,id">
+    <require from="../range.html"></require>
+    <require from="../beaker.html"></require>
+    <require from="../bind2previous"></require>
+
+    <range id="${id}-ranges" min="${sirkamin}" max="${sirkamax}" default="${sirka}" title="Šířka" value.two-way="mysirka"></range>
+    <range id="${id}-rangev" min="${vyskamin}" max="${vyskamax}" default="${vyska}" title="Výška" value.two-way="myvyska"></range>
+    <beaker id="${id}-beaker" sirka.bind="mysirka" vyska.bind="myvyska" width="400" height="400"></beaker>
+</template>

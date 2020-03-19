@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <script type="module" src="bodylight.bundle.js"></script>
-  <script type="module" src="MeursFMI.js"></script>
+  <script type="text/javascript" src="MeursFMI.js"></script>
 </head>
 <body aurelia-app="mainwebcomponent">
 <h1>Test</h1>
@@ -47,6 +47,14 @@
         <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">50</text>
       </svg>
     </td>
+  </tr>
+  <tr><td><h2>Composite Beaker</h2></td><td><h2>CardiacCycle1</h2></td><td><h2>CardiacCycle2</h2></td></tr>
+  <tr>
+    <td>
+      <bdl-beakercontrols sirka="10" sirkamin="5" sirkamax="100" vyska="50" vyskamin="10" vyskamax="100" id="id8">
+    </td>
+    <td><bdl-cardiaccycle1></bdl-cardiaccycle1></td>
+    <td><bdl-quiz></bdl-quiz></td>
   </tr>
   </tbody>
 </table>
