@@ -74,6 +74,7 @@ The following HTML snippet loads first the `bodylight.bundle.js` script and use 
 `<bdl-bind2previous><</bdl-bind2previous>` Binds values of 2 components. With following attributes:
   * `fromid` unique id of the source element, which events are to be listened
   * `toid` unique id of the target element, the `input` event are handled and value of the target element is set
+  * `toattribute` (optional) name of the attribute to be set, if not defined 'value' is set.
   
 # FMI, bdl-fmi
 `<bdl-fmi></bdl-fmi>` Creates control buttons in order to control simulation of the model. With these attributes:

@@ -6,6 +6,26 @@ This project is bootstrapped by [aurelia-cli](https://github.com/aurelia/cli).
 
 For more information, go to https://aurelia.io/docs/cli/webpack
 
+## Getting started
+Preparing OS. You need to install `git` and `npm`, in order to have all recommended settings 
+you may use virtual machine configuration at https://github.com/creative-connections/Bodylight-VirtualMachine 
+
+Preparing and building Bodylight.js:
+
+- `git clone https://github.com/creative-connections/Bodylight.js-Composer` Clone repository 
+- `cd Bodylight.js-Composer` Go to directory 
+- `git checkout dev-v2tk` switch to development branch
+- You need to install `npm` into your operating system, e.g. by installing nodejs.
+- `npm install`. This installs all depended packages for this application
+
+## Build app
+Execute both of the following:
+`au build` - builds basic composer application into /dist folder
+`au buildcomp` - builds 'bodylight.bundle.js' needed by webcomponents
+  
+There is web application built in `dist/` directory. You may run it as in next section or you may map this directory as alias in Apache.
+   
+
 ## Run dev app
 
 Run `npm start`, then open `http://localhost:8080`
@@ -37,7 +57,7 @@ To run in watch mode, `au test --watch` or `au jest --watch`.
 ## Integration (e2e) tests
 
 You need the app running for integration test.
-
+/
 First, run `au run` and keep it running.
 
 Then run `au protractor`.
