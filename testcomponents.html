@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <script type="module" src="bodylight.bundle.js"></script>
-  <script type="module" src="MeursFMI.js"></script>
+  <script type="text/javascript" src="MeursFMI.js"></script>
 </head>
 <body aurelia-app="mainwebcomponent">
 <h1>Test</h1>
 <table class="w3-table w3-bordered">
   <thead>
-  <th><h2>range with binding</h2></th>
-  <th><h2>fmi</h2></th>
-  <th><h2>graph</h2></th>
+  <th><h2>range with binding and fmi</h2></th>
+  <th><h2>dygraph</h2></th>
+  <th><h2>chart.js</h2></th>
   </thead>
   <tbody>
   <tr>
@@ -19,20 +19,38 @@
       <bdl-receptacle id="id2" hx="100" hy="100" px="50" py="50"></bdl-receptacle>
       <bdl-bind2previous fromid="id1" toid="id2"></bdl-bind2previous>
 
+      <bdl-fmi id="id4" fminame="MeursHemodynamics_Model_vanMeursHemodynamicsModel"
+               tolerance="0.001" starttime="0" guid="{1cd90fb1-006b-4957-b1f2-012702efe021}"
+               valuereferences="637534215,637534232,33554436,33554438,33554442,33554440,33554441,33554443"
+               valuelabels="Pressure in Aorta,Pressure in Left Ventricle, Intrathoracic Artery Volume, Extrathoracic Arteries Volume, Pulmonary Arteries Volume, Intrathoracic Veins Volume, Extrathoracic Veins volume, Pulmonary Veins Volume,"
+               inputs="id1,16777216"></bdl-fmi>
+
     </td>
     <td>
 
-      <bdl-fmi id="id4" fminame="MeursHemodynamics_Model_vanMeursHemodynamicsModel" tolerance="0.001" starttime="0" guid="{1cd90fb1-006b-4957-b1f2-012702efe021}" valuereferences="637534215,637534232" inputs="id1,16777216"></bdl-fmi>
+      <bdl-dygraphchart width="600" height="300" fromid="id4" inputs="time,aorta pressure,ventricle pressure" refindex="0" refvalues="2"></bdl-dygraphchart>
 
     </td>
     <td>
-      <bdl-dygraphchart width="600" height="300" fromid="id4" inputs="time,aorta pressure,ventricle pressure"></bdl-dygraphchart>
+      <h3>Doughnut Chart</h3>
+      <bdl-chartjs id="id9" width="300" height="500" fromid="id4" type="doughnut" labels="Intrathoracic Arteries,ExtraThoracic Arteries, Pulmonary Arteries, Intrathoracic Veins, Extrathoracic veins, Pulmonary Veins" refindex="2" refvalues="6"></bdl-chartjs>
+    </td>
+  </tr>
+    <tr><td>
+      <h3>Polar Area Chart</h3>
+      <bdl-chartjs id="id10" width="300" height="500" fromid="id4" type="polarArea" labels="Intrathoracic Arteries,ExtraThoracic Arteries, Pulmonary Arteries, Intrathoracic Veins, Extrathoracic veins, Pulmonary Veins" refindex="2" refvalues="6"></bdl-chartjs>
+    </td><td>
+      <h3>Pie Chart</h3>
+      <bdl-chartjs id="id11" width="300" height="500" fromid="id4" type="pie" labels="Intrathoracic Arteries,ExtraThoracic Arteries, Pulmonary Arteries, Intrathoracic Veins, Extrathoracic veins, Pulmonary Veins" refindex="2" refvalues="6"></bdl-chartjs>
+    </td><td>
+      <h3>Bar Chart</h3>
+      <bdl-chartjs id="id11" width="300" height="500" fromid="id4" type="bar" labels="Intrathoracic Arteries,ExtraThoracic Arteries, Pulmonary Arteries, Intrathoracic Veins, Extrathoracic veins, Pulmonary Veins" refindex="2" refvalues="6"></bdl-chartjs>
     </td>
   </tr>
   <tr><td><h2>Beaker</h2></td><td><h2>Controls</h2></td><td><h2>Elasticity</h2></td></tr>
   <tr>
     <td>
-      <bdl-beaker id="id5" sirka="10" vyska="100" width="400" height="400"></bdl-beaker>
+      <bdl-beaker id="id5" sirka="10" vyska="100" width="400" height="400" color="red"></bdl-beaker>
     </td>
     <td>
       <bdl-range id="id6" title="Šířka"></bdl-range>
@@ -47,6 +65,14 @@
         <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">50</text>
       </svg>
     </td>
+  </tr>
+  <tr><td><h2>Composite Beaker</h2></td><td><h2>CardiacCycle1</h2></td><td><h2>CardiacCycle2</h2></td></tr>
+  <tr>
+    <td>
+      <bdl-beakercontrols sirka="10" sirkamin="5" sirkamax="100" vyska="50" vyskamin="10" vyskamax="100" id="id8" color="pink">
+    </td>
+    <td><bdl-cardiaccycle1></bdl-cardiaccycle1></td>
+    <td><bdl-quiz></bdl-quiz></td>
   </tr>
   </tbody>
 </table>

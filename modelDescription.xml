@@ -1,0 +1,3902 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  fmiVersion="2.0"
+  modelName="MeursHemodynamics_Model_vanMeursHemodynamicsModel"
+  guid="{1cd90fb1-006b-4957-b1f2-012702efe021}"
+  generationTool="Dymola Version 2019 (64-bit), 2018-04-11"
+  generationDateAndTime="2020-02-17T11:24:51Z"
+  variableNamingConvention="structured"
+  numberOfEventIndicators="54">
+  <ModelExchange
+    modelIdentifier="MeursHemodynamics_Model_vanMeursHemodynamicsModel"
+    canGetAndSetFMUstate="true"
+    canSerializeFMUstate="true"
+    providesDirectionalDerivative="true">
+    <SourceFiles>
+      <File
+        name="all.c"/>
+    </SourceFiles>
+  </ModelExchange>
+  <CoSimulation
+    modelIdentifier="MeursHemodynamics_Model_vanMeursHemodynamicsModel"
+    canHandleVariableCommunicationStepSize="true"
+    canInterpolateInputs="true"
+    maxOutputDerivativeOrder="1"
+    canGetAndSetFMUstate="true"
+    canSerializeFMUstate="true"
+    providesDirectionalDerivative="true">
+    <SourceFiles>
+      <File
+        name="all.c"/>
+    </SourceFiles>
+  </CoSimulation>
+  <UnitDefinitions>
+    <Unit
+      name="Pa">
+      <BaseUnit kg="1"
+        m="-1"
+        s="-2"/>
+    </Unit>
+    <Unit
+      name="Pa/m3">
+      <BaseUnit kg="1"
+        m="-4"
+        s="-2"/>
+    </Unit>
+    <Unit
+      name="m3">
+      <BaseUnit m="3"/>
+      <DisplayUnit
+        name="ml"
+        factor="1000000.0"/>
+    </Unit>
+    <Unit
+      name="m3/s">
+      <BaseUnit m="3"
+        s="-1"/>
+      <DisplayUnit
+        name="ml/min"
+        factor="60000000.0"/>
+    </Unit>
+    <Unit
+      name="m3/s2">
+      <BaseUnit m="3"
+        s="-2"/>
+    </Unit>
+  </UnitDefinitions>
+  <TypeDefinitions>
+    <SimpleType
+      name="MeursHemodynamics.Types.HydraulicElastance">
+      <Real
+        quantity="HydraulicElastance"
+        unit="Pa/m3"
+        nominal="133322387.41500002"/>
+    </SimpleType>
+    <SimpleType
+      name="MeursHemodynamics.Types.HydraulicElastanceInput">
+      <Real
+        quantity="HydraulicElastance"
+        unit="Pa/m3"
+        nominal="133322387.41500002"/>
+    </SimpleType>
+    <SimpleType
+      name="MeursHemodynamics.Types.HydraulicElastanceOutput">
+      <Real
+        quantity="HydraulicElastance"
+        unit="Pa/m3"
+        nominal="133322387.41500002"/>
+    </SimpleType>
+    <SimpleType
+      name="MeursHemodynamics.Types.Pressure">
+      <Real
+        quantity="Pressure"
+        unit="Pa"
+        nominal="133.322387415"/>
+    </SimpleType>
+    <SimpleType
+      name="MeursHemodynamics.Types.Volume">
+      <Real
+        quantity="Volume"
+        unit="m3"
+        displayUnit="ml"
+        min="0.0"
+        nominal="1E-06"/>
+    </SimpleType>
+    <SimpleType
+      name="MeursHemodynamics.Types.VolumeFlowRate">
+      <Real
+        quantity="VolumeFlowRate"
+        unit="m3/s"
+        displayUnit="ml/min"
+        nominal="1.6666666666666667E-08"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.Blocks.Interfaces.RealInput">
+      <Real/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.Blocks.Interfaces.RealOutput">
+      <Real/>
+    </SimpleType>
+  </TypeDefinitions>
+  <DefaultExperiment startTime="0.0"
+    stopTime="10.0"
+    tolerance="0.0001"/>
+  <ModelVariables>
+    <!-- Index for next variable = 1 -->
+    <ScalarVariable
+      name="heart.currentHeartRate"
+      valueReference="16777216"
+      description="heart rate in beats per min"
+      causality="parameter"
+      variability="tunable">
+      <Real start="60"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 2 -->
+    <ScalarVariable
+      name="heart.rightAtriumFlowInflow.q"
+      valueReference="637534208"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 3 -->
+    <ScalarVariable
+      name="heart.rightAtriumFlowInflow.pressure"
+      valueReference="637534209"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 4 -->
+    <ScalarVariable
+      name="heart.pulmonaryArteryOutflow.q"
+      valueReference="637534210"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 5 -->
+    <ScalarVariable
+      name="heart.pulmonaryArteryOutflow.pressure"
+      valueReference="637534211"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 6 -->
+    <ScalarVariable
+      name="heart.leftAtriumFlowInflow.q"
+      valueReference="637534212"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 7 -->
+    <ScalarVariable
+      name="heart.leftAtriumFlowInflow.pressure"
+      valueReference="637534213"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 8 -->
+    <ScalarVariable
+      name="heart.aortaOutflow.q"
+      valueReference="637534214"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 9 -->
+    <ScalarVariable
+      name="heart.aortaOutflow.pressure"
+      valueReference="637534215"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 10 -->
+    <ScalarVariable
+      name="heart.rightAtrium.bloodFlowInflow.q"
+      valueReference="587202560"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 11 -->
+    <ScalarVariable
+      name="heart.rightAtrium.bloodFlowInflow.pressure"
+      valueReference="637534209"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 12 -->
+    <ScalarVariable
+      name="heart.rightAtrium.inputElastance"
+      valueReference="637534216">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 13 -->
+    <ScalarVariable
+      name="heart.rightAtrium.elastance"
+      valueReference="637534216"
+      description="input elastance in Pa/m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 14 -->
+    <ScalarVariable
+      name="heart.rightAtrium.unstressedVolume_NonSI"
+      valueReference="16777217"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="30"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 15 -->
+    <ScalarVariable
+      name="heart.rightAtrium.unstressedVolume"
+      valueReference="100663305"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 16 -->
+    <ScalarVariable
+      name="heart.rightAtrium.externalPressure_NonSI"
+      valueReference="16777218"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 17 -->
+    <ScalarVariable
+      name="heart.rightAtrium.externalPressure"
+      valueReference="100663306"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 18 -->
+    <ScalarVariable
+      name="heart.rightAtrium.V0_NonSI"
+      valueReference="16777219"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="156"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 19 -->
+    <ScalarVariable
+      name="heart.rightAtrium.volume"
+      valueReference="33554432">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 20 -->
+    <ScalarVariable
+      name="der(heart.rightAtrium.volume)"
+      valueReference="587202560">
+      <Real
+        unit="m3/s"
+        derivative="19"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 21 -->
+    <ScalarVariable
+      name="heart.rightAtrium.stressedVolume"
+      valueReference="637534219"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 22 -->
+    <ScalarVariable
+      name="heart.rightAtrium.transmuralPressure"
+      valueReference="637534220"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 23 -->
+    <ScalarVariable
+      name="heart.rightAtrium.pressure"
+      valueReference="637534209"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 24 -->
+    <ScalarVariable
+      name="heart.leftAtrium.bloodFlowInflow.q"
+      valueReference="587202561"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 25 -->
+    <ScalarVariable
+      name="heart.leftAtrium.bloodFlowInflow.pressure"
+      valueReference="637534213"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 26 -->
+    <ScalarVariable
+      name="heart.leftAtrium.inputElastance"
+      valueReference="637534221">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 27 -->
+    <ScalarVariable
+      name="heart.leftAtrium.elastance"
+      valueReference="637534221"
+      description="input elastance in Pa/m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 28 -->
+    <ScalarVariable
+      name="heart.leftAtrium.unstressedVolume_NonSI"
+      valueReference="16777220"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="30"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 29 -->
+    <ScalarVariable
+      name="heart.leftAtrium.unstressedVolume"
+      valueReference="100663310"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 30 -->
+    <ScalarVariable
+      name="heart.leftAtrium.externalPressure_NonSI"
+      valueReference="16777221"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 31 -->
+    <ScalarVariable
+      name="heart.leftAtrium.externalPressure"
+      valueReference="100663311"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 32 -->
+    <ScalarVariable
+      name="heart.leftAtrium.V0_NonSI"
+      valueReference="16777222"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="93"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 33 -->
+    <ScalarVariable
+      name="heart.leftAtrium.volume"
+      valueReference="33554433">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 34 -->
+    <ScalarVariable
+      name="der(heart.leftAtrium.volume)"
+      valueReference="587202561">
+      <Real
+        unit="m3/s"
+        derivative="33"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 35 -->
+    <ScalarVariable
+      name="heart.leftAtrium.stressedVolume"
+      valueReference="637534224"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 36 -->
+    <ScalarVariable
+      name="heart.leftAtrium.transmuralPressure"
+      valueReference="637534225"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 37 -->
+    <ScalarVariable
+      name="heart.leftAtrium.pressure"
+      valueReference="637534213"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 38 -->
+    <ScalarVariable
+      name="heart.rightVentricle.bloodFlowInflow.q"
+      valueReference="587202562"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 39 -->
+    <ScalarVariable
+      name="heart.rightVentricle.bloodFlowInflow.pressure"
+      valueReference="637534226"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 40 -->
+    <ScalarVariable
+      name="heart.rightVentricle.inputElastance"
+      valueReference="637534227">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 41 -->
+    <ScalarVariable
+      name="heart.rightVentricle.elastance"
+      valueReference="637534227"
+      description="input elastance in Pa/m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 42 -->
+    <ScalarVariable
+      name="heart.rightVentricle.unstressedVolume_NonSI"
+      valueReference="16777223"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="40"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 43 -->
+    <ScalarVariable
+      name="heart.rightVentricle.unstressedVolume"
+      valueReference="100663316"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 44 -->
+    <ScalarVariable
+      name="heart.rightVentricle.externalPressure_NonSI"
+      valueReference="16777224"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 45 -->
+    <ScalarVariable
+      name="heart.rightVentricle.externalPressure"
+      valueReference="100663317"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 46 -->
+    <ScalarVariable
+      name="heart.rightVentricle.V0_NonSI"
+      valueReference="16777225"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="150"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 47 -->
+    <ScalarVariable
+      name="heart.rightVentricle.volume"
+      valueReference="33554434">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 48 -->
+    <ScalarVariable
+      name="der(heart.rightVentricle.volume)"
+      valueReference="587202562">
+      <Real
+        unit="m3/s"
+        derivative="47"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 49 -->
+    <ScalarVariable
+      name="heart.rightVentricle.stressedVolume"
+      valueReference="637534230"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 50 -->
+    <ScalarVariable
+      name="heart.rightVentricle.transmuralPressure"
+      valueReference="637534231"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 51 -->
+    <ScalarVariable
+      name="heart.rightVentricle.pressure"
+      valueReference="637534226"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 52 -->
+    <ScalarVariable
+      name="heart.leftVentricle.bloodFlowInflow.q"
+      valueReference="587202563"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 53 -->
+    <ScalarVariable
+      name="heart.leftVentricle.bloodFlowInflow.pressure"
+      valueReference="637534232"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 54 -->
+    <ScalarVariable
+      name="heart.leftVentricle.inputElastance"
+      valueReference="637534233">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 55 -->
+    <ScalarVariable
+      name="heart.leftVentricle.elastance"
+      valueReference="637534233"
+      description="input elastance in Pa/m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 56 -->
+    <ScalarVariable
+      name="heart.leftVentricle.unstressedVolume_NonSI"
+      valueReference="16777226"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="60"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 57 -->
+    <ScalarVariable
+      name="heart.leftVentricle.unstressedVolume"
+      valueReference="100663322"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 58 -->
+    <ScalarVariable
+      name="heart.leftVentricle.externalPressure_NonSI"
+      valueReference="16777227"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 59 -->
+    <ScalarVariable
+      name="heart.leftVentricle.externalPressure"
+      valueReference="100663323"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 60 -->
+    <ScalarVariable
+      name="heart.leftVentricle.V0_NonSI"
+      valueReference="16777228"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="143"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 61 -->
+    <ScalarVariable
+      name="heart.leftVentricle.volume"
+      valueReference="33554435">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 62 -->
+    <ScalarVariable
+      name="der(heart.leftVentricle.volume)"
+      valueReference="587202563">
+      <Real
+        unit="m3/s"
+        derivative="61"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 63 -->
+    <ScalarVariable
+      name="heart.leftVentricle.stressedVolume"
+      valueReference="637534236"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 64 -->
+    <ScalarVariable
+      name="heart.leftVentricle.transmuralPressure"
+      valueReference="637534237"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 65 -->
+    <ScalarVariable
+      name="heart.leftVentricle.pressure"
+      valueReference="637534232"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 66 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowResistance"
+      valueReference="16777229"
+      description="outflow resistance of valve in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.003"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 67 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowConductance"
+      valueReference="16777230"
+      description="backflow conductance of valve in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 68 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowValve.bloodFlow"
+      valueReference="637534238">
+      <Real nominal="1.6666666666666667E-08"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 69 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowValve.pressureDrop"
+      valueReference="637534239">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 70 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowValve.S"
+      valueReference="637534240"
+      description="parametric independent variable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 71 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowValve.open"
+      valueReference="637534241"
+      variability="discrete"
+      initial="approx">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 72 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowValve.bloodFlowInflow.q"
+      valueReference="637534238"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 73 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowValve.bloodFlowInflow.pressure"
+      valueReference="637534209"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 74 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowValve.bloodFlowOutflow.q"
+      valueReference="637534255"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 75 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowValve.bloodFlowOutflow.pressure"
+      valueReference="637534242"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 76 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowValve.bloodFlow"
+      valueReference="637534243">
+      <Real nominal="1.6666666666666667E-08"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 77 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowValve.pressureDrop"
+      valueReference="637534244">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 78 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowValve.S"
+      valueReference="637534245"
+      description="parametric independent variable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 79 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowValve.open"
+      valueReference="637534246"
+      variability="discrete"
+      initial="approx">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 80 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowValve.bloodFlowInflow.q"
+      valueReference="637534243"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 81 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowValve.bloodFlowInflow.pressure"
+      valueReference="637534247"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 82 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowValve.bloodFlowOutflow.q"
+      valueReference="637534251"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 83 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowValve.bloodFlowOutflow.pressure"
+      valueReference="637534209"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 84 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.bloodFlowInflow.q"
+      valueReference="637534248"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 85 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.bloodFlowInflow.pressure"
+      valueReference="637534209"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 86 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.bloodFlowOutflow.q"
+      valueReference="637534249"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 87 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.bloodFlowOutflow.pressure"
+      valueReference="637534226"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 88 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowBloodConductance.pressureDrop"
+      valueReference="637534250">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 89 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowBloodConductance.bloodFlow"
+      valueReference="637534243">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 90 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowBloodConductance.bloodFlowInflow.q"
+      valueReference="637534243"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 91 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowBloodConductance.bloodFlowInflow.pressure"
+      valueReference="637534226"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 92 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowBloodConductance.bloodFlowOutflow.q"
+      valueReference="637534251"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 93 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowBloodConductance.bloodFlowOutflow.pressure"
+      valueReference="637534247"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 94 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowBloodConductance.bloodConductance_NonSI"
+      valueReference="100663340"
+      description="conductance in ml/(mmHg s)"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 95 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.backflowBloodConductance.bloodConductance"
+      valueReference="100663341"
+      description="conductance in m3/(Pa s)"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 96 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowBloodResistor.pressureDrop"
+      valueReference="637534254">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 97 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowBloodResistor.bloodFlow"
+      valueReference="637534238">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 98 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowBloodResistor.bloodFlowInflow.q"
+      valueReference="637534238"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 99 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowBloodResistor.bloodFlowInflow.pressure"
+      valueReference="637534242"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 100 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowBloodResistor.bloodFlowOutflow.q"
+      valueReference="637534255"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 101 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowBloodResistor.bloodFlowOutflow.pressure"
+      valueReference="637534226"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 102 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowBloodResistor.bloodResistance_NonSI"
+      valueReference="100663344"
+      description="resistance in mmHg s/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 103 -->
+    <ScalarVariable
+      name="heart.tricuspidalValve.outflowBloodResistor.bloodResistance"
+      valueReference="100663345"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 104 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowResistance"
+      valueReference="16777231"
+      description="outflow resistance of valve in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.003"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 105 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowConductance"
+      valueReference="16777232"
+      description="backflow conductance of valve in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 106 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowValve.bloodFlow"
+      valueReference="637534258">
+      <Real nominal="1.6666666666666667E-08"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 107 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowValve.pressureDrop"
+      valueReference="637534259">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 108 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowValve.S"
+      valueReference="637534260"
+      description="parametric independent variable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 109 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowValve.open"
+      valueReference="637534261"
+      variability="discrete"
+      initial="approx">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 110 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowValve.bloodFlowInflow.q"
+      valueReference="637534258"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 111 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowValve.bloodFlowInflow.pressure"
+      valueReference="637534226"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 112 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowValve.bloodFlowOutflow.q"
+      valueReference="637534274"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 113 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowValve.bloodFlowOutflow.pressure"
+      valueReference="637534262"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 114 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowValve.bloodFlow"
+      valueReference="637534263">
+      <Real nominal="1.6666666666666667E-08"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 115 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowValve.pressureDrop"
+      valueReference="637534264">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 116 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowValve.S"
+      valueReference="637534265"
+      description="parametric independent variable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 117 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowValve.open"
+      valueReference="637534266"
+      variability="discrete"
+      initial="approx">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 118 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowValve.bloodFlowInflow.q"
+      valueReference="637534263"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 119 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowValve.bloodFlowInflow.pressure"
+      valueReference="637534267"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 120 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowValve.bloodFlowOutflow.q"
+      valueReference="637534270"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 121 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowValve.bloodFlowOutflow.pressure"
+      valueReference="637534226"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 122 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.bloodFlowInflow.q"
+      valueReference="637534268"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 123 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.bloodFlowInflow.pressure"
+      valueReference="637534226"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 124 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.bloodFlowOutflow.q"
+      valueReference="637534210"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 125 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.bloodFlowOutflow.pressure"
+      valueReference="637534211"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 126 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowBloodConductance.pressureDrop"
+      valueReference="637534269">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 127 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowBloodConductance.bloodFlow"
+      valueReference="637534263">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 128 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowBloodConductance.bloodFlowInflow.q"
+      valueReference="637534263"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 129 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowBloodConductance.bloodFlowInflow.pressure"
+      valueReference="637534211"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 130 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowBloodConductance.bloodFlowOutflow.q"
+      valueReference="637534270"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 131 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowBloodConductance.bloodFlowOutflow.pressure"
+      valueReference="637534267"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 132 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowBloodConductance.bloodConductance_NonSI"
+      valueReference="100663359"
+      description="conductance in ml/(mmHg s)"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 133 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.backflowBloodConductance.bloodConductance"
+      valueReference="100663360"
+      description="conductance in m3/(Pa s)"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 134 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowBloodResistor.pressureDrop"
+      valueReference="637534273">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 135 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowBloodResistor.bloodFlow"
+      valueReference="637534258">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 136 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowBloodResistor.bloodFlowInflow.q"
+      valueReference="637534258"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 137 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowBloodResistor.bloodFlowInflow.pressure"
+      valueReference="637534262"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 138 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowBloodResistor.bloodFlowOutflow.q"
+      valueReference="637534274"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 139 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowBloodResistor.bloodFlowOutflow.pressure"
+      valueReference="637534211"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 140 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowBloodResistor.bloodResistance_NonSI"
+      valueReference="100663363"
+      description="resistance in mmHg s/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 141 -->
+    <ScalarVariable
+      name="heart.pulmonicValve.outflowBloodResistor.bloodResistance"
+      valueReference="100663364"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 142 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowResistance"
+      valueReference="16777233"
+      description="outflow resistance of valve in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.003"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 143 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowConductance"
+      valueReference="16777234"
+      description="backflow conductance of valve in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 144 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowValve.bloodFlow"
+      valueReference="637534277">
+      <Real nominal="1.6666666666666667E-08"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 145 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowValve.pressureDrop"
+      valueReference="637534278">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 146 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowValve.S"
+      valueReference="637534279"
+      description="parametric independent variable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 147 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowValve.open"
+      valueReference="637534280"
+      variability="discrete"
+      initial="approx">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 148 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowValve.bloodFlowInflow.q"
+      valueReference="637534277"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 149 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowValve.bloodFlowInflow.pressure"
+      valueReference="637534213"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 150 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowValve.bloodFlowOutflow.q"
+      valueReference="637534294"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 151 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowValve.bloodFlowOutflow.pressure"
+      valueReference="637534281"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 152 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowValve.bloodFlow"
+      valueReference="637534282">
+      <Real nominal="1.6666666666666667E-08"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 153 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowValve.pressureDrop"
+      valueReference="637534283">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 154 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowValve.S"
+      valueReference="637534284"
+      description="parametric independent variable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 155 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowValve.open"
+      valueReference="637534285"
+      variability="discrete"
+      initial="approx">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 156 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowValve.bloodFlowInflow.q"
+      valueReference="637534282"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 157 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowValve.bloodFlowInflow.pressure"
+      valueReference="637534286"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 158 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowValve.bloodFlowOutflow.q"
+      valueReference="637534290"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 159 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowValve.bloodFlowOutflow.pressure"
+      valueReference="637534213"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 160 -->
+    <ScalarVariable
+      name="heart.mitralValve.bloodFlowInflow.q"
+      valueReference="637534287"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 161 -->
+    <ScalarVariable
+      name="heart.mitralValve.bloodFlowInflow.pressure"
+      valueReference="637534213"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 162 -->
+    <ScalarVariable
+      name="heart.mitralValve.bloodFlowOutflow.q"
+      valueReference="637534288"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 163 -->
+    <ScalarVariable
+      name="heart.mitralValve.bloodFlowOutflow.pressure"
+      valueReference="637534232"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 164 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowBloodConductance.pressureDrop"
+      valueReference="637534289">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 165 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowBloodConductance.bloodFlow"
+      valueReference="637534282">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 166 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowBloodConductance.bloodFlowInflow.q"
+      valueReference="637534282"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 167 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowBloodConductance.bloodFlowInflow.pressure"
+      valueReference="637534232"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 168 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowBloodConductance.bloodFlowOutflow.q"
+      valueReference="637534290"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 169 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowBloodConductance.bloodFlowOutflow.pressure"
+      valueReference="637534286"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 170 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowBloodConductance.bloodConductance_NonSI"
+      valueReference="100663379"
+      description="conductance in ml/(mmHg s)"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 171 -->
+    <ScalarVariable
+      name="heart.mitralValve.backflowBloodConductance.bloodConductance"
+      valueReference="100663380"
+      description="conductance in m3/(Pa s)"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 172 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowBloodResistor.pressureDrop"
+      valueReference="637534293">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 173 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowBloodResistor.bloodFlow"
+      valueReference="637534277">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 174 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowBloodResistor.bloodFlowInflow.q"
+      valueReference="637534277"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 175 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowBloodResistor.bloodFlowInflow.pressure"
+      valueReference="637534281"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 176 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowBloodResistor.bloodFlowOutflow.q"
+      valueReference="637534294"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 177 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowBloodResistor.bloodFlowOutflow.pressure"
+      valueReference="637534232"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 178 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowBloodResistor.bloodResistance_NonSI"
+      valueReference="100663383"
+      description="resistance in mmHg s/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 179 -->
+    <ScalarVariable
+      name="heart.mitralValve.outflowBloodResistor.bloodResistance"
+      valueReference="100663384"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 180 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowResistance"
+      valueReference="16777235"
+      description="outflow resistance of valve in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.003"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 181 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowConductance"
+      valueReference="16777236"
+      description="backflow conductance of valve in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 182 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowValve.bloodFlow"
+      valueReference="637534297">
+      <Real nominal="1.6666666666666667E-08"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 183 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowValve.pressureDrop"
+      valueReference="637534298">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 184 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowValve.S"
+      valueReference="637534299"
+      description="parametric independent variable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 185 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowValve.open"
+      valueReference="637534300"
+      variability="discrete"
+      initial="approx">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 186 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowValve.bloodFlowInflow.q"
+      valueReference="637534297"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 187 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowValve.bloodFlowInflow.pressure"
+      valueReference="637534232"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 188 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowValve.bloodFlowOutflow.q"
+      valueReference="637534313"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 189 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowValve.bloodFlowOutflow.pressure"
+      valueReference="637534301"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 190 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowValve.bloodFlow"
+      valueReference="637534302">
+      <Real nominal="1.6666666666666667E-08"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 191 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowValve.pressureDrop"
+      valueReference="637534303">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 192 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowValve.S"
+      valueReference="637534304"
+      description="parametric independent variable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 193 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowValve.open"
+      valueReference="637534305"
+      variability="discrete"
+      initial="approx">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 194 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowValve.bloodFlowInflow.q"
+      valueReference="637534302"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 195 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowValve.bloodFlowInflow.pressure"
+      valueReference="637534306"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 196 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowValve.bloodFlowOutflow.q"
+      valueReference="637534309"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 197 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowValve.bloodFlowOutflow.pressure"
+      valueReference="637534232"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 198 -->
+    <ScalarVariable
+      name="heart.aorticValve.bloodFlowInflow.q"
+      valueReference="637534307"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 199 -->
+    <ScalarVariable
+      name="heart.aorticValve.bloodFlowInflow.pressure"
+      valueReference="637534232"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 200 -->
+    <ScalarVariable
+      name="heart.aorticValve.bloodFlowOutflow.q"
+      valueReference="637534214"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 201 -->
+    <ScalarVariable
+      name="heart.aorticValve.bloodFlowOutflow.pressure"
+      valueReference="637534215"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 202 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowBloodConductance.pressureDrop"
+      valueReference="637534308">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 203 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowBloodConductance.bloodFlow"
+      valueReference="637534302">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 204 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowBloodConductance.bloodFlowInflow.q"
+      valueReference="637534302"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 205 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowBloodConductance.bloodFlowInflow.pressure"
+      valueReference="637534215"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 206 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowBloodConductance.bloodFlowOutflow.q"
+      valueReference="637534309"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 207 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowBloodConductance.bloodFlowOutflow.pressure"
+      valueReference="637534306"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 208 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowBloodConductance.bloodConductance_NonSI"
+      valueReference="100663398"
+      description="conductance in ml/(mmHg s)"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 209 -->
+    <ScalarVariable
+      name="heart.aorticValve.backflowBloodConductance.bloodConductance"
+      valueReference="100663399"
+      description="conductance in m3/(Pa s)"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 210 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowBloodResistor.pressureDrop"
+      valueReference="637534312">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 211 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowBloodResistor.bloodFlow"
+      valueReference="637534297">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 212 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowBloodResistor.bloodFlowInflow.q"
+      valueReference="637534297"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 213 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowBloodResistor.bloodFlowInflow.pressure"
+      valueReference="637534301"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 214 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowBloodResistor.bloodFlowOutflow.q"
+      valueReference="637534313"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 215 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowBloodResistor.bloodFlowOutflow.pressure"
+      valueReference="637534215"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 216 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowBloodResistor.bloodResistance_NonSI"
+      valueReference="100663402"
+      description="resistance in mmHg s/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 217 -->
+    <ScalarVariable
+      name="heart.aorticValve.outflowBloodResistor.bloodResistance"
+      valueReference="100663403"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 218 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElmin"
+      valueReference="16777237"
+      description="minimal atrial elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.05"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 219 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElmax"
+      valueReference="16777238"
+      description="maximal atrial elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.06"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 220 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElmin"
+      valueReference="16777239"
+      description="minimal ventricular elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.057"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 221 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElmax"
+      valueReference="16777240"
+      description="maximal ventricular elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.49"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 222 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.HR"
+      valueReference="100663436"
+      description="Heart rate - beats per minute">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 223 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.Etv"
+      valueReference="637534227">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 224 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.Eta"
+      valueReference="637534216">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 225 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElastance.EMAX_mmHg_per_ml"
+      valueReference="100663404"
+      description="maximal systolic elastance in mmHg/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 226 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElastance.EMIN_mmHg_per_ml"
+      valueReference="100663405"
+      description="diastolic elastance in mmHg/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 227 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElastance.EMAX"
+      valueReference="100663406"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 228 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElastance.EMIN"
+      valueReference="100663407"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 229 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElastance.Tas"
+      valueReference="637534326"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 230 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElastance.T0"
+      valueReference="637534329"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 231 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.atrialElastance.Et"
+      valueReference="637534216">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 232 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.EMAX_mmHg_per_ml"
+      valueReference="100663408"
+      description="maximal systolic elastance in mmHg/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 233 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.EMIN_mmHg_per_ml"
+      valueReference="100663409"
+      description="diastolic elastance in mmHg/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 234 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.EMAX"
+      valueReference="100663410"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 235 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.EMIN"
+      valueReference="100663411"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 236 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.Tas"
+      valueReference="637534326"
+      description="in sec">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 237 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.T0"
+      valueReference="637534329"
+      description="in sec">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 238 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.Tav"
+      valueReference="637534327"
+      description="in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 239 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.Tvs"
+      valueReference="637534328"
+      description="in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 240 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.Et"
+      valueReference="637534227"
+      description="in Pa/m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 241 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.heartInterval"
+      valueReference="637534324"
+      description="in sec">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 242 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.ventricularElastance.Kn"
+      valueReference="100663413"
+      variability="constant">
+      <Real start="0.57923032735652"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 243 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.heartInterval.AVDelay"
+      valueReference="16777241"
+      description="atrio-ventricular delay"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.01"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 244 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.heartInterval.HR"
+      valueReference="100663436"
+      description="Heart rate - beats per minute">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 245 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.heartInterval.Tas"
+      valueReference="637534326"
+      description="length of
+atrial systole in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 246 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.heartInterval.Tav"
+      valueReference="637534327"
+      description="atrioventricular delay in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 247 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.heartInterval.Tvs"
+      valueReference="637534328"
+      description="legth of
+ventricular systole in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 248 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.heartInterval.T0"
+      valueReference="637534329"
+      description="start time of
+  current cardiac cycle in sec"
+      variability="discrete"
+      initial="exact">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 249 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.heartInterval.HP"
+      valueReference="637534330"
+      description="heart period - duration of cardiac cycle in sec"
+      variability="discrete"
+      initial="exact">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 250 -->
+    <ScalarVariable
+      name="heart.rightCardiacElastance.heartInterval.b"
+      valueReference="637534331"
+      variability="discrete">
+      <Boolean/>
+    </ScalarVariable>
+    <!-- Index for next variable = 251 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElmin"
+      valueReference="16777242"
+      description="minimal atrial elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.12"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 252 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElmax"
+      valueReference="16777243"
+      description="maximal atrial elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.28"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 253 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElmin"
+      valueReference="16777244"
+      description="minimal ventricular elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.09"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 254 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElmax"
+      valueReference="16777245"
+      description="maximal ventricular elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 255 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.HR"
+      valueReference="100663436"
+      description="Heart rate - beats per minute">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 256 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.Etv"
+      valueReference="637534233">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 257 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.Eta"
+      valueReference="637534221">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 258 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElastance.EMAX_mmHg_per_ml"
+      valueReference="100663420"
+      description="maximal systolic elastance in mmHg/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 259 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElastance.EMIN_mmHg_per_ml"
+      valueReference="100663421"
+      description="diastolic elastance in mmHg/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 260 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElastance.EMAX"
+      valueReference="100663422"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 261 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElastance.EMIN"
+      valueReference="100663423"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 262 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElastance.Tas"
+      valueReference="637534342"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 263 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElastance.T0"
+      valueReference="637534345"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 264 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.atrialElastance.Et"
+      valueReference="637534221">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 265 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.EMAX_mmHg_per_ml"
+      valueReference="100663424"
+      description="maximal systolic elastance in mmHg/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 266 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.EMIN_mmHg_per_ml"
+      valueReference="100663425"
+      description="diastolic elastance in mmHg/ml"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 267 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.EMAX"
+      valueReference="100663426"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 268 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.EMIN"
+      valueReference="100663427"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 269 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.Tas"
+      valueReference="637534342"
+      description="in sec">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 270 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.T0"
+      valueReference="637534345"
+      description="in sec">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 271 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.Tav"
+      valueReference="637534343"
+      description="in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 272 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.Tvs"
+      valueReference="637534344"
+      description="in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 273 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.Et"
+      valueReference="637534233"
+      description="in Pa/m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastanceOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 274 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.heartInterval"
+      valueReference="637534340"
+      description="in sec">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 275 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.ventricularElastance.Kn"
+      valueReference="100663429"
+      variability="constant">
+      <Real start="0.57923032735652"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 276 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.heartInterval.AVDelay"
+      valueReference="16777246"
+      description="atrio-ventricular delay"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.01"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 277 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.heartInterval.HR"
+      valueReference="100663436"
+      description="Heart rate - beats per minute">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 278 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.heartInterval.Tas"
+      valueReference="637534342"
+      description="length of
+atrial systole in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 279 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.heartInterval.Tav"
+      valueReference="637534343"
+      description="atrioventricular delay in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 280 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.heartInterval.Tvs"
+      valueReference="637534344"
+      description="legth of
+ventricular systole in sec"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 281 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.heartInterval.T0"
+      valueReference="637534345"
+      description="start time of
+  current cardiac cycle in sec"
+      variability="discrete"
+      initial="exact">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 282 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.heartInterval.HP"
+      valueReference="637534346"
+      description="heart period - duration of cardiac cycle in sec"
+      variability="discrete"
+      initial="exact">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 283 -->
+    <ScalarVariable
+      name="heart.leftCardiacElastance.heartInterval.b"
+      valueReference="637534347"
+      variability="discrete">
+      <Boolean/>
+    </ScalarVariable>
+    <!-- Index for next variable = 284 -->
+    <ScalarVariable
+      name="heart.heartRate.k"
+      valueReference="100663436"
+      description="Constant output value"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 285 -->
+    <ScalarVariable
+      name="heart.heartRate.y"
+      valueReference="100663436"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 286 -->
+    <ScalarVariable
+      name="systemicCirculation.bloodFlowInflow.q"
+      valueReference="637534349"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 287 -->
+    <ScalarVariable
+      name="systemicCirculation.bloodFlowInflow.pressure"
+      valueReference="637534215"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 288 -->
+    <ScalarVariable
+      name="systemicCirculation.bloodFlowOutflow.q"
+      valueReference="637534350"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 289 -->
+    <ScalarVariable
+      name="systemicCirculation.bloodFlowOutflow.pressure"
+      valueReference="637534209"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 290 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.bloodFlowInflow.q"
+      valueReference="587202564"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 291 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.bloodFlowInflow.pressure"
+      valueReference="637534215"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 292 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.elastance_NonSI"
+      valueReference="16777247"
+      description="elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1.43"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 293 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.elastance"
+      valueReference="100663439"
+      description="elastance in Pa/m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 294 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.unstressedVolume_NonSI"
+      valueReference="16777248"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="140"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 295 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.unstressedVolume"
+      valueReference="100663440"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 296 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.externalPressure_NonSI"
+      valueReference="16777249"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 297 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.externalPressure"
+      valueReference="100663441"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 298 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.V0_NonSI"
+      valueReference="16777250"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="196"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 299 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.volume"
+      valueReference="33554436">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 300 -->
+    <ScalarVariable
+      name="der(systemicCirculation.intrathoracicArteries.volume)"
+      valueReference="587202564">
+      <Real
+        unit="m3/s"
+        derivative="299"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 301 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.stressedVolume"
+      valueReference="637534354"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 302 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.transmuralPressure"
+      valueReference="637534355"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 303 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicArteries.pressure"
+      valueReference="637534215"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 304 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArterialResistance.pressureDrop"
+      valueReference="637534356">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 305 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArterialResistance.bloodFlow"
+      valueReference="33554437">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 306 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArterialResistance.bloodFlowInflow.q"
+      valueReference="33554437"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 307 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArterialResistance.bloodFlowInflow.pressure"
+      valueReference="637534357"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 308 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArterialResistance.bloodFlowOutflow.q"
+      valueReference="1174405273"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 309 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArterialResistance.bloodFlowOutflow.pressure"
+      valueReference="637534358"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 310 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArterialResistance.bloodResistance_NonSI"
+      valueReference="16777251"
+      description="resistance in mmHg s/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.06"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 311 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArterialResistance.bloodResistance"
+      valueReference="100663447"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 312 -->
+    <ScalarVariable
+      name="systemicCirculation.aorticFlowInertia.pressureDrop"
+      valueReference="637534360">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 313 -->
+    <ScalarVariable
+      name="systemicCirculation.aorticFlowInertia.bloodFlow"
+      valueReference="33554437"
+      initial="exact">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"
+        start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 314 -->
+    <ScalarVariable
+      name="der(systemicCirculation.aorticFlowInertia.bloodFlow)"
+      valueReference="587202565">
+      <Real
+        unit="m3/s2"
+        derivative="313"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 315 -->
+    <ScalarVariable
+      name="systemicCirculation.aorticFlowInertia.bloodFlowInflow.q"
+      valueReference="33554437"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 316 -->
+    <ScalarVariable
+      name="systemicCirculation.aorticFlowInertia.bloodFlowInflow.pressure"
+      valueReference="637534215"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 317 -->
+    <ScalarVariable
+      name="systemicCirculation.aorticFlowInertia.bloodFlowOutflow.q"
+      valueReference="1174405273"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 318 -->
+    <ScalarVariable
+      name="systemicCirculation.aorticFlowInertia.bloodFlowOutflow.pressure"
+      valueReference="637534357"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 319 -->
+    <ScalarVariable
+      name="systemicCirculation.aorticFlowInertia.inertance_NonSI"
+      valueReference="16777252"
+      description="inertance in mmHg s2/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.0007"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 320 -->
+    <ScalarVariable
+      name="systemicCirculation.aorticFlowInertia.inertance"
+      valueReference="100663450"
+      description="Iinertance in Pa s2/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 321 -->
+    <ScalarVariable
+      name="systemicCirculation.systemicArteriolarResistance.pressureDrop"
+      valueReference="637534363">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 322 -->
+    <ScalarVariable
+      name="systemicCirculation.systemicArteriolarResistance.bloodFlow"
+      valueReference="637534364">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 323 -->
+    <ScalarVariable
+      name="systemicCirculation.systemicArteriolarResistance.bloodFlowInflow.q"
+      valueReference="637534364"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 324 -->
+    <ScalarVariable
+      name="systemicCirculation.systemicArteriolarResistance.bloodFlowInflow.pressure"
+      valueReference="637534358"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 325 -->
+    <ScalarVariable
+      name="systemicCirculation.systemicArteriolarResistance.bloodFlowOutflow.q"
+      valueReference="637534365"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 326 -->
+    <ScalarVariable
+      name="systemicCirculation.systemicArteriolarResistance.bloodFlowOutflow.pressure"
+      valueReference="637534366"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 327 -->
+    <ScalarVariable
+      name="systemicCirculation.systemicArteriolarResistance.bloodResistance_NonSI"
+      valueReference="16777253"
+      description="resistance in mmHg s/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.8"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 328 -->
+    <ScalarVariable
+      name="systemicCirculation.systemicArteriolarResistance.bloodResistance"
+      valueReference="100663455"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 329 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.bloodFlowInflow.q"
+      valueReference="587202566"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 330 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.bloodFlowInflow.pressure"
+      valueReference="637534358"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 331 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.elastance_NonSI"
+      valueReference="16777254"
+      description="elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.556"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 332 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.elastance"
+      valueReference="100663456"
+      description="elastance in Pa/m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 333 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.unstressedVolume_NonSI"
+      valueReference="16777255"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="370"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 334 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.unstressedVolume"
+      valueReference="100663457"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 335 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.externalPressure_NonSI"
+      valueReference="16777256"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 336 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.externalPressure"
+      valueReference="100663458"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 337 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.V0_NonSI"
+      valueReference="16777257"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="503"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 338 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.volume"
+      valueReference="33554438">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 339 -->
+    <ScalarVariable
+      name="der(systemicCirculation.extrathoracicArteries.volume)"
+      valueReference="587202566">
+      <Real
+        unit="m3/s"
+        derivative="338"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 340 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.stressedVolume"
+      valueReference="637534371"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 341 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.transmuralPressure"
+      valueReference="637534372"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 342 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicArteries.pressure"
+      valueReference="637534358"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 343 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.bloodFlowInflow.q"
+      valueReference="587202567"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 344 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.bloodFlowInflow.pressure"
+      valueReference="637534366"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 345 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.elastance_NonSI"
+      valueReference="16777258"
+      description="elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.262"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 346 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.elastance"
+      valueReference="100663461"
+      description="elastance in Pa/m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 347 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.unstressedVolume_NonSI"
+      valueReference="16777259"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="185"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 348 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.unstressedVolume"
+      valueReference="100663462"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 349 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.externalPressure_NonSI"
+      valueReference="16777260"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 350 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.externalPressure"
+      valueReference="100663463"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 351 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.V0_NonSI"
+      valueReference="16777261"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="274"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 352 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.volume"
+      valueReference="33554439">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 353 -->
+    <ScalarVariable
+      name="der(systemicCirculation.SystemicTissues.volume)"
+      valueReference="587202567">
+      <Real
+        unit="m3/s"
+        derivative="352"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 354 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.stressedVolume"
+      valueReference="637534376"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 355 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.transmuralPressure"
+      valueReference="637534377"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 356 -->
+    <ScalarVariable
+      name="systemicCirculation.SystemicTissues.pressure"
+      valueReference="637534366"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 357 -->
+    <ScalarVariable
+      name="systemicCirculation.smallVenuleResistance.pressureDrop"
+      valueReference="637534378">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 358 -->
+    <ScalarVariable
+      name="systemicCirculation.smallVenuleResistance.bloodFlow"
+      valueReference="637534379">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 359 -->
+    <ScalarVariable
+      name="systemicCirculation.smallVenuleResistance.bloodFlowInflow.q"
+      valueReference="637534379"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 360 -->
+    <ScalarVariable
+      name="systemicCirculation.smallVenuleResistance.bloodFlowInflow.pressure"
+      valueReference="637534366"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 361 -->
+    <ScalarVariable
+      name="systemicCirculation.smallVenuleResistance.bloodFlowOutflow.q"
+      valueReference="637534380"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 362 -->
+    <ScalarVariable
+      name="systemicCirculation.smallVenuleResistance.bloodFlowOutflow.pressure"
+      valueReference="637534381"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 363 -->
+    <ScalarVariable
+      name="systemicCirculation.smallVenuleResistance.bloodResistance_NonSI"
+      valueReference="16777262"
+      description="resistance in mmHg s/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 364 -->
+    <ScalarVariable
+      name="systemicCirculation.smallVenuleResistance.bloodResistance"
+      valueReference="100663470"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 365 -->
+    <ScalarVariable
+      name="systemicCirculation.venousResistance.pressureDrop"
+      valueReference="637534383">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 366 -->
+    <ScalarVariable
+      name="systemicCirculation.venousResistance.bloodFlow"
+      valueReference="637534384">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 367 -->
+    <ScalarVariable
+      name="systemicCirculation.venousResistance.bloodFlowInflow.q"
+      valueReference="637534384"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 368 -->
+    <ScalarVariable
+      name="systemicCirculation.venousResistance.bloodFlowInflow.pressure"
+      valueReference="637534381"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 369 -->
+    <ScalarVariable
+      name="systemicCirculation.venousResistance.bloodFlowOutflow.q"
+      valueReference="637534385"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 370 -->
+    <ScalarVariable
+      name="systemicCirculation.venousResistance.bloodFlowOutflow.pressure"
+      valueReference="637534386"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 371 -->
+    <ScalarVariable
+      name="systemicCirculation.venousResistance.bloodResistance_NonSI"
+      valueReference="16777263"
+      description="resistance in mmHg s/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.09"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 372 -->
+    <ScalarVariable
+      name="systemicCirculation.venousResistance.bloodResistance"
+      valueReference="100663475"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 373 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.bloodFlowInflow.q"
+      valueReference="587202568"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 374 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.bloodFlowInflow.pressure"
+      valueReference="637534386"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 375 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.elastance_NonSI"
+      valueReference="16777264"
+      description="elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.0182"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 376 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.elastance"
+      valueReference="100663476"
+      description="elastance in Pa/m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 377 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.unstressedVolume_NonSI"
+      valueReference="16777265"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1190"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 378 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.unstressedVolume"
+      valueReference="100663477"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 379 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.externalPressure_NonSI"
+      valueReference="16777266"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 380 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.externalPressure"
+      valueReference="100663478"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 381 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.V0_NonSI"
+      valueReference="16777267"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1542"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 382 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.volume"
+      valueReference="33554440">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 383 -->
+    <ScalarVariable
+      name="der(systemicCirculation.intrathoracicVeins.volume)"
+      valueReference="587202568">
+      <Real
+        unit="m3/s"
+        derivative="382"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 384 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.stressedVolume"
+      valueReference="637534391"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 385 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.transmuralPressure"
+      valueReference="637534392"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 386 -->
+    <ScalarVariable
+      name="systemicCirculation.intrathoracicVeins.pressure"
+      valueReference="637534386"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 387 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.bloodFlowInflow.q"
+      valueReference="587202569"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 388 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.bloodFlowInflow.pressure"
+      valueReference="637534381"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 389 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.elastance_NonSI"
+      valueReference="16777268"
+      description="elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.0169"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 390 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.elastance"
+      valueReference="100663481"
+      description="elastance in Pa/m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 391 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.unstressedVolume_NonSI"
+      valueReference="16777269"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1000"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 392 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.unstressedVolume"
+      valueReference="100663482"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 393 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.externalPressure_NonSI"
+      valueReference="16777270"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 394 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.externalPressure"
+      valueReference="100663483"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 395 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.V0_NonSI"
+      valueReference="16777271"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1528"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 396 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.volume"
+      valueReference="33554441">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 397 -->
+    <ScalarVariable
+      name="der(systemicCirculation.extrathoracicVeins.volume)"
+      valueReference="587202569">
+      <Real
+        unit="m3/s"
+        derivative="396"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 398 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.stressedVolume"
+      valueReference="637534396"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 399 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.transmuralPressure"
+      valueReference="637534397"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 400 -->
+    <ScalarVariable
+      name="systemicCirculation.extrathoracicVeins.pressure"
+      valueReference="637534381"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 401 -->
+    <ScalarVariable
+      name="systemicCirculation.centralVenousResistance.pressureDrop"
+      valueReference="637534398">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 402 -->
+    <ScalarVariable
+      name="systemicCirculation.centralVenousResistance.bloodFlow"
+      valueReference="637534208">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 403 -->
+    <ScalarVariable
+      name="systemicCirculation.centralVenousResistance.bloodFlowInflow.q"
+      valueReference="637534208"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 404 -->
+    <ScalarVariable
+      name="systemicCirculation.centralVenousResistance.bloodFlowInflow.pressure"
+      valueReference="637534386"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 405 -->
+    <ScalarVariable
+      name="systemicCirculation.centralVenousResistance.bloodFlowOutflow.q"
+      valueReference="637534350"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 406 -->
+    <ScalarVariable
+      name="systemicCirculation.centralVenousResistance.bloodFlowOutflow.pressure"
+      valueReference="637534209"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 407 -->
+    <ScalarVariable
+      name="systemicCirculation.centralVenousResistance.bloodResistance_NonSI"
+      valueReference="16777272"
+      description="resistance in mmHg s/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.003"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 408 -->
+    <ScalarVariable
+      name="systemicCirculation.centralVenousResistance.bloodResistance"
+      valueReference="100663487"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 409 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.bloodFlowInflow.q"
+      valueReference="637534400"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 410 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.bloodFlowInflow.pressure"
+      valueReference="637534211"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 411 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.bloodFlowOutflow.q"
+      valueReference="637534401"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 412 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.bloodFlowOutflow.pressure"
+      valueReference="637534213"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 413 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.bloodFlowInflow.q"
+      valueReference="587202570"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 414 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.bloodFlowInflow.pressure"
+      valueReference="637534211"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 415 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.elastance_NonSI"
+      valueReference="16777273"
+      description="elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.233"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 416 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.elastance"
+      valueReference="100663490"
+      description="elastance in Pa/m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 417 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.unstressedVolume_NonSI"
+      valueReference="16777274"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="50"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 418 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.unstressedVolume"
+      valueReference="100663491"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 419 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.externalPressure_NonSI"
+      valueReference="16777275"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 420 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.externalPressure"
+      valueReference="100663492"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 421 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.V0_NonSI"
+      valueReference="16777276"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="99"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 422 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.volume"
+      valueReference="33554442">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 423 -->
+    <ScalarVariable
+      name="der(pulmonaryCirculation.pulmonaryArteries.volume)"
+      valueReference="587202570">
+      <Real
+        unit="m3/s"
+        derivative="422"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 424 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.stressedVolume"
+      valueReference="637534405"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 425 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.transmuralPressure"
+      valueReference="637534406"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 426 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryArteries.pressure"
+      valueReference="637534211"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 427 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryResistance.pressureDrop"
+      valueReference="637534407">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 428 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryResistance.bloodFlow"
+      valueReference="637534408">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 429 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryResistance.bloodFlowInflow.q"
+      valueReference="637534408"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 430 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryResistance.bloodFlowInflow.pressure"
+      valueReference="637534211"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 431 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryResistance.bloodFlowOutflow.q"
+      valueReference="637534409"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 432 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryResistance.bloodFlowOutflow.pressure"
+      valueReference="637534410"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 433 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryResistance.bloodResistance_NonSI"
+      valueReference="16777277"
+      description="resistance in mmHg s/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.11"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 434 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryResistance.bloodResistance"
+      valueReference="100663499"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 435 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.bloodFlowInflow.q"
+      valueReference="587202571"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 436 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.bloodFlowInflow.pressure"
+      valueReference="637534410"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 437 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.elastance_NonSI"
+      valueReference="16777278"
+      description="elastance in mmHg/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.0455"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 438 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.elastance"
+      valueReference="100663500"
+      description="elastance in Pa/m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.HydraulicElastance"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 439 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.unstressedVolume_NonSI"
+      valueReference="16777279"
+      description="volume in ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="350"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 440 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.unstressedVolume"
+      valueReference="100663501"
+      description="unstressed volume from ml to m3"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 441 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.externalPressure_NonSI"
+      valueReference="16777280"
+      description="external pressure in mmHg"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 442 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.externalPressure"
+      valueReference="100663502"
+      description="external pressure from mmHg to Pa"
+      variability="tunable">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 443 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.V0_NonSI"
+      valueReference="16777281"
+      description="initial volume in ml"
+      causality="parameter"
+      variability="fixed">
+      <Real start="516"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 444 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.volume"
+      valueReference="33554443">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 445 -->
+    <ScalarVariable
+      name="der(pulmonaryCirculation.pulmonaryVeins.volume)"
+      valueReference="587202571">
+      <Real
+        unit="m3/s"
+        derivative="444"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 446 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.stressedVolume"
+      valueReference="637534415"
+      description="volume in m3">
+      <Real
+        declaredType="MeursHemodynamics.Types.Volume"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 447 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.transmuralPressure"
+      valueReference="637534416"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 448 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVeins.pressure"
+      valueReference="637534410"
+      description="pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 449 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVenousResistance.pressureDrop"
+      valueReference="637534417">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 450 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVenousResistance.bloodFlow"
+      valueReference="637534212">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 451 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVenousResistance.bloodFlowInflow.q"
+      valueReference="637534212"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 452 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVenousResistance.bloodFlowInflow.pressure"
+      valueReference="637534410"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 453 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVenousResistance.bloodFlowOutflow.q"
+      valueReference="637534401"
+      description="blood flow in m3/sec">
+      <Real
+        declaredType="MeursHemodynamics.Types.VolumeFlowRate"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 454 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVenousResistance.bloodFlowOutflow.pressure"
+      valueReference="637534213"
+      description="Pressure in Pa">
+      <Real
+        declaredType="MeursHemodynamics.Types.Pressure"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 455 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVenousResistance.bloodResistance_NonSI"
+      valueReference="16777282"
+      description="resistance in mmHg s/ml"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.003"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 456 -->
+    <ScalarVariable
+      name="pulmonaryCirculation.pulmonaryVenousResistance.bloodResistance"
+      valueReference="100663506"
+      description="resistance in Pa s/m3"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+  </ModelVariables>
+  <ModelStructure>
+    <Derivatives>
+      <Unknown index="20"
+        dependencies="19 47 382"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="34"
+        dependencies="33 61 444"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="48"
+        dependencies="19 47 422"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="62"
+        dependencies="33 61 299"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="300"
+        dependencies="61 299 313"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="314"
+        dependencies="299 313 338"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="339"
+        dependencies="313 338 352"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="353"
+        dependencies="338 352 396"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="383"
+        dependencies="19 382 396"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="397"
+        dependencies="352 382 396"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="423"
+        dependencies="47 422 444"
+        dependenciesKind="fixed fixed fixed"/>
+      <Unknown index="445"
+        dependencies="33 422 444"
+        dependenciesKind="fixed fixed fixed"/>
+    </Derivatives>
+    <InitialUnknowns>
+      <Unknown index="19"
+        dependencies="18"
+        dependenciesKind="dependent"/>
+      <Unknown index="20"
+        dependencies="1 14 16 18 42 44 46 66 67 218 219 220 221 243 375 377 379 381 407"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="33"
+        dependencies="32"
+        dependenciesKind="dependent"/>
+      <Unknown index="34"
+        dependencies="1 28 30 32 56 58 60 142 143 251 252 253 254 276 437 439 441 443 455"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="47"
+        dependencies="46"
+        dependenciesKind="dependent"/>
+      <Unknown index="48"
+        dependencies="1 14 16 18 42 44 46 66 67 104 105 218 219 220 221 243 415 417 419 421"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="61"
+        dependencies="60"
+        dependenciesKind="dependent"/>
+      <Unknown index="62"
+        dependencies="1 28 30 32 56 58 60 142 143 180 181 251 252 253 254 276 292 294 296 298"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="299"
+        dependencies="298"
+        dependenciesKind="dependent"/>
+      <Unknown index="300"
+        dependencies="1 56 58 60 180 181 253 254 276 292 294 296 298 313"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="314"
+        dependencies="292 294 296 298 310 313 319 331 333 335 337"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="338"
+        dependencies="337"
+        dependenciesKind="dependent"/>
+      <Unknown index="339"
+        dependencies="313 327 331 333 335 337 345 347 349 351"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="352"
+        dependencies="351"
+        dependenciesKind="dependent"/>
+      <Unknown index="353"
+        dependencies="327 331 333 335 337 345 347 349 351 363 389 391 393 395"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="382"
+        dependencies="381"
+        dependenciesKind="dependent"/>
+      <Unknown index="383"
+        dependencies="1 14 16 18 218 219 371 375 377 379 381 389 391 393 395 407"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="396"
+        dependencies="395"
+        dependenciesKind="dependent"/>
+      <Unknown index="397"
+        dependencies="345 347 349 351 363 371 375 377 379 381 389 391 393 395"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="422"
+        dependencies="421"
+        dependenciesKind="dependent"/>
+      <Unknown index="423"
+        dependencies="1 42 44 46 104 105 220 221 243 415 417 419 421 433 437 439 441 443"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="444"
+        dependencies="443"
+        dependenciesKind="dependent"/>
+      <Unknown index="445"
+        dependencies="1 28 30 32 251 252 415 417 419 421 433 437 439 441 443 455"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+    </InitialUnknowns>
+  </ModelStructure>
+</fmiModelDescription>
