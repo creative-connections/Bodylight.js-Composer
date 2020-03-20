@@ -2,11 +2,12 @@ import Dygraph from 'dygraphs';
 import {bindable} from 'aurelia-framework';
 import {saveAs} from 'file-saver';
 
-
 export class Dygraphchart {
   @bindable inputs;
   @bindable fromid;
   @bindable maxdata=300;
+  @bindable refindex;
+  @bindable refvalues=1;
 
   constructor() {
     this.data = [[0, 0, 0]];
@@ -18,7 +19,7 @@ export class Dygraphchart {
       let datapoint = [e.detail.time];
       //e.detail do not reallocate - using same buffer, thus slicing to append to data array
       let edata = e.detail.data.slice();
-      for (let i = 0; i < edata.length; i++) datapoint.push(edata[i]);
+      for (let i = this.refindex; i < this.refindex + this.refvalues; i++) datapoint.push(edata[i]);
       this.data.push(datapoint);
       //shift - remove first element if data is too big
       if (this.data.length > this.maxdata) this.data.shift();
