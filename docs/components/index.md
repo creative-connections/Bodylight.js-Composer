@@ -63,7 +63,7 @@ The following HTML snippet loads first the `bodylight.bundle.js` script and use 
   * `default`, default value of the range component (default 50)
 
 # Receptacle, bdl-receptacle
-`<bdl-receptacle>` Renders a range input which may trigger a value. With following attributes:
+`<bdl-receptacle id="id10" hx="100" hy="100" px="50" py="50"></bdl-receptacle>` Renders a range input which may trigger a value. With following attributes:
   * `id` unique id
   * `hx` maximum *x* point of the receptacle shape (default 100)
   * `hy` maximum *y* point of the receptacle shape (default 100)
@@ -71,7 +71,7 @@ The following HTML snippet loads first the `bodylight.bundle.js` script and use 
   * `py` middle *y* point of the shape (default 50)
   
 # Bind2previous, bdl-bind2previous
-`<bdl-bind2previous><</bdl-bind2previous>` Binds values of 2 components. With following attributes:
+`<bdl-bind2previous fromid="id9" toid="id10" toattribute="hx"></bdl-bind2previous>` Binds values of 2 components. With following attributes:
   * `fromid` unique id of the source element, which events are to be listened
   * `toid` unique id of the target element, the `input` event are handled and value of the target element is set
   * `toattribute` (optional) name of the attribute to be set, if not defined 'value' is set.
@@ -86,7 +86,11 @@ The following HTML snippet loads first the `bodylight.bundle.js` script and use 
   valuereferences
   * `inputs` ids of components and references of values to be set when event 'change' is triggered by the component
   * `otherinputs` ids of components which triggers custom event 'fmiinput', it is expected that in event.detail contains 
-  this structure `{ valuereference: number, value: number }` 
+  this structure `{ valuereference: number, value: number }`
+  
+# Beaker, bdl-beaker, bdl-beakercontrols
+`<bdl-beaker></bdl-beaker>` Creates a beaker with controllable width and height
+  *    
 
 # References
 
