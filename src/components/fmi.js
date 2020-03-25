@@ -9,6 +9,7 @@ export class Fmi {
   @bindable inputs;
   @bindable otherinputs;
   @bindable valuereferences;
+  @bindable ticksToUpdate = 200;
 
   cosimulation=1;
   stepSize=0.01;//0.0078125;
@@ -101,6 +102,8 @@ export class Fmi {
     this.fmiGetTypesPlatform = this.inst.cwrap(prefix + separator + 'fmi2GetTypesPlatform', 'string');
     this.fmi2FreeInstance = this.inst.cwrap(prefix + separator + 'fmi2FreeInstance', 'number', ['number']);
     this.instantiated = false;
+    //calculate pow, power of stepsize
+    this.pow = this.stepSize < 1 ? -Math.ceil(-Math.log10(this.stepSize)) : Math.ceil(Math.log10(this.stepSize));
   }
 
   bind() {}
@@ -141,6 +144,7 @@ export class Fmi {
 
   instantiate() {
     this.stepTime = 0;
+    this.mystep = this.stepSize;
     //console callback ptr, per emsripten create int ptr with signature viiiiii
     this.consoleLoggerPtr = this.inst.addFunction(this.consoleLogger.bind(this), 'viiiiii');
     this.callbackptr = this.fmiCreateCallback(this.consoleLoggerPtr);
@@ -181,8 +185,16 @@ export class Fmi {
       //stop animation
       this.animationstarted = false;
       cancelAnimationFrame(this.request);
+      //create custom event
+      let event = new CustomEvent('fmistop', {detail: {time: this.round(this.stepTime, this.pow)}});
+      //dispatch event - it should be listened by some other component
+      document.getElementById(this.id).dispatchEvent(event);
     } else {
       this.animationstarted = true;
+      //create custom event
+      let event = new CustomEvent('fmistart', {detail: {time: this.round(this.stepTime, this.pow)}});
+      //dispatch event - it should be listened by some other component
+      document.getElementById(this.id).dispatchEvent(event);
       //animate using requestAnimationFrame
       const performAnimation = () => {
         this.request = requestAnimationFrame(performAnimation);
@@ -190,6 +202,11 @@ export class Fmi {
       };
       requestAnimationFrame(performAnimation);
     }
+  }
+
+  round(value, decimals) {
+    if (decimals < 0) {let posdecimals = -decimals; return Number(Math.round(value + 'e' + posdecimals) + 'e-' + posdecimals);}
+    return Number(Math.round(value + 'e-' + decimals) + 'e+' + decimals);
   }
 
   step() {
@@ -220,7 +237,11 @@ export class Fmi {
         this.flushRealQueue();
       }
       //dostep
-      const res = this.fmiDoStep(this.fmiinst, this.stepTime, this.stepSize, 1);
+      //compute step to round the desired time
+      //const res = this.fmiDoStep(this.fmiinst, this.stepTime, this.stepSize, 1);
+      const res = this.fmiDoStep(this.fmiinst, this.stepTime, this.mystep, 1);
+      this.stepTime = this.stepTime + this.mystep;
+      this.mystep = this.stepSize; //update correction step to current step
       //console.log('step() res:', res);
       if (res === 1 || res === 2) {
         this.fmiReset(this.fmiinst);
@@ -228,30 +249,23 @@ export class Fmi {
 
       //distribute simulation data to listeners
       this.mydata = this.getReals(this.references);
-      //console.log('step mydata', this.mydata);
-      //add time to data
-      //this.mydata2 = [this.stepTime];
-      //this.mydata3 = this.mydata2.concat(this.mydata);
+
       //create custom event
-      let event = new CustomEvent('fmidata', {detail: {time: this.stepTime, data: this.mydata}});
+      let event = new CustomEvent('fmidata', {detail: {time: this.round(this.stepTime, this.pow), data: this.mydata}});
       //dispatch event - it should be listened by some other component
       document.getElementById(this.id).dispatchEvent(event);
 
-      //prevent FMU(MeursHemodynamics_Model_vanMeursHemodynamicsModel:1:) msg: CVODE: CVode failed with NONE:
-      //  Internal t = 19.4801 and h = 6.61693e-16 are such that t + h = t on the next step. The solver will continue anyway.
-      // but bring weird simulation instability
-      //this.stepTime = parseFloat(parseFloat(this.stepTime + this.stepSize).toPrecision(12));
-
-      //this solves stability of common simulation, but warning above produced
-      this.stepTime = this.stepTime + this.stepSize;
-      //same as parsefloat
-      //this.stepTime=this.stepi * this.stepSize;
-      //console.log('step measurefps:', this.measurefps);
       if (this.measurefps) {
+
         if (this.fpstick === 0) {this.startfpstime = Date.now(); }
         this.fpstick++;
-        if (this.fpstick >= 200) {
-          this.fps = 1000 * 200 / (Date.now() - this.startfpstime);
+        if (this.fpstick >= this.ticksToUpdate) {
+          //do correction step calculation
+          //this.pow = 0;
+          if (this.stepSize < 1) this.pow = - Math.ceil(- Math.log10(this.stepSize)); else this.pow = Math.ceil(Math.log10(this.stepSize));
+          this.mystep = this.round(this.stepTime + this.stepSize, this.pow) - this.stepTime;
+          //do fps calculation
+          this.fps = 1000 * this.ticksToUpdate / (Date.now() - this.startfpstime);
           this.fpstick = 0;
         }
       }
