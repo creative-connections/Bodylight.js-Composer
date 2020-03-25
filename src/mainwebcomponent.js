@@ -27,7 +27,7 @@ export function configure(aurelia) {
     .globalResources(PLATFORM.moduleName('components/dygraphchart'))
     .globalResources(PLATFORM.moduleName('components/beaker.html'))
     .globalResources(PLATFORM.moduleName('components/composite/beakercontrols.html'))
-    .globalResources(PLATFORM.moduleName('components/capillary'));
+    .globalResources(PLATFORM.moduleName('components/physiology/capillary.html'))
     .globalResources(PLATFORM.moduleName('components/chartjs'))
     .globalResources(PLATFORM.moduleName('components/physiology/cardiaccycle1.html'))
     .globalResources(PLATFORM.moduleName('components/physiology/animatedheart1'))
