@@ -1,0 +1,130 @@
+{
+  "name": "1",
+  "sidebar": "widget",
+  "functionEditorConfig": {
+    "mode": "javascript",
+    "theme": "tomorrow",
+    "fontSize": "1em",
+    "height": "25em",
+    "keyboardHandler": "default"
+  },
+  "application": {
+    "animate": {
+      "fps": 24
+    },
+    "key": "G5dSj0o4TIuu6VdPjTstfQ",
+    "export": {
+      "name": "Application",
+      "performance": false
+    }
+  },
+  "editorStorage": {
+    "assets": "[]",
+    "css": "* { box-sizing: border-box; } body {margin: 0;}#icsfq{height:100vh;}#i7mmj{flex-basis:40%;}#ixgoj{height:100%;}#iz25q{flex-basis:30%;}#isprn{flex-basis:30%;}#itytj{height:100%;}.flexblocks-row-container{display:flex;flex-direction:column;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;}.flexblocks-column-container{display:flex;flex-direction:row;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;}.flexblocks-item{min-height:75px;flex-basis:auto;flex-grow:1;}",
+    "styles": "[{\"selectors\":[{\"name\":\"flexblocks-row-container\",\"label\":\"flexblocks-row-container\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"selectorsAdd\":\"\",\"style\":{\"display\":\"flex\",\"flex-direction\":\"column\",\"padding-top\":\"10px\",\"padding-right\":\"10px\",\"padding-bottom\":\"10px\",\"padding-left\":\"10px\"},\"mediaText\":\"\",\"state\":\"\",\"stylable\":true,\"atRuleType\":\"\",\"singleAtRule\":0,\"important\":0},{\"selectors\":[{\"name\":\"flexblocks-column-container\",\"label\":\"flexblocks-column-container\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"selectorsAdd\":\"\",\"style\":{\"display\":\"flex\",\"flex-direction\":\"row\",\"padding-top\":\"10px\",\"padding-right\":\"10px\",\"padding-bottom\":\"10px\",\"padding-left\":\"10px\"},\"mediaText\":\"\",\"state\":\"\",\"stylable\":true,\"atRuleType\":\"\",\"singleAtRule\":0,\"important\":0},{\"selectors\":[{\"name\":\"flexblocks-item\",\"label\":\"flexblocks-item\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"selectorsAdd\":\"\",\"style\":{\"min-height\":\"75px\",\"flex-basis\":\"auto\",\"flex-grow\":\"1\"},\"mediaText\":\"\",\"state\":\"\",\"stylable\":true,\"atRuleType\":\"\",\"singleAtRule\":0,\"important\":0}]",
+    "html": "<div class=\"flexblocks-column-container\" id=\"icsfq\"><div class=\"flexblocks-item\" id=\"i7mmj\"><div class=\"flexblocks-row-container\" id=\"ixgoj\"><div class=\"flexblocks-item\"></div></div></div><div class=\"flexblocks-item\" id=\"iz25q\"></div><div class=\"flexblocks-item\" id=\"isprn\"><div class=\"flexblocks-row-container\" id=\"itytj\"><div class=\"flexblocks-item\"></div></div></div></div>",
+    "components": "[{\"tagName\":\"div\",\"type\":\"\",\"name\":\"\",\"removable\":true,\"draggable\":true,\"droppable\":\".flexblocks-item\",\"badgable\":true,\"stylable\":true,\"stylable-require\":\"\",\"style-signature\":\"\",\"unstylable\":\"\",\"highlightable\":true,\"copyable\":true,\"resizable\":\"undefined\",\"editable\":false,\"layerable\":true,\"selectable\":true,\"hoverable\":true,\"void\":false,\"state\":\"\",\"status\":\"hovered\",\"content\":\"\",\"icon\":\"\",\"style\":{\"height\":\"100vh\"},\"classes\":[{\"name\":\"flexblocks-column-container\",\"label\":\"flexblocks-column-container\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"script\":\"\",\"attributes\":{\"id\":\"icsfq\"},\"traits\":[{\"type\":\"text\",\"label\":\"\",\"name\":\"id\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]},{\"type\":\"text\",\"label\":\"\",\"name\":\"title\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]}],\"propagate\":\"\",\"custom-name\":\"Column container\",\"components\":[{\"tagName\":\"div\",\"type\":\"\",\"name\":\"\",\"removable\":true,\"draggable\":\".flexblocks-column-container, .flexblocks-row-container\",\"droppable\":true,\"badgable\":true,\"stylable\":true,\"stylable-require\":\"\",\"style-signature\":\"\",\"unstylable\":\"\",\"highlightable\":true,\"copyable\":true,\"resizable\":{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"bl\":0,\"br\":0,\"cr\":1,\"bc\":1,\"keyWidth\":\"flex-basis\",\"currentUnit\":1,\"minDim\":1,\"step\":1},\"editable\":false,\"layerable\":true,\"selectable\":true,\"hoverable\":true,\"void\":false,\"state\":\"\",\"status\":\"\",\"content\":\"\",\"icon\":\"\",\"style\":{\"flex-basis\":\"40%\"},\"classes\":[{\"name\":\"flexblocks-item\",\"label\":\"flexblocks-item\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"script\":\"\",\"attributes\":{\"id\":\"i7mmj\"},\"traits\":[{\"type\":\"text\",\"label\":\"\",\"name\":\"id\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]},{\"type\":\"text\",\"label\":\"\",\"name\":\"title\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]}],\"propagate\":\"\",\"custom-name\":\"Row / Column\",\"components\":[{\"tagName\":\"div\",\"type\":\"\",\"name\":\"\",\"removable\":true,\"draggable\":true,\"droppable\":\".flexblocks-item\",\"badgable\":true,\"stylable\":true,\"stylable-require\":\"\",\"style-signature\":\"\",\"unstylable\":\"\",\"highlightable\":true,\"copyable\":true,\"resizable\":\"undefined\",\"editable\":false,\"layerable\":true,\"selectable\":true,\"hoverable\":true,\"void\":false,\"state\":\"\",\"status\":\"\",\"content\":\"\",\"icon\":\"\",\"style\":{\"height\":\"100%\"},\"classes\":[{\"name\":\"flexblocks-row-container\",\"label\":\"flexblocks-row-container\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"script\":\"\",\"attributes\":{\"id\":\"ixgoj\"},\"traits\":[{\"type\":\"text\",\"label\":\"\",\"name\":\"id\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]},{\"type\":\"text\",\"label\":\"\",\"name\":\"title\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]}],\"propagate\":\"\",\"custom-name\":\"Row container\",\"components\":[{\"tagName\":\"div\",\"type\":\"\",\"name\":\"\",\"removable\":true,\"draggable\":\".flexblocks-column-container, .flexblocks-row-container\",\"droppable\":true,\"badgable\":true,\"stylable\":true,\"stylable-require\":\"\",\"style-signature\":\"\",\"unstylable\":\"\",\"highlightable\":true,\"copyable\":true,\"resizable\":{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"bl\":0,\"br\":0,\"cr\":1,\"bc\":1,\"keyWidth\":\"flex-basis\",\"currentUnit\":1,\"minDim\":1,\"step\":1},\"editable\":false,\"layerable\":true,\"selectable\":true,\"hoverable\":true,\"void\":false,\"state\":\"\",\"status\":\"\",\"content\":\"\",\"icon\":\"\",\"style\":\"\",\"classes\":[{\"name\":\"flexblocks-item\",\"label\":\"flexblocks-item\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"script\":\"\",\"attributes\":{},\"traits\":[{\"type\":\"text\",\"label\":\"\",\"name\":\"id\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]},{\"type\":\"text\",\"label\":\"\",\"name\":\"title\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]}],\"propagate\":\"\",\"custom-name\":\"Row / Column\",\"components\":[]}]}],\"open\":0},{\"tagName\":\"div\",\"type\":\"\",\"name\":\"\",\"removable\":true,\"draggable\":\".flexblocks-column-container, .flexblocks-row-container\",\"droppable\":true,\"badgable\":true,\"stylable\":true,\"stylable-require\":\"\",\"style-signature\":\"\",\"unstylable\":\"\",\"highlightable\":true,\"copyable\":true,\"resizable\":{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"bl\":0,\"br\":0,\"cr\":1,\"bc\":1,\"keyWidth\":\"flex-basis\",\"currentUnit\":1,\"minDim\":1,\"step\":1},\"editable\":false,\"layerable\":true,\"selectable\":true,\"hoverable\":true,\"void\":false,\"state\":\"\",\"status\":\"\",\"content\":\"\",\"icon\":\"\",\"style\":{\"flex-basis\":\"30%\"},\"classes\":[{\"name\":\"flexblocks-item\",\"label\":\"flexblocks-item\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"script\":\"\",\"attributes\":{\"id\":\"iz25q\"},\"traits\":[{\"type\":\"text\",\"label\":\"\",\"name\":\"id\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]},{\"type\":\"text\",\"label\":\"\",\"name\":\"title\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]}],\"propagate\":\"\",\"custom-name\":\"Row / Column\",\"components\":[]},{\"tagName\":\"div\",\"type\":\"\",\"name\":\"\",\"removable\":true,\"draggable\":\".flexblocks-column-container, .flexblocks-row-container\",\"droppable\":true,\"badgable\":true,\"stylable\":true,\"stylable-require\":\"\",\"style-signature\":\"\",\"unstylable\":\"\",\"highlightable\":true,\"copyable\":true,\"resizable\":{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"bl\":0,\"br\":0,\"cr\":1,\"bc\":1,\"keyWidth\":\"flex-basis\",\"currentUnit\":1,\"minDim\":1,\"step\":1},\"editable\":false,\"layerable\":true,\"selectable\":true,\"hoverable\":true,\"void\":false,\"state\":\"\",\"status\":\"\",\"content\":\"\",\"icon\":\"\",\"style\":{\"flex-basis\":\"30%\"},\"classes\":[{\"name\":\"flexblocks-item\",\"label\":\"flexblocks-item\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"script\":\"\",\"attributes\":{\"id\":\"isprn\"},\"traits\":[{\"type\":\"text\",\"label\":\"\",\"name\":\"id\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]},{\"type\":\"text\",\"label\":\"\",\"name\":\"title\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]}],\"propagate\":\"\",\"custom-name\":\"Row / Column\",\"components\":[{\"tagName\":\"div\",\"type\":\"\",\"name\":\"\",\"removable\":true,\"draggable\":true,\"droppable\":\".flexblocks-item\",\"badgable\":true,\"stylable\":true,\"stylable-require\":\"\",\"style-signature\":\"\",\"unstylable\":\"\",\"highlightable\":true,\"copyable\":true,\"resizable\":\"undefined\",\"editable\":false,\"layerable\":true,\"selectable\":true,\"hoverable\":true,\"void\":false,\"state\":\"\",\"status\":\"selected\",\"content\":\"\",\"icon\":\"\",\"style\":{\"height\":\"100%\"},\"classes\":[{\"name\":\"flexblocks-row-container\",\"label\":\"flexblocks-row-container\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"script\":\"\",\"attributes\":{\"id\":\"itytj\"},\"traits\":[{\"type\":\"text\",\"label\":\"\",\"name\":\"id\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]},{\"type\":\"text\",\"label\":\"\",\"name\":\"title\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]}],\"propagate\":\"\",\"custom-name\":\"Row container\",\"components\":[{\"tagName\":\"div\",\"type\":\"\",\"name\":\"\",\"removable\":true,\"draggable\":\".flexblocks-column-container, .flexblocks-row-container\",\"droppable\":true,\"badgable\":true,\"stylable\":true,\"stylable-require\":\"\",\"style-signature\":\"\",\"unstylable\":\"\",\"highlightable\":true,\"copyable\":true,\"resizable\":{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"bl\":0,\"br\":0,\"cr\":1,\"bc\":1,\"keyWidth\":\"flex-basis\",\"currentUnit\":1,\"minDim\":1,\"step\":1},\"editable\":false,\"layerable\":true,\"selectable\":true,\"hoverable\":true,\"void\":false,\"state\":\"\",\"status\":\"\",\"content\":\"\",\"icon\":\"\",\"style\":\"\",\"classes\":[{\"name\":\"flexblocks-item\",\"label\":\"flexblocks-item\",\"type\":1,\"active\":true,\"private\":1,\"protected\":false}],\"script\":\"\",\"attributes\":{},\"traits\":[{\"type\":\"text\",\"label\":\"\",\"name\":\"id\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]},{\"type\":\"text\",\"label\":\"\",\"name\":\"title\",\"min\":\"\",\"max\":\"\",\"unit\":\"\",\"step\":1,\"value\":\"\",\"default\":\"\",\"placeholder\":\"eg. Text here\",\"changeProp\":0,\"options\":[]}],\"propagate\":\"\",\"custom-name\":\"Row / Column\",\"components\":[]}]}],\"open\":1}],\"open\":1}]"
+  },
+  "widgets": {
+    "buttons": {},
+    "ranges": {},
+    "models": {},
+    "animates": {},
+    "actions": {
+      "GHH8IZOdQtm49DsQqvYerw": {
+        "id": "GHH8IZOdQtm49DsQqvYerw",
+        "name": "stopModel",
+        "type": "ACTION"
+      },
+      "V39ogkQlQ3SZIcPVkttVHg": {
+        "id": "V39ogkQlQ3SZIcPVkttVHg",
+        "name": "startModel",
+        "type": "ACTION"
+      },
+      "TTyO1JbbRmmPTid4aWp9XQ": {
+        "id": "TTyO1JbbRmmPTid4aWp9XQ",
+        "name": "updateThisWidget",
+        "type": "ACTION"
+      },
+      "H4mja3wsSKWv1xVcK3Hgxg": {
+        "id": "H4mja3wsSKWv1xVcK3Hgxg",
+        "name": "resetModel",
+        "type": "ACTION"
+      }
+    },
+    "toggles": {},
+    "charts": {},
+    "labels": {},
+    "app": {
+      "selected": null
+    }
+  },
+  "config": {
+    "models": {},
+    "buttons": {},
+    "ranges": {},
+    "animates": {},
+    "animateTexts": {},
+    "animateAnims": {},
+    "toggles": {},
+    "charts": {},
+    "labels": {},
+    "actions": {
+      "GHH8IZOdQtm49DsQqvYerw": {
+        "id": "GHH8IZOdQtm49DsQqvYerw",
+        "name": "stopModel",
+        "label": "Stop model",
+        "description": "Pauses the selected model and any synchronized models.",
+        "args": {
+          "0": {
+            "name": "model",
+            "type": "Model",
+            "value": null
+          },
+          "length": 1
+        },
+        "function": "model.pause()"
+      },
+      "V39ogkQlQ3SZIcPVkttVHg": {
+        "id": "V39ogkQlQ3SZIcPVkttVHg",
+        "name": "startModel",
+        "label": "Start model",
+        "description": "Starts the selected model and any synchronized models.",
+        "args": {
+          "0": {
+            "name": "model",
+            "type": "Model",
+            "value": null
+          },
+          "length": 1
+        },
+        "function": "model.play()"
+      },
+      "TTyO1JbbRmmPTid4aWp9XQ": {
+        "id": "TTyO1JbbRmmPTid4aWp9XQ",
+        "name": "updateThisWidget",
+        "label": "Update this widget",
+        "description": "Updates values for this widget. Useful for refreshing unprovided functions",
+        "args": {
+          "length": 0
+        },
+        "function": "window.setTimeout(this.updateComponent(), 50)"
+      },
+      "H4mja3wsSKWv1xVcK3Hgxg": {
+        "id": "H4mja3wsSKWv1xVcK3Hgxg",
+        "name": "resetModel",
+        "label": "Reset model",
+        "description": "Resets model to initial state",
+        "args": {
+          "0": {
+            "name": "model",
+            "type": "Model",
+            "value": null
+          },
+          "length": 1
+        },
+        "function": "model.reset(true, true)"
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Compiling Modelica · Bodylight.js</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Simulation runtime in Bodylight.js is provided by the [Functional Mock-up Interface (FMI)](https://fmi-standard.org/), the composer is using the Functional Mock-up Units (FMUs) to interact with the running model."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Compiling Modelica · Bodylight.js"/><meta property="og:type" content="website"/><meta property="og:url" content="http://bodylight.physiome.cz//"/><meta property="og:description" content="Simulation runtime in Bodylight.js is provided by the [Functional Mock-up Interface (FMI)](https://fmi-standard.org/), the composer is using the Functional Mock-up Units (FMUs) to interact with the running model."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-68541769-3', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/bodylight_logo.svg" alt="Bodylight.js"/><h2 class="headerTitleWithLogo">Bodylight.js</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/introduction" target="_self">Docs</a></li><li class=""><a href="https://github.com/creative-connections" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Getting started</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Getting started<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/introduction">Introduction</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/mo_compilation">Compiling Modelica</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Simple project<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/simple_project/1_creating_a_simple_project">Creating a simple project</a></li><li class="navListItem"><a class="navItem" href="/docs/simple_project/2_adding_the_model">Adding the model</a></li><li class="navListItem"><a class="navItem" href="/docs/simple_project/3_visualisation">Visualisation</a></li><li class="navListItem"><a class="navItem" href="/docs/simple_project/4_controls">Controls</a></li><li class="navListItem"><a class="navItem" href="/docs/simple_project/5_events_and_actions">Events and Actions</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Physiological application<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/pvloops/1_pressure_volume_cardiac_simulator">Pressure volume cardiac simulator</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/2_creating_the_layout">Creating the layout</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/3_adding_the_heart">Adding the heart</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/4_heart_beat">Heart Beat</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/5_controls">Controls</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/6_phases">Phases</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/7_pressure_volume_chart">Pressure volume chart</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/8_rolling_charts">Rolling charts</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/9_custom_actions">Custom actions</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/10_buttons">Buttons</a></li><li class="navListItem"><a class="navItem" href="/docs/pvloops/11_finishing_touches">Finishing touches</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">API<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/api/model">Model</a></li><li class="navListItem"><a class="navItem" href="/docs/api/plotly_chart">Plotly chart</a></li><li class="navListItem"><a class="navItem" href="/docs/api/range">Range</a></li><li class="navListItem"><a class="navItem" href="/docs/api/toggle">Toggle</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Compiling Modelica</h1></header><article><div><span><p>Simulation runtime in Bodylight.js is provided by the <a href="https://fmi-standard.org/">Functional Mock-up Interface (FMI)</a>, the composer is using the Functional Mock-up Units (FMUs) to interact with the running model.</p>
+<p>Compilation process for Modelica models comprises two steps</p>
+<ol>
+<li>Translate Modelica to FMU</li>
+<li>Compile FMU to WebAssembly</li>
+</ol>
+<p>We have prepared a couple of Docker containers to ease the compilation process.</p>
+<h2><a class="anchor" aria-hidden="true" id="1-translate-modelica-to-fmu"></a><a href="#1-translate-modelica-to-fmu" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. Translate Modelica to FMU</h2>
+<p>Only OpenModelica and Dymola are currently supported. They can export Modelica models into Bodylight.js compatible FMUs. The exported units contain source code which can be compiled into WebAssembly in the second step.</p>
+<h3><a class="anchor" aria-hidden="true" id="openmodelica"></a><a href="#openmodelica" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>OpenModelica</h3>
+<p>You can use a nightly build of OpenModelica (running on a Linux system) to export the FMU which will work in the next step, but it is easier to use the Docker container we have created, which will export the FMU with minimal effort.</p>
+<p>Clone and follow the instructions in the <a href="https://github.com/creative-connections/Bodylight.js-OM-Compiler">Bodylight.js OpenModelica Compiler</a> repository.</p>
+<h4><a class="anchor" aria-hidden="true" id="openmodelica-solvers"></a><a href="#openmodelica-solvers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>OpenModelica solvers</h4>
+<p>OpenModelica only includes the Euler solver in the FMU, be warned that FMUs exported from OpenModelica are limited by it.</p>
+<h3><a class="anchor" aria-hidden="true" id="dymola"></a><a href="#dymola" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dymola</h3>
+<p>Requirements: Dymola with a <a href="https://www.3ds.com/products-services/catia/products/dymola/code-and-model-export/">Source code generation</a> license. Tested versions of Dymola are: 2018, 2019 FD01</p>
+<ol>
+<li>Open your model and switch to the Simulation Mode</li>
+<li>Select <code>Simulation -&gt; Translate -&gt; FMU</code> from the menus</li>
+<li>Setup the export to match the settings in the image below</li>
+<li>Export the model</li>
+</ol>
+<p><img src="img/mo_compilation/dymola_fmu_settings.png" alt="Dymola FMU settings" title="Dymola FMU export settings"></p>
+<h2><a class="anchor" aria-hidden="true" id="2-compile-fmu-to-webassembly"></a><a href="#2-compile-fmu-to-webassembly" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. Compile FMU to WebAssembly</h2>
+<p>To compile the FMU to WebAssembly you can use a prepared compilation environment in a Docker container.</p>
+<p>Clone and follow the instructions in the <a href="https://github.com/creative-connections/Bodylight.js-FMU-Compiler">Bodylight.js FMU Compiler</a> repository.</p>
+<p>If you are unable to use the Docker container, or you wish to set up your own compilation pipeline you can reuse the compilation scripts from inside the container. You will need a working <a href="https://emscripten.org/docs/getting_started/downloads.html">Emscripten</a> environment.</p>
+<h2><a class="anchor" aria-hidden="true" id="results"></a><a href="#results" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Results</h2>
+<p>At the end of the process you should have a working .zip file for use in the Bodylight.js Composer.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/introduction"><span class="arrow-prev">← </span><span>Introduction</span></a><a class="docs-next button" href="/docs/simple_project/1_creating_a_simple_project"><span>Creating a simple project</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#1-translate-modelica-to-fmu">1. Translate Modelica to FMU</a><ul class="toc-headings"><li><a href="#openmodelica">OpenModelica</a></li><li><a href="#dymola">Dymola</a></li></ul></li><li><a href="#2-compile-fmu-to-webassembly">2. Compile FMU to WebAssembly</a></li><li><a href="#results">Results</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Creative Connections s.r.o.</section></footer></div></body></html>
