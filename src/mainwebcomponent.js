@@ -30,6 +30,7 @@ export function configure(aurelia) {
     //.globalResources(PLATFORM.moduleName('components/physiology/cardiaccycle1.html'))
     //.globalResources(PLATFORM.moduleName('components/quiz.html'))
     .globalResources(PLATFORM.moduleName('components/fmi'));
+    .globalResources(PLATFORM.moduleName('components/capillary'));
 
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
