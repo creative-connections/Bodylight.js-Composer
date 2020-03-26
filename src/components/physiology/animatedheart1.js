@@ -38,7 +38,7 @@ export class Animatedheart1 {
       'left': '0px',
       'top': '0px'
     }});*/
-    console.log('animated heart gifs:',this.gifs)
+    console.log('animated heart gifs:', this.gifs);
     document.getElementById(this.fromid).addEventListener('fmistart', this.handleStart);
     document.getElementById(this.fromid).addEventListener('fmistop', this.handleStop);
   }

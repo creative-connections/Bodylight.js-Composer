@@ -26,6 +26,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jsdom": "^16.2.0",
     "jszip": "^3.2.2",
+    "libgif": "0.0.3",
     "utf-8-validate": "^5.0.2"
   },
   "devDependencies": {
