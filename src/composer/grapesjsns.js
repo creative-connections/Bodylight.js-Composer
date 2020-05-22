@@ -44,7 +44,7 @@ export class Grapesjsns {
     pno.addButton('devices-c', {
       id: 'logo',
       className: 'btn-show-json fa fa-bank',
-      label: 'Bodylight composer v2.0',
+      label: 'Bodylight Composer v2.0.alpha',
       command(editor) {
         editor.Modal.setTitle('Bodylight v2.0')
           .setContent('Sources at <a href="https://github.com/creative-connections/Bodylight.js-Composer">github</a>')
