@@ -1,5 +1,8 @@
+import 'grapesjs-preset-webpage/dist/grapesjs-preset-webpage.min.css';
+
 import * as grapesjs from 'grapesjs/dist/grapes.min.js';
 //import {} from 'grapesjs-preset-newsletter';
+
 import 'grapesjs-preset-webpage';
 import 'grapesjs-lory-slider';
 import grapesJsTabs from 'grapesjs-tabs';
@@ -13,6 +16,7 @@ import {Bdlrange} from './types/bdlrange';
 import {Bdlreceptacle} from './types/bdlreceptacle';
 import {Bdlbind2previous} from './types/bdlbind2previous';
 import {Bdlfmi} from './types/bdlfmi';
+import {BdlanimateAdobe} from './types/bdlanimateadobe';
 //import {Svgtype} from './types/svgtype';
 
 @inject(Bodylightapi)
@@ -378,6 +382,7 @@ export class Grapesjsns {
     Bdlreceptacle.addToEditor(this.api.editor);
     Bdlbind2previous.addToEditor(this.api.editor);
     Bdlfmi.addToEditor(this.api.editor);
+    BdlanimateAdobe.addToEditor(this.api.editor);
 
     //customize panels
     let pno = this.api.editor.Panels;
@@ -459,7 +464,10 @@ export class Grapesjsns {
     }
 */
     // Show borders by default
-    pno.getButton('options', 'sw-visibility').set('active', 1);
+    const visibilityBtn = pno.getButton('options', 'sw-visibility');
+    if (visibilityBtn) {
+      visibilityBtn.set('active', 1);
+    }
 
 
     // Store and load events
