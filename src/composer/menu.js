@@ -137,14 +137,33 @@ export class Menu {
     reader.onload = this.handleFileLoadanim;
     let files = event.target.files || event.dataTransfer.files;
     this.animname = files[0].name;
+    
+    // Debug logging for animation upload
+    console.log('Loading animation:', this.animname);
+    console.log('File size:', files[0].size, 'bytes');
+    
     reader.readAsText(files[0]);
     this.openanimdialog = false;
   }
 
   handleFileLoadanim(event) {
     let data = event.target.result;
+    
+    // Debug logging for animation processing
+    console.log('Animation file loaded:', window.menu1.animname);
+    console.log('Content size:', data.length, 'characters');
+    console.log('Content preview:', data.substring(0, 100));
+    
+    // Check if it looks like a valid animation file
+    if (data.includes('createjs') || data.includes('cjs') || data.includes('window.ani')) {
+      console.log('✓ File appears to be a valid animation');
+    } else {
+      console.warn('⚠ File does not contain expected animation markers');
+    }
+    
     //doesn't know this - goes via global menu1
     window.menu1.anims.push({name: window.menu1.animname, definition: data});
+    console.log('Animation added to list. Total animations:', window.menu1.anims.length);
   }
 
   draganim(event) {
