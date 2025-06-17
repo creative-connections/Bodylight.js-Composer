@@ -109,7 +109,7 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
   },*/
   performance: { hints: false },
   devServer: {
-    contentBase: outDir,
+    contentBase: [outDir, path.resolve(__dirname, 'static')],
     // serve index.html for all 404 (required for push-state)
     historyApiFallback: true,
     hot: hmr || project.platform.hmr,
