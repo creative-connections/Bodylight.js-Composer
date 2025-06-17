@@ -28,6 +28,10 @@ export class Menu {
     this.openfmidialog = ! this.openfmidialog;
   }
 
+  openanim() {
+    this.openanimdialog = ! this.openanimdialog;
+  }
+
   dragNdrop(event) {
     //const self = this;
     //let fileName = URL.createObjectURL(event.target.files[0]);
@@ -134,7 +138,7 @@ export class Menu {
     let files = event.target.files || event.dataTransfer.files;
     this.animname = files[0].name;
     reader.readAsText(files[0]);
-    this.openfmidialog = false;
+    this.openanimdialog = false;
   }
 
   handleFileLoadanim(event) {
