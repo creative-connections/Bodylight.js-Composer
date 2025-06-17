@@ -33,8 +33,11 @@ export function configure(aurelia) {
     .globalResources(PLATFORM.moduleName('components/physiology/animatedheart1'))
     .globalResources(PLATFORM.moduleName('components/physiology/animatedheart2'))
     .globalResources(PLATFORM.moduleName('components/quiz.html'))
-    .globalResources(PLATFORM.moduleName('components/fmi'));
+    .globalResources(PLATFORM.moduleName('components/fmi'))
+    .globalResources(PLATFORM.moduleName('components/animate-adobe'));
 
+  // Register animation components
+  console.log('Registering animation components');
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
 
